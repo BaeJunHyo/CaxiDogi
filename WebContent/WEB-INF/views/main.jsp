@@ -7,7 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a href="main.do">main.do</a>
+
+<h1> main </h1>
+<h1> ${test } </h1>
 
 
 </body>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- spring MVC annotation: 주석문을 사용하기 위한 설정-->
+	<context:annotation-config></context:annotation-config>
+	
+	<!-- XMl에서 객체를 생성할 때 bean을 사용 -->
+	
+
+	 <!-- ViewResolver : 사용자가 지정한 뷰의 위치 지정 및 확장자명 지정 
+	Tiles 할 때 필요없는 부분 -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+
+	<context:component-scan base-package="cd.com.a"/>
+
+	<!-- ajax 주석문 사용을 허가 -->
+   <mvc:annotation-driven/>
+   
+   <!-- spring에서 처리할 수 없는 요청은 tomcat에 위임 -->
+   <mvc:default-servlet-handler/>
+	
+	
+	<!-- tiles setting  -->
+	<!-- <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/views/layouts.xml</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="requestContextAttribute" value="requestContext"/>
+		<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>
+	</bean>
+	 -->
+	
+	
+	<!-- 자바의 공통 패키지 -->
+	
+	
+	
+</beans>

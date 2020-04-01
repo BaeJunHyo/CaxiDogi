@@ -1,0 +1,185 @@
+package cd.com.a.model;
+
+import java.io.Serializable;
+/*
+CREATE TABLE pool_reservation
+(
+    `pool_resv_num`          INT(5)         NOT NULL    AUTO_INCREMENT COMMENT '예약번호(SEQ)', 
+    `pool_num`               INT(5)         NOT NULL    COMMENT '수영장번호(SEQ)', 
+    `pool_resv_user`         INT(3)         NOT NULL    COMMENT '사용인원수', 
+    `pool_resv_pet`          INT(3)         NOT NULL    COMMENT '사용펫수', 
+    `pool_resv_time`         INT(1)         NOT NULL    COMMENT '선택시간', 
+    `pool_resv_ydate`        DATETIME       NOT NULL    COMMENT '예약일', 
+    `pool_resv_sdate`        VARCHAR(45)    NOT NULL    COMMENT '이용일', 
+    `pool_resv_tel`          VARCHAR(45)    NULL        COMMENT '연락처', 
+    `pool_resv_name`         VARCHAR(45)    NULL        COMMENT '예약자명', 
+    `pool_resv_payment`      INT(1)         NOT NULL    COMMENT '결재여부', 
+    `pool_resv_total_price`  INT(7)         NULL        COMMENT '최종금액', 
+    `pool_resv_price`        INT(7)         NULL        COMMENT '가금액', 
+    `id`                     VARCHAR(45)    NULL        COMMENT '예약자ID', 
+    PRIMARY KEY (pool_resv_num)
+);
+ALTER TABLE pool_reservation
+    ADD CONSTRAINT FK_pool_reservation_pool_num_pool_pool_num FOREIGN KEY (pool_num)
+        REFERENCES pool (pool_num) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ALTER TABLE pool_reservation
+    ADD CONSTRAINT FK_pool_reservation_id_member_id FOREIGN KEY (id)
+        REFERENCES member (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+*/
+public class poolResvDto implements Serializable {
+	private int pool_resv_num;
+	   private int pool_num;
+	   private int pool_resv_user;
+	   private int pool_resv_pet;
+	   private int pool_resv_time;
+	   private String pool_resv_ydate;
+	   private String pool_resv_sdate;
+	   private String pool_resv_tel;
+	   private String pool_resv_name;
+	   private int pool_resv_payment;
+	   private int pool_resv_total_price;
+	   private int pool_resv_price;
+	   private String id;
+	   
+	public poolResvDto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public poolResvDto(int pool_resv_num, int pool_num, int pool_resv_user, int pool_resv_pet, int pool_resv_time,
+			String pool_resv_ydate, String pool_resv_sdate, String pool_resv_tel, String pool_resv_name,
+			int pool_resv_payment, int pool_resv_total_price, int pool_resv_price, String id) {
+		super();
+		this.pool_resv_num = pool_resv_num;
+		this.pool_num = pool_num;
+		this.pool_resv_user = pool_resv_user;
+		this.pool_resv_pet = pool_resv_pet;
+		this.pool_resv_time = pool_resv_time;
+		this.pool_resv_ydate = pool_resv_ydate;
+		this.pool_resv_sdate = pool_resv_sdate;
+		this.pool_resv_tel = pool_resv_tel;
+		this.pool_resv_name = pool_resv_name;
+		this.pool_resv_payment = pool_resv_payment;
+		this.pool_resv_total_price = pool_resv_total_price;
+		this.pool_resv_price = pool_resv_price;
+		this.id = id;
+	}
+
+	public int getPool_resv_num() {
+		return pool_resv_num;
+	}
+
+	public void setPool_resv_num(int pool_resv_num) {
+		this.pool_resv_num = pool_resv_num;
+	}
+
+	public int getPool_num() {
+		return pool_num;
+	}
+
+	public void setPool_num(int pool_num) {
+		this.pool_num = pool_num;
+	}
+
+	public int getPool_resv_user() {
+		return pool_resv_user;
+	}
+
+	public void setPool_resv_user(int pool_resv_user) {
+		this.pool_resv_user = pool_resv_user;
+	}
+
+	public int getPool_resv_pet() {
+		return pool_resv_pet;
+	}
+
+	public void setPool_resv_pet(int pool_resv_pet) {
+		this.pool_resv_pet = pool_resv_pet;
+	}
+
+	public int getPool_resv_time() {
+		return pool_resv_time;
+	}
+
+	public void setPool_resv_time(int pool_resv_time) {
+		this.pool_resv_time = pool_resv_time;
+	}
+
+	public String getPool_resv_ydate() {
+		return pool_resv_ydate;
+	}
+
+	public void setPool_resv_ydate(String pool_resv_ydate) {
+		this.pool_resv_ydate = pool_resv_ydate;
+	}
+
+	public String getPool_resv_sdate() {
+		return pool_resv_sdate;
+	}
+
+	public void setPool_resv_sdate(String pool_resv_sdate) {
+		this.pool_resv_sdate = pool_resv_sdate;
+	}
+
+	public String getPool_resv_tel() {
+		return pool_resv_tel;
+	}
+
+	public void setPool_resv_tel(String pool_resv_tel) {
+		this.pool_resv_tel = pool_resv_tel;
+	}
+
+	public String getPool_resv_name() {
+		return pool_resv_name;
+	}
+
+	public void setPool_resv_name(String pool_resv_name) {
+		this.pool_resv_name = pool_resv_name;
+	}
+
+	public int getPool_resv_payment() {
+		return pool_resv_payment;
+	}
+
+	public void setPool_resv_payment(int pool_resv_payment) {
+		this.pool_resv_payment = pool_resv_payment;
+	}
+
+	public int getPool_resv_total_price() {
+		return pool_resv_total_price;
+	}
+
+	public void setPool_resv_total_price(int pool_resv_total_price) {
+		this.pool_resv_total_price = pool_resv_total_price;
+	}
+
+	public int getPool_resv_price() {
+		return pool_resv_price;
+	}
+
+	public void setPool_resv_price(int pool_resv_price) {
+		this.pool_resv_price = pool_resv_price;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "poolResvDto [pool_resv_num=" + pool_resv_num + ", pool_num=" + pool_num + ", pool_resv_user="
+				+ pool_resv_user + ", pool_resv_pet=" + pool_resv_pet + ", pool_resv_time=" + pool_resv_time
+				+ ", pool_resv_ydate=" + pool_resv_ydate + ", pool_resv_sdate=" + pool_resv_sdate + ", pool_resv_tel="
+				+ pool_resv_tel + ", pool_resv_name=" + pool_resv_name + ", pool_resv_payment=" + pool_resv_payment
+				+ ", pool_resv_total_price=" + pool_resv_total_price + ", pool_resv_price=" + pool_resv_price + ", id="
+				+ id + "]";
+	}
+	
+	
+	   
+	   
+}

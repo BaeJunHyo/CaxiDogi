@@ -110,7 +110,7 @@
 .prdPreview_wrap .btn_prdPreview_close {position: absolute; top: -40px; right: -40px;}*/
 
 /* �⑥닚踰꾩쟾 */
-.prdPreview_wrap {position: fixed; width: 568px; top: 15%; left: 50%; padding: 10px 35px 35px; margin: 0 0 0 -284px; border: 2px solid #232a32; box-sizing: border-box; background: #fff;z-index: 2000;}
+/* .prdPreview_wrap {position: fixed; width: 568px; top: 15%; left: 50%; padding: 10px 35px 35px; margin: 0 0 0 -284px; border: 2px solid #232a32; box-sizing: border-box; background: #fff;z-index: 2000;}
 
 .prdPreview_wrap .prd_infoWrap {width: auto;}
 .prdPreview_wrap .prdName_section {width: auto; padding: 20px 0 10px 0; margin: 0;}
@@ -130,7 +130,7 @@
 .prdPreview_wrap .prdInfo_section .col1 .prdThumb {width: 62px; margin: 0; vertical-align: middle;}
 .prdPreview_wrap .prdInfo_section .col1 .prdThumb li {display: block; float: none; margin: 0 0 5px 0;}
 
-.prdPreview_wrap .btn_prdPreview_close {position: absolute; top: 20px; right: 20px;}
+.prdPreview_wrap .btn_prdPreview_close {position: absolute; top: 20px; right: 20px;} */
 
 
 

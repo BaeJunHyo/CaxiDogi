@@ -7,7 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a href="main.do">main.do</a>
+<script type="text/javascript">
+location.href="main.do";
+
+</script>
 
 
 </body>

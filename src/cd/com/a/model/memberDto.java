@@ -12,7 +12,7 @@ import java.io.Serializable;
     `birthday`       INT             NOT NULL    COMMENT '생년월일', 
     `address`        VARCHAR(200)    NULL        COMMENT '주소', 
     `phone`          INT             NULL        COMMENT '연락처', 
-    `pass_question`  VARCHAR(45)     NULL        COMMENT '패스워드찾기', 
+    `pass_question`  INT(1)          NULL        COMMENT '패스워드찾기', 
     `pass_hint`      VARCHAR(45)     NULL        COMMENT '패스워드힌트', 
     `point`          INT             NULL        COMMENT '마일리지', 
     `auth`           INT(1)          NOT NULL    COMMENT '유저권한', 
@@ -28,7 +28,7 @@ public class memberDto implements Serializable {
 	private int birthday;
 	private String address;
 	private String phone;
-	private String pass_question;
+	private int pass_question;
 	private String pass_hint;
 	private int point;
 	private int auth;
@@ -40,7 +40,7 @@ public class memberDto implements Serializable {
 	}
 
 	public memberDto(String id, String password, int user_api, String nick_name, String user_name, int birthday,
-			String address, String phone, String pass_question, String pass_hint, int point, int auth) {
+			String address, String phone, int pass_question, String pass_hint, int point, int auth) {
 		super();
 		this.id = id;
 		this.password = password;
@@ -120,11 +120,11 @@ public class memberDto implements Serializable {
 		this.phone = phone;
 	}
 
-	public String getPass_question() {
+	public int getPass_question() {
 		return pass_question;
 	}
 
-	public void setPass_question(String pass_question) {
+	public void setPass_question(int pass_question) {
 		this.pass_question = pass_question;
 	}
 

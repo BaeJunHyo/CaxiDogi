@@ -1,0 +1,23 @@
+<!DOCTYPE mapper
+  PUBLIC "-//www.mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Member">
+<select id="test" resultType="java.lang.String">
+<!-- Enter test Query -->
+SELECT id FROM test
+</select>
+
+<select id="idCheck" parameterType="java.lang.String" resultType="java.lang.Integer">
+SELECT IFNULL(COUNT(*),0)
+FROM member
+WHERE id=#{id}
+</select>
+
+<select id="nickCheck" parameterType="java.lang.String" resultType="java.lang.Integer">
+SELECT IFNULL(COUNT(*),0)
+FROM member
+WHERE nick_name=#{nick_name}
+</select>
+
+</mapper>

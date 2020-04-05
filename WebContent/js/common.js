@@ -200,6 +200,118 @@ $(function(){
 	// 	var index = parseInt($(this).attr('data-i'))
 	// })
 
-
-
 })
+
+
+
+/*$(document).ready(function(){
+
+	var topBar = $("#gnb").offset();
+
+	$(window).scroll(function(){
+		
+		var docScrollY = $(document).scrollTop()
+		var barThis = $("#gnb")
+		var fixNext = $("#fixNextTag")
+
+		if( docScrollY > gnb.top ) {
+			barThis.addClass("top_bar_fix");
+			fixNext.addClass("pd_top_80");
+		}else{
+			barThis.removeClass("top_bar_fix");
+			fixNext.removeClass("pd_top_80");
+		}
+
+	});
+
+})*/
+// 메뉴바 고정
+$(document).ready(function(){
+	
+	$(".header-btm").each(function(){
+		var header = $(this);
+		var headerOffset = header.offset().top;
+	 
+		$(window).scroll(function(){
+			var wScroll = $(window).scrollTop();
+			if( wScroll > headerOffset){
+			  header.addClass("fixed");
+			  
+			  
+			} else {
+			  header.removeClass("fixed");
+			}
+		});
+	});
+	
+/*$("#nav").each(function(){
+		var header = $(this);
+		var headerOffset = header.offset().top;
+	 
+		$(window).scroll(function(){
+			var wScroll = $(window).scrollTop();
+			if( wScroll > headerOffset){
+			  nav.addClass("show1");
+			  
+			} else {
+			  header.addClass("show");
+			}
+		});
+	});
+});*/
+
+/*jQuery(document).ready(function(){
+    $(".box").hover(function(){
+       $(".text").show();
+    },function(){
+       $(".text").hide();
+    });*/
+
+// 서브메뉴
+$(document).ready(function(){
+  $(".hamburger").click(function(e){
+	   e.preventDefault();
+	    $("#nav").addClass("subnav");
+	    //$("#nav").toggleClass("show");
+	    $("#nav").toggle();
+	    $("#nav").css('visibility', 'visible');
+	    
+  });
+  $(".active").click(function(e){
+	    e.preventDefault();
+	    $("#nav").addClass("subnav");
+	    //$("#nav").toggleClass("show");
+	    $("#nav").toggle();
+	    $("#nav").css('visibility', 'visible');
+	   
+	  });
+  $(".pet").click(function(e){
+	  e.preventDefault();
+	    $("#nav").addClass("subnav");
+	    //$("#nav").toggleClass("show");
+	    $("#nav").toggle();
+	    $("#nav").css('visibility', 'visible');
+	  });
+  $(".resv").click(function(e){
+	  e.preventDefault();
+	    $("#nav").addClass("subnav");
+	    //$("#nav").toggleClass("show");
+	    $("#nav").toggle();
+	    $("#nav").css('visibility', 'visible');
+	  });
+  $(".commu").click(function(e){
+	  e.preventDefault();
+	    $("#nav").addClass("subnav");
+	    //$("#nav").toggleClass("show");
+	    $("#nav").toggle();
+	    $("#nav").css('visibility', 'visible');
+	  });
+  $("#nav").mouseover(function(){
+	  	$("#nav").show();
+	  })
+ $("#nav").mouseout(function(){
+  	$("#nav").hide();
+  })
+	});
+});
+

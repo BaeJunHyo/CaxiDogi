@@ -152,6 +152,11 @@ public class memberDto implements Serializable {
 		this.auth = auth;
 	}
 
+	public memberDto(String id) {
+		super();
+		this.id = id;
+	}
+
 	@Override
 	public String toString() {
 		return "memberDto [id=" + id + ", password=" + password + ", user_api=" + user_api + ", nick_name=" + nick_name

@@ -8,9 +8,7 @@
 </head>
 <body>
 
-<h1> main </h1>
-<h1> ${test } </h1>
-
+<h1>패스워드찾기</h1>
 
 </body>
 </html>

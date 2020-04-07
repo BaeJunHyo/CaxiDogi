@@ -128,7 +128,9 @@ $(function(){
 	$('.btn_close_lp').click(function(){
 		$('.prd_lp').hide();
 		$('.lp_bg, .lp_box').hide();
+		$('.lp_box_ll').hide();
 	})
+	
 
 	$('.prd_lp .tabMenu li a').each(function(index){
 		$(this).attr('data-tabNum',index+1)

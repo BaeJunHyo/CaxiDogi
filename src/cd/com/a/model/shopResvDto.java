@@ -4,10 +4,9 @@ import java.io.Serializable;
 /*
 CREATE TABLE shop_reservation
 (
-    `company_num`      INT(5)         NOT NULL    COMMENT '업체번호(SEQ)', 
-    `shop_resv_num`    INT(5)         NOT NULL    AUTO_INCREMENT COMMENT '예약번호(SEQ)', 
-    `shop_num`         INT(5)         NOT NULL    COMMENT '샵번호(SEQ)', 
-    `design_num`       INT(5)         NOT NULL    COMMENT '디자이너번호(SEQ)', 
+    `shop_resv_seq`    INT(5)         NOT NULL    AUTO_INCREMENT COMMENT '예약번호(SEQ)', 
+    `shop_seq`         INT(5)         NOT NULL    COMMENT '샵번호(SEQ)', 
+    `design_seq`       INT(5)         NOT NULL    COMMENT '디자이너번호(SEQ)', 
     `id`               VARCHAR(45)    NOT NULL    COMMENT '예약아이디', 
     `shop_resv_time`   VARCHAR(45)    NOT NULL    COMMENT '예약시간', 
     `shop_resv_rday`   VARCHAR(45)    NOT NULL    COMMENT '예약일', 
@@ -17,55 +16,49 @@ CREATE TABLE shop_reservation
     `shop_resv_tel`    VARCHAR(45)    NOT NULL    COMMENT '연락처', 
     `shop_resv_price`  INT(7)         NOT NULL    COMMENT '가금액', 
     `shop_resv_auth`   INT(1)         NOT NULL    COMMENT '취소여부', 
-    PRIMARY KEY (shop_resv_num)
+    PRIMARY KEY (shop_resv_seq)
 );
 
 ALTER TABLE shop_reservation
-    ADD CONSTRAINT FK_shop_reservation_company_num_company_company_num FOREIGN KEY (company_num)
-        REFERENCES company (company_num) ON DELETE RESTRICT ON UPDATE RESTRICT;
+    ADD CONSTRAINT FK_shop_reservation_shop_seq_shop_shop_seq FOREIGN KEY (shop_seq)
+        REFERENCES shop (shop_seq) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 ALTER TABLE shop_reservation
-    ADD CONSTRAINT FK_shop_reservation_shop_num_shop_shop_num FOREIGN KEY (shop_num)
-        REFERENCES shop (shop_num) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-ALTER TABLE shop_reservation
-    ADD CONSTRAINT FK_shop_reservation_design_num_shop_designer_design_num FOREIGN KEY (design_num)
-        REFERENCES shop_designer (design_num) ON DELETE RESTRICT ON UPDATE RESTRICT;
+    ADD CONSTRAINT FK_shop_reservation_design_seq_shop_designer_design_seq FOREIGN KEY (design_seq)
+        REFERENCES shop_designer (design_seq) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 ALTER TABLE shop_reservation
     ADD CONSTRAINT FK_shop_reservation_id_member_id FOREIGN KEY (id)
-        REFERENCES member (id) ON DELETE RESTRICT ON UPDATE RESTRICT; 
+        REFERENCES member (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
  
  */
 public class shopResvDto implements Serializable {
 
-	private int company_num;
-	private int shop_resv_num;
-	private int shop_num;
-	private int design_num;
-	private String id;
-	private String shop_resv_time;
-	private String shop_resv_rday;
-	private String shop_resv_day;
-	private int shop_resv_size;
-	private String shop_resv_name;
-	private String shop_resv_tel;
-	private int shop_resv_price;
-	private int shop_resv_auth;
+	private int shop_resv_seq;				// 예약번호
+	private int shop_seq;					// 샵번호
+	private int design_seq;					// 디자이너 번호
+	private String id;						// 예약 아이디
+	private String shop_resv_time;			// 예약 시간
+	private String shop_resv_rday;			// 예약일
+	private String shop_resv_day;			// 예약날짜
+	private int shop_resv_size;				// 미용할 견종(소중대)	0:소  1:중 2:대
+	private String shop_resv_name;			// 예약자명
+	private String shop_resv_tel;			// 예약자 연락처
+	private int shop_resv_price;			// 가금액
+	private int shop_resv_auth;				// 취소여부
 	
 	public shopResvDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public shopResvDto(int company_num, int shop_resv_num, int shop_num, int design_num, String id,
-			String shop_resv_time, String shop_resv_rday, String shop_resv_day, int shop_resv_size,
-			String shop_resv_name, String shop_resv_tel, int shop_resv_price, int shop_resv_auth) {
+	public shopResvDto(int shop_resv_seq, int shop_seq, int design_seq, String id, String shop_resv_time,
+			String shop_resv_rday, String shop_resv_day, int shop_resv_size, String shop_resv_name,
+			String shop_resv_tel, int shop_resv_price, int shop_resv_auth) {
 		super();
-		this.company_num = company_num;
-		this.shop_resv_num = shop_resv_num;
-		this.shop_num = shop_num;
-		this.design_num = design_num;
+		this.shop_resv_seq = shop_resv_seq;
+		this.shop_seq = shop_seq;
+		this.design_seq = design_seq;
 		this.id = id;
 		this.shop_resv_time = shop_resv_time;
 		this.shop_resv_rday = shop_resv_rday;
@@ -77,36 +70,28 @@ public class shopResvDto implements Serializable {
 		this.shop_resv_auth = shop_resv_auth;
 	}
 
-	public int getCompany_num() {
-		return company_num;
+	public int getShop_resv_seq() {
+		return shop_resv_seq;
 	}
 
-	public void setCompany_num(int company_num) {
-		this.company_num = company_num;
+	public void setShop_resv_seq(int shop_resv_seq) {
+		this.shop_resv_seq = shop_resv_seq;
 	}
 
-	public int getShop_resv_num() {
-		return shop_resv_num;
+	public int getShop_seq() {
+		return shop_seq;
 	}
 
-	public void setShop_resv_num(int shop_resv_num) {
-		this.shop_resv_num = shop_resv_num;
+	public void setShop_seq(int shop_seq) {
+		this.shop_seq = shop_seq;
 	}
 
-	public int getShop_num() {
-		return shop_num;
+	public int getDesign_seq() {
+		return design_seq;
 	}
 
-	public void setShop_num(int shop_num) {
-		this.shop_num = shop_num;
-	}
-
-	public int getDesign_num() {
-		return design_num;
-	}
-
-	public void setDesign_num(int design_num) {
-		this.design_num = design_num;
+	public void setDesign_seq(int design_seq) {
+		this.design_seq = design_seq;
 	}
 
 	public String getId() {
@@ -183,14 +168,11 @@ public class shopResvDto implements Serializable {
 
 	@Override
 	public String toString() {
-		return "shopResvDto [company_num=" + company_num + ", shop_resv_num=" + shop_resv_num + ", shop_num=" + shop_num
-				+ ", design_num=" + design_num + ", id=" + id + ", shop_resv_time=" + shop_resv_time
-				+ ", shop_resv_rday=" + shop_resv_rday + ", shop_resv_day=" + shop_resv_day + ", shop_resv_size="
-				+ shop_resv_size + ", shop_resv_name=" + shop_resv_name + ", shop_resv_tel=" + shop_resv_tel
-				+ ", shop_resv_price=" + shop_resv_price + ", shop_resv_auth=" + shop_resv_auth + "]";
+		return "shopResvDto [shop_resv_seq=" + shop_resv_seq + ", shop_seq=" + shop_seq + ", design_seq=" + design_seq
+				+ ", id=" + id + ", shop_resv_time=" + shop_resv_time + ", shop_resv_rday=" + shop_resv_rday
+				+ ", shop_resv_day=" + shop_resv_day + ", shop_resv_size=" + shop_resv_size + ", shop_resv_name="
+				+ shop_resv_name + ", shop_resv_tel=" + shop_resv_tel + ", shop_resv_price=" + shop_resv_price
+				+ ", shop_resv_auth=" + shop_resv_auth + "]";
 	}
-	
-	
-	
 	
 }

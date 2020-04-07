@@ -38,7 +38,6 @@ memId.addEventListener("change", function(e){
 	    }
 	}
 });
-
 //var idcheck = $("#id").val();
 var idReg = /^[0-9a-z][0-9a-z\_\-\.\+]+[0-9a-z]@[0-9a-z][0-9a-z\_\-]*[0-9a-z](\.[a-z]{2,6}){1,2}$/g;
 function idCheck(){
@@ -71,20 +70,20 @@ function idCheck(){
  // 패스워드 체크(정규식 + 멘트)
     var memPwd = document.querySelector(".memberPwd");
     memPwd.addEventListener("change", function(e){
-    	var idReg = /^[a-z]+[a-z0-9]{5,19}$/g;
+    	var pwdReg = /^[a-z]+[a-z0-9]{5,19}$/g;
     	if($(".memberPwd").val() == ""){
     		if($('span.pwdCheck').hasClass('alert-red')) {
         		$('.pwdComentColor span').removeClass('alert-red');
         	}
     		document.querySelector(".pwdCheck").innerHTML = "";
     	} else {
-        if( !idReg.test( $(".memberPwd").val() )) {
+        if( !pwdReg.test( $(".memberPwd").val() )) {
         	if($('span.pwdCheck').hasClass('alert-green')) {
         		$('.pwdComentColor span').removeClass('alert-green');
         	}
         	$('.pwdComentColor span').addClass('alert-red');
         
-        	document.querySelector(".pwdCheck").innerHTML = "비밀번호는 영문자로 시작하는 6~20자 영문자 또는 숫자이어야 합니다.";
+        	document.querySelector(".pwdCheck").innerHTML = "비밀번호는 6~20자 영문자 또는 숫자이어야 합니다.";
             return;
         } else {
         	if($('span.pwdCheck').hasClass('alert-red')) {
@@ -109,30 +108,30 @@ pw.addEventListener("change", function(e){
     	}
 		document.querySelector(".pwdEqualCheck").innerHTML = "";
 	} else {
-	if(pw1 == pw2){
-		if($('span.pwdEqualCheck').hasClass('alert-red')) {
-    		$('.pwdReCheckComentColor span').removeClass('alert-red');
-    	}
-    	$('.pwdReCheckComentColor span').addClass('alert-green');
-		document.querySelector(".pwdEqualCheck").innerHTML = "일치합니다.";
-		
-	} else {
-		if($('span.pwdEqualCheck').hasClass('alert-green')) {
-    		$('.pwdReCheckComentColor span').removeClass('alert-green');
-    	}
-		alert("비밀번호 불일치");
-		$('.memberPwdReCheck').val("");
-		$('.memberPwdReCheck').focus();
-    	/*$('.pwdReCheckComentColor span').addClass('alert-red');
-		document.querySelector(".pwdEqualCheck").innerHTML = "비밀번호를 다시 확인해 주세요";*/
-	}
+		if(pw1 == pw2){
+			if($('span.pwdEqualCheck').hasClass('alert-red')) {
+	    		$('.pwdReCheckComentColor span').removeClass('alert-red');
+	    	}
+	    	$('.pwdReCheckComentColor span').addClass('alert-green');
+			document.querySelector(".pwdEqualCheck").innerHTML = "일치합니다.";
+			
+		} else {
+			if($('span.pwdEqualCheck').hasClass('alert-green')) {
+	    		$('.pwdReCheckComentColor span').removeClass('alert-green');
+	    	}
+			alert("비밀번호 불일치");
+			$('.memberPwdReCheck').val("");
+			$('.memberPwdReCheck').focus();
+	    	/*$('.pwdReCheckComentColor span').addClass('alert-red');
+			document.querySelector(".pwdEqualCheck").innerHTML = "비밀번호를 다시 확인해 주세요";*/
+		}
 	}
 });
 
-//닉네임 체크
+//닉네임 체크 (특수문자제외)
 var memNick = document.querySelector(".memberNick");
 memNick.addEventListener("change", function(e){
-	
+var mNick = /^[가-힣a-zA-Z0-9]+$/g;
 
 	if($(".memberNick").val() == ""){ // 빈칸일 때
 		if($('span.nickCheck').hasClass('alert-green')) { 
@@ -144,16 +143,26 @@ memNick.addEventListener("change", function(e){
     	}
 		document.querySelector(".nickCheck").innerHTML = "";
 	} else { // 빈칸이 아닐때
-    	if($('span.nickCheck').hasClass('alert-green')) { 
-    		$('.nickComentColor span').removeClass('alert-green');
-    		$('.nickComentColor span').addClass('alert-red');
-    		document.querySelector(".nickCheck").innerHTML = "중복체크 전입니다.";
-    	} else {
-    		$('.nickComentColor span').addClass('alert-red');
-    		document.querySelector(".nickCheck").innerHTML = "중복체크 전입니다.";
-    	}
+		if(!mNick.test($(".memberNick").val())){
+			if($('span.nickCheck').hasClass('alert-green')) { // alert-green이 있으면
+	    		$('.nickComentColor span').removeClass('alert-green');
+	    	}
+	    	$('.nickComentColor span').addClass('alert-red');
+	    	alert("닉네임에 특수문자가 포함되어있습니다.\n 닉네임을 확인해주세요")
+	    	document.querySelector(".nickCheck").innerHTML = "특수문자 제외하고 입력해주세요";
+		}else{
+			if($('span.nickCheck').hasClass('alert-green')) { 
+				$('.nickComentColor span').removeClass('alert-green');
+				$('.nickComentColor span').addClass('alert-red');
+				document.querySelector(".nickCheck").innerHTML = "중복체크 전입니다.";
+			} else {
+				$('.nickComentColor span').addClass('alert-red');
+				document.querySelector(".nickCheck").innerHTML = "중복체크 전입니다.";
+			}
+		}
 	    
 	}
+
 });
 
 //var nickNamecheck = $("#nickName").val();
@@ -187,7 +196,7 @@ function nickCheck(){
 // 연락처 정규식 + 멘트
 var phone = document.querySelector(".memberPhone");
 phone.addEventListener("blur", function(e){
-	var ph = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/g;
+	var ph = /^01([0|1|6|7|8|9])([1-9]{1}[0-9]{2,3})([0-9]{4})$/g;
 	if($('.memberPhone').val() == ""){
 		if($('span.memberPhone').hasClass('alert-red')){
 			$('.phoneComentColor span').removeClass('alert-red');
@@ -199,7 +208,7 @@ phone.addEventListener("blur", function(e){
         		$('.phoneComentColor span').removeClass('alert-green');
         	}
         	$('.phoneComentColor span').addClass('alert-red');
-        	alert("형식 불일치 !!! \n 특수문자,하이픈 제외하고 입력하세요 \n ex)01x/xxxx/xxxx");
+        	alert("연락처 형식 불일치 !!! \n 글자수가 다르거나 특수문자가 들어가있습니다. \n ex)01x-xxxx-xxxx");
         	document.querySelector(".phoneCheck").innerHTML = "형식 불일치";
             return;
 		} else {
@@ -208,7 +217,65 @@ phone.addEventListener("blur", function(e){
         	}
         	$('.phoneComentColor span').addClass('alert-green');
         	document.querySelector(".phoneCheck").innerHTML = "";
+        	
 		}
+	}
+});
+//이름 정규식 + 멘트 (한글만)
+var memberName = document.querySelector('.memberName');
+memberName.addEventListener("change", function(e){
+	var nm = /^[가-힣]+$/g;
+	if($('.memberName').val() == ""){
+		if($('span.memberName').hasClass('alert-red')){
+			$('.nameComentColor span').removeClass('alert-red');
+		}
+		document.querySelector(".nameCheck").innerHTML = "";
+	} else {
+		if( !nm.test( $(".memberName").val() )) {
+			if($('span.nameCheck').hasClass('alert-green')) {
+        		$('.nameComentColor span').removeClass('alert-green');
+        	}
+        	$('.nameComentColor span').addClass('alert-red');
+        	alert("이름은 한글만 입력 가능합니다");
+        	document.querySelector(".nameCheck").innerHTML = "형식 불일치";
+            $("#name").focus();
+        	return;
+		} else {
+			if($('span.nameCheck').hasClass('alert-red')) {
+        		$('.nameComentColor span').removeClass('alert-red');
+        	}
+        	$('.nameComentColor span').addClass('alert-green');
+        	document.querySelector(".nameCheck").innerHTML = "";
+        	
+		}
+	}
+});
+// day 정규식
+var bday = document.querySelector(".memberDay");
+bday.addEventListener("change", function(e){
+	var days = /^[0-3]+[0-9]$/g;
+	if($(".bday").val() == ""){
+		if($('span.dayCheck').hasClass('alert-red')) {
+    		$('.dayComentColor span').removeClass('alert-red');
+    	}
+		document.querySelector(".dayCheck").innerHTML = "";
+	} else {
+	    if( !days.test( $(".memberDay").val() )) {
+	    	if($('span.dayCheck').hasClass('alert-green')) {
+	    		$('.dayComentColor span').removeClass('alert-green');
+	    	}
+	    	$('.dayComentColor span').addClass('alert-red');
+	    	alert("날짜 형식은 (01~31)만 가능합니다");
+	    	document.querySelector(".dayCheck").innerHTML = "날짜형식은 ( 01 ~ 31 ) 만 가능합니다";
+	        return;
+	    } else {
+	    	if($('span.dayCheck').hasClass('alert-red')) {
+	    		$('.dayComentColor span').removeClass('alert-red');
+	    	}
+	    	$('.dayComentColor span').addClass('alert-green');
+	    	
+	    	document.querySelector(".dayCheck").innerHTML = "";
+	    }
 	}
 });
 
@@ -226,13 +293,13 @@ $('button.sBtn').click(function(){
 		alert("비밀번호 재확인을 확인해주세요");
 		$('.memberPwdReCheck').focus();
 		return false;
-	} else if($('input[name=memberName]').val().trim() == "") {
-		alert("이름을 입력해 주세요");
-		$('input[name=memberName]').focus();
+	} else if($("#name").val().trim() == ""|| $(".nameComentColor span").hasClass('alert-red')) {
+		alert("이름을 확인해 주세요");
+		$("#name").focus();
 		return false;
-	} else if($('input[name=memberNick]').val().trim() == "") {
+	} else if($('input[name=nick_name]').val().trim() == "" || $(".nickComentColor span").hasClass('alert-red')) {
 		alert("닉네임를 확인해주세요");
-		$('input[name=memberNickName]').focus();
+		$('input[name=nick_name]').focus();
 		return false;
 	} else if($('.phoneComentColor span').hasClass('alert-red') || $('.memberPhone').val().trim() == "") {
 		alert("연락처를 확인해주세요");
@@ -246,9 +313,13 @@ $('button.sBtn').click(function(){
 		alert("생년월일을 확인해주세요");
 		$('input[name=memberYear]').focus();
 		return false;
-	} else if(parseInt($('input[name=memberDate]').val()) > 31){
+/*	} else if(parseInt($('input[name=memberDate]').val()) > 31){
 		alert("생년월일을 확인해주세요");
 		$('input[name=memberDate]').focus();
+		return false;*/
+	} else if($('.dayComentColor span').hasClass('alert-red') || $('.memberDay').val().trim() == "") {
+		alert("생년월일(날짜)를 확인해주세요");
+		$('.memberDay').focus();
 		return false;
 	} else if($('input[name=memberPostCode]').val().trim() == ""){
 		alert("주소를 확인해주세요");
@@ -258,46 +329,28 @@ $('button.sBtn').click(function(){
 		alert("상세주소를 확인해주세요");
 		$('input[name=memberDetailStreetName]').focus();
 		return false;
-	} else if($('input[name=memberAnswer]').val().trim() == ""){
+	} else if($('input[name=pass_hint]').val().trim() == ""){
 		alert("비밀번호 찾기 질문을 확인해주세요");
-		$('input[name=memberAnswer]').focus();
+		$('input[name=pass_hint]').focus();
 		return false;
 	} else {
-		alert("조건성공");
-		var postCode = document.getElementById('kakao_postcode').value.trim();
-		var roadAddr = document.getElementById('kakao_roadAddress').value.replace(/(\s*)/g,"");
-		var detail = document.getElementById('kakao_detailAddress').value.trim();
-		var addr = postCode+"/"+roadAddr+"/"+detail;
-		console.log(addr);
-
-		alert(addr);
-		$("address").attr("value",addr);
-		$("form").attr("action", "/memberInsert.do").submit();
+		if(confirm("입력하신 정보로 가입 하시겠습니까?")){
+			var postCode = document.getElementById('kakao_postcode').value.trim();
+			var roadAddr = document.getElementById('kakao_roadAddress').value.replace(/(\s*)/g,"");
+			var detail = document.getElementById('kakao_detailAddress').value.trim();
+			var addr = postCode+"/"+roadAddr+"/"+detail;
+			var month = document.getElementById('month').value.trim();
+			var day = document.getElementById('day').value.trim();
+			var birth = month +""+ day;
+			$("#birthday").val(birth);
+			$("#address").val(addr);
+			$("form").attr("action", "memberInsert.do").submit();
+		}
 	}
 });
 
 $('button.sBtn2').on("click",function(){
-alert("test");
-/*var postCode = $("#kakao_postcode").val();
-console.log(postCode);
-var roadAddr = $("#kakao_roadAddress").val();
-console.log(roadAddr);
-var sdetail = $("#kakao_detailAddress").val();
-alert(sdetail);
-console.log(detail);
-return false;*/
-var postCode = document.getElementById('kakao_postcode').value.trim();
-var roadAddr = document.getElementById('kakao_roadAddress').value.replace(/(\s*)/g,"");
-var detail = document.getElementById('kakao_detailAddress').value.trim();
-var addr = postCode+"/"+roadAddr+"/"+detail;
-console.log(addr);
-/*$("#address").attr("value",addr).focus();*/
-$("#address").html(addr);
-
-alert("test");
-
-
-	
+location.href="main.do";
 });
 
 

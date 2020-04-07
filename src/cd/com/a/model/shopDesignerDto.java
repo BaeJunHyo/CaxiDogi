@@ -4,72 +4,54 @@ import java.io.Serializable;
 /*
 CREATE TABLE shop_designer
 (
-    `company_num`   INT(5)         NOT NULL    AUTO_INCREMENT COMMENT '업체번호(SEQ)', 
-    `shop_num`      INT(5)         NOT NULL    COMMENT '샵번호(SEQ)', 
-    `design_num`    INT(5)         NOT NULL    AUTO_INCREMENT COMMENT '디자이너번호(SEQ)', 
+    `shop_seq`      INT(5)         NOT NULL    COMMENT '샵번호(SEQ)', 
+    `design_seq`    INT(5)         NOT NULL    AUTO_INCREMENT COMMENT '디자이너번호(SEQ)', 
     `design_price`  INT(7)         NOT NULL    COMMENT '추가금', 
     `design_name`   VARCHAR(45)    NOT NULL    COMMENT '디자이너명', 
     `design_time`   TEXT           NOT NULL    COMMENT '작업시간대', 
-    PRIMARY KEY (design_num)
+    PRIMARY KEY (design_seq)
 );
 
 ALTER TABLE shop_designer
-    ADD CONSTRAINT FK_shop_designer_company_num_company_company_num FOREIGN KEY (company_num)
-        REFERENCES company (company_num) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-ALTER TABLE shop_designer
-    ADD CONSTRAINT FK_shop_designer_shop_num_shop_shop_num FOREIGN KEY (shop_num)
-        REFERENCES shop (shop_num) ON DELETE RESTRICT ON UPDATE RESTRICT;
+    ADD CONSTRAINT FK_shop_designer_shop_seq_shop_shop_seq FOREIGN KEY (shop_seq)
+        REFERENCES shop (shop_seq) ON DELETE RESTRICT ON UPDATE RESTRICT;
 */
 public class shopDesignerDto implements Serializable {
 
-	private int company_num;
-	private int shop_num;
-	private int design_num;
-	private int design_price;
-	private String design_name;
-	private String design_time;
+	private int shop_seq;				// 샵번호(seq)
+	private int design_seq;				// 디자이너 번호(seq)
+	private int design_price;			// 디자이너 추가금
+	private String design_name;			// 디자이너 명
+	private String design_time;			// 디자인 작업시간대
 	
 	public shopDesignerDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public shopDesignerDto(int company_num, int shop_num, int design_num, int design_price, String design_name,
-			String design_time) {
+	public shopDesignerDto(int shop_seq, int design_seq, int design_price, String design_name, String design_time) {
 		super();
-		this.company_num = company_num;
-		this.shop_num = shop_num;
-		this.design_num = design_num;
+		this.shop_seq = shop_seq;
+		this.design_seq = design_seq;
 		this.design_price = design_price;
 		this.design_name = design_name;
 		this.design_time = design_time;
 	}
 
-
-
-	public int getCompany_num() {
-		return company_num;
+	public int getShop_seq() {
+		return shop_seq;
 	}
 
-	public void setCompany_num(int company_num) {
-		this.company_num = company_num;
+	public void setShop_seq(int shop_seq) {
+		this.shop_seq = shop_seq;
 	}
 
-	public int getShop_num() {
-		return shop_num;
+	public int getDesign_seq() {
+		return design_seq;
 	}
 
-	public void setShop_num(int shop_num) {
-		this.shop_num = shop_num;
-	}
-
-	public int getDesign_num() {
-		return design_num;
-	}
-
-	public void setDesign_num(int design_num) {
-		this.design_num = design_num;
+	public void setDesign_seq(int design_seq) {
+		this.design_seq = design_seq;
 	}
 
 	public int getDesign_price() {
@@ -98,13 +80,9 @@ public class shopDesignerDto implements Serializable {
 
 	@Override
 	public String toString() {
-		return "shopDesignerDto [company_num=" + company_num + ", shop_num=" + shop_num + ", design_num=" + design_num
-				+ ", design_price=" + design_price + ", design_name=" + design_name + ", design_time=" + design_time
-				+ "]";
+		return "shopDesignerDto [shop_seq=" + shop_seq + ", design_seq=" + design_seq + ", design_price=" + design_price
+				+ ", design_name=" + design_name + ", design_time=" + design_time + "]";
 	}
-	
-	
-	
-	
+
 	
 }

@@ -548,3 +548,58 @@ WRITER : 理쒖삁吏�
  */
 .basic_tableStyle td a img {margin-left: 0;}
 table .prdInfo {padding-top: 0;}
+
+
+/* 로그인 */
+.subWrap{width: 1100px;	margin: 0 auto;}
+.subWrap.login{	position: absolute;	top: 50%;left: 50%;margin: -150px 0 0 -150px;width:400px;height:400px;}
+.login {width:300px;margin :0 auto;}
+.login h1 { color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.3); letter-spacing:1px; text-align:center; }
+.login ul{list-style: none;	padding-left: 0px;}
+.login input { 	
+	width: 300px; 	
+	margin-bottom : 10px;
+	background: rgba(0,0,0,0.3);
+	border: none;
+	outline: none;
+	padding: 10px;
+	font-size: 13px;
+	color: #fff;
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+	border: 1px solid rgba(0,0,0,0.3);
+	border-radius: 4px;
+	box-shadow: inset 0 -5px 45px rgba(100,100,100,0.2), 0 1px 1px rgba(255,255,255,0.2);
+	-webkit-transition: box-shadow .5s ease;
+	-moz-transition: box-shadow .5s ease;
+	-o-transition: box-shadow .5s ease;
+	-ms-transition: box-shadow .5s ease;
+	transition: box-shadow .5s ease;
+}
+.login button {	width:100%;	height:50px;background: #f2f2f2;font-size:20px;border-radius: 10px;	outline: none;	margin-top: 5px;margin-bottom: 5px;}
+.login input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgba(255,255,255,0.2); }
+.login .find {text-align: center;}
+.find a {color: #6699ff;}
+.link_lp{margin-right: 30px;}
+
+
+/*회원가입*/
+.new_regi {width:700px;	margin: 0 auto;}
+.new_regi input {width : 300px;}
+.new_regi button{width:80px;height:50px;background: #f2f2f2;font:20px;border-radius: 10px;outline: none;}
+.new_regi span.frm_adr_btn{width:80px;height:50px;background: #f2f2f2;font:20px;border-radius: 10px;outline: none;padding: 10px 10px;}
+
+/*정규식체크*/
+.idComentColor span.alert-green{color: blue;}
+.idComentColor span.alert-red{color: red;}
+.pwdComentColor span.alert-green{color: blue;}
+.pwdComentColor span.alert-red{color: red;}
+.pwdReCheckComentColor span.alert-green{color: blue;}
+.pwdReCheckComentColor span.alert-red{color: red;}
+.nickComentColor span.alert-green{color: blue;}
+.nickComentColor span.alert-red{color: red;}
+.phoneComentColor span.alert-green{color: blue;}
+.phoneComentColor span.alert-red{color: red;}
+.dayComentColor span.alert-green{color: blue;}
+.dayComentColor span.alert-red{color: red;}
+.nameComentColor span.alert-green{color: blue;}
+.nameComentColor span.alert-red{color: red;}

@@ -4,156 +4,204 @@ import java.io.Serializable;
 /*
 CREATE TABLE pool
 (
-    `pool_num`      INT(5)         NOT NULL    AUTO_INCREMENT COMMENT '수영장번호(SEQ)', 
-    `company_num`   INT(5)         NOT NULL    COMMENT '업체번호', 
-    `pool_price`    INT(6)         NOT NULL    COMMENT '시간당가격', 
-    `pool_name`     VARCHAR(45)    NULL        COMMENT '수영장명', 
-    `pool_open`     VARCHAR(45)    NULL        COMMENT '오픈시간', 
-    `pool_close`    VARCHAR(45)    NULL        COMMENT '종료시간', 
+    `pool_seq`      INT(5)         NOT NULL    AUTO_INCREMENT COMMENT '수영장번호(SEQ)', 
+    `pool_owner`    VARCHAR(45)    NOT NULL    COMMENT '대표자명', 
+    `pool_number`   VARCHAR(45)    NOT NULL    COMMENT '사업자등록번호', 
     `pool_addr`     VARCHAR(45)    NOT NULL    COMMENT '주소', 
     `pool_tel`      VARCHAR(45)    NOT NULL    COMMENT '연락처', 
-    `pool_shower`   INT(1)         NOT NULL    COMMENT '샤워실여부', 
-    `pool_large`    INT(1)         NOT NULL    COMMENT '대형견사용', 
-    `pool_parking`  INT(1)         NOT NULL    COMMENT '주차장', 
-    PRIMARY KEY (pool_num)
+    `id`            VARCHAR(45)    NOT NULL    COMMENT 'seller id', 
+    `pool_auth`     INT(1)         NOT NULL    COMMENT '승인여부', 
+    `pool_name`     VARCHAR(45)    NOT NULL    COMMENT '수영장명', 
+    `pool_time`     VARCHAR(45)    NOT NULL    COMMENT '영업시간', 
+    `pool_price`    INT(6)         NOT NULL    COMMENT '시간당 가격', 
+    `pool_shower`   INT(1)         NOT NULL    COMMENT '샤워실 여부', 
+    `pool_large`    INT(1)         NOT NULL    COMMENT '대형견사용여부', 
+    `pool_parking`  INT(1)         NOT NULL    COMMENT '주차장여부', 
+    `pool_content`  TEXT           NOT NULL    COMMENT '컨텐츠', 
+    `pool_photo`    VARCHAR(45)    NULL        COMMENT '수영장사진', 
+    PRIMARY KEY (pool_seq)
 );
 
 ALTER TABLE pool
-    ADD CONSTRAINT FK_pool_company_num_company_company_num FOREIGN KEY (company_num)
-        REFERENCES company (company_num) ON DELETE RESTRICT ON UPDATE RESTRICT;
+    ADD CONSTRAINT FK_pool_id_member_id FOREIGN KEY (id)
+        REFERENCES member (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
 */
 public class poolDto implements Serializable {
 
-	private int poll_num;
-	private int company_num;
-	private int poll_price;
-	private String poll_name;
-	private String poll_open;
-	private String poll_close;
-	private String poll_addr;
-	private String poll_tel;
-	private int poll_shower;
-	private int poll_large;
-	private int poll_parking;
+	private int pool_seq;			// 수영장번호
+	private String pool_owner;		// 대표자명
+	private String pool_number;		// 사업자 등록번호
+	private String pool_addr;		// 주소
+	private String pool_tel;		// 연락처
+	private String id;				// seller id
+	private int pool_auth;			// 승인여부
+	private String pool_name;		// 수영장명
+	private String pool_time;		// 영업시간
+	private int pool_price;			// 시간당 가격
+	private int pool_shower;		// 샤워실 여부
+	private int pool_large;			// 대형견 사용여부
+	private int pool_parking;		// 주자창 여부
+	private String pool_content;	// content
+	private String pool_photo;		// 수영장 사진
 	
 	public poolDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public poolDto(int poll_num, int company_num, int poll_price, String poll_name, String poll_open, String poll_close,
-			String poll_addr, String poll_tel, int poll_shower, int poll_large, int poll_parking) {
+	public poolDto(int pool_seq, String pool_owner, String pool_number, String pool_addr, String pool_tel, String id,
+			int pool_auth, String pool_name, String pool_time, int pool_price, int pool_shower, int pool_large,
+			int pool_parking, String pool_content, String pool_photo) {
 		super();
-		this.poll_num = poll_num;
-		this.company_num = company_num;
-		this.poll_price = poll_price;
-		this.poll_name = poll_name;
-		this.poll_open = poll_open;
-		this.poll_close = poll_close;
-		this.poll_addr = poll_addr;
-		this.poll_tel = poll_tel;
-		this.poll_shower = poll_shower;
-		this.poll_large = poll_large;
-		this.poll_parking = poll_parking;
+		this.pool_seq = pool_seq;
+		this.pool_owner = pool_owner;
+		this.pool_number = pool_number;
+		this.pool_addr = pool_addr;
+		this.pool_tel = pool_tel;
+		this.id = id;
+		this.pool_auth = pool_auth;
+		this.pool_name = pool_name;
+		this.pool_time = pool_time;
+		this.pool_price = pool_price;
+		this.pool_shower = pool_shower;
+		this.pool_large = pool_large;
+		this.pool_parking = pool_parking;
+		this.pool_content = pool_content;
+		this.pool_photo = pool_photo;
 	}
 
-	public int getPoll_num() {
-		return poll_num;
+	public int getPool_seq() {
+		return pool_seq;
 	}
 
-	public void setPoll_num(int poll_num) {
-		this.poll_num = poll_num;
+	public void setPool_seq(int pool_seq) {
+		this.pool_seq = pool_seq;
 	}
 
-	public int getCompany_num() {
-		return company_num;
+	public String getPool_owner() {
+		return pool_owner;
 	}
 
-	public void setCompany_num(int company_num) {
-		this.company_num = company_num;
+	public void setPool_owner(String pool_owner) {
+		this.pool_owner = pool_owner;
 	}
 
-	public int getPoll_price() {
-		return poll_price;
+	public String getPool_number() {
+		return pool_number;
 	}
 
-	public void setPoll_price(int poll_price) {
-		this.poll_price = poll_price;
+	public void setPool_number(String pool_number) {
+		this.pool_number = pool_number;
 	}
 
-	public String getPoll_name() {
-		return poll_name;
+	public String getPool_addr() {
+		return pool_addr;
 	}
 
-	public void setPoll_name(String poll_name) {
-		this.poll_name = poll_name;
+	public void setPool_addr(String pool_addr) {
+		this.pool_addr = pool_addr;
 	}
 
-	public String getPoll_open() {
-		return poll_open;
+	public String getPool_tel() {
+		return pool_tel;
 	}
 
-	public void setPoll_open(String poll_open) {
-		this.poll_open = poll_open;
+	public void setPool_tel(String pool_tel) {
+		this.pool_tel = pool_tel;
 	}
 
-	public String getPoll_close() {
-		return poll_close;
+	public String getId() {
+		return id;
 	}
 
-	public void setPoll_close(String poll_close) {
-		this.poll_close = poll_close;
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	public String getPoll_addr() {
-		return poll_addr;
+	public int getPool_auth() {
+		return pool_auth;
 	}
 
-	public void setPoll_addr(String poll_addr) {
-		this.poll_addr = poll_addr;
+	public void setPool_auth(int pool_auth) {
+		this.pool_auth = pool_auth;
 	}
 
-	public String getPoll_tel() {
-		return poll_tel;
+	public String getPool_name() {
+		return pool_name;
 	}
 
-	public void setPoll_tel(String poll_tel) {
-		this.poll_tel = poll_tel;
+	public void setPool_name(String pool_name) {
+		this.pool_name = pool_name;
 	}
 
-	public int getPoll_shower() {
-		return poll_shower;
+	public String getPool_time() {
+		return pool_time;
 	}
 
-	public void setPoll_shower(int poll_shower) {
-		this.poll_shower = poll_shower;
+	public void setPool_time(String pool_time) {
+		this.pool_time = pool_time;
 	}
 
-	public int getPoll_large() {
-		return poll_large;
+	public int getPool_price() {
+		return pool_price;
 	}
 
-	public void setPoll_large(int poll_large) {
-		this.poll_large = poll_large;
+	public void setPool_price(int pool_price) {
+		this.pool_price = pool_price;
 	}
 
-	public int getPoll_parking() {
-		return poll_parking;
+	public int getPool_shower() {
+		return pool_shower;
 	}
 
-	public void setPoll_parking(int poll_parking) {
-		this.poll_parking = poll_parking;
+	public void setPool_shower(int pool_shower) {
+		this.pool_shower = pool_shower;
+	}
+
+	public int getPool_large() {
+		return pool_large;
+	}
+
+	public void setPool_large(int pool_large) {
+		this.pool_large = pool_large;
+	}
+
+	public int getPool_parking() {
+		return pool_parking;
+	}
+
+	public void setPool_parking(int pool_parking) {
+		this.pool_parking = pool_parking;
+	}
+
+	public String getPool_content() {
+		return pool_content;
+	}
+
+	public void setPool_content(String pool_content) {
+		this.pool_content = pool_content;
+	}
+
+	public String getPool_photo() {
+		return pool_photo;
+	}
+
+	public void setPool_photo(String pool_photo) {
+		this.pool_photo = pool_photo;
 	}
 
 	@Override
 	public String toString() {
-		return "poolDto [poll_num=" + poll_num + ", company_num=" + company_num + ", poll_price=" + poll_price
-				+ ", poll_name=" + poll_name + ", poll_open=" + poll_open + ", poll_close=" + poll_close
-				+ ", poll_addr=" + poll_addr + ", poll_tel=" + poll_tel + ", poll_shower=" + poll_shower
-				+ ", poll_large=" + poll_large + ", poll_parking=" + poll_parking + "]";
+		return "poolDto [pool_seq=" + pool_seq + ", pool_owner=" + pool_owner + ", pool_number=" + pool_number
+				+ ", pool_addr=" + pool_addr + ", pool_tel=" + pool_tel + ", id=" + id + ", pool_auth=" + pool_auth
+				+ ", pool_name=" + pool_name + ", pool_time=" + pool_time + ", pool_price=" + pool_price
+				+ ", pool_shower=" + pool_shower + ", pool_large=" + pool_large + ", pool_parking=" + pool_parking
+				+ ", pool_content=" + pool_content + ", pool_photo=" + pool_photo + "]";
 	}
-	
-	
+
 	
 	
 }
+
+

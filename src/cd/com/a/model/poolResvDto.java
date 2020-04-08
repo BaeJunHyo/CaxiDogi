@@ -4,8 +4,8 @@ import java.io.Serializable;
 /*
 CREATE TABLE pool_reservation
 (
-    `pool_resv_num`          INT(5)         NOT NULL    AUTO_INCREMENT COMMENT '예약번호(SEQ)', 
-    `pool_num`               INT(5)         NOT NULL    COMMENT '수영장번호(SEQ)', 
+    `pool_resv_seq`          INT(5)         NOT NULL    AUTO_INCREMENT COMMENT '예약번호(SEQ)', 
+    `pool_seq`               INT(5)         NOT NULL    COMMENT '수영장번호(SEQ)', 
     `pool_resv_user`         INT(3)         NOT NULL    COMMENT '사용인원수', 
     `pool_resv_pet`          INT(3)         NOT NULL    COMMENT '사용펫수', 
     `pool_resv_time`         INT(1)         NOT NULL    COMMENT '선택시간', 
@@ -16,42 +16,45 @@ CREATE TABLE pool_reservation
     `pool_resv_payment`      INT(1)         NOT NULL    COMMENT '결재여부', 
     `pool_resv_total_price`  INT(7)         NULL        COMMENT '최종금액', 
     `pool_resv_price`        INT(7)         NULL        COMMENT '가금액', 
-    `id`                     VARCHAR(45)    NULL        COMMENT '예약자ID', 
-    PRIMARY KEY (pool_resv_num)
+    `id`                     VARCHAR(45)    NOT NULL    COMMENT '예약자ID', 
+    PRIMARY KEY (pool_resv_seq)
 );
-ALTER TABLE pool_reservation
-    ADD CONSTRAINT FK_pool_reservation_pool_num_pool_pool_num FOREIGN KEY (pool_num)
-        REFERENCES pool (pool_num) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
 ALTER TABLE pool_reservation
     ADD CONSTRAINT FK_pool_reservation_id_member_id FOREIGN KEY (id)
         REFERENCES member (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE pool_reservation
+    ADD CONSTRAINT FK_pool_reservation_pool_seq_pool_pool_seq FOREIGN KEY (pool_seq)
+        REFERENCES pool (pool_seq) ON DELETE RESTRICT ON UPDATE RESTRICT;
 */
 public class poolResvDto implements Serializable {
-	private int pool_resv_num;
-	   private int pool_num;
-	   private int pool_resv_user;
-	   private int pool_resv_pet;
-	   private int pool_resv_time;
-	   private String pool_resv_ydate;
-	   private String pool_resv_sdate;
-	   private String pool_resv_tel;
-	   private String pool_resv_name;
-	   private int pool_resv_payment;
-	   private int pool_resv_total_price;
-	   private int pool_resv_price;
-	   private String id;
+	
+	   private int pool_resv_seq;			// 예약번호
+	   private int pool_seq;				// 수영장번호
+	   private int pool_resv_user;			// 사용인원수
+	   private int pool_resv_pet;			// 사용펫수
+	   private int pool_resv_time;			// 선택시간
+	   private String pool_resv_ydate;		// 예약일
+	   private String pool_resv_sdate;		// 이용일
+	   private String pool_resv_tel;		// 연락처
+	   private String pool_resv_name;		// 예약자명
+	   private int pool_resv_payment;		// 결제여부
+	   private int pool_resv_total_price;	// 최종금액
+	   private int pool_resv_price;			// 가금액
+	   private String id;					// 예약자 아이디
 	   
 	public poolResvDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public poolResvDto(int pool_resv_num, int pool_num, int pool_resv_user, int pool_resv_pet, int pool_resv_time,
+	public poolResvDto(int pool_resv_seq, int pool_seq, int pool_resv_user, int pool_resv_pet, int pool_resv_time,
 			String pool_resv_ydate, String pool_resv_sdate, String pool_resv_tel, String pool_resv_name,
 			int pool_resv_payment, int pool_resv_total_price, int pool_resv_price, String id) {
 		super();
-		this.pool_resv_num = pool_resv_num;
-		this.pool_num = pool_num;
+		this.pool_resv_seq = pool_resv_seq;
+		this.pool_seq = pool_seq;
 		this.pool_resv_user = pool_resv_user;
 		this.pool_resv_pet = pool_resv_pet;
 		this.pool_resv_time = pool_resv_time;
@@ -65,20 +68,20 @@ public class poolResvDto implements Serializable {
 		this.id = id;
 	}
 
-	public int getPool_resv_num() {
-		return pool_resv_num;
+	public int getPool_resv_seq() {
+		return pool_resv_seq;
 	}
 
-	public void setPool_resv_num(int pool_resv_num) {
-		this.pool_resv_num = pool_resv_num;
+	public void setPool_resv_seq(int pool_resv_seq) {
+		this.pool_resv_seq = pool_resv_seq;
 	}
 
-	public int getPool_num() {
-		return pool_num;
+	public int getPool_seq() {
+		return pool_seq;
 	}
 
-	public void setPool_num(int pool_num) {
-		this.pool_num = pool_num;
+	public void setPool_seq(int pool_seq) {
+		this.pool_seq = pool_seq;
 	}
 
 	public int getPool_resv_user() {
@@ -171,15 +174,13 @@ public class poolResvDto implements Serializable {
 
 	@Override
 	public String toString() {
-		return "poolResvDto [pool_resv_num=" + pool_resv_num + ", pool_num=" + pool_num + ", pool_resv_user="
+		return "poolResvDto [pool_resv_seq=" + pool_resv_seq + ", pool_seq=" + pool_seq + ", pool_resv_user="
 				+ pool_resv_user + ", pool_resv_pet=" + pool_resv_pet + ", pool_resv_time=" + pool_resv_time
 				+ ", pool_resv_ydate=" + pool_resv_ydate + ", pool_resv_sdate=" + pool_resv_sdate + ", pool_resv_tel="
 				+ pool_resv_tel + ", pool_resv_name=" + pool_resv_name + ", pool_resv_payment=" + pool_resv_payment
 				+ ", pool_resv_total_price=" + pool_resv_total_price + ", pool_resv_price=" + pool_resv_price + ", id="
 				+ id + "]";
 	}
+
 	
-	
-	   
-	   
 }

@@ -1,3 +1,4 @@
+<%@page import="cd.com.a.model.memberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <html>
@@ -57,9 +58,23 @@
 		</a>
 		<div class="service_section">
 			<ul class="top_menu clearfix">
-				<li><a href="#n">로그인</a></li>
-				<li><a href="#n">회원가입</a></li>
+			<%
+			memberDto loginUser = (memberDto)request.getSession().getAttribute("login");
+			if(loginUser == null){
+			%>
+				<li><a href="loginView.do">로그인</a></li>
+				<li><a href="newAccount.do">회원가입</a></li>
+				<li><a href="#n">고객센터</a></li>	
+			<%
+			}else{
+			%>
+				<li><Strong><%=loginUser.getNick_name() %></Strong> 님 환영합니다</li>
+				<li><a href="#none">마이페이지</a></li>
+				<li><a href="#none" onclick="logout()">로그아웃</a></li>
 				<li><a href="#n">고객센터</a></li>
+			<%
+			} 
+			%>
 			</ul>
 			<p class="main_menu">
 				<span class="searchArea"> <input type="text"> <a
@@ -140,3 +155,12 @@
       <li><a href="#n">마이페이지</a></li>
     </ul>
   </div> -->
+  
+<!-- Session logout  -->
+  <script type="text/javascript">
+function logout(){
+	if(confirm("로그아웃하시겠습니까?")){
+		location.href="logout.do";
+	}
+}
+  </script>

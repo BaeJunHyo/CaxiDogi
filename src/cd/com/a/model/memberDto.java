@@ -9,7 +9,7 @@ import java.io.Serializable;
     `user_api`       INT(1)          NOT NULL    COMMENT 'API종류', 
     `nick_name`      VARCHAR(45)     NOT NULL    COMMENT '닉네임', 
     `user_name`      VARCHAR(45)     NULL        COMMENT '이름', 
-    `birthday`       INT             NOT NULL    COMMENT '생년월일', 
+    `birthday`       VARCHAR(10)     NOT NULL    COMMENT '생년월일', 
     `address`        VARCHAR(200)    NULL        COMMENT '주소', 
     `phone`          INT             NULL        COMMENT '연락처', 
     `pass_question`  INT(1)          NULL        COMMENT '패스워드찾기', 
@@ -25,7 +25,7 @@ public class memberDto implements Serializable {
 	private int user_api;
 	private String nick_name;
 	private String user_name;
-	private int birthday;
+	private String birthday;
 	private String address;
 	private String phone;
 	private int pass_question;
@@ -38,9 +38,11 @@ public class memberDto implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 
-	public memberDto(String id, String password, int user_api, String nick_name, String user_name, int birthday,
-			String address, String phone, int pass_question, String pass_hint, int point, int auth) {
+	public memberDto(String id, String password, int user_api, String nick_name, String user_name, String birthday,
+			String address, String phone, int pass_question, String pass_hint, int point, int auth
+			) {
 		super();
 		this.id = id;
 		this.password = password;
@@ -55,6 +57,7 @@ public class memberDto implements Serializable {
 		this.point = point;
 		this.auth = auth;
 	}
+
 
 	public String getId() {
 		return id;
@@ -96,11 +99,11 @@ public class memberDto implements Serializable {
 		this.user_name = user_name;
 	}
 
-	public int getBirthday() {
+	public String getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(int birthday) {
+	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
 
@@ -151,6 +154,9 @@ public class memberDto implements Serializable {
 	public void setAuth(int auth) {
 		this.auth = auth;
 	}
+	
+	
+
 
 	public memberDto(String id) {
 		super();
@@ -162,9 +168,9 @@ public class memberDto implements Serializable {
 		return "memberDto [id=" + id + ", password=" + password + ", user_api=" + user_api + ", nick_name=" + nick_name
 				+ ", user_name=" + user_name + ", birthday=" + birthday + ", address=" + address + ", phone=" + phone
 				+ ", pass_question=" + pass_question + ", pass_hint=" + pass_hint + ", point=" + point + ", auth="
-				+ auth + "]";
+				+ auth +  "]";
 	}
-	
+
 	
 	
 	

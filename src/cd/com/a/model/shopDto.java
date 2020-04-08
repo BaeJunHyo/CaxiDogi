@@ -49,6 +49,28 @@ public class shopDto implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+
+	public shopDto(String shop_owner, String shop_number, String shop_name, String shop_addr, String shop_tel,
+			String id, String shop_time, String shop_etc, int shop_small_price, int shop_medium_price,
+			int shop_large_price, String shop_content) {
+		super();
+		this.shop_owner = shop_owner;
+		this.shop_number = shop_number;
+		this.shop_name = shop_name;
+		this.shop_addr = shop_addr;
+		this.shop_tel = shop_tel;
+		this.id = id;
+		this.shop_time = shop_time;
+		this.shop_etc = shop_etc;
+		this.shop_small_price = shop_small_price;
+		this.shop_medium_price = shop_medium_price;
+		this.shop_large_price = shop_large_price;
+		this.shop_content = shop_content;
+	}
+
+
 
 	public shopDto(int shop_seq, String shop_owner, String shop_number, String shop_name, String shop_addr,
 			String shop_tel, int shop_auth, String id, String shop_time, String shop_photo, String shop_etc,

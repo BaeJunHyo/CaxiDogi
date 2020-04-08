@@ -7,10 +7,19 @@
 <div class="container" >
 	<div class ="container_subWrap">
 		<h1>Shop등록</h1>
+		<form name ="shopForm" id ="shopForm" method ="post">
 		<div class ="company_regi"  style = "margin-top : 10px;">
 		
 			<label style = "width:100px;">Shop명</label>
-			<input type="text" placeholder="업체명을 입력해주세요" id = "shop_name" size = "500">
+			<input type="text" placeholder="업체명을 입력해주세요" id = "shop_name" name="shop_name" size = "500">
+		</div>
+		<div class ="company_regi" style = "margin-top : 10px;">
+			<label style = "width:100px;">대표자명</label>
+			<input type="text" id = "shop_owner" name = "shop_owner" placeholder="대표자명을 입력해주세요" size = "150">
+		</div>
+		<div class ="company_regi"  style = "margin-top : 10px;">
+			<label style = "width:100px;">사업자등록번호</label>
+			<input type="text" id = "shop_number" name = "shop_number" placeholder="사업자 등록번호를 입력해주세요" size = "150">
 		</div>
 		<div class ="company_regi"  style = "margin-top : 10px;">
 			<label style = "width:100px;">Shop주소</label>
@@ -20,11 +29,12 @@
 			<input style = "margin-top:10px; margin-left : 120px;" type="text" id="sample6_address" placeholder="주소" readonly ><br>
 			<input style = "margin-top:10px; margin-left : 120px;" type="text" id="sample6_detailAddress" placeholder="상세주소" >
 			<input style = "margin-top:10px;" type="text" id="sample6_extraAddress" placeholder="참고항목" readonly >
+			<input type = "hidden" id ="shop_addr" name ="shop_addr">
 
 		</div>
 		<div class ="company_regi"  style = "margin-top : 10px;">
 			<label style = "width:100px;">Shop전화번호</label>
-			<input type="text" placeholder="전화번호 입력해주세요" size = "150">
+			<input type="text" id = "shop_tel" name = "shop_tel" placeholder="전화번호 숫자만 입력해주세요" size = "150">
 		</div>
 		<div class ="time" style = "margin-top : 10px;">
 			<label style = "width:100px;">영업시간</label>
@@ -48,39 +58,103 @@
 					<option><%=(i<10)? "0"+i: i %></option>
 				<%} %>
 			</select>분
-		</div>
-		<div class ="company_regi"  style = "margin-top : 10px;">
-			<label style = "width:100px;">Shop 한마디</label>
-			<input type="text" placeholder="한줄 홍보" size = "150">
-		</div>
-		<div class ="company_regi" style = "margin-top : 10px;">
-			<label style = "width:100px;">소형 금액</label>
-			<input type="text" placeholder="소형견" size = "150">
-		</div>
-		<div class ="company_regi" style = "margin-top : 10px;">
-			<label style = "width:100px;">중형 금액</label>
-			<input type="text" placeholder="중형견" size = "150">
-		</div>
-		<div class ="company_regi" style = "margin-top : 10px;">
-			<label style = "width:100px;">대형 금액</label>
-			<input type="text" placeholder="대형견" size = "150">
+			<input type ="hidden" id = "shop_time" name = "shop_time">
 		</div>
 		<div class ="company_regi" style = "margin-top : 10px;">
 			<label style = "width:100px;">Shop사진</label>
-			<input type="file">
+			<input type="file" name = "fileload">
+		</div>
+		<div class ="company_regi"  style = "margin-top : 10px;">
+			<label style = "width:100px;">Shop 한마디</label>
+			<input type="text" id = "shop_etc" name = "shop_etc" placeholder="한줄 홍보" size = "150">
 		</div>
 		<div class ="company_regi" style = "margin-top : 10px;">
-			<textarea id="content" name ="content"></textarea>
-			<script>CKEDITOR.replace('content');</script>
+			<label style = "width:100px;">소형 금액</label>
+			<input type="text" id = "shop_small_price" name = "shop_small_price"  placeholder="소형견" size = "150">
 		</div>
+		<div class ="company_regi" style = "margin-top : 10px;">
+			<label style = "width:100px;">중형 금액</label>
+			<input type="text" id = "shop_medium_price"  name = "shop_medium_price" placeholder="중형견" size = "150">
+		</div>
+		<div class ="company_regi" style = "margin-top : 10px;">
+			<label style = "width:100px;">대형 금액</label>
+			<input type="text" id = "shop_large_price" name = "shop_large_price" placeholder="대형견" size = "150">
+		</div>
+		<div class ="company_regi" style = "margin-top : 10px;">
+			<textarea id="content" ></textarea>
+			<script>CKEDITOR.replace('content');</script>
+			<input type="hidden" id ="shop_content" name ="shop_content" >
+		</div>
+		<input type="hidden" name = "id" value ="${login.id }">
 		<div style ="margin-top:10px;" align ="center">
-			<input class = "btn_line_m" type ="button" value = "등록">		
-			<input class ="btn_line_m" type ="button" value = "취소">		
+			<input class = "btn_line_m" type ="button" id = "shop_regi" value = "등록">		
+			<input class ="btn_line_m" type ="button" id = "cancle" value = "취소">		
 			
 		</div>
+		</form>
 	</div>
 </div>
 <!-- container E : -->
+<script type="text/javascript">
+		$("#shop_regi").click(function(){
+			/*var rgEx = /(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/g;
+			if($("#shop_name").val().trim() == ''){
+				alert("상호명을 입력해 주세요");
+				$("#shop_name").focus();
+			} else if($("#shop_owner").val().trim() == ''){
+				alert("대표자명을 입력해주세요");
+				$("#shop_owner").focus();
+			} else if($("#shop_number").val().trim() == ''){
+				alert("사업자 등록번호를 입력해 주세요");
+				$("#shop_number").focus();
+			}else if($("#sample6_postcode").val() == ''){
+				alert("주소를 입력해 주세요");
+				sample6_execDaumPostcode();
+			} else if($("#company_tel").val().trim()==''){
+				alert("전화번호를 입력해 주세요");
+				$("#shop_tel").focus();
+			} else if(!rgEx.test($("#shop_tel").val())){
+				alert("올바른 전화번호가 아닙니다.");
+				$("#shop_tel").val("");
+				$("#shop_tel").focus();
+			} else if("#shop_small_price").val().trim==''){
+				alert("소형견 금액을 입력해주세요.");
+				$("#shop_large_price").focus();
+			} else if("#shop_medium_price").val().trim==''){
+				alert("중형견 금액을 입력해주세요.");
+				$("#shop_medium_price").focus();
+			} else if("#shop_large_price").val().trim==''){
+				alert("대형견 금액을 입력해주세요.");
+				$("#shop_large_price").focus();
+			} else {*/
+				var addr = $("#sample6_postcode").val()+"/"+$("#sample6_address").val()+" " +$("#sample6_detailAddress").val();
+				var time = $("#open_hour").val()+":"+$("#open_min").val()+ " ~ " + $("#close_hour").val() + ":" + $("#close_min").val();
+				$("#shop_time").val(time);
+				$("#shop_addr").val(addr);
+				var content = CKEDITOR.instances.content.getData();
+				$("#shop_content").val(content);
+				
+				var form = $('#shopForm')[0];
+				var formData = new FormData(form);
+				alert(JSON.stringify(formData));
+			      $.ajax({
+			          type:'post',
+			          url:"./shopRegiAf.do",
+			          enctype:'multipart/form-data',
+			          data: formData,
+			          processData: false,
+			          contentType: false,
+			          cache: false,
+			          success: function (data){
+			             alert("통신성공");
+			          },
+			          error: function (e){
+			             alert("통신실패");
+			     }
+		});
+			
+	});
+</script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
     function sample6_execDaumPostcode() {

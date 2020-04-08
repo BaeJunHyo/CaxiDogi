@@ -34,7 +34,7 @@ public class poolDto implements Serializable {
 	private String pool_number;		// 사업자 등록번호
 	private String pool_addr;		// 주소
 	private String pool_tel;		// 연락처
-	private String id;				// seller id
+	private int mem_seq;				// seller id
 	private int pool_auth;			// 승인여부
 	private String pool_name;		// 수영장명
 	private String pool_time;		// 영업시간
@@ -50,7 +50,7 @@ public class poolDto implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public poolDto(int pool_seq, String pool_owner, String pool_number, String pool_addr, String pool_tel, String id,
+	public poolDto(int pool_seq, String pool_owner, String pool_number, String pool_addr, String pool_tel, int mem_seq,
 			int pool_auth, String pool_name, String pool_time, int pool_price, int pool_shower, int pool_large,
 			int pool_parking, String pool_content, String pool_photo) {
 		super();
@@ -59,7 +59,7 @@ public class poolDto implements Serializable {
 		this.pool_number = pool_number;
 		this.pool_addr = pool_addr;
 		this.pool_tel = pool_tel;
-		this.id = id;
+		this.mem_seq = mem_seq;
 		this.pool_auth = pool_auth;
 		this.pool_name = pool_name;
 		this.pool_time = pool_time;
@@ -111,12 +111,12 @@ public class poolDto implements Serializable {
 		this.pool_tel = pool_tel;
 	}
 
-	public String getId() {
-		return id;
+	public int getMem_seq() {
+		return mem_seq;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setMem_seq(int mem_seq) {
+		this.mem_seq = mem_seq;
 	}
 
 	public int getPool_auth() {
@@ -194,13 +194,12 @@ public class poolDto implements Serializable {
 	@Override
 	public String toString() {
 		return "poolDto [pool_seq=" + pool_seq + ", pool_owner=" + pool_owner + ", pool_number=" + pool_number
-				+ ", pool_addr=" + pool_addr + ", pool_tel=" + pool_tel + ", id=" + id + ", pool_auth=" + pool_auth
-				+ ", pool_name=" + pool_name + ", pool_time=" + pool_time + ", pool_price=" + pool_price
+				+ ", pool_addr=" + pool_addr + ", pool_tel=" + pool_tel + ", mem_seq=" + mem_seq + ", pool_auth="
+				+ pool_auth + ", pool_name=" + pool_name + ", pool_time=" + pool_time + ", pool_price=" + pool_price
 				+ ", pool_shower=" + pool_shower + ", pool_large=" + pool_large + ", pool_parking=" + pool_parking
 				+ ", pool_content=" + pool_content + ", pool_photo=" + pool_photo + "]";
 	}
 
-	
 	
 }
 

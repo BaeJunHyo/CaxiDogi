@@ -42,7 +42,7 @@ public class poolResvDto implements Serializable {
 	   private int pool_resv_payment;		// 결제여부
 	   private int pool_resv_total_price;	// 최종금액
 	   private int pool_resv_price;			// 가금액
-	   private String id;					// 예약자 아이디
+	   private int mem_seq;					// 예약자 아이디
 	   
 	public poolResvDto() {
 		super();
@@ -51,7 +51,7 @@ public class poolResvDto implements Serializable {
 
 	public poolResvDto(int pool_resv_seq, int pool_seq, int pool_resv_user, int pool_resv_pet, int pool_resv_time,
 			String pool_resv_ydate, String pool_resv_sdate, String pool_resv_tel, String pool_resv_name,
-			int pool_resv_payment, int pool_resv_total_price, int pool_resv_price, String id) {
+			int pool_resv_payment, int pool_resv_total_price, int pool_resv_price, int mem_seq) {
 		super();
 		this.pool_resv_seq = pool_resv_seq;
 		this.pool_seq = pool_seq;
@@ -65,7 +65,7 @@ public class poolResvDto implements Serializable {
 		this.pool_resv_payment = pool_resv_payment;
 		this.pool_resv_total_price = pool_resv_total_price;
 		this.pool_resv_price = pool_resv_price;
-		this.id = id;
+		this.mem_seq = mem_seq;
 	}
 
 	public int getPool_resv_seq() {
@@ -164,12 +164,12 @@ public class poolResvDto implements Serializable {
 		this.pool_resv_price = pool_resv_price;
 	}
 
-	public String getId() {
-		return id;
+	public int getMem_seq() {
+		return mem_seq;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setMem_seq(int mem_seq) {
+		this.mem_seq = mem_seq;
 	}
 
 	@Override
@@ -178,8 +178,8 @@ public class poolResvDto implements Serializable {
 				+ pool_resv_user + ", pool_resv_pet=" + pool_resv_pet + ", pool_resv_time=" + pool_resv_time
 				+ ", pool_resv_ydate=" + pool_resv_ydate + ", pool_resv_sdate=" + pool_resv_sdate + ", pool_resv_tel="
 				+ pool_resv_tel + ", pool_resv_name=" + pool_resv_name + ", pool_resv_payment=" + pool_resv_payment
-				+ ", pool_resv_total_price=" + pool_resv_total_price + ", pool_resv_price=" + pool_resv_price + ", id="
-				+ id + "]";
+				+ ", pool_resv_total_price=" + pool_resv_total_price + ", pool_resv_price=" + pool_resv_price
+				+ ", mem_seq=" + mem_seq + "]";
 	}
 
 	

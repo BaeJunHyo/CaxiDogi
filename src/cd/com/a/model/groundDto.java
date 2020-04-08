@@ -9,7 +9,7 @@ CREATE TABLE ground
     `ground_number`   VARCHAR(45)    NOT NULL    COMMENT '사업자등록번호', 
     `ground_addr`     VARCHAR(45)    NOT NULL    COMMENT '주소', 
     `ground_tel`      VARCHAR(45)    NOT NULL    COMMENT '연락처', 
-    `id`              VARCHAR(45)    NOT NULL    COMMENT 'seller id', 
+    `mem_seq`         INT			 NOT NULL    COMMENT 'seller id', 
     `ground_auth`     INT(1)         NOT NULL    COMMENT '승인여부', 
     `ground_name`     VARCHAR(45)    NOT NULL    COMMENT '운동장명', 
     `ground_time`     VARCHAR(45)    NOT NULL    COMMENT '영업시간', 
@@ -21,8 +21,8 @@ CREATE TABLE ground
 );
 
 ALTER TABLE ground
-    ADD CONSTRAINT FK_ground_id_member_id FOREIGN KEY (id)
-        REFERENCES member (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+    ADD CONSTRAINT FK_ground_id_member_id FOREIGN KEY (mem_seq)
+        REFERENCES member (mem_seq) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 */
 public class groundDto implements Serializable {
@@ -31,7 +31,7 @@ public class groundDto implements Serializable {
 	private String ground_number;		// 사업자등록번호
 	private String ground_addr;			// 주소
 	private String ground_tel;			// 연락처
-	private String id;					// seller id
+	private int mem_seq;					// seller id
 	private int ground_auth;			// 승인여부
 	private String ground_name;			// 운동장명
 	private String ground_open;			// 영업시간
@@ -46,7 +46,7 @@ public class groundDto implements Serializable {
 	}
 
 	public groundDto(int ground_seq, String ground_owner, String ground_number, String ground_addr, String ground_tel,
-			String id, int ground_auth, String ground_name, String ground_open, int ground_price, int ground_parking,
+			int mem_seq, int ground_auth, String ground_name, String ground_open, int ground_price, int ground_parking,
 			String ground_content, String ground_photo) {
 		super();
 		this.ground_seq = ground_seq;
@@ -54,7 +54,7 @@ public class groundDto implements Serializable {
 		this.ground_number = ground_number;
 		this.ground_addr = ground_addr;
 		this.ground_tel = ground_tel;
-		this.id = id;
+		this.mem_seq = mem_seq;
 		this.ground_auth = ground_auth;
 		this.ground_name = ground_name;
 		this.ground_open = ground_open;
@@ -104,12 +104,12 @@ public class groundDto implements Serializable {
 		this.ground_tel = ground_tel;
 	}
 
-	public String getId() {
-		return id;
+	public int getMem_seq() {
+		return mem_seq;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setMem_seq(int mem_seq) {
+		this.mem_seq = mem_seq;
 	}
 
 	public int getGround_auth() {
@@ -171,9 +171,11 @@ public class groundDto implements Serializable {
 	@Override
 	public String toString() {
 		return "groundDto [ground_seq=" + ground_seq + ", ground_owner=" + ground_owner + ", ground_number="
-				+ ground_number + ", ground_addr=" + ground_addr + ", ground_tel=" + ground_tel + ", id=" + id
+				+ ground_number + ", ground_addr=" + ground_addr + ", ground_tel=" + ground_tel + ", mem_seq=" + mem_seq
 				+ ", ground_auth=" + ground_auth + ", ground_name=" + ground_name + ", ground_open=" + ground_open
 				+ ", ground_price=" + ground_price + ", ground_parking=" + ground_parking + ", ground_content="
 				+ ground_content + ", ground_photo=" + ground_photo + "]";
 	}
+	
+	
 }

@@ -36,7 +36,7 @@ public class shopDto implements Serializable {
 	private String shop_addr;				// 주소
 	private String shop_tel;				// 연락처
 	private int shop_auth;					// 승인여부
-	private String id;						// seller id
+	private int mem_seq;						// seller id
 	private String shop_time;				// 영업시간
 	private String shop_photo;				// 샵사진
 	private String shop_etc;				// 자랑하고싶은말
@@ -51,7 +51,7 @@ public class shopDto implements Serializable {
 	}
 
 	public shopDto(int shop_seq, String shop_owner, String shop_number, String shop_name, String shop_addr,
-			String shop_tel, int shop_auth, String id, String shop_time, String shop_photo, String shop_etc,
+			String shop_tel, int shop_auth, int mem_seq, String shop_time, String shop_photo, String shop_etc,
 			int shop_small_price, int shop_medium_price, int shop_large_price, String shop_content) {
 		super();
 		this.shop_seq = shop_seq;
@@ -61,7 +61,7 @@ public class shopDto implements Serializable {
 		this.shop_addr = shop_addr;
 		this.shop_tel = shop_tel;
 		this.shop_auth = shop_auth;
-		this.id = id;
+		this.mem_seq = mem_seq;
 		this.shop_time = shop_time;
 		this.shop_photo = shop_photo;
 		this.shop_etc = shop_etc;
@@ -127,12 +127,12 @@ public class shopDto implements Serializable {
 		this.shop_auth = shop_auth;
 	}
 
-	public String getId() {
-		return id;
+	public int getMem_seq() {
+		return mem_seq;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setMem_seq(int mem_seq) {
+		this.mem_seq = mem_seq;
 	}
 
 	public String getShop_time() {
@@ -195,9 +195,10 @@ public class shopDto implements Serializable {
 	public String toString() {
 		return "shopDto [shop_seq=" + shop_seq + ", shop_owner=" + shop_owner + ", shop_number=" + shop_number
 				+ ", shop_name=" + shop_name + ", shop_addr=" + shop_addr + ", shop_tel=" + shop_tel + ", shop_auth="
-				+ shop_auth + ", id=" + id + ", shop_time=" + shop_time + ", shop_photo=" + shop_photo + ", shop_etc="
-				+ shop_etc + ", shop_small_price=" + shop_small_price + ", shop_medium_price=" + shop_medium_price
-				+ ", shop_large_price=" + shop_large_price + ", shop_content=" + shop_content + "]";
+				+ shop_auth + ", mem_seq=" + mem_seq + ", shop_time=" + shop_time + ", shop_photo=" + shop_photo
+				+ ", shop_etc=" + shop_etc + ", shop_small_price=" + shop_small_price + ", shop_medium_price="
+				+ shop_medium_price + ", shop_large_price=" + shop_large_price + ", shop_content=" + shop_content + "]";
 	}
-
+	
+	
 }

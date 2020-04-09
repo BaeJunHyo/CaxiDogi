@@ -22,8 +22,8 @@ public class CompanyController {
 	@RequestMapping(value="companyRegi.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public String companyRegi(HttpSession session) {
 		
-		memberDto mem = new memberDto("test@naver.com");
-		session.setAttribute("login", mem);
+		//memberDto mem = new memberDto("test@naver.com");
+		//session.setAttribute("login", mem);
 		session.setMaxInactiveInterval(60*60*365);
 		
 		return "/company/regi_company";

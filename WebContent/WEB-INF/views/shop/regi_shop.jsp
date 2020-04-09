@@ -7,7 +7,7 @@
 <div class="container" >
 	<div class ="container_subWrap">
 		<h1>Shop등록</h1>
-		<form name ="shopForm" id ="shopForm" method ="post">
+		<form name ="shopForm" id ="shopForm" method ="post" enctype="multipart/form-data">
 		<div class ="company_regi"  style = "margin-top : 10px;">
 		
 			<label style = "width:100px;">Shop명</label>
@@ -62,7 +62,7 @@
 		</div>
 		<div class ="company_regi" style = "margin-top : 10px;">
 			<label style = "width:100px;">Shop사진</label>
-			<input type="file" name = "fileload">
+			<input type="file" name = "fileload" accept=".gif, .jpg, .png">
 		</div>
 		<div class ="company_regi"  style = "margin-top : 10px;">
 			<label style = "width:100px;">Shop 한마디</label>
@@ -82,10 +82,10 @@
 		</div>
 		<div class ="company_regi" style = "margin-top : 10px;">
 			<textarea id="content" ></textarea>
-			<script>CKEDITOR.replace('content');</script>
+			<script>CKEDITOR.replace('content',{filebrowserUploadUrl:'imageUpload.do'});</script>
 			<input type="hidden" id ="shop_content" name ="shop_content" >
 		</div>
-		<input type="hidden" name = "id" value ="${login.id }">
+		<input type="hidden" name = "mem_seq" value ="${login.mem_seq }">
 		<div style ="margin-top:10px;" align ="center">
 			<input class = "btn_line_m" type ="button" id = "shop_regi" value = "등록">		
 			<input class ="btn_line_m" type ="button" id = "cancle" value = "취소">		
@@ -127,24 +127,26 @@
 				alert("대형견 금액을 입력해주세요.");
 				$("#shop_large_price").focus();
 			} else {*/
-				var addr = $("#sample6_postcode").val()+"/"+$("#sample6_address").val()+" " +$("#sample6_detailAddress").val();
+				var addr = $("#sample6_postcode").val()+"/"+$("#sample6_address").val()+"/" +$("#sample6_detailAddress").val();
 				var time = $("#open_hour").val()+":"+$("#open_min").val()+ " ~ " + $("#close_hour").val() + ":" + $("#close_min").val();
 				$("#shop_time").val(time);
 				$("#shop_addr").val(addr);
 				var content = CKEDITOR.instances.content.getData();
 				$("#shop_content").val(content);
-				
+				//alert($("#shop_content").val());
 				var form = $('#shopForm')[0];
 				var formData = new FormData(form);
-				alert(JSON.stringify(formData));
+				
 			      $.ajax({
-			          type:'post',
 			          url:"./shopRegiAf.do",
-			          enctype:'multipart/form-data',
+			          type:'post',
 			          data: formData,
+			          enctype:'multipart/form-data',
 			          processData: false,
 			          contentType: false,
 			          cache: false,
+			          timeout: 600000,
+			          //datatype:'text',
 			          success: function (data){
 			             alert("통신성공");
 			          },

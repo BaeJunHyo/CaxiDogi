@@ -12,8 +12,7 @@
 <link href="./css/prd_detail.css" rel="stylesheet">
 <link href="./css/style.css" rel="stylesheet">
 <!-- <link href="css/setting.css" rel="stylesheet"> -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="./js/jquery.bxslider.js"></script>
 <script src="./js/common.js"></script>
 

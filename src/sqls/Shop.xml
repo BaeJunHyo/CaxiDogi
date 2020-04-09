@@ -1,0 +1,11 @@
+<!DOCTYPE mapper
+  PUBLIC "-//www.mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="Shop">
+  	<insert id="addShop" parameterType="cd.com.a.model.shopDto">
+  		insert into shop (shop_owner, shop_number, shop_name, shop_addr, shop_tel, shop_auth, mem_seq, shop_time, shop_photo, shop_etc, shop_small_price, shop_medium_price, shop_large_price, shop_content)
+  		values (#{shop_owner}, #{shop_number}, #{shop_name}, #{shop_addr}, #{shop_tel}, 0, #{mem_seq}, #{shop_time}, #{shop_photo}, #{shop_etc}, #{shop_small_price}, #{shop_medium_price}, #{shop_large_price}, #{shop_content})
+  	</insert>
+  
+  </mapper>

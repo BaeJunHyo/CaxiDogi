@@ -37,7 +37,7 @@ public class shopResvDto implements Serializable {
 	private int shop_resv_seq;				// 예약번호
 	private int shop_seq;					// 샵번호
 	private int design_seq;					// 디자이너 번호
-	private String id;						// 예약 아이디
+	private int mem_seq;						// 예약 아이디
 	private String shop_resv_time;			// 예약 시간
 	private String shop_resv_rday;			// 예약일
 	private String shop_resv_day;			// 예약날짜
@@ -52,14 +52,14 @@ public class shopResvDto implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public shopResvDto(int shop_resv_seq, int shop_seq, int design_seq, String id, String shop_resv_time,
+	public shopResvDto(int shop_resv_seq, int shop_seq, int design_seq, int mem_seq, String shop_resv_time,
 			String shop_resv_rday, String shop_resv_day, int shop_resv_size, String shop_resv_name,
 			String shop_resv_tel, int shop_resv_price, int shop_resv_auth) {
 		super();
 		this.shop_resv_seq = shop_resv_seq;
 		this.shop_seq = shop_seq;
 		this.design_seq = design_seq;
-		this.id = id;
+		this.mem_seq = mem_seq;
 		this.shop_resv_time = shop_resv_time;
 		this.shop_resv_rday = shop_resv_rday;
 		this.shop_resv_day = shop_resv_day;
@@ -94,12 +94,12 @@ public class shopResvDto implements Serializable {
 		this.design_seq = design_seq;
 	}
 
-	public String getId() {
-		return id;
+	public int getMem_seq() {
+		return mem_seq;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setMem_seq(int mem_seq) {
+		this.mem_seq = mem_seq;
 	}
 
 	public String getShop_resv_time() {
@@ -169,10 +169,11 @@ public class shopResvDto implements Serializable {
 	@Override
 	public String toString() {
 		return "shopResvDto [shop_resv_seq=" + shop_resv_seq + ", shop_seq=" + shop_seq + ", design_seq=" + design_seq
-				+ ", id=" + id + ", shop_resv_time=" + shop_resv_time + ", shop_resv_rday=" + shop_resv_rday
+				+ ", mem_seq=" + mem_seq + ", shop_resv_time=" + shop_resv_time + ", shop_resv_rday=" + shop_resv_rday
 				+ ", shop_resv_day=" + shop_resv_day + ", shop_resv_size=" + shop_resv_size + ", shop_resv_name="
 				+ shop_resv_name + ", shop_resv_tel=" + shop_resv_tel + ", shop_resv_price=" + shop_resv_price
 				+ ", shop_resv_auth=" + shop_resv_auth + "]";
 	}
+
 	
 }

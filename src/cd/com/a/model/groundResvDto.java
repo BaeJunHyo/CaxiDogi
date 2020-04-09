@@ -16,13 +16,13 @@ CREATE TABLE ground_reservation
    `ground_resv_payment`      INT(1)         NOT NULL    COMMENT '결재여부', 
    `ground_resv_total_price`  INT(7)         NULL        COMMENT '최종금액', 
    `ground_resv_price`        INT(7)         NULL        COMMENT '가금액', 
-   `id`                       VARCHAR(45)    NOT NULL    COMMENT '예약자ID', 
+   `mem_seq`                  INT   		 NOT NULL    COMMENT '예약자ID', 
    PRIMARY KEY (ground_resv_seq)
 );
 
 ALTER TABLE ground_reservation
-   ADD CONSTRAINT FK_ground_reservation_id_member_id FOREIGN KEY (id)
-       REFERENCES member (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+   ADD CONSTRAINT FK_ground_reservation_id_member_id FOREIGN KEY (mem_seq)
+       REFERENCES member (mem_seq) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 ALTER TABLE ground_reservation
    ADD CONSTRAINT FK_ground_reservation_ground_seq_ground_ground_seq FOREIGN KEY (ground_seq)
@@ -43,7 +43,7 @@ public class groundResvDto implements Serializable {
 	   private int ground_resv_payment;		// 결제여부
 	   private int ground_resv_total_price;	// 최종금액
 	   private int ground_resv_price;		// 가금액
-	   private String id;					// 에약자 아이디
+	   private int mem_seq;					// 에약자 아이디
 	   
 	public groundResvDto() {
 		super();
@@ -53,7 +53,7 @@ public class groundResvDto implements Serializable {
 	public groundResvDto(int ground_resv_seq, int ground_seq, int ground_resv_user, int ground_resv_pet,
 			int ground_resv_time, String ground_resv_ydate, String ground_resv_sdate, String ground_resv_tel,
 			String ground_resv_name, int ground_resv_payment, int ground_resv_total_price, int ground_resv_price,
-			String id) {
+			int mem_seq) {
 		super();
 		this.ground_resv_seq = ground_resv_seq;
 		this.ground_seq = ground_seq;
@@ -67,7 +67,7 @@ public class groundResvDto implements Serializable {
 		this.ground_resv_payment = ground_resv_payment;
 		this.ground_resv_total_price = ground_resv_total_price;
 		this.ground_resv_price = ground_resv_price;
-		this.id = id;
+		this.mem_seq = mem_seq;
 	}
 
 	public int getGround_resv_seq() {
@@ -166,12 +166,12 @@ public class groundResvDto implements Serializable {
 		this.ground_resv_price = ground_resv_price;
 	}
 
-	public String getId() {
-		return id;
+	public int getMem_seq() {
+		return mem_seq;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setMem_seq(int mem_seq) {
+		this.mem_seq = mem_seq;
 	}
 
 	@Override
@@ -182,8 +182,9 @@ public class groundResvDto implements Serializable {
 				+ ", ground_resv_sdate=" + ground_resv_sdate + ", ground_resv_tel=" + ground_resv_tel
 				+ ", ground_resv_name=" + ground_resv_name + ", ground_resv_payment=" + ground_resv_payment
 				+ ", ground_resv_total_price=" + ground_resv_total_price + ", ground_resv_price=" + ground_resv_price
-				+ ", id=" + id + "]";
+				+ ", mem_seq=" + mem_seq + "]";
 	}
+
 
 	
 }

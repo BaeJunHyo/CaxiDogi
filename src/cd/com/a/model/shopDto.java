@@ -36,7 +36,7 @@ public class shopDto implements Serializable {
 	private String shop_addr;				// 주소
 	private String shop_tel;				// 연락처
 	private int shop_auth;					// 승인여부
-	private String mem_seq;						// seller id
+	private int mem_seq;						// seller id
 	private String shop_time;				// 영업시간
 	private String shop_photo;				// 샵사진
 	private String shop_etc;				// 자랑하고싶은말
@@ -51,7 +51,7 @@ public class shopDto implements Serializable {
 	}
 	
 	public shopDto(int shop_seq, String shop_owner, String shop_number, String shop_name, String shop_addr,
-			String shop_tel, int shop_auth, String mem_seq, String shop_time, String shop_photo, String shop_etc,
+			String shop_tel, int shop_auth, int mem_seq, String shop_time, String shop_photo, String shop_etc,
 			int shop_small_price, int shop_medium_price, int shop_large_price, String shop_content) {
 		super();
 		this.shop_seq = shop_seq;
@@ -199,6 +199,6 @@ public class shopDto implements Serializable {
 				+ ", shop_etc=" + shop_etc + ", shop_small_price=" + shop_small_price + ", shop_medium_price="
 				+ shop_medium_price + ", shop_large_price=" + shop_large_price + ", shop_content=" + shop_content + "]";
 	}
-
-
+	
+	
 }

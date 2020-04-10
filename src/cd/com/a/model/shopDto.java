@@ -36,7 +36,7 @@ public class shopDto implements Serializable {
 	private String shop_addr;				// 주소
 	private String shop_tel;				// 연락처
 	private int shop_auth;					// 승인여부
-	private int mem_seq;						// seller id
+	private int mem_seq;					// seller seq
 	private String shop_time;				// 영업시간
 	private String shop_photo;				// 샵사진
 	private String shop_etc;				// 자랑하고싶은말
@@ -71,11 +71,11 @@ public class shopDto implements Serializable {
 		this.shop_content = shop_content;
 	}
 
-	public String getMem_seq() {
+	public int getMem_seq() {
 		return mem_seq;
 	}
 
-	public void setMem_seq(String mem_seq) {
+	public void setMem_seq(int mem_seq) {
 		this.mem_seq = mem_seq;
 	}
 

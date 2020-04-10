@@ -11,14 +11,12 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,37 +26,24 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.gson.JsonObject;
 
-import cd.com.a.model.memberDto;
-import cd.com.a.model.shopDto;
-import cd.com.a.service.ShopService;
-import cd.com.a.util.FileUploadUtil;
+import cd.com.a.model.poolDto;
+import cd.com.a.service.PoolService;
+
 
 @Controller
-public class ShopController {
+public class PoolController {
 	@Autowired
-	ShopService shopService;
+	PoolService poolService;
 	
-	@RequestMapping(value="getShopList.do",  method= {RequestMethod.GET,RequestMethod.POST})
-	public String getShopList(Model model) {
-		List<shopDto> shoplist = shopService.getShopList();
-		model.addAttribute("shoplist", shoplist);
-		
-		return "/shop/shop";
+	@RequestMapping(value="regiPool.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String regiPool() {
+		return "/pool/regi_pool";
 	}
 	
-	@RequestMapping(value="shopRegi.do",  method= {RequestMethod.GET,RequestMethod.POST})
-	public String shopRegi(HttpSession session) {
-		
-		memberDto mem = new memberDto(5);
-		session.setAttribute("login", mem);
-		session.setMaxInactiveInterval(60*60*365);
-		
-		return "/shop/regi_shop";
-	}
 	
-	@RequestMapping(value="imageUpload.do", method=RequestMethod.POST)
+	@RequestMapping(value="poolimageUpload.do", method=RequestMethod.POST)
 	@ResponseBody
-	public String imageUpload(HttpServletRequest req, HttpServletResponse resp, 
+	public String poolimageUpload(HttpServletRequest req, HttpServletResponse resp, 
                  MultipartHttpServletRequest multiFile) throws Exception {
 		JsonObject json = new JsonObject();
 		PrintWriter printWriter = null;
@@ -70,7 +55,7 @@ public class ShopController {
 					try{
 						String fileName = file.getName();
 						byte[] bytes = file.getBytes();
-						String uploadPath = req.getServletContext().getRealPath("/images/shopImg");
+						String uploadPath = req.getServletContext().getRealPath("/images/poolImg");
 						File uploadFile = new File(uploadPath);
 						if(!uploadFile.exists()){
 							uploadFile.mkdirs();
@@ -82,7 +67,7 @@ public class ShopController {
                         
                         printWriter = resp.getWriter();
                         resp.setContentType("text/html");
-                        String fileUrl = req.getContextPath() + "/images/shopImg/" + fileName;
+                        String fileUrl = req.getContextPath() + "/images/poolImg/" + fileName;
                         
                         // json 데이터로 등록
                         // {"uploaded" : 1, "fileName" : "test.jpg", "url" : "/img/test.jpg"}
@@ -109,11 +94,14 @@ public class ShopController {
 	}	
 	
 	@ResponseBody
-	@RequestMapping(value = "shopRegiAf.do",method=RequestMethod.POST)
-	   public String multipartUpload(@ModelAttribute shopDto shop, @RequestParam(value="fileload")MultipartFile fileload, HttpServletRequest req){
+	@RequestMapping(value = "poolRegiAf.do",method=RequestMethod.POST)
+	   public String multipartUpload(@ModelAttribute poolDto pool, @RequestParam(value="fileload")MultipartFile fileload, HttpServletRequest req){
 		String str = "";
-		if(!fileload.isEmpty()) {
-			String fileUpload = req.getServletContext().getRealPath("/images/shopImg"); 
+		
+		System.out.println(pool.toString());
+		
+		/*if(!fileload.isEmpty()) {
+			String fileUpload = req.getServletContext().getRealPath("/images/poolImg"); 
 			System.out.println("fileUpload" + fileUpload); // 업로드 위치
 			//System.out.println(fileUpload);
 			String fileName = fileload.getOriginalFilename();
@@ -123,16 +111,16 @@ public class ShopController {
 				filepost = fileName.substring(fileName.indexOf('.'));
 				saveFileName = new Date().getTime() + filepost;
 			} 
-			shop.setShop_photo(saveFileName);
+			pool.setPool_photo(saveFileName);
 			
 			File file = new File(fileUpload + "/" + saveFileName);
 
 			//실제 파일 업로드 되는 부분
 			try {
 				FileUtils.writeByteArrayToFile(file, fileload.getBytes());
-				System.out.println(shop.toString());
+				System.out.println(pool.toString());
 				//db저장
-				boolean	status = shopService.addShop(shop);
+				boolean	status = poolService.addPool(pool);
 			
 				if(status == true) {
 					str = "ok";
@@ -144,8 +132,8 @@ public class ShopController {
 				e.printStackTrace();
 			}
 		} else {
-			shop.setShop_photo("default");
-			boolean	status = shopService.addShop(shop);
+			pool.setPool_photo("default");
+			boolean	status = poolService.addPool(pool);
 			
 			if(status == true) {
 				str = "ok";
@@ -153,8 +141,7 @@ public class ShopController {
 				str = "no";
 			}
 		}
-		
+		*/
 		return str;
 	}
-	
 }

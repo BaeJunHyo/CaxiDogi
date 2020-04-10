@@ -3,23 +3,23 @@
 
 <%@ include file="./../../../include/header.jsp" %>
 <script src = "<%=request.getContextPath() %>/js/ckeditor/ckeditor.js"></script>
+
 <!-- container S : -->
 <div class="container" >
 	<div class ="container_subWrap">
-		<h1>Shop등록</h1>
-		<form name ="shopForm" id ="shopForm" method ="post" enctype="multipart/form-data">
+		<h1>수영장등록</h1>
+		<form name ="poolForm" id ="poolForm" method ="post" enctype="multipart/form-data">
 		<div class ="company_regi"  style = "margin-top : 10px;">
-		
-			<label style = "width:100px;">Shop명</label>
-			<input type="text" placeholder="업체명을 입력해주세요" id = "shop_name" name="shop_name" size = "500">
+			<label style = "width:100px;">수영장명</label>
+			<input name = "pool_name" id = "pool_name" type="text" placeholder="수영장명을 입력해주세요" size = "500">
 		</div>
 		<div class ="company_regi" style = "margin-top : 10px;">
 			<label style = "width:100px;">대표자명</label>
-			<input type="text" id = "shop_owner" name = "shop_owner" placeholder="대표자명을 입력해주세요" size = "150">
+			<input type="text" name = "pool_owner" id = "pool_owner"  placeholder="대표자명을 입력해주세요" size = "150">
 		</div>
 		<div class ="company_regi"  style = "margin-top : 10px;">
 			<label style = "width:100px;">사업자등록번호</label>
-			<input type="text" id = "shop_number" name = "shop_number" placeholder="사업자 등록번호를 입력해주세요" size = "150">
+			<input type="text" id = "pool_number" name = "pool_number" placeholder="사업자 등록번호를 입력해주세요" size = "150">
 		</div>
 		<div class ="company_regi"  style = "margin-top : 10px;">
 			<label style = "width:100px;">Shop주소</label>
@@ -29,12 +29,12 @@
 			<input style = "margin-top:10px; margin-left : 120px;" type="text" id="sample6_address" placeholder="주소" readonly ><br>
 			<input style = "margin-top:10px; margin-left : 120px;" type="text" id="sample6_detailAddress" placeholder="상세주소" >
 			<input style = "margin-top:10px;" type="text" id="sample6_extraAddress" placeholder="참고항목" readonly >
-			<input type = "hidden" id ="shop_addr" name ="shop_addr">
+			<input type = "hidden" id ="pool_addr" name ="pool_addr">
 
 		</div>
 		<div class ="company_regi"  style = "margin-top : 10px;">
-			<label style = "width:100px;">Shop전화번호</label>
-			<input type="text" id = "shop_tel" name = "shop_tel" placeholder="전화번호 숫자만 입력해주세요" size = "150">
+			<label style = "width:100px;">수영장 전화번호</label>
+			<input id = "pool_tel" name = "pool_tel" type="text" placeholder="전화번호 입력해주세요" size = "150">
 		</div>
 		<div class ="time" style = "margin-top : 10px;">
 			<label style = "width:100px;">영업시간</label>
@@ -58,87 +58,105 @@
 					<option><%=(i<10)? "0"+i: i %></option>
 				<%} %>
 			</select>분
-			<input type ="hidden" id = "shop_time" name = "shop_time">
-		</div>
-		<div class ="company_regi" style = "margin-top : 10px;">
-			<label style = "width:100px;">Shop사진</label>
-			<input type="file" name = "fileload" accept=".gif, .jpg, .png">
+			<input type ="hidden" id = "pool_time" name = "pool_time">
 		</div>
 		<div class ="company_regi"  style = "margin-top : 10px;">
-			<label style = "width:100px;">Shop 한마디</label>
-			<input type="text" id = "shop_etc" name = "shop_etc" placeholder="한줄 홍보" size = "150">
+			<label style = "width:100px;">시간당 가격</label>
+			<input type="text" id = "pool_price" name = "pool_price" placeholder="가격" size = "150">
+		</div>
+		<div class ="company_regi"  style = "margin-top : 10px;">
+			<label style = "width:100px;">샤워실 여부</label>
+			<input id = "chk_shower" type="checkbox">
+			<input type="hidden" name = "pool_shower" id="pool_shower">
+		</div>
+		<div class ="company_regi"  style = "margin-top : 10px;">
+			<label style = "width:100px;">대형견 이용 여부</label>
+			<input id ="chk_large" type="checkbox">
+			<input type="hidden" name = "pool_large" id="pool_large">
+		</div>
+		<div class ="company_regi"  style = "margin-top : 10px;">
+			<label style = "width:100px;">주차장 여부</label>
+			<input id="chk_parking" type="checkbox">
+			<input type="hidden" name = "pool_parking" id ="pool_parking">
 		</div>
 		<div class ="company_regi" style = "margin-top : 10px;">
-			<label style = "width:100px;">소형 금액</label>
-			<input type="text" id = "shop_small_price" name = "shop_small_price"  placeholder="소형견" size = "150">
-		</div>
-		<div class ="company_regi" style = "margin-top : 10px;">
-			<label style = "width:100px;">중형 금액</label>
-			<input type="text" id = "shop_medium_price"  name = "shop_medium_price" placeholder="중형견" size = "150">
-		</div>
-		<div class ="company_regi" style = "margin-top : 10px;">
-			<label style = "width:100px;">대형 금액</label>
-			<input type="text" id = "shop_large_price" name = "shop_large_price" placeholder="대형견" size = "150">
+			<label style = "width:100px;">수영장 대표 사진</label>
+			<input type="file" name = "fileload" accept=".gif, .jpg, .png">
 		</div>
 		<div class ="company_regi" style = "margin-top : 10px;">
 			<textarea id="content" ></textarea>
-			<script>CKEDITOR.replace('content',{filebrowserUploadUrl:'imageUpload.do'});</script>
-			<input type="hidden" id ="shop_content" name ="shop_content" >
-		</div>
-		<input type="hidden" name = "mem_seq" value ="${login.mem_seq }">
-		<div style ="margin-top:10px;" align ="center">
-			<input class = "btn_line_m" type ="button" id = "shop_regi" value = "등록">		
-			<input class ="btn_line_m" type ="button" id = "cancle" value = "취소">		
-			
+			<script>CKEDITOR.replace('content',{filebrowserUploadUrl:'poolimageUpload.do'});</script>
+			<input type="hidden" id ="pool_content" name ="pool_content" >
+		
 		</div>
 		</form>
+		<div style ="margin-top:10px;" align ="center">
+			<input class = "btn_line_m" type ="button" id ="pool_regi" value = "등록">		
+			
+			<input class ="btn_line_m" type ="button" value = "취소">		
+			
+		</div>
+		
 	</div>
 </div>
 <!-- container E : -->
 <script type="text/javascript">
-	$("#shop_regi").click(function(){
+	$("#pool_regi").click(function(){
 		var rgEx = /(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/g;
-		if($("#shop_name").val().trim() == ''){
+		if($("#pool_name").val().trim() == ''){
 			alert("상호명을 입력해 주세요");
-			$("#shop_name").focus();
-		} else if($("#shop_owner").val().trim() == ''){
+			$("#pool_name").focus();
+		}/*  else if($("#pool_owner").val().trim() == ''){
 			alert("대표자명을 입력해주세요");
-			$("#shop_owner").focus();
-		} else if($("#shop_number").val().trim() == ''){
+			$("#pool_owner").focus();
+		} else if($("#pool_number").val().trim() == ''){
 			alert("사업자 등록번호를 입력해 주세요");
-			$("#shop_number").focus();
+			$("#pool_number").focus();
 		}else if($("#sample6_postcode").val() == ''){
 			alert("주소를 입력해 주세요");
 			sample6_execDaumPostcode();
-		} else if($("#shop_tel").val().trim()==''){
+		} else if($("#pool_tel").val().trim()==''){
 			alert("전화번호를 입력해 주세요");
-			$("#shop_tel").focus();
-		} else if(!rgEx.test($("#shop_tel").val())){
+			$("#pool_tel").focus();
+		} else if(!rgEx.test($("#pool_tel").val())){
 			alert("올바른 전화번호가 아닙니다.");
-			$("#shop_tel").val("");
-			$("#shop_tel").focus();
-		} else if($("#shop_small_price").val().trim()==''){
-			alert("소형견 금액을 입력해주세요.");
-			$("#shop_small_price").focus();
-		} else if($("#shop_medium_price").val().trim()==''){
-			alert("중형견 금액을 입력해주세요.");
-			$("#shop_medium_price").focus();
-		} else if($("#shop_large_price").val().trim()==''){
-			alert("대형견 금액을 입력해주세요.");
-			$("#shop_large_price").focus();
-		} else {
+			$("#pool_tel").val("");
+			$("#pool_tel").focus();
+		} else if($("#pool_price").val().trim()==''){
+			alert("기본 금액을 입력해 주세요");
+			$("#pool_price").focus();
+		}  */else {
 			var addr = $("#sample6_postcode").val()+"/"+$("#sample6_address").val()+"/" +$("#sample6_detailAddress").val();
 			var time = $("#open_hour").val()+":"+$("#open_min").val()+ " ~ " + $("#close_hour").val() + ":" + $("#close_min").val();
-			$("#shop_time").val(time);
-			$("#shop_addr").val(addr);
+			$("#pool_time").val(time);
+			$("#pool_addr").val(addr);
 			var content = CKEDITOR.instances.content.getData();
-			$("#shop_content").val(content);
+			$("#pool_content").val(content);
 			//alert($("#shop_content").val());
-			var form = $('#shopForm')[0];
+			
+			if($("#chk_shower").is(":checked")==true){
+				$("#pool_shower").val("0");
+			} else {
+				$("#pool_shower").val("1");
+			}
+
+			if($("#chk_large").is(":checked")==true){
+				$("#pool_large").val("0");
+			} else {
+				$("#pool_large").val("1");
+			}
+
+			if($("#chk_parking").is(":checked")==true){
+				$("#pool_parking").val("0");
+			} else {
+				$("#pool_parking").val("1");
+			}
+			
+			var form = $('#poolForm')[0];
 			var formData = new FormData(form);
 			
 		      $.ajax({
-		          url:"./shopRegiAf.do",
+		          url:"./poolRegiAf.do",
 		          type:'post',
 		          data: formData,
 		          enctype:'multipart/form-data',
@@ -148,7 +166,7 @@
 		          timeout: 600000,
 		          //datatype:'text',
 		          success: function (data){
-		             alert("샵 등록에 성공하셨습니다.");
+		             alert("수영장 등록에 성공하셨습니다.");
 		             location.href="getShopList.do";
 		          },
 		          error: function (e){

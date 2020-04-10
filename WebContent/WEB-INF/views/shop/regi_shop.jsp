@@ -148,7 +148,8 @@
 			          timeout: 600000,
 			          //datatype:'text',
 			          success: function (data){
-			             alert("통신성공");
+			             alert("샵 등록에 성공하셨습니다.");
+			             location.href="getShopList.do";
 			          },
 			          error: function (e){
 			             alert("통신실패");

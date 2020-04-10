@@ -1,4 +1,3 @@
-<%@page import="cd.com.a.model.memberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <html>
@@ -57,23 +56,9 @@
 		</a>
 		<div class="service_section">
 			<ul class="top_menu clearfix">
-			<%
-			memberDto loginUser = (memberDto)request.getSession().getAttribute("login");
-			if(loginUser == null){
-			%>
-				<li><a href="loginView.do">로그인</a></li>
-				<li><a href="newAccount.do">회원가입</a></li>
-				<li><a href="#n">고객센터</a></li>	
-			<%
-			}else{
-			%>
-				<li><Strong><%=loginUser.getNick_name() %></Strong> 님 환영합니다</li>
-				<li><a href="#none">마이페이지</a></li>
-				<li><a href="#none" onclick="logout()">로그아웃</a></li>
+				<li><a href="#n">로그인</a></li>
+				<li><a href="#n">회원가입</a></li>
 				<li><a href="#n">고객센터</a></li>
-			<%
-			} 
-			%>
 			</ul>
 			<p class="main_menu">
 				<span class="searchArea"> <input type="text"> <a
@@ -96,7 +81,7 @@
 							<span class="line"></span> 
 							<span class="line"></span> 
 							<span class="line"></span>
-						</div> 전체메뉴
+						</div>
 				</a>
 				</li>
 				<li><a href="#" class="pet">PET GOODS </a></li>
@@ -117,7 +102,7 @@
 						<li><a href="#">HTML Reference4</a></li>
 					</ul>
 					<ul>
-						<li><a href="#">HTML Reference5</a></li>
+						<li><a href="getShopList.do">pet beauty</a></li>
 						<li><a href="#">HTML Reference6</a></li>
 						<li><a href="#">HTML Reference7</a></li>
 					</ul>
@@ -154,12 +139,3 @@
       <li><a href="#n">마이페이지</a></li>
     </ul>
   </div> -->
-  
-<!-- Session logout  -->
-  <script type="text/javascript">
-function logout(){
-	if(confirm("로그아웃하시겠습니까?")){
-		location.href="logout.do";
-	}
-}
-  </script>

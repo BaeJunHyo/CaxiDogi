@@ -1,5 +1,7 @@
 package cd.com.a.serviceImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,11 @@ public class ShopServiceImpl implements ShopService {
 	@Override
 	public boolean addShop(shopDto shop) {
 		return shopDao.addShop(shop);
+	}
+	
+	@Override
+	public List<shopDto> getShopList() {
+		return shopDao.getShopList();
 	}
 	
 	

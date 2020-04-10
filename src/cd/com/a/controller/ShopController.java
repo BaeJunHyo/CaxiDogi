@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,10 +38,18 @@ public class ShopController {
 	@Autowired
 	ShopService shopService;
 	
+	@RequestMapping(value="getShopList.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String getShopList(Model model) {
+		List<shopDto> shoplist = shopService.getShopList();
+		model.addAttribute("shoplist", shoplist);
+		
+		return "/shop/shop";
+	}
+	
 	@RequestMapping(value="shopRegi.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public String shopRegi(HttpSession session) {
 		
-		memberDto mem = new memberDto(8);
+		memberDto mem = new memberDto(5);
 		session.setAttribute("login", mem);
 		session.setMaxInactiveInterval(60*60*365);
 		
@@ -60,7 +70,7 @@ public class ShopController {
 					try{
 						String fileName = file.getName();
 						byte[] bytes = file.getBytes();
-						String uploadPath = req.getServletContext().getRealPath("/views/shop/uploadImg");
+						String uploadPath = req.getServletContext().getRealPath("/images/shopImg");
 						File uploadFile = new File(uploadPath);
 						if(!uploadFile.exists()){
 							uploadFile.mkdirs();
@@ -72,7 +82,7 @@ public class ShopController {
                         
                         printWriter = resp.getWriter();
                         resp.setContentType("text/html");
-                        String fileUrl = req.getContextPath() + "/views/shop/uploadImg/" + fileName;
+                        String fileUrl = req.getContextPath() + "/images/shopImg/" + fileName;
                         
                         // json 데이터로 등록
                         // {"uploaded" : 1, "fileName" : "test.jpg", "url" : "/img/test.jpg"}
@@ -104,7 +114,7 @@ public class ShopController {
 	    System.out.println("file"+fileload.getOriginalFilename());
 
 		//System.out.println(shop.toString());
-		String fileUpload = req.getServletContext().getRealPath("/WEB-INF/views/shop/shopImage"); 
+		String fileUpload = req.getServletContext().getRealPath("/images/shopImg"); 
 		System.out.println("fileUpload" + fileUpload); // 업로드 위치
 		//System.out.println(fileUpload);
 		String fileName = fileload.getOriginalFilename();

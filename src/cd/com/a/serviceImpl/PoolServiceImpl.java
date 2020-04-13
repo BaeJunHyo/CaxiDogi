@@ -24,4 +24,9 @@ public class PoolServiceImpl implements PoolService {
 		return poolDao.getPoolList();
 	}
 
+	@Override
+	public poolDto getPoolDetail(int pool_seq) {
+		return poolDao.getPoolDetail(pool_seq);
+	}
+
 }

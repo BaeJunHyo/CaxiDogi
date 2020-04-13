@@ -28,4 +28,9 @@ public class PoolDaoImpl implements PoolDao{
 		return sqlSession.selectList(namespace+"getPoolList");
 	}
 
+	@Override
+	public poolDto getPoolDetail(int pool_seq) {
+		return sqlSession.selectOne(namespace+"getPoolDetail", pool_seq);
+	}
+
 }

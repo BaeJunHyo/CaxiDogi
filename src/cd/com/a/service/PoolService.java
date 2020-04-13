@@ -8,4 +8,5 @@ public interface PoolService {
 	
 	public boolean addPool(poolDto pool);
 	public List<poolDto> getPoolList();
+	public poolDto getPoolDetail(int pool_seq);
 }

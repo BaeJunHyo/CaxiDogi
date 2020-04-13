@@ -27,7 +27,7 @@
 			<ul>
 				<c:forEach items="${poolList }" var="pool" varStatus="sp">
 					<%-- 		<c:if test="${pool.pool_auth == 1 }"> --%>
-					<li><a href="poolResv.do?seq=${pool.pool_seq }" class="box">
+					<li><a href="poolDetail.do?pool_seq=${pool.pool_seq }" class="box">
 							<div class="img">
 								<c:if test="${pool.pool_photo == 'default' }">
 									<img class="MS_prod_img_m"

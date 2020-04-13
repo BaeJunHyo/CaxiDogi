@@ -11,4 +11,9 @@
    	pool_parking,pool_content, pool_photo from pool
    </select>
    
+   <select id ="getPoolDetail" parameterType="java.lang.Integer" resultType="cd.com.a.model.poolDto">
+   	select pool_seq, pool_owner, pool_number, pool_addr, pool_tel, mem_seq, pool_auth, pool_name, pool_time, pool_price, pool_shower, pool_large, 
+   	pool_parking,pool_content, pool_photo from pool where pool_seq = #{pool_seq}
+   </select>
+   
    </mapper>

@@ -44,6 +44,15 @@ public class PoolController {
 		return "/pool/pool_list";
 	}
 	
+	@RequestMapping(value="poolDetail.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String getPoolDetail(Model model, int pool_seq) {
+		System.out.println("pool_seq : " + pool_seq);
+		poolDto pool = poolService.getPoolDetail(pool_seq);
+		model.addAttribute("pool", pool);
+		
+		return "/pool/pool_detail";
+	}
+	
 	@RequestMapping(value="regiPool.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public String regiPool(HttpSession session){
 		memberDto mem = new memberDto(4);

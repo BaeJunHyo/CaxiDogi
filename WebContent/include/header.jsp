@@ -7,7 +7,6 @@
 <meta charset="utf-8">
 <link href="./css/reset.css" rel="stylesheet">
 <link href="./css/common.css" rel="stylesheet">
-<link href="./css/main.css" rel="stylesheet">
 <link href="./css/prd_detail.css" rel="stylesheet">
 <link href="./css/style.css" rel="stylesheet">
 <!-- <link href="css/setting.css" rel="stylesheet"> -->
@@ -103,7 +102,7 @@
 					</ul>
 					<ul>
 						<li><a href="getShopList.do">pet beauty</a></li>
-						<li><a href="#">HTML Reference6</a></li>
+						<li><a href="getPoolList.do">Pool</a></li>
 						<li><a href="#">HTML Reference7</a></li>
 					</ul>
 					<ul>

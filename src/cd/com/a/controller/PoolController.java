@@ -11,6 +11,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.gson.JsonObject;
 
+import cd.com.a.model.memberDto;
 import cd.com.a.model.poolDto;
 import cd.com.a.service.PoolService;
 
@@ -35,11 +37,20 @@ public class PoolController {
 	@Autowired
 	PoolService poolService;
 	
-	@RequestMapping(value="regiPool.do",  method= {RequestMethod.GET,RequestMethod.POST})
-	public String regiPool() {
-		return "/pool/regi_pool";
+	@RequestMapping(value="getPoolList.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String getPoolList(Model model) {
+		List<poolDto> poolList = poolService.getPoolList();
+		model.addAttribute("poolList", poolList);
+		return "/pool/pool_list";
 	}
 	
+	@RequestMapping(value="regiPool.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String regiPool(HttpSession session){
+		memberDto mem = new memberDto(4);
+		session.setAttribute("login", mem);
+		session.setMaxInactiveInterval(60*60*365);
+		return "/pool/regi_pool";
+	}
 	
 	@RequestMapping(value="poolimageUpload.do", method=RequestMethod.POST)
 	@ResponseBody
@@ -100,7 +111,7 @@ public class PoolController {
 		
 		System.out.println(pool.toString());
 		
-		/*if(!fileload.isEmpty()) {
+		if(!fileload.isEmpty()) {
 			String fileUpload = req.getServletContext().getRealPath("/images/poolImg"); 
 			System.out.println("fileUpload" + fileUpload); // 업로드 위치
 			//System.out.println(fileUpload);
@@ -141,7 +152,7 @@ public class PoolController {
 				str = "no";
 			}
 		}
-		*/
+		
 		return str;
 	}
 }

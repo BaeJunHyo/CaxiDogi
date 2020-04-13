@@ -1,5 +1,7 @@
 package cd.com.a.serviceImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,11 @@ public class PoolServiceImpl implements PoolService {
 	@Override
 	public boolean addPool(poolDto pool) {
 		return poolDao.addPool(pool);
+	}
+
+	@Override
+	public List<poolDto> getPoolList() {
+		return poolDao.getPoolList();
 	}
 
 }

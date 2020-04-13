@@ -4,8 +4,10 @@
   
   <mapper namespace="Shop">
   	<insert id="addShop" parameterType="cd.com.a.model.shopDto">
-  		insert into shop (shop_owner, shop_number, shop_name, shop_addr, shop_tel, shop_auth, mem_seq, shop_time, shop_photo, shop_etc, shop_small_price, shop_medium_price, shop_large_price, shop_content)
-  		values (#{shop_owner}, #{shop_number}, #{shop_name}, #{shop_addr}, #{shop_tel}, 0, #{mem_seq}, #{shop_time}, #{shop_photo}, #{shop_etc}, #{shop_small_price}, #{shop_medium_price}, #{shop_large_price}, #{shop_content})
+  		insert into shop (shop_owner, shop_number, shop_name, shop_addr, shop_tel, shop_auth, mem_seq, shop_time, shop_photo, shop_etc, 
+  		shop_small_price, shop_medium_price, shop_large_price, shop_content)
+  		values (#{shop_owner}, #{shop_number}, #{shop_name}, #{shop_addr}, #{shop_tel}, 0, #{mem_seq}, #{shop_time}, #{shop_photo}, #{shop_etc}, 
+  		#{shop_small_price}, #{shop_medium_price}, #{shop_large_price}, #{shop_content})
   	</insert>
   <select id="getShopList" resultType="cd.com.a.model.shopDto">
  	select shop_seq, shop_owner, shop_number, shop_name, shop_addr, shop_tel, shop_auth,

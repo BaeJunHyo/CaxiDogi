@@ -3,10 +3,12 @@
   "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
    <mapper namespace="Pool">
    <insert id="addPool" parameterType="cd.com.a.model.poolDto">
-   insert into pool (pool_owner, pool_number, pool_addr, pool_tel, mem_seq, pool_auth, pool_name, pool_time, pool_shower, pool_large, pool_parking)
-   values(#{pool_owner}, #{pool_number}, #{pool_addr}, #{pool_tel}, #{mem_seq}, 0, #{pool_name}, #{pool_time}, #{pool_shower}, #{pool_large}, #{pool_parking})
-   
+   	insert into pool (pool_owner, pool_number, pool_addr, pool_tel, mem_seq, pool_auth, pool_name, pool_time, pool_price, pool_shower, pool_large, pool_parking, pool_content, pool_photo)
+   	values(#{pool_owner}, #{pool_number}, #{pool_addr}, #{pool_tel}, #{mem_seq}, 0, #{pool_name}, #{pool_time},#{pool_price}, #{pool_shower}, #{pool_large}, #{pool_parking}, #{pool_content}, #{pool_photo})
    </insert>
-   
+   <select id="getPoolList" resultType="cd.com.a.model.poolDto">
+   	select pool_seq, pool_owner, pool_number, pool_addr, pool_tel, mem_seq, pool_auth, pool_name, pool_time, pool_price, pool_shower, pool_large, 
+   	pool_parking,pool_content, pool_photo from pool
+   </select>
    
    </mapper>

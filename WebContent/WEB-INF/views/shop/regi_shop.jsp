@@ -63,6 +63,7 @@
 		<div class ="company_regi" style = "margin-top : 10px;">
 			<label style = "width:100px;">Shop사진</label>
 			<input type="file" name = "fileload" accept=".gif, .jpg, .png">
+			<p style = "font-size:8pt; color:blue; margin-left:120px;"></p>
 		</div>
 		<div class ="company_regi"  style = "margin-top : 10px;">
 			<label style = "width:100px;">Shop 한마디</label>

@@ -22,7 +22,7 @@
 			<input type="text" id = "pool_number" name = "pool_number" placeholder="사업자 등록번호를 입력해주세요" size = "150">
 		</div>
 		<div class ="company_regi"  style = "margin-top : 10px;">
-			<label style = "width:100px;">Shop주소</label>
+			<label style = "width:100px;">수영장 주소</label>
 			<input type="text" id="sample6_postcode" onclick="sample6_execDaumPostcode()" placeholder="우편번호" readonly >
 
 			<input type="button" class = "btn_line_s"  onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
@@ -82,11 +82,13 @@
 		<div class ="company_regi" style = "margin-top : 10px;">
 			<label style = "width:100px;">수영장 대표 사진</label>
 			<input type="file" name = "fileload" accept=".gif, .jpg, .png">
+			<p style = "font-size:8pt; color:blue; margin-left:120px;">500 X 500픽셀(Pixel) 이미지(.gif, .jpg, .png)파일만 업로드 가능</p>
 		</div>
 		<div class ="company_regi" style = "margin-top : 10px;">
 			<textarea id="content" ></textarea>
 			<script>CKEDITOR.replace('content',{filebrowserUploadUrl:'poolimageUpload.do'});</script>
 			<input type="hidden" id ="pool_content" name ="pool_content" >
+			<input type="hidden" name = "mem_seq" value ="${login.mem_seq }">
 		
 		</div>
 		</form>
@@ -106,7 +108,7 @@
 		if($("#pool_name").val().trim() == ''){
 			alert("상호명을 입력해 주세요");
 			$("#pool_name").focus();
-		}/*  else if($("#pool_owner").val().trim() == ''){
+		}  else if($("#pool_owner").val().trim() == ''){
 			alert("대표자명을 입력해주세요");
 			$("#pool_owner").focus();
 		} else if($("#pool_number").val().trim() == ''){
@@ -125,7 +127,7 @@
 		} else if($("#pool_price").val().trim()==''){
 			alert("기본 금액을 입력해 주세요");
 			$("#pool_price").focus();
-		}  */else {
+		}  else {
 			var addr = $("#sample6_postcode").val()+"/"+$("#sample6_address").val()+"/" +$("#sample6_detailAddress").val();
 			var time = $("#open_hour").val()+":"+$("#open_min").val()+ " ~ " + $("#close_hour").val() + ":" + $("#close_min").val();
 			$("#pool_time").val(time);
@@ -167,7 +169,7 @@
 		          //datatype:'text',
 		          success: function (data){
 		             alert("수영장 등록에 성공하셨습니다.");
-		             location.href="getShopList.do";
+		             location.href="getPoolList.do";
 		          },
 		          error: function (e){
 		             alert("통신실패");

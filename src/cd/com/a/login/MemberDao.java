@@ -16,6 +16,6 @@ public interface MemberDao {
 	
 	String findPwd(memberDto dto);
 	
-	
+	public memberDto resvMem(int mem_seq);
 
 }

@@ -41,6 +41,10 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public memberDto resvMem(int mem_seq) {
+		return memberDao.resvMem(mem_seq);
+	}
 	
 	
 }

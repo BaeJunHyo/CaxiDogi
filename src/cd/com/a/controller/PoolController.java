@@ -27,8 +27,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.gson.JsonObject;
 
+import cd.com.a.login.MemberService;
 import cd.com.a.model.memberDto;
 import cd.com.a.model.poolDto;
+import cd.com.a.model.poolResvDto;
 import cd.com.a.service.PoolService;
 
 
@@ -37,20 +39,49 @@ public class PoolController {
 	@Autowired
 	PoolService poolService;
 	
+	@Autowired
+	MemberService memService;
+	
 	@RequestMapping(value="getPoolList.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public String getPoolList(Model model) {
+		
 		List<poolDto> poolList = poolService.getPoolList();
 		model.addAttribute("poolList", poolList);
 		return "/pool/pool_list";
 	}
 	
 	@RequestMapping(value="poolDetail.do",  method= {RequestMethod.GET,RequestMethod.POST})
-	public String getPoolDetail(Model model, int pool_seq) {
-		System.out.println("pool_seq : " + pool_seq);
+	public String getPoolDetail(Model model, int pool_seq, HttpSession session) {
+		memberDto mem = new memberDto(1);
+		session.setAttribute("login", mem);
+		session.setMaxInactiveInterval(60*60*365);
+		//System.out.println("pool_seq : " + pool_seq);
 		poolDto pool = poolService.getPoolDetail(pool_seq);
 		model.addAttribute("pool", pool);
 		
 		return "/pool/pool_detail";
+	}
+	
+	@RequestMapping(value="poolResvView.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String poolResvView(Model model, poolResvDto poolResv) {
+		System.out.println("pool_seq : " + poolResv.toString());
+		/*
+		 * poolDto pool = poolService.getPoolDetail(poolResv.getPool_seq()); memberDto
+		 * mem = memService.resvMem(poolResv.getMem_seq());
+		 * poolResv.setPool_resv_name(mem.getUser_name());
+		 * poolResv.setPool_resv_tel(mem.getPhone());
+		 * 
+		 * 
+		 * model.addAttribute("pool", pool); model.addAttribute("poolResv", poolResv);
+		 */
+		
+		return "/pool/pool_resv";
+	}
+	
+	@RequestMapping(value = "poolResvAf.do", method= {RequestMethod.GET,RequestMethod.POST})
+	public String poolResvAf(poolResvDto poolResv) {
+		System.out.println(poolResv.toString());
+		return "s";
 	}
 	
 	@RequestMapping(value="regiPool.do",  method= {RequestMethod.GET,RequestMethod.POST})

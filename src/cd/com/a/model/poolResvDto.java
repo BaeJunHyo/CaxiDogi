@@ -8,7 +8,7 @@ CREATE TABLE pool_reservation
     `pool_seq`               INT(5)         NOT NULL    COMMENT '수영장번호(SEQ)', 
     `pool_resv_user`         INT(3)         NOT NULL    COMMENT '사용인원수', 
     `pool_resv_pet`          INT(3)         NOT NULL    COMMENT '사용펫수', 
-    `pool_resv_time`         INT(1)         NOT NULL    COMMENT '선택시간', 
+    `pool_resv_time`         VARCHAR(45)         NOT NULL    COMMENT '선택시간', 
     `pool_resv_ydate`        DATETIME       NOT NULL    COMMENT '예약일', 
     `pool_resv_sdate`        VARCHAR(45)    NOT NULL    COMMENT '이용일', 
     `pool_resv_tel`          VARCHAR(45)    NULL        COMMENT '연락처', 
@@ -34,7 +34,7 @@ public class poolResvDto implements Serializable {
 	   private int pool_seq;				// 수영장번호
 	   private int pool_resv_user;			// 사용인원수
 	   private int pool_resv_pet;			// 사용펫수
-	   private int pool_resv_time;			// 선택시간
+	   private String pool_resv_time;			// 선택시간
 	   private String pool_resv_ydate;		// 예약일
 	   private String pool_resv_sdate;		// 이용일
 	   private String pool_resv_tel;		// 연락처
@@ -49,7 +49,7 @@ public class poolResvDto implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public poolResvDto(int pool_resv_seq, int pool_seq, int pool_resv_user, int pool_resv_pet, int pool_resv_time,
+	public poolResvDto(int pool_resv_seq, int pool_seq, int pool_resv_user, int pool_resv_pet, String pool_resv_time,
 			String pool_resv_ydate, String pool_resv_sdate, String pool_resv_tel, String pool_resv_name,
 			int pool_resv_payment, int pool_resv_total_price, int pool_resv_price, int mem_seq) {
 		super();
@@ -100,11 +100,11 @@ public class poolResvDto implements Serializable {
 		this.pool_resv_pet = pool_resv_pet;
 	}
 
-	public int getPool_resv_time() {
+	public String getPool_resv_time() {
 		return pool_resv_time;
 	}
 
-	public void setPool_resv_time(int pool_resv_time) {
+	public void setPool_resv_time(String pool_resv_time) {
 		this.pool_resv_time = pool_resv_time;
 	}
 

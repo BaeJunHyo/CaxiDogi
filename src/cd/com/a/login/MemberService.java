@@ -15,5 +15,7 @@ public interface MemberService {
 	String findId(memberDto dto);
 	
 	String findPwd(memberDto dto);
+	
+	public memberDto resvMem(int mem_seq);
 
 }

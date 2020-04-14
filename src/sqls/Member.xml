@@ -37,4 +37,9 @@ FROM member
 WHERE user_name=#{user_name} AND phone=${phone}
 </select>
 
+<select id ="resvMem" parameterType="java.lang.Integer" resultType="cd.com.a.model.memberDto">
+	select user_name, phone
+	from member
+	where mem_seq = #{mem_seq}
+</select>
 </mapper>

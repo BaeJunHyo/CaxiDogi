@@ -53,6 +53,11 @@ public class MemberDaoImpl implements MemberDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public memberDto resvMem(int mem_seq) {
+		return sqlSession.selectOne(ns+"resvMem", mem_seq);
+	}
 	
 	
 	

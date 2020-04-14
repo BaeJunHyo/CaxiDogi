@@ -3,6 +3,13 @@
 <%@ include file="./../../../include/header.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link href="./css/layout.css" rel="stylesheet">
+<div class="category_dept">
+	<ul>
+		<li>HOME</li>
+		<li>Active</li>
+		<li>수영장</li>
+	</ul>
+</div>
 <div class="container container_subWrap" id="fixNextTag">
 <!-- 	<div class="total-sort">
 		<p class="total" style="color: #a2a2a2;">

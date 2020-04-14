@@ -899,8 +899,22 @@ margin-top: 4px;
     background-color: #fff;
     cursor: default;
     z-index: 100;
-    width: 273px;
+    width: 389px;
 }
+
+/* 내가 갖고온 css */
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+    /* border: 1px solid #63666a; */
+    width: 40px;
+    height: 24px;
+    line-height: 30px;
+    text-align: center;
+    color: #555555;
+}
+.ui-widget.ui-widget-content {
+    border: 1px solid #fff !important;
+}
+
 .ui-widget-content a {
    color: #222222;
 }

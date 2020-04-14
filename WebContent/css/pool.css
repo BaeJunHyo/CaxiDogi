@@ -3,7 +3,7 @@
 .pool_infoWrap .poolName_section {padding: 40px 0 5px 0; margin: 0 0 9px 0; border-bottom: 1px solid #0b0c0e;}
 .pool_infoWrap .poolName_section .pool_flag {padding: 0 0 14px 0;}
 .pool_infoWrap .poolName_section .pool_flag img {display: block; float: left; margin: 0 6px 0 0;}
-.pool_infoWrap .poolName_section .pool_name {float: left; font-size: 21px; font-weight: 600;}
+.pool_infoWrap .poolName_section .pool_name {float: left; font-size: 30px; font-weight: 600;}
 .pool_infoWrap .poolName_section .pool_star {float: right; margin: 28px 0 0 0;}
 .pool_infoWrap .poolName_section .pool_star .totalCount {float: left; font-size: 38px;}
 .pool_infoWrap .poolName_section .pool_star .totalStar {float: right; padding: 0 0 0 10px;}
@@ -58,7 +58,16 @@
 .pool_infoWrap .poolInfo_section .col2 .pool_lp table th,
 .pool_infoWrap .poolInfo_section .col2 .pool_lp table td {padding: 5px 0;}
 
-
+.pool_infoWrap .poolInfo_section .info > ul {margin-top: 30px;}
+.pool_infoWrap .poolInfo_section .info > ul li {clear: both; position: relative; padding-bottom: 12px; }
+.pool_infoWrap .poolInfo_section .info > ul li.bg_gray {box-sizing: border-box; padding: 10px 15px; font-size: 12px;}
+.pool_infoWrap .poolInfo_section .info > ul li:last-child {padding-bottom: 20px;}
+.pool_infoWrap .poolInfo_section .info > ul li dl {font-size: 14px;margin-top : 15px;}
+.pool_infoWrap .poolInfo_section .info > ul li dt {display: inline-block; vertical-align: top; width: 150px; color: #858586; font-weight: bold;}
+.pool_infoWrap .poolInfo_section .info > ul li dd {display: inline-block;}
+.pool_infoWrap .poolInfo_section .info > ul li dd img {display: inline-block; vertical-align: middle;}
+.pool_infoWrap .poolInfo_section .info > ul li dd .btn_info_lp {cursor: pointer;}
+.pool_infoWrap .poolInfo_section .info > ul li dd .link_lp {display: inline-block; position: relative;}
 
 
 .poolCounter_wrap {width: 550px; height: 160px; overflow-y: scroll;}
@@ -74,9 +83,9 @@
 .poolCounter_wrap table td.total_price {padding: 0 13px 0 0; line-height: 21px; text-align: right; font-size: 13px;}
 .poolCounter_wrap table td.total_price span {font-size: 15px;}
 .poolCounter_wrap table td.total_price strong {font-size: 20px;}
-.pool_infoWrap .poolInfo_section .col2 .poolBtns {margin: 16px 0 0 0; text-align: center;}
-.pool_infoWrap .poolInfo_section .col2 .poolBtns a {display: block; float: left;}
-.pool_infoWrap .poolInfo_section .col2 .poolBtns a.btn_dark_l {margin:0 20px;}
+.pool_infoWrap .poolInfo_section .col2 .poolBtns {margin: 0 0 20px 0; text-align: center;}
+.pool_infoWrap .poolInfo_section .col2 .poolBtns a {display: block; float: right; width: 200px;}
+.pool_infoWrap .poolInfo_section .col2 .poolBtns a.btn_dark_l {margin: 0 9px; background-color: black;}
 
 .pool_detail_infoWrap {position: relative; width: 1100px; margin: 0 auto 250px;}
 .pool_detail_infoWrap .detailTab {width: 1100px; height: 55px; border-top: 2px solid #0b0c0e; border-bottom: 1px solid #dbdbdb; background: #fff;}
@@ -171,9 +180,7 @@
 .pool_infoWrap .poolInfo_section .col1 {position: relative;}
 .zoom_viewBox {position: absolute; width: 550px; height: 637px; top: 0; right: -550px; z-index: 100; background: #efefef;}
 
-.pool_infoWrap .poolInfo_section .col2 .poolBtns a {width: 227px;}
-.pool_infoWrap .poolInfo_section .col2 .poolBtns a.btn_dark_l {margin: 0 9px;}
-.pool_infoWrap .poolInfo_section .col2 .poolBtns a:last-child {width: 55px; background: url(../images/ico_wish_l.png) no-repeat center;}
+
 
 .poolCounter_wrap {width: 100%; height: auto; overflow-y: auto;}
 

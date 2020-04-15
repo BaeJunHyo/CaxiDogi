@@ -65,21 +65,23 @@ public class PoolController {
 	@RequestMapping(value="poolResvView.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public String poolResvView(Model model, poolResvDto poolResv) {
 		System.out.println("pool_seq : " + poolResv.toString());
-		/*
-		 * poolDto pool = poolService.getPoolDetail(poolResv.getPool_seq()); memberDto
-		 * mem = memService.resvMem(poolResv.getMem_seq());
-		 * poolResv.setPool_resv_name(mem.getUser_name());
-		 * poolResv.setPool_resv_tel(mem.getPhone());
-		 * 
-		 * 
-		 * model.addAttribute("pool", pool); model.addAttribute("poolResv", poolResv);
-		 */
+		
+		  poolDto pool = poolService.getPoolDetail(poolResv.getPool_seq()); 
+		  memberDto mem = memService.resvMem(poolResv.getMem_seq());
+		  poolResv.setPool_resv_name(mem.getUser_name());
+		  poolResv.setPool_resv_tel(mem.getPhone());
+		  
+		  
+		  model.addAttribute("pool", pool); model.addAttribute("poolResv", poolResv);
+		 
 		
 		return "/pool/pool_resv";
 	}
 	
+	
 	@RequestMapping(value = "poolResvAf.do", method= {RequestMethod.GET,RequestMethod.POST})
-	public String poolResvAf(poolResvDto poolResv) {
+	@ResponseBody
+	public String poolResvAf(@ModelAttribute poolResvDto poolResv) {
 		System.out.println(poolResv.toString());
 		return "s";
 	}

@@ -14,7 +14,7 @@
 <div class="container_subWrap sub_detail">
 	<div class="pool_infoWrap">
 	<div class="poolInfo_section clearfix">
-			<form id = "poolResv" name = "poolResv" method="post">
+			<form id = "poolResv" name = "poolResv" method="post" >
 		<div class="info">
 			<ul>
 				<li>
@@ -95,13 +95,13 @@
 				</li>
 
 			</ul>
-		
 			<p class="poolBtns clearfix" align="center">
 				<a href="#" class="btn_dark_l" onclick="location.href='poolDetail.do?pool_seq=${poolResv.pool_seq }'">수정하기</a>
 				<a href="#" class="btn_dark_l" id = "resvBtn">예약하기</a>
 			</p>
 		</div>
-</form>
+		</form>
+
 </div>
 </div>
 </div>
@@ -124,7 +124,7 @@
 	document.querySelector("#tel").innerText = tel;
 
 	$("#resvBtn").click(function(){
-		
+		//alert("클릭");
 		var form = $('#poolResv')[0];
 		var formData = new FormData(form);
 		
@@ -132,13 +132,14 @@
         url:"./poolResvAf.do",
         type:'post',
         data: formData,
+        
         success: function (data){
            alert("수영장 예약에 성공하셨습니다.");
            location.href="getPoolList.do";
         },
         error: function (e){
            alert("통신실패");
-   	}
+   		}
 	}); 
 
 	});

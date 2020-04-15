@@ -53,7 +53,7 @@
 				</div>
 			</div>
 			<!--// col1 -->
-			<input type="hidden" id="pool_seq" value="${pool.pool_seq }">
+			<input type="hidden" id="pool_seq" name = "pool_seq" value="${pool.pool_seq }">
 			<div class="col2">
 				<div class="info">
 					<ul>

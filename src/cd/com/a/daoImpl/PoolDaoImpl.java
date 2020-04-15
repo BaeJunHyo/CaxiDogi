@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import cd.com.a.dao.PoolDao;
 import cd.com.a.model.poolDto;
+import cd.com.a.model.poolResvDto;
 
 @Repository
 public class PoolDaoImpl implements PoolDao{
@@ -31,6 +32,12 @@ public class PoolDaoImpl implements PoolDao{
 	@Override
 	public poolDto getPoolDetail(int pool_seq) {
 		return sqlSession.selectOne(namespace+"getPoolDetail", pool_seq);
+	}
+
+	@Override
+	public boolean resvPool(poolResvDto poolResv) {
+		int n = sqlSession.insert(namespace+"resvPool", poolResv);
+		return n>0?true:false;
 	}
 
 }

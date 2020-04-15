@@ -16,4 +16,10 @@
    	pool_parking,pool_content, pool_photo from pool where pool_seq = #{pool_seq}
    </select>
    
+   <insert id ="resvPool" parameterType="cd.com.a.model.poolResvDto">
+   	insert into pool_reservation (pool_seq, pool_resv_user, pool_resv_pet, pool_resv_time, pool_resv_ydate, pool_resv_sdate,
+								pool_resv_tel, pool_resv_name, pool_resv_payment, pool_resv_price, mem_seq)
+						values(#{pool_seq}, #{pool_resv_user}, #{pool_resv_pet}, #{pool_resv_time}, now(), #{pool_resv_sdate},
+								#{pool_resv_tel}, #{pool_resv_name}, 0, #{pool_resv_price}, #{mem_seq})
+   </insert>
    </mapper>

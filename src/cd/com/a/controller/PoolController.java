@@ -82,8 +82,15 @@ public class PoolController {
 	@RequestMapping(value = "poolResvAf.do", method= {RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
 	public String poolResvAf(@ModelAttribute poolResvDto poolResv) {
-		System.out.println(poolResv.toString());
-		return "s";
+		System.out.println("이거나옴" + poolResv.toString());
+		boolean	status = poolService.resvPool(poolResv);
+		String str ="";
+		if(status == true) {
+			str = "ok";
+		} else {
+			str = "no";
+		}
+		return str;
 	}
 	
 	@RequestMapping(value="regiPool.do",  method= {RequestMethod.GET,RequestMethod.POST})

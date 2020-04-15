@@ -74,7 +74,8 @@
 						<dd id="price">
 						</dd>
 					</dl>
-					<input type ="hidden" name ="pool_resv_price" value ="${poolResv.pool_resv_user}*${pool.pool_price}">
+					<input type ="hidden" name ="pool_resv_price" id ="pool_resv_price">
+					
 					<hr class="mt15">
 				</li>
 				<li>
@@ -90,6 +91,7 @@
 						<dt>연락처</dt>
 						<dd>
 							<input type ="text" id="pool_resv_tel" name ="pool_resv_tel" value ="${poolResv.pool_resv_tel}">
+							<input type ="hidden" name ="mem_seq" value = "${poolResv.mem_seq }">
 						</dd>
 					</dl>
 				</li>
@@ -124,18 +126,18 @@
 	document.querySelector("#tel").innerText = tel;
 
 	$("#resvBtn").click(function(){
-		//alert("클릭");
-		var form = $('#poolResv')[0];
-		var formData = new FormData(form);
+	$("#pool_resv_price").val(${poolResv.pool_resv_user}*${pool.pool_price});
+	var formData = $("#poolResv").serialize();
 		
 	 $.ajax({
         url:"./poolResvAf.do",
         type:'post',
         data: formData,
-        
         success: function (data){
+            if(data == "ok"){
            alert("수영장 예약에 성공하셨습니다.");
            location.href="getPoolList.do";
+            }
         },
         error: function (e){
            alert("통신실패");

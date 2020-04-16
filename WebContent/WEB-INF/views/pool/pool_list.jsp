@@ -2,6 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="./../../../include/header.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <link href="./css/layout.css" rel="stylesheet">
 <div class="category_dept">
 	<ul>
@@ -38,7 +41,7 @@
 							<div class="img">
 								<c:if test="${pool.pool_photo == 'default' }">
 									<img class="MS_prod_img_m"
-										src="<%=request.getContextPath()%>/images/poolImg/grooming.png"
+										src="<%=request.getContextPath()%>/images/poolImg/pool.png"
 										alt="">
 								</c:if>
 								<c:if test="${pool.pool_photo != 'default' }">
@@ -49,10 +52,10 @@
 							</div>
 							<dl>
 								<dt>${pool.pool_name }</dt>
-								<dd class="txt">${pool.pool_addr }</dd>
+								<dd class="txt">${fn:split(pool.pool_addr, '/')[1] }</dd>
 								<dd class="price_box">
 									<p>
-										<span class="price">시간당 : <strong>${pool.pool_price }</strong>원</span>
+										<span class="price">시간당 : <strong><fmt:formatNumber value ="${pool.pool_price }" pattern ="#,###"/></strong>원</span>
 									</p>
 									<span class="rev">더보기</span>
 								</dd>

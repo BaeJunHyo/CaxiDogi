@@ -31,8 +31,13 @@ public class PoolServiceImpl implements PoolService {
 	}
 
 	@Override
-	public boolean resvPool(poolResvDto poolResv) {
+	public int resvPool(poolResvDto poolResv) {
 		return poolDao.resvPool(poolResv);
+	}
+
+	@Override
+	public poolResvDto getResvPool(int pool_resv_seq) {
+		return poolDao.getResvPool(pool_resv_seq);
 	}
 
 }

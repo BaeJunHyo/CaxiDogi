@@ -35,9 +35,19 @@ public class PoolDaoImpl implements PoolDao{
 	}
 
 	@Override
-	public boolean resvPool(poolResvDto poolResv) {
+	public int resvPool(poolResvDto poolResv) {
 		int n = sqlSession.insert(namespace+"resvPool", poolResv);
-		return n>0?true:false;
+		System.out.println(poolResv.getPool_resv_seq());
+		int pool_resv_seq = 0;
+		if(n>0) {
+			pool_resv_seq = poolResv.getPool_resv_seq();
+		}
+		return pool_resv_seq;
+	}
+
+	@Override
+	public poolResvDto getResvPool(int pool_resv_seq) {
+		return sqlSession.selectOne(namespace+"getResvPool", pool_resv_seq);
 	}
 
 }

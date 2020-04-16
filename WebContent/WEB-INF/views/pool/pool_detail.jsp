@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="./../../../include/header.jsp"%>
 <link href="<%=request.getContextPath()%>/css/pool.css" rel="stylesheet">
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <link rel="stylesheet"
 	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/calstyle2.css">
@@ -43,7 +44,7 @@
 					<div class="easyzoom easyzoom--adjacent easyzoom--with-thumbnails">
 						<c:if test="${pool.pool_photo == 'default' }">
 							<img class="MS_prod_img_m"
-								src="<%=request.getContextPath()%>/images/poolImg/grooming.png" alt="">
+								src="<%=request.getContextPath()%>/images/poolImg/pool.png" alt="">
 						</c:if>
 						<c:if test="${pool.pool_photo != 'default' }">
 							<img class="MS_prod_img_m"
@@ -68,8 +69,8 @@
 						<li>
 							<dl>
 								<dt>주소</dt>
-								<dd id="address">
-									
+								<dd>
+									${fn:split(pool.pool_addr, '/')[1] }
 								</dd>
 							</dl>
 						</li>
@@ -218,10 +219,6 @@
 		document.querySelector("#totalPrice").innerText = numberWithCommas(total);
 	});
 
-	//주소
-	var addr = "${pool.pool_addr}";
- 	var address = addr.split("/");
- 	document.querySelector("#address").innerText = numberWithCommas(address[1]);
 
 	var tel = "${pool.pool_tel}";
 	tel = tel.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3");

@@ -10,5 +10,6 @@ public interface PoolService {
 	public boolean addPool(poolDto pool);
 	public List<poolDto> getPoolList();
 	public poolDto getPoolDetail(int pool_seq);
-	public boolean resvPool(poolResvDto poolResv);
+	public int resvPool(poolResvDto poolResv);
+	public poolResvDto getResvPool(int pool_resv_seq);
 }

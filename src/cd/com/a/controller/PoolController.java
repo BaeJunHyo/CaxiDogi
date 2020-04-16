@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -81,16 +83,27 @@ public class PoolController {
 	
 	@RequestMapping(value = "poolResvAf.do", method= {RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public String poolResvAf(@ModelAttribute poolResvDto poolResv) {
+	public Map<String, Object> poolResvAf(@ModelAttribute poolResvDto poolResv) {
 		System.out.println("이거나옴" + poolResv.toString());
-		boolean	status = poolService.resvPool(poolResv);
-		String str ="";
-		if(status == true) {
-			str = "ok";
+		int	result = poolService.resvPool(poolResv);
+		Map<String, Object> rmap = new HashMap<String, Object>();
+		if(result != 0) {
+			rmap.put("status", "ok");
+			rmap.put("rnum", result);
 		} else {
-			str = "no";
+			rmap.put("status", "no");
 		}
-		return str;
+		return rmap;
+	}
+	
+	@RequestMapping(value = "pool_reservation.do", method= {RequestMethod.GET,RequestMethod.POST})
+	public String poolReservation(int pool_resv_seq, Model model) {
+		System.out.println("예약번호" + pool_resv_seq);
+		poolResvDto resv = poolService.getResvPool(pool_resv_seq);
+		poolDto pool = poolService.getPoolDetail(resv.getPool_seq()); 
+		model.addAttribute("pool_resv", resv);
+		model.addAttribute("pool", pool);
+		return "/pool/pool_resv_detail";
 	}
 	
 	@RequestMapping(value="regiPool.do",  method= {RequestMethod.GET,RequestMethod.POST})

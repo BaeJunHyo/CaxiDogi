@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ include file="./../../../include/header.jsp"%>
 <link href="<%=request.getContextPath()%>/css/pool.css" rel="stylesheet">
 <div class="category_dept">
@@ -16,6 +17,7 @@
 	<div class="poolInfo_section clearfix">
 			<form id = "poolResv" name = "poolResv" method="post" >
 		<div class="info">
+		<h3>예약확인</h3>
 			<ul>
 				<li>
 					<dl>
@@ -27,7 +29,7 @@
 				<li>
 					<dl>
 						<dt>주소</dt>
-						<dd id="address"></dd>
+						<dd>${fn:split(pool.pool_addr, '/')[1] }</dd>
 					</dl>
 				</li>
 				<li>
@@ -103,7 +105,6 @@
 			</p>
 		</div>
 		</form>
-
 </div>
 </div>
 </div>
@@ -116,34 +117,36 @@
 
 	 document.querySelector("#price").innerText = numberWithCommas(${poolResv.pool_resv_user}*${pool.pool_price});
 
-	//주소
-	var addr = "${pool.pool_addr}";
- 	var address = addr.split("/");
- 	document.querySelector("#address").innerText = numberWithCommas(address[1]);
 
 	var tel = "${pool.pool_tel}";
 	tel = tel.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3");
 	document.querySelector("#tel").innerText = tel;
 
 	$("#resvBtn").click(function(){
-	$("#pool_resv_price").val(${poolResv.pool_resv_user}*${pool.pool_price});
-	var formData = $("#poolResv").serialize();
-		
-	 $.ajax({
-        url:"./poolResvAf.do",
-        type:'post',
-        data: formData,
-        success: function (data){
-            if(data == "ok"){
-           alert("수영장 예약에 성공하셨습니다.");
-           location.href="getPoolList.do";
-            }
-        },
-        error: function (e){
-           alert("통신실패");
-   		}
-	}); 
-
+		var rgEx = /(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/g;
+		if((!rgEx.test($("#pool_resv_tel").val())){
+			alert("올바른 전화번호가 아닙니다.");
+			$("#pool_resv_tel").val("");
+			$("#pool_resv_tel").focus();
+			} else {
+				$("#pool_resv_price").val(${poolResv.pool_resv_user}*${pool.pool_price});
+				var formData = $("#poolResv").serialize();
+					
+				 $.ajax({
+			        url:"./poolResvAf.do",
+			        type:'post',
+			        data: formData,
+			        success: function (data){
+			            if(data.status == "ok"){
+			           alert("수영장 예약에 성공하셨습니다.");
+			           location.href="pool_reservation.do?pool_resv_seq="+data.rnum;
+			            }
+			        },
+			        error: function (e){
+			           alert("통신실패");
+			   		}
+				}); 
+			}
 	});
   </script>
 

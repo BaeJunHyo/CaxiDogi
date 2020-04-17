@@ -165,4 +165,12 @@ public class ShopController {
 		return "/shop/sellerShopList";
 	}
 	
+	@RequestMapping(value="shopDesignAdd.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String shopDesignAdd(int shop_seq, Model model) {
+		System.out.println(shop_seq);
+		model.addAttribute("shop_seq", shop_seq);
+		
+		return "/shop/regi_design";
+	}
+	
 }

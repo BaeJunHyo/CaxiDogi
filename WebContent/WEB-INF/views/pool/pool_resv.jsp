@@ -124,29 +124,30 @@
 
 	$("#resvBtn").click(function(){
 		var rgEx = /(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/g;
-		if((!rgEx.test($("#pool_resv_tel").val())){
+		if((!rgEx.test($("#pool_resv_tel").val()))){
 			alert("올바른 전화번호가 아닙니다.");
 			$("#pool_resv_tel").val("");
 			$("#pool_resv_tel").focus();
-			} else {
-				$("#pool_resv_price").val(${poolResv.pool_resv_user}*${pool.pool_price});
-				var formData = $("#poolResv").serialize();
-					
-				 $.ajax({
-			        url:"./poolResvAf.do",
-			        type:'post',
-			        data: formData,
-			        success: function (data){
-			            if(data.status == "ok"){
-			           alert("수영장 예약에 성공하셨습니다.");
-			           location.href="pool_reservation.do?pool_resv_seq="+data.rnum;
-			            }
-			        },
-			        error: function (e){
-			           alert("통신실패");
-			   		}
-				}); 
-			}
+			
+		} else {
+			$("#pool_resv_price").val(${poolResv.pool_resv_user}*${pool.pool_price});
+			var formData = $("#poolResv").serialize();
+				
+			 $.ajax({
+		        url:"./poolResvAf.do",
+		        type:'post',
+		        data: formData,
+		        success: function (data){
+		            if(data.status == "ok"){
+		           alert("수영장 예약에 성공하셨습니다.");
+		           location.href="pool_reservation.do?pool_resv_seq="+data.rnum;
+		            }
+		        },
+		        error: function (e){
+		           alert("통신실패");
+		   		}
+			}); 
+		}
 	});
   </script>
 

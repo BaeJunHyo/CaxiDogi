@@ -157,4 +157,12 @@ public class ShopController {
 		return str;
 	}
 	
+	@RequestMapping(value="sellerShopList.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String sellerShopList(int mem_seq, Model model) {
+		List<shopDto> list = shopService.getSellerShopList(mem_seq);
+		model.addAttribute("shopList", list);
+		
+		return "/shop/sellerShopList";
+	}
+	
 }

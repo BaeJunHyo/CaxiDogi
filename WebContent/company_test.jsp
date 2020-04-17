@@ -8,7 +8,7 @@
 </head>
 <body>
 <script type="text/javascript">
-location.href="regiPool.do";
+location.href="sellerShopList.do?mem_seq=5";
 
 </script>
 

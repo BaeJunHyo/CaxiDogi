@@ -27,5 +27,11 @@ public class ShopDaoImpl implements ShopDao {
 		List<shopDto> list = sqlSession.selectList(namespace +"getShopList");
 		return list;
 	}
+
+	@Override
+	public List<shopDto> getSellerShopList(int mem_seq) {
+		List<shopDto> list = sqlSession.selectList(namespace +"getSellerShopList", mem_seq);
+		return list;
+	}
 	
 }

@@ -23,6 +23,10 @@ public class ShopServiceImpl implements ShopService {
 	public List<shopDto> getShopList() {
 		return shopDao.getShopList();
 	}
-	
+
+	@Override
+	public List<shopDto> getSellerShopList(int mem_seq) {
+		return shopDao.getSellerShopList(mem_seq);
+	}
 	
 }

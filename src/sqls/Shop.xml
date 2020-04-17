@@ -14,5 +14,13 @@
  	mem_seq, shop_time, shop_photo, shop_etc, shop_small_price, shop_medium_price, 
  	shop_large_price, shop_content 
  	from shop
-</select>
+	</select>
+	
+<select id="getSellerShopList" parameterType="java.lang.Integer" resultType="cd.com.a.model.shopDto">
+ 	select shop_seq, shop_owner, shop_number, shop_name, shop_addr, shop_tel, shop_auth,
+ 	mem_seq, shop_time, shop_photo, shop_etc, shop_small_price, shop_medium_price, 
+ 	shop_large_price, shop_content 
+ 	from shop
+ 	where mem_seq = #{mem_seq}
+	</select>
   </mapper>

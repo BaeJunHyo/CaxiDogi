@@ -55,8 +55,8 @@
 		</a>
 		<div class="service_section">
 			<ul class="top_menu clearfix">
-				<li><a href="#n">로그인</a></li>
-				<li><a href="#n">회원가입</a></li>
+				<li><a href="loginView.do">로그인</a></li>
+				<li><a href="newAccount.do">회원가입</a></li>
 				<li><a href="#n">고객센터</a></li>
 			</ul>
 			<p class="main_menu">

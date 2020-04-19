@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.google.gson.JsonObject;
 
 import cd.com.a.model.memberDto;
+import cd.com.a.model.shopDesignerDto;
 import cd.com.a.model.shopDto;
 import cd.com.a.service.ShopService;
 import cd.com.a.util.FileUploadUtil;
@@ -171,6 +172,22 @@ public class ShopController {
 		model.addAttribute("shop_seq", shop_seq);
 		
 		return "/shop/regi_design";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="shopDesignAdAf.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String shopDesignAdAf(shopDesignerDto designer) {
+		String str = "";
+		System.out.println(designer.toString());
+		boolean	status = shopService.addDesigner(designer);
+		
+		if(status == true) {
+			str = "ok";
+		} else {
+			str = "no";
+		}
+		
+		return str;
 	}
 	
 }

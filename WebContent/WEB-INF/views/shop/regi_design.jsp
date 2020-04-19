@@ -6,9 +6,8 @@
 <div class="container" >
 	<div class ="container_subWrap">
 		<h1>디자이너 등록</h1>
-		<form id = "designForm" name = "designForm" method="post">
 		<div class ="company_regi"  style = "margin-top : 10px;">
-			<input type ="hidden" name="shop_seq" value="${shop_seq }">
+			<input type ="hidden" id = "shop_seq" name="shop_seq" value="${shop_seq }">
 			<label style = "width:100px;">디자이너명</label>
 			<input  type="text" id = "design_name" name = "design_name" placeholder="디자이너명을 입력해주세요" size = "500">
 		</div>
@@ -36,7 +35,6 @@
 				</li>
 			</ul>
 		</div>
-		</form>
 		<div style ="margin-top:10px; " align ="center">
 			<input class = "btn_line_m" type ="button" id = "designAddBtn" value = "등록">		
 			
@@ -82,14 +80,40 @@
 		} else {
 			var hourList = new Array();
 			var minList = new Array();
+			var timetable = "";
 			$("select[name='hour'] :selected").each(function(index, item){
 				hourList.push($(item).text());	
 			});
 			$("select[name='min'] :selected").each(function(index, item){
 				minList.push($(item).text());	
 			});
-			alert(hourList);
-			alert(minList);
+			
+			for(i = 0; i < hourList.length;i++){
+				if(i != hourList.length-1){
+					timetable += hourList[i]+":"+minList[i] +"/";
+				} else {
+					timetable += hourList[i]+":"+minList[i];
+				}
+			}
+
+			var formData = {
+					"shop_seq": $("#shop_seq").val(),
+					"design_price" : $("#design_price").val()==""?0:$("#design_price").val(),
+					"design_name" : $("#design_name").val(),
+					"design_time" : timetable
+			}
+			  $.ajax({
+		          url:"./shopDesignAdAf.do",
+		          type:'post',
+		          data: formData,
+		          success: function (data){
+		             alert("디자이너 등록에 성공하셨습니다.");
+		             location.href="sellerShopList.do?mem_seq="+$("#shop_seq").val();
+		          },
+		          error: function (e){
+		             alert("통신실패");
+		     	}
+			});
 		} 
 	}); 
 	

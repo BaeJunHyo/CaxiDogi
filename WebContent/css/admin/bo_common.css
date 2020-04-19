@@ -1,0 +1,49 @@
+/* 怨듯넻�쇰줈 �ㅼ뼱媛��� css */
+body {background: #f6f6f6;}
+.btn_user {display: inline-block; height: 30px; line-height: 30px; padding: 0 12px; border-radius: 4px; font-size: 13px; color: #fff; background: #f1222a;}
+
+
+/* header */
+.header {width: 100%; min-width: 1300px; height: 66px; border-bottom: 1px solid #48545c; background: #1d2b36;}
+.header h1 {position: relative; float: left; width: 246px; height: 66px;}
+.header h1 .logo {position: absolute; display: block; width: 140px; height: 37px; top: 50%; left: 50%; margin: -18px 0 0 -70px;}
+.header .btn_menu {display: inline-block; float: left; margin: 22px 0 0 27px;}
+.header .m_right {float: right; line-height: 66px; padding: 0 15px 0 0;}
+.header .m_right .user_name {float: left; font-size: 15px; color: #fff;}
+.header .m_right .btn_user {display: block; float: left; margin: 19px 0 0 10px;}
+.header .m_right ul {float: left;}
+.header .m_right ul li {float: left; padding: 0 18px; font-size: 14px; background: url(../images/ico_bar01.gif) no-repeat center right;}
+.header .m_right ul li:last-child {background: none;}
+.header .m_right ul li a {color: #fff;}
+
+
+/* lnbWrap */
+.lnbWrap {position: absolute; width: 246px; top: 66px; left: 0;}
+.lnbWrap h2 {display: block; height: 67px; line-height: 67px; text-align: center; font-size: 18px; font-weight: bold; color: #fff;}
+.lnbWrap .lnb {width: 245px; background: #0f1922;}
+.lnbWrap .lnb > li {line-height: 60px; font-size: 15px; font-weight: bold;}
+.lnbWrap .lnb > li > a {display: block; width: 225px; height: 60px; padding-left: 20px; color: #fff; box-shadow: -7px 5px 10px rgba(0,0,0,0.5); background: url(../images/ico_sbj.png) no-repeat center right;}
+.lnbWrap .lnb > li ul {}
+.lnbWrap .lnb > li ul li {line-height: 60px; font-size: 13px; font-weight: normal;}
+.lnbWrap .lnb > li ul li a {display: block; height: 60px; padding-left: 20px; color: #fff; border-bottom: 1px solid #131f29;}
+.lnbWrap .lnb > li ul li a:hover,
+.lnbWrap .lnb > li ul li a.current {/*text-decoration: underline;*/ background: #091118;}
+
+
+/* containerWrap */
+.containerWrap {min-width: 1054px; padding-left: 246px; background: url(../images/bg_lnb.gif) repeat-y 0 0;}
+.containerWrap_popup {width: 1200px;}
+
+/* gnb */
+.gnb {min-width: 1300px; height: 67px; background: #fff;}
+.gnb li {float: left; line-height: 67px; font-size: 16px; font-weight: 600;}
+.gnb li a {display: block; height: 67px; padding: 0 30px; color: #7e7e7e;}
+.gnb li.gtit a {margin-left: 30px; color: #1d2b36; border-right: 1px solid #f6f6f6; background: url(../images/ico_home.gif) no-repeat 0 46%;}
+.gnb li a.current {color: #e32028;}
+/*.gnb li a img {vertical-align: middle;}*/
+
+
+
+/**/
+.header h1 .logo {margin-top: -13px;}
+.bg-sub-list{display: none;}

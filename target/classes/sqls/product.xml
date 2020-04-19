@@ -1,0 +1,23 @@
+<!DOCTYPE mapper
+  PUBLIC "-//www.mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Product">
+
+<!-- 상품리스트 -->
+
+
+<!-- 상품등록 -->
+<insert id="productInsert" parameterType="cd.com.a.model.productDto">
+	INSERT INTO product(
+			PRODUCT_NAME, PRODUCT_READCOUNT, PRODUCT_IMG, PRODUCT_PRICE,
+			PRODUCT_GROUP, PRODUCT_SUB_GROUP, PRODUCT_CODE, PRODUCT_CONTENT
+		)
+
+	VALUES(
+			#{product_name}, 0, #{product_img}, #{product_price}, 
+			#{product_group}, #{product_sub_group}, #{product_code}, #{product_content}
+		)
+</insert>
+
+</mapper>

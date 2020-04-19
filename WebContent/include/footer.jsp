@@ -2,11 +2,11 @@
     pageEncoding="UTF-8"%>
 <!-- footerWrap S : -->
 <div class="footerWrap">
-  <ul class="snsArea clearfix">
+  <!-- <ul class="snsArea clearfix">
     <li><a href="#n"><img src="./images/ico_f_facebook.gif" at="페이스북 아이콘"></a></li>
     <li><a href="#n"><img src="./images/ico_f_twitter.gif" at="트위터 아이콘"></a></li>
     <li><a href="#n"><img src="./images/ico_f_instagram.gif" at="인스타그램 아이콘"></a></li>
-  </ul>
+  </ul> -->
   <div class="footer">
     <ul class="top_menu">
       <li><a href="#n">회사소개</a></li>
@@ -50,7 +50,7 @@
           <img src="images/img_prdDetail_flag_best.jpg" alt="BEST 상품">
           <img src="images/img_prdDetail_flag_sale.jpg" alt="SALE 상품">
         </p>
-        [세이코시계 SEIKO] SKS515P1 / 크로노그래프 남성 메탈시계 44mm
+        [상품품목] 상품코드 / 상품명
       </div>
     </div>
     <div class="prdInfo_section clearfix mt50">

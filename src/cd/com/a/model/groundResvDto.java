@@ -8,7 +8,7 @@ CREATE TABLE ground_reservation
    `ground_seq`               INT(5)         NOT NULL    COMMENT '운동장번호(SEQ)', 
    `ground_resv_user`         INT(3)         NOT NULL    COMMENT '사용인원수', 
    `ground_resv_pet`          INT(3)         NOT NULL    COMMENT '사용펫수', 
-   `ground_resv_time`         INT(1)         NOT NULL    COMMENT '선택시간', 
+   `ground_resv_time`         VARCHAR(45)         NOT NULL    COMMENT '선택시간', 
    `ground_resv_ydate`        DATETIME       NOT NULL    COMMENT '예약일', 
    `ground_resv_sdate`        VARCHAR(45)    NOT NULL    COMMENT '사용일', 
    `ground_resv_tel`          VARCHAR(45)    NULL        COMMENT '연락처', 
@@ -35,7 +35,7 @@ public class groundResvDto implements Serializable {
 	   private int ground_seq;				// 운동장 번호
 	   private int ground_resv_user;		// 사용인원수
 	   private int ground_resv_pet;			// 사용펫수
-	   private int ground_resv_time;		// 선택시간
+	   private String ground_resv_time;		// 선택시간
 	   private String ground_resv_ydate;	// 예약일
 	   private String ground_resv_sdate;	// 사용일
 	   private String ground_resv_tel;		// 연락처
@@ -51,7 +51,7 @@ public class groundResvDto implements Serializable {
 	}
 
 	public groundResvDto(int ground_resv_seq, int ground_seq, int ground_resv_user, int ground_resv_pet,
-			int ground_resv_time, String ground_resv_ydate, String ground_resv_sdate, String ground_resv_tel,
+			String ground_resv_time, String ground_resv_ydate, String ground_resv_sdate, String ground_resv_tel,
 			String ground_resv_name, int ground_resv_payment, int ground_resv_total_price, int ground_resv_price,
 			int mem_seq) {
 		super();
@@ -102,11 +102,11 @@ public class groundResvDto implements Serializable {
 		this.ground_resv_pet = ground_resv_pet;
 	}
 
-	public int getGround_resv_time() {
+	public String getGround_resv_time() {
 		return ground_resv_time;
 	}
 
-	public void setGround_resv_time(int ground_resv_time) {
+	public void setGround_resv_time(String ground_resv_time) {
 		this.ground_resv_time = ground_resv_time;
 	}
 

@@ -29,6 +29,7 @@ public class companyDto implements Serializable {
 	private String company_number;
 	private int company_category;
 	private String company_seller;
+	private String company_key;
 	
 	public companyDto() {
 		super();
@@ -36,7 +37,8 @@ public class companyDto implements Serializable {
 	}
 
 	public companyDto(int company_num, String company_name, String company_addr, String company_tel,
-			String company_owner, String company_number, int company_category, String company_seller) {
+			String company_owner, String company_number, int company_category, String company_seller,
+			String company_key) {
 		super();
 		this.company_num = company_num;
 		this.company_name = company_name;
@@ -46,9 +48,17 @@ public class companyDto implements Serializable {
 		this.company_number = company_number;
 		this.company_category = company_category;
 		this.company_seller = company_seller;
+		this.company_key = company_key;
 	}
+
 	
-	
+	public String getCompany_key() {
+		return company_key;
+	}
+
+	public void setCompany_key(String company_key) {
+		this.company_key = company_key;
+	}
 
 	public int getCompany_num() {
 		return company_num;

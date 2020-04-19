@@ -70,7 +70,7 @@ function idCheck(){
  // 패스워드 체크(정규식 + 멘트)
     var memPwd = document.querySelector(".memberPwd");
     memPwd.addEventListener("change", function(e){
-    	var pwdReg = /^[a-z]+[a-z0-9]{5,19}$/g;
+    	var pwdReg = /^[a-z0-9]+[a-z0-9]{5,19}$/g;
     	if($(".memberPwd").val() == ""){
     		if($('span.pwdCheck').hasClass('alert-red')) {
         		$('.pwdComentColor span').removeClass('alert-red');
@@ -208,8 +208,9 @@ phone.addEventListener("blur", function(e){
         		$('.phoneComentColor span').removeClass('alert-green');
         	}
         	$('.phoneComentColor span').addClass('alert-red');
-        	alert("연락처 형식 불일치 !!! \n 글자수가 다르거나 특수문자가 들어가있습니다. \n ex)01x-xxxx-xxxx");
         	document.querySelector(".phoneCheck").innerHTML = "형식 불일치";
+        	
+        	alert("연락처 형식 불일치 !!! \n 글자수가 다르거나 특수문자가 들어가있습니다. \n ex)01x-xxxx-xxxx");
             return;
 		} else {
 			if($('span.phoneCheck').hasClass('alert-red')) {
@@ -280,7 +281,6 @@ bday.addEventListener("change", function(e){
 });
 
 $('button.sBtn').click(function(){
-	  alert("test");
 	if($('.idComentColor span').hasClass('alert-red') || $('.memberId').val().trim() == "") {
 		alert("아이디를 확인해주세요");
 		$('.memberId').focus();
@@ -303,19 +303,16 @@ $('button.sBtn').click(function(){
 		return false;
 	} else if($('.phoneComentColor span').hasClass('alert-red') || $('.memberPhone').val().trim() == "") {
 		alert("연락처를 확인해주세요");
+		$('.memberPhone').val("");
 		$('.memberPhone').focus();
 		return false;
 	} else if($('.select-month').val() == "월"){
 		alert("생년월일을 확인해주세요");
 		$('.select-month').focus();
 		return false;
-	} else if($('input[name=memberYear]').val().length < 4){
+/*	} else if($('input[name=memberYear]').val().length < 4){
 		alert("생년월일을 확인해주세요");
 		$('input[name=memberYear]').focus();
-		return false;
-/*	} else if(parseInt($('input[name=memberDate]').val()) > 31){
-		alert("생년월일을 확인해주세요");
-		$('input[name=memberDate]').focus();
 		return false;*/
 	} else if($('.dayComentColor span').hasClass('alert-red') || $('.memberDay').val().trim() == "") {
 		alert("생년월일(날짜)를 확인해주세요");
@@ -336,8 +333,8 @@ $('button.sBtn').click(function(){
 	} else {
 		if(confirm("입력하신 정보로 가입 하시겠습니까?")){
 			var postCode = document.getElementById('kakao_postcode').value.trim();
-			var roadAddr = document.getElementById('kakao_roadAddress').value.replace(/(\s*)/g,"");
-			var detail = document.getElementById('kakao_detailAddress').value.trim();
+			var roadAddr = document.getElementById('kakao_roadAddress').value;
+			var detail = document.getElementById('kakao_detailAddress').value;
 			var addr = postCode+"/"+roadAddr+"/"+detail;
 			var month = document.getElementById('month').value.trim();
 			var day = document.getElementById('day').value.trim();

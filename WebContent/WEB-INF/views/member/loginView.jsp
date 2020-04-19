@@ -31,17 +31,52 @@
 		      	
 		      	</ul>
 		    </form>
-		     <div class="snsicon" align="center" >
-		       <a href="#none" id="_btnKakao" title="카카오">
+		      <div class="snsicon" align="center" >
+		       <a href="https://kauth.kakao.com/oauth/authorize
+							?client_id=954754c02265363c5d9a6b60519b14d3
+							&redirect_uri=http://192.168.2.85:8080/CaxiDogi/kakaoLogin.do
+							&response_type=code" id="_btnKakao" title="카카오">
 		         <img alt="" src="./images/iconKakao.png">
 		       </a>
-		       <a href="#none" id="_btnNaver" title="네이버">
+		       <a href="https://nid.naver.com/oauth2.0/authorize
+							?client_id=i11QdJzq8f_afJodIjCw
+							&redirect_uri=http://192.168.2.85:8080/CaxiDogi/naverLogin.do
+							&response_type=code" id="_btnNaver" title="네이버">
 		         <img alt="" src="./images/iconNaver.png">
 		       </a>
-		       <a href="#none" id="_btnGoogle" title="구글">
+		       <a href="https://accounts.google.com/o/oauth2/v2/auth
+							?client_id=957946411907-ufnltniu55q10le4b4io0tmrqgsbk8v1.apps.googleusercontent.com
+							&scope=https://www.googleapis.com/auth/userinfo.email
+							&approval_prompt=force
+							&access_type=offline
+							&redirect_uri=http://localhost:8080/CaxiDogi/googleLogin.do
+							&response_type=code" id="_btnGoogle" title="구글">
 		         <img alt="" src="./images/iconGoogle.png">
 		       </a>
-		      </div>
+		      </div> 
+		      <!-- <div class="snsicon" align="center" >
+		       <a href="https://kauth.kakao.com/oauth/authorize
+							?client_id=954754c02265363c5d9a6b60519b14d3
+							&redirect_uri=http://caxidogi.coo.kr/kakaoLogin.do
+							&response_type=code" id="_btnKakao" title="카카오">
+		         <img alt="" src="./images/iconKakao.png">
+		       </a>
+		       <a href="https://nid.naver.com/oauth2.0/authorize
+							?client_id=i11QdJzq8f_afJodIjCw
+							&redirect_uri=http://caxidogi.coo.kr/naverLogin.do
+							&response_type=code" id="_btnNaver" title="네이버">
+		         <img alt="" src="./images/iconNaver.png">
+		       </a>
+		       <a href="https://accounts.google.com/o/oauth2/v2/auth
+							?client_id=957946411907-ufnltniu55q10le4b4io0tmrqgsbk8v1.apps.googleusercontent.com
+							&scope=https://www.googleapis.com/auth/userinfo.email
+							&approval_prompt=force
+							&access_type=offline
+							&redirect_uri=http://caxidogi.coo.kr/googleLogin.do
+							&response_type=code" id="_btnGoogle" title="구글">
+		         <img alt="" src="./images/iconGoogle.png">
+		       </a>
+		      </div> -->
 		</div>
 	</div>
 	<!-- //subWrap -->

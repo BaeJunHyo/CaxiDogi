@@ -41,18 +41,21 @@ function login(){
 }
 //id찾기
 function findId(){
-	var popWidth=500;
-	var popHeight=300;
+
 	
-	var popX=(window.screen.width/2) - (popWidth/2);
-	var popY=(window.screen.height/2) - (popHeight/2);
-	/*window.open(getContextPath()+"/findId.do","findId","width="+popWidth+,height=300,left=200,top=50");
-*/	
-	window.open(getContextPath()+"/findId.do","findId","height=" + popHeight  + ", width=" + popWidth  + ", left="+ popX + ", top="+ popY);
+	var popupX = (document.body.offsetWidth / 2) - (500 / 2);
+	//&nbsp;만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+	var popupY= (window.screen.height / 2) - (300 / 2);
+	//&nbsp;만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+	window.open(getContextPath()+'/findId.do', '', 'status=no, height=300, width=500, left='+ popupX + ', top='+ popupY);
 }
 //pwd찾기
 function findPwd(){
-	alert("test");
+	var popupX = (document.body.offsetWidth / 2) - (500 / 2);
+	//&nbsp;만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+	var popupY= (window.screen.height / 2) - (500 / 2);
+	//&nbsp;만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+	window.open(getContextPath()+'/findPwd.do', '', 'status=no, height=500, width=500, left='+ popupX + ', top='+ popupY);
 }
 
 

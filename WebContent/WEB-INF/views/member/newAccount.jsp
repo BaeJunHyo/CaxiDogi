@@ -9,12 +9,7 @@
 		<div class="new_regi">	
 		   <form method="post" action="">
 		      <div class="frm_cont border-btm">
-		        <!--  <div class="category">
-		            <div class="category-radius categoryBox">
-		               <span class="on">일반회원<input type="hidden" name="memberAuth" value="0"></span>
-		               <span class="curatorBtn">사업자<input type="hidden" value="1"></span>
-		            </div>
-		         </div> -->
+		      
 		         <div class="frm_line clfix">
 		            <div class="tit">아이디</div>
 		            <div class="cont idComentColor">
@@ -60,7 +55,7 @@
 		         <div class="frm_line clfix">
 		            <div class="tit">닉네임</div>
 		            <div class="cont nickComentColor">
-		               <input class="memberNick" type="text" maxlength="6" name="nick_name" id="nick_name" value="" placeholder="최대6글자 한글만">
+		               <input class="memberNick" type="text" maxlength="10" name="nick_name" id="nick_name" value="" placeholder="최대10글자">
 		               <button type="button" onclick="nickCheck()" class="frm_adr_btn">중복체크</button>
 		               <span class="nickCheck"></span>
 		            </div>            
@@ -75,10 +70,10 @@
 		         </div>
 		         
 		         <div class="frm_line clfix">
-		            <div class="tit">생년월일</div>
-		            <div class="cont">
+		            <div class="tit">생일</div>
+		            <!-- <div class="cont">
 		               <input class="byear" type="text" name="memberYear" value="" maxlength="4" placeholder="년(4자)">
-		            </div>            
+		            </div>  -->           
 		            <div class="cont">
 		               <select class="select-month" name="memberMonth" id="month">
 		                  <option value="월">월</option>

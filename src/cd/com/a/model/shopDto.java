@@ -11,7 +11,7 @@ CREATE TABLE shop
     `shop_addr`          VARCHAR(45)    NOT NULL    COMMENT '주소', 
     `shop_tel`           VARCHAR(45)    NOT NULL    COMMENT '연락처', 
     `shop_auth`          INT(1)         NOT NULL    COMMENT '승인여부', 
-    `id`                 VARCHAR(45)    NOT NULL    COMMENT 'seller id', 
+    `mem_seq`            INT(5)    NOT NULL    COMMENT 'seller id', 
     `shop_time`          VARCHAR(45)    NOT NULL    COMMENT '영업시간', 
     `shop_photo`         VARCHAR(45)    NULL        COMMENT '샵사진', 
     `shop_etc`           VARCHAR(45)    NOT NULL    COMMENT '자랑하고싶은말', 
@@ -36,7 +36,7 @@ public class shopDto implements Serializable {
 	private String shop_addr;				// 주소
 	private String shop_tel;				// 연락처
 	private int shop_auth;					// 승인여부
-	private int mem_seq;						// seller id
+	private int mem_seq;					// seller seq
 	private String shop_time;				// 영업시간
 	private String shop_photo;				// 샵사진
 	private String shop_etc;				// 자랑하고싶은말
@@ -49,7 +49,7 @@ public class shopDto implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	public shopDto(int shop_seq, String shop_owner, String shop_number, String shop_name, String shop_addr,
 			String shop_tel, int shop_auth, int mem_seq, String shop_time, String shop_photo, String shop_etc,
 			int shop_small_price, int shop_medium_price, int shop_large_price, String shop_content) {
@@ -69,6 +69,14 @@ public class shopDto implements Serializable {
 		this.shop_medium_price = shop_medium_price;
 		this.shop_large_price = shop_large_price;
 		this.shop_content = shop_content;
+	}
+
+	public int getMem_seq() {
+		return mem_seq;
+	}
+
+	public void setMem_seq(int mem_seq) {
+		this.mem_seq = mem_seq;
 	}
 
 	public int getShop_seq() {
@@ -125,14 +133,6 @@ public class shopDto implements Serializable {
 
 	public void setShop_auth(int shop_auth) {
 		this.shop_auth = shop_auth;
-	}
-
-	public int getMem_seq() {
-		return mem_seq;
-	}
-
-	public void setMem_seq(int mem_seq) {
-		this.mem_seq = mem_seq;
 	}
 
 	public String getShop_time() {

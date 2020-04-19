@@ -1,0 +1,13 @@
+
+<!DOCTYPE mapper
+  PUBLIC "-//www.mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="admin_notice">
+
+	<insert id="notice_insert" parameterType="cd.com.a.model.admin_noticeDto">
+		insert into admin_notice(notice_auth, notice_title, notice_content, notice_wdate, notice_readcount, notice_server_filename, notice_filename)
+		values(#{notice_auth}, #{notice_title}, #{notice_content}, sysdate(), 0, #{notice_server_filename}, #{notice_filename})
+	</insert>
+
+</mapper>

@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%@ include file="./../../../../include/admin/bo_header.jsp" %>
+<%@ include file="/include/admin/bo_header.jsp" %>
 
-<%@ include file="./../../../../include/admin/bo_left.jsp" %>
+<%@ include file="/include/admin/bo_left.jsp" %>
 
 
 
@@ -116,8 +116,6 @@
 		
 	});// CKEDITOR.replace END
 
-
-	
 	$('#GO_btn').on('click', function (){
 
 		//작성 버튼 클릭시 서버로 이동  동작 하는 함수
@@ -257,6 +255,8 @@
 			}
 		}
 
+		$(":checkbox").prop('checked', false);
+		
 		//input 
 		for(i = 0; i < confirmFileTag.length; i++){
 			if(confirmFileTag[i] == true){

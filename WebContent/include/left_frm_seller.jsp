@@ -31,7 +31,7 @@ if(loginUser.getAuth()==1 || loginUser.getAuth()==2){
 <div class="category_dept">
 	<ul>
 		<li>HOME</li>
-		<li>마이페이지</li>
+		<li>셀러페이지</li>
 	</ul>
 </div>
 
@@ -39,13 +39,13 @@ if(loginUser.getAuth()==1 || loginUser.getAuth()==2){
 <div class="container_subWrap clearfix">
 	<div class="cusSec_left">
 		<div class="customerMenu">
-			<h3>마이페이지</h3>
+			<h3>셀러페이지</h3>
 			<ul class="csSubmenu">
 				<li>
 					<a href="#n">업체 등록 정보</a>
 					<ul>
 						<li><a href="sellerShopList.do">Shop</a></li>
-						<li><a href="#n">Pool</a></li>
+						<li><a href="sellerPoolList.do">Pool</a></li>
 						<li><a href="#n">Ground</a></li>
 					</ul>
 				</li>

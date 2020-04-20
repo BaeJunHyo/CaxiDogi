@@ -52,7 +52,7 @@ public class ShopController {
 	
 	@RequestMapping(value="shopRegi.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public String shopRegi() {
-		return "/shop/regi_shop";
+		return "/smypage/regi_shop";
 	}
 	
 	@RequestMapping(value="imageUpload.do", method=RequestMethod.POST)
@@ -163,7 +163,7 @@ public class ShopController {
 		List<shopDto> list = shopService.getSellerShopList(mem.getMem_seq());
 		model.addAttribute("shopList", list);
 		
-		return "/mypage/sellerShopList";
+		return "/smypage/sellerShopList";
 	}
 	
 
@@ -172,7 +172,7 @@ public class ShopController {
 		System.out.println(shop_seq);
 		model.addAttribute("shop_seq", shop_seq);
 		
-		return "/shop/regi_design";
+		return "/smypage/regi_design";
 	}
 	
 	@ResponseBody

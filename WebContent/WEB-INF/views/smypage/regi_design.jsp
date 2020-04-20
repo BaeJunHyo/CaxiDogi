@@ -2,10 +2,13 @@
     pageEncoding="UTF-8"%>
 
 <%@ include file="./../../../include/header.jsp" %>
-<!-- container S : -->
-<div class="container" >
-	<div class ="container_subWrap">
-		<h1>디자이너 등록</h1>
+<%@ include file="./../../../include/left_frm_seller.jsp" %>
+	<div class="cusSec_right">
+
+		<div class="cusSec_tableWrap tw_wFull">
+			<h3>
+				<span class="t_sbj">디자이너등록</span>
+			</h3>
 		<div class ="company_regi"  style = "margin-top : 10px;">
 			<input type ="hidden" id = "shop_seq" name="shop_seq" value="${shop_seq }">
 			<label style = "width:100px;">디자이너명</label>
@@ -42,6 +45,7 @@
 			
 		</div>
 	</div>
+</div>
 </div>
 
 <script type="text/javascript">

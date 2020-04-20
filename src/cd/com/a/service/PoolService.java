@@ -12,4 +12,5 @@ public interface PoolService {
 	public poolDto getPoolDetail(int pool_seq);
 	public int resvPool(poolResvDto poolResv);
 	public poolResvDto getResvPool(int pool_resv_seq);
+	public List<poolDto> getSellerPoolList(int mem_seq);
 }

@@ -50,4 +50,9 @@ public class PoolDaoImpl implements PoolDao{
 		return sqlSession.selectOne(namespace+"getResvPool", pool_resv_seq);
 	}
 
+	@Override
+	public List<poolDto> getSellerPoolList(int mem_seq) {
+		return sqlSession.selectList(namespace+"getSellerPoolList", mem_seq);
+	}
+
 }

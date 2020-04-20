@@ -21,31 +21,31 @@ if(sessionUser == null){
 		<!-- 마이페이지 메인 -->
 	<div class="cusSec_right">
 		
-		<button type="button" class="btn_dark_m" onclick ="location.href='shopRegi.do'">shop 등록</button>
-		<div class="box_cusMain clearfix">
-		<table border =1 width = "100%">
+		<button type="button" class="btn_dark_m" onclick ="location.href='regiPool.do'">수영장 등록</button>
+		<div class="clearfix" style = "margin-top: 15px;">
+		<table class ="basic_tableStyle" width = "100%">
 		<tr>
 			<th>번호</th>
-			<th>SHOP이름</th>
-			<th>SHOP주소</th>
-			<th>SHOP영업시간</th>
+			<th>수영장이름</th>
+			<th>수영장주소</th>
+			<th>수영장영업시간</th>
 			<th>승인여부</th>
 			<th>작업</th>
 		</tr>
-		<c:if test = "${fn:length(shopList) == 0 }">
+		<c:if test = "${fn:length(poolList) == 0 }">
 		<tr align="center">
-			<td colspan="6" >등록된 shop이 없습니다</td>
+			<td colspan="6" >등록된 수영장이 없습니다</td>
 		</tr>
 		</c:if>
-		<c:if test="${fn:length(shopList) !=0 }">
-			<c:forEach items="${shopList }" var="shop" varStatus="sp">
+		<c:if test="${fn:length(poolList) !=0 }">
+			<c:forEach items="${poolList }" var="pool" varStatus="sp">
 			<tr >
 				<th>${sp.index+1 }</th>
-				<td>${shop.shop_name }</td>
-				<td>${shop.shop_addr }</td>
-				<td>${shop.shop_time }</td>
+				<td>${pool.pool_name }</td>
+				<td>${pool.pool_addr }</td>
+				<td>${pool.pool_time }</td>
 				<td>
-					<c:if test = "${shop.shop_auth == 0 }">
+					<c:if test = "${pool.pool_auth == 0 }">
 						<span style="color : red;">승인대기</span>
 					</c:if>
 					<c:if test = "${shop.shop_auth == 1 }">
@@ -53,11 +53,8 @@ if(sessionUser == null){
 					</c:if>
 				</td>
 				<td >
-					<input type = "button" id ="shopUpdateBtn" class="btn_line_s" value ="수정">
-					<input type = "button" id = "shopDeleteBtn" class="btn_line_s" value ="삭제">
-					<c:if test = "${shop.shop_auth == 1 }">
-					<input type = "button" shop_seq = "${shop.shop_seq }" id = "addDesignBtn" class="btn_line_s" value ="디자이너 추가">					
-					</c:if>
+					<input type = "button" id ="poolUpdateBtn" class="btn_line_s" value ="수정">
+					<input type = "button" id = "poolDeleteBtn" class="btn_line_s" value ="삭제">
 				</td>
 			</tr>
 			</c:forEach>
@@ -70,10 +67,4 @@ if(sessionUser == null){
 </div><!--container E : -->
 
 
-<script type="text/javascript">
-	$("#addDesignBtn").click(function(){
-		var shop_seq = $("#addDesignBtn").attr("shop_seq");
-		location.href = "shopDesignAdd.do?shop_seq="+shop_seq;
-	});
-</script>
 <%@ include file="./../../../include/footer.jsp" %>

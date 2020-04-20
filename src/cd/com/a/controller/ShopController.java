@@ -169,8 +169,8 @@ public class ShopController {
 
 	@RequestMapping(value="shopDesignAdd.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public String shopDesignAdd(int shop_seq, Model model) {
-		System.out.println(shop_seq);
-		model.addAttribute("shop_seq", shop_seq);
+		shopDto shop = shopService.getShopDetail(shop_seq);
+		model.addAttribute("shop", shop);
 		
 		return "/smypage/regi_design";
 	}
@@ -191,7 +191,13 @@ public class ShopController {
 		return str;
 	}
 	
-	
+	@RequestMapping(value="modifyShop.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String modifyShop(int shop_seq, Model model) {
+		shopDto shop = shopService.getShopDetail(shop_seq);
+		model.addAttribute("shop", shop);
+		
+		return "/smypage/modify_shop";
+	}
 	
 //--------------------------------------------------------------MJ--------------------------------------------------	
 	@RequestMapping(value="shop.do",  method= {RequestMethod.GET,RequestMethod.POST})

@@ -63,4 +63,9 @@ FROM member
 WHERE mem_seq=${mem_seq} AND password=#{password}
 </select>
 
+<select id ="resvMem" parameterType="java.lang.Integer" resultType="cd.com.a.model.memberDto">
+	select user_name, phone
+	from member
+	where mem_seq = #{mem_seq}
+</select>
 </mapper>

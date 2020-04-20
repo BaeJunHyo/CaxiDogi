@@ -53,10 +53,13 @@ if(sessionUser == null){
 					</c:if>
 				</td>
 				<td >
-					<input type = "button" id ="shopUpdateBtn" class="btn_line_s" value ="수정">
-					<input type = "button" id = "shopDeleteBtn" class="btn_line_s" value ="삭제">
+					<input type = "button" shop_seq = "${shop.shop_seq }" id ="modifyShopBtn" class="btn_line_s" value ="수정">
+					<input type = "button" shop_seq = "${shop.shop_seq }" id = "shopDeleteBtn" class="btn_line_s" value ="삭제">
 					<c:if test = "${shop.shop_auth == 1 }">
+					<p style ="margin-top:10px;">
 					<input type = "button" shop_seq = "${shop.shop_seq }" id = "addDesignBtn" class="btn_line_s" value ="디자이너 추가">					
+					<input type = "button" shop_seq = "${shop.shop_seq }" id = "modifyDesignBtn" class="btn_line_s" value ="디자이너 관리">					
+					</p>
 					</c:if>
 				</td>
 			</tr>
@@ -74,6 +77,11 @@ if(sessionUser == null){
 	$("#addDesignBtn").click(function(){
 		var shop_seq = $("#addDesignBtn").attr("shop_seq");
 		location.href = "shopDesignAdd.do?shop_seq="+shop_seq;
+	});
+	
+	$("#modifyShopBtn").click(function(){
+		var shop_seq = $("#modifyShopBtn").attr("shop_seq");
+		location.href = "modifyShop.do?shop_seq="+shop_seq;
 	});
 </script>
 <%@ include file="./../../../include/footer.jsp" %>

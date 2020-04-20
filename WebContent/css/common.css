@@ -434,3 +434,22 @@ WRITER : 理쒖삁吏�
     left: 50%;
     margin: -13px 0 0 -48px;
 }
+
+
+
+
+
+/*
+	박지훈 css
+*/
+.prdSubMenu {min-width: 1069px;height: 34px;border-bottom: 1px solid #efefef;width: 100%}
+.prdSubMenu li {list-style-type: none; float: left; margin-left: 30px;}
+.prdSubMenu li:last-child {border-right: none;}
+.prdSubMenu li a {height: auto;}
+.prdSubMenu li a:hover,
+.prdSubMenu li a.current {text-decoration: underline;}
+.prdSubMenu .selectMenu {color:red;}
+
+.selectPrdBtn{width: 30px; height: 30px; margin-right: 5px; border: 1px solid #eee; border-left: none; border-right: none; text-indent: 0; background-color: #c8c8c8; color:white;}
+.selectAcount{width: 30px; border: 1px solid #eee; border-left: none; border-right: none; text-indent: 0; margin-right: 10px; margin-left: 10px;}
+.selectDelBtn{width: 20px; height: 20px; margin-left: 5px; border: 1px solid #eee; border-left: none; border-right: none; text-indent: 0; background-color: #c8c8c8; color:white}

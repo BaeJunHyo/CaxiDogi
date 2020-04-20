@@ -11,16 +11,15 @@ memberDto loginUser = (memberDto)request.getSession().getAttribute("loginUser");
 <head>
 <title>CaxiDogi</title>
 <meta charset="utf-8">
-<link href="./css/reset.css" rel="stylesheet">
-<link href="./css/common.css" rel="stylesheet">
-<link href="./css/main.css" rel="stylesheet">
-<link href="./css/prd_detail.css" rel="stylesheet">
-<link href="./css/style.css" rel="stylesheet">
+<link href="<%=request.getContextPath() %>/css/reset.css" rel="stylesheet">
+<link href="<%=request.getContextPath() %>/css/common.css" rel="stylesheet">
+<link href="<%=request.getContextPath() %>/css/main.css" rel="stylesheet">
+<link href="<%=request.getContextPath() %>/css/prd_detail.css" rel="stylesheet">
+<link href="<%=request.getContextPath() %>/css/style.css" rel="stylesheet">
 <!-- <link href="css/setting.css" rel="stylesheet"> -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
-<script src="./js/jquery.bxslider.js"></script>
-<script src="./js/common.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script src="<%=request.getContextPath() %>/js/jquery.bxslider.js"></script>
+<script src="<%=request.getContextPath() %>/js/common.js"></script>
 
 <!--   <script type="text/javascript">
    $(document).ready(function (){
@@ -37,6 +36,14 @@ memberDto loginUser = (memberDto)request.getSession().getAttribute("loginUser");
    });
   
   </script> -->
+  
+<!-- 코어태그 -->
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix = "fn"  uri = "http://java.sun.com/jsp/jstl/functions" %>
+<fmt:requestEncoding value="utf-8"/>
+
+
 
 
 </head>
@@ -58,7 +65,7 @@ memberDto loginUser = (memberDto)request.getSession().getAttribute("loginUser");
 	<div class="header">
 		<a href="main.do" class="logo">
 			<h1>
-				<img src="images/img_logo.png" alt="CaxiDogi 로고">
+				<img src="<%=request.getContextPath() %>/images/img_logo.png" alt="CaxiDogi 로고">
 			</h1>
 		</a>
 		<div class="service_section">

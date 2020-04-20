@@ -112,7 +112,8 @@
 		removePlugins:'resize',	//크기 조절 플러그인 제거 
 		resize_enabled:false, // 크기 조절 막기 
 		enterMode: CKEDITOR.ENTER_BR, // enter 키를 <br>로 대체 
-		shiftEnterMode: CKEDITOR.ENTER_P // 쉬프드 엔터를 <p>로 대체 
+		shiftEnterMode: CKEDITOR.ENTER_P, // 쉬프드 엔터를 <p>로 대체 
+		width: 700
 		
 	});// CKEDITOR.replace END
 

@@ -49,5 +49,10 @@ public class ShopServiceImpl implements ShopService {
 	public boolean addDesigner(shopDesignerDto designer) {
 		return shopDao.addDesigner(designer);
 	}
+
+	@Override
+	public shopDesignerDto getDesignerInfo(int design_seq) {
+		return shopDao.getDesignerInfo(design_seq);
+	}
 	
 }

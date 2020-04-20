@@ -3,7 +3,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@ include file="./../../../include/header.jsp"%>
 <link href="./css/shopresv.css" rel="stylesheet">
@@ -25,8 +26,8 @@
 <div class="category_dept">
 	<ul>
 		<li>HOME</li>
-		<li>BEST</li>
-		<li>사료</li>
+		<li>ACTIVE</li>
+		<li>미용</li>
 	</ul>
 </div>
 
@@ -155,7 +156,8 @@
 								<select id="sel" name="selDesigner">
 								<option class="selDes" value="-1" selected="selected">디자이너 선택</option>
 								<c:forEach items="${designerList }" var="desList" varStatus="des">
-									<option class="selDes" design_time="${desList.design_time }"  design_seq="${desList.design_seq}" value="${desList.design_seq }">${desList.design_name}</option>
+									<option class="selDes" design_time="${desList.design_time }"  design_seq="${desList.design_seq}" value="${desList.design_seq }">${desList.design_name} +${desList.design_price }원</option>
+									
 								</c:forEach>
 								</select>
 								 <input type="hidden" name="design_seq" value="${desList.design_seq}" id="dsseq">
@@ -296,16 +298,22 @@
   
 $(document).ready(function(){
 $("#sel").on('change', function(){
-	alert("seq" + $("#sel").val());
+	//alert("seq" + $("#sel").val());
 	var design_time = $('option:selected', this).attr('design_time');
-	alert("design_time:" + design_time);
+	//alert("design_time:" + design_time);
 	var design_seq = $('option:selected', this).attr('design_seq');
-	alert("design_seq:" + design_seq);
+	//alert("design_seq:" + design_seq);
 	var sTime = design_time.split("/");
-	alert("stime"+sTime);
-
-	$("#dtime *").remove();
+	//alert("stime"+sTime);
 	
+	if($('#sel > option:selected').val()== -1){
+		 $("#dtime").hide();
+	}
+	
+	$("#dtime *").remove();
+
+	 
+
 	
 	for(var i=0; i<sTime.length; i++){
 			$("#dtime").append("<li class='timeBtn'><button type='button' class='btn' id='sbtn' value='"+sTime[i]+"' sTime='"+sTime[i]+"'>"+sTime[i]+"</button></li>");
@@ -355,6 +363,8 @@ $("#sel").on('change', function(){
 			 }
 
 			 
+			
+			 
 			 $(document).on('click','.btn',function(){
 					var pcode = $(this).val(); //이거는 해당 element의 id value값을 가져오는것.
 					//var test = txt;
@@ -385,9 +395,19 @@ $("#sel").on('change', function(){
 });
 
 $("#resvwriteBtn").click(function(){
-	$("#dsseq").val($("#sel option:selected").val());
-	//alert("click"+$("#dsseq").val());
-	$("#frm").submit();
+	if($('#sel > option:selected').val()== -1){
+		alert("디자이너 선택을 안하셨습니다.");
+		
+	}else if($('#shop_resv_time').val() == ""){
+		alert("시간 선택을 안하셨습니다.");
+	}
+	else{
+		$("#dsseq").val($("#sel option:selected").val());
+		//alert("click"+$("#dsseq").val());
+		$("#frm").submit();
+
+	}
+	
 	
 });
   

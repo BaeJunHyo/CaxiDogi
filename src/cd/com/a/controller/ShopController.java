@@ -34,6 +34,7 @@ import cd.com.a.model.memberDto;
 import cd.com.a.model.shopDesignerDto;
 import cd.com.a.model.shopDto;
 import cd.com.a.model.shopResvDto;
+import cd.com.a.service.MemberService;
 import cd.com.a.service.ShopService;
 import cd.com.a.util.FileUploadUtil;
 
@@ -42,7 +43,8 @@ public class ShopController {
 	@Autowired
 	ShopService shopService;
 	
-	
+	@Autowired
+	MemberService memService;
 	
 	@RequestMapping(value="shopRegi.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public String shopRegi(HttpSession session) {
@@ -276,16 +278,23 @@ public class ShopController {
 	}
 	
 	@RequestMapping(value="shopResvWrite.do",  method= {RequestMethod.GET,RequestMethod.POST})
-	public String shopResvWrite(Model model, HttpServletRequest request, shopResvDto resvdto) {
+	public String shopResvWrite(Model model, HttpServletRequest request, shopResvDto shopResvdto) {
 		//String sshop_seq = request.getParameter("shop_seq");
 		//int shop_seq = Integer.parseInt(sshop_seq);
-		System.out.println("=========!!!!!!!resvdto" + resvdto.toString());
+		System.out.println("=========!!!!!!!resvdto" + shopResvdto.toString());
 		//System.out.println("===========parameterShopSeq:" +shop_seq);
 		
-//		shopDto shopdto = shopService.getShopDetail(resvdto.getShop_seq())
-//		shopDesignDto desdto = shopService.getdes(resvdto.getDesign_seq())
-//		
-//		mem
+		shopDto shopdto = shopService.getShopDetail(shopResvdto.getShop_seq());
+		shopDesignerDto desdto = shopService.getDesignerInfo(shopResvdto.getDesign_seq());
+		
+		memberDto mem = memService.resvMem(shopResvdto.getMem_seq());
+		
+		shopResvdto.setShop_resv_name(mem.getUser_name());
+		shopResvdto.setShop_resv_tel(mem.getPhone());
+		
+		model.addAttribute("shopdto", shopdto);
+		model.addAttribute("desdto", desdto);
+		model.addAttribute("shopResvdto", shopResvdto);
 		
 		return "/shop/shopResvWrite";
 	}

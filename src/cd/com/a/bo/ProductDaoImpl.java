@@ -1,10 +1,12 @@
-package cd.com.a.daoImpl;
+package cd.com.a.bo;
+
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import cd.com.a.dao.ProductDao;
+import cd.com.a.model.ProductParam;
 import cd.com.a.model.productDto;
 
 @Repository
@@ -15,11 +17,21 @@ public class ProductDaoImpl implements ProductDao {
 	String ns = "Product.";
 
 	@Override
+	public List<productDto> prdSearchList(ProductParam prdParam) {
+		return sqlSession.selectList(ns + "prdSearchList", prdParam);
+	}
+	
+	
+	@Override
 	public boolean productInsert(productDto dto) {
 		int result = sqlSession.insert(ns + "productInsert", dto);
 		System.out.println("result=" + result);
 		return result > 0 ? true:false;
 	}
+
+	
+	
+
 
 
 

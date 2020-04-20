@@ -53,5 +53,10 @@ public class ShopDaoImpl implements ShopDao {
 		shopDto dto = sqlSession.selectOne(ns+"getShopDetail", shop_seq);
 		return dto;
 	}
+	@Override
+	public boolean addDesigner(shopDesignerDto designer) {
+		int n = sqlSession.insert(ns+"addDesigner", designer);
+		return n>0?true:false;
+	}
 	
 }

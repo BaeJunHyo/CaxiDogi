@@ -121,53 +121,79 @@ memberDto loginUser = (memberDto)request.getSession().getAttribute("loginUser");
 	<div class="header-btm">
 		<div class="inner">
 			<ul class="gnb clfix">
-				<li class="navi_btn">
-				<a href="#none">
-						<div class="hamburger">
-							<span class="line"></span> 
-							<span class="line"></span> 
-							<span class="line"></span>
-						</div> 전체메뉴
-				</a>
-				</li>
-				<li><a href="#" class="pet">PET GOODS </a></li>
-				<li><a href="#" class="active">ACTIVE</a></li>
-				<li><a href="#" class="resv" >RESERVATION</a></li>
-				<li><a href="#" class="commu">COMMUNITY</a></li>
-			</ul>
-		</div>
-		<!--sub menu -->
-	<nav id="nav" style="display: none;">
-		<div class="container">
-			<div class="row">
-				<div class="nav">
-					<ul class="clearfix">
-						<li><a href="#">HTML Reference1</a></li>
-						<li><a href="#">HTML Reference2</a></li>
-						<li><a href="#">HTML Reference3</a></li>
-						<li><a href="#">HTML Reference4</a></li>
-					</ul>
-					<ul>
-						<li><a href="#">HTML Reference5</a></li>
-						<li><a href="#">HTML Reference6</a></li>
-						<li><a href="#">HTML Reference7</a></li>
-					</ul>
-					<ul>
-						<li><a href="#">HTML Reference8</a></li>
-						<li><a href="#">HTML Reference9</a></li>
-						<li><a href="#">HTML Reference10</a></li>
-					</ul>
-					<ul>					
-						<li><a href="#">HTML Reference11</a></li>
-						<li><a href="#">HTML Reference12</a></li>
-						<li><a href="#">HTML Reference13</a></li>
-						<li><a href="#">HTML Reference14</a></li>
-						<li><a href="#">HTML Reference15</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</nav>
+            <li class="navi_btn">
+            <a href="#none" class="allmenu">
+               <div class="hamburger">
+                  <span class="line"></span> 
+                  <span class="line"></span> 
+                  <span class="line"></span>
+               </div> 전체메뉴
+            </a>
+            </li>
+            <li class="subNav">
+               <a href="prdList.do" class="pet">PET GOODS</a>
+               <ul id="subGoods" class="submenu">
+                  <li class="ssub" onclick="location.href('');">
+                     	강아지
+                  </li>
+                  <li class="ssub">
+                     	고양이
+                  </li>
+                  <li class="ssub">
+                    	 공용
+                  </li>
+               </ul>
+            </li>
+            <li class="subNav">
+               <a href="#" class="active">ACTIVE</a>
+               <ul id="subActive" class="submenu">
+                  <li class="ssub" onclick="location.href='getShopList.do'">
+                     	미용 
+                  </li>
+                  <li class="ssub" onclick="location.href='getPoolList.do'">
+                    	수영장
+                  </li>
+                  <li class="ssub"onclick="location.href=''">
+                     	운동장
+                  </li>
+               </ul>
+            </li>
+            <li class="subNav">
+               <a href="#" class="commu">COMMUNITY</a>
+               <ul id="subCommu" class="submenu">
+                  <li class="ssub">
+                    	 공지사항
+                  </li>
+                  <li class="ssub">
+                     QnA
+                  </li>
+               </ul>
+            </li>
+         </ul>
+      </div>
+      <!--sub allmenu -->
+      <nav id="nav" style="display: none;">
+         <div class="container">
+            <div class="row">
+               <div class="nav">
+                  <ul class="clearfix">
+                     <li><a href="#">강아지</a></li>
+                     <li><a href="#">고양이</a></li>
+                     <li><a href="#">공용</a></li>
+                  </ul>
+                  <ul>
+                     <li><a href="getShopList.do">미용</a></li>
+                     <li><a href="getPoolList.do">수영장</a></li>
+                     <li><a href="#">운동장</a></li>
+                  </ul>
+                  <ul>
+                     <li><a href="#">공지사항</a></li>
+                     <li><a href="#">QnA</a></li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+      </nav>
 		<!-- //inner -->
 	</div>
 		

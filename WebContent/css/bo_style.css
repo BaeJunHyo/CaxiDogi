@@ -788,7 +788,8 @@ body{overflow-x: hidden;}
  .lp_box_click span {display: block; width: 90%;}
 
 
- /* 상품등록 */
+ /* 상품등록 페이지 */
+.productRegi .info_lavel{color: #a9a9a9;}
 
 
 

@@ -4,20 +4,111 @@
 
 <mapper namespace="Product">
 
-<!-- 상품리스트 -->
+<!-- 상품리스트(검색 - 관리자) -->
+<select id="prdSearchList" parameterType="cd.com.a.model.ProductParam" resultType="cd.com.a.model.productDto">
+	SELECT product_num, product_code, product_img, product_name, 
+		product_price, product_brand, product_hidden, 
+		product_sale, product_stock, product_regi_date, product_del 
+	FROM product
+	ORDER BY product_num
+	<where>
+		   <if test="s_category != null and s_category != ''
+				and s_keyword != null and s_keyword != '' 
+				and s_category1 != null and s_category1 != '' 
+				and s_product_group != null and s_product_group != ''
+				and s_product_sub_group != null and s_product_sub_group != ''
+				and soldState != null and soldState != ''">
+				 AND product_del=0 
+				 AND s_product_group = #{product_group} 
+				 AND s_product_sub_group = #{product_sub_group}
+				 AND soldState = #{soldState}
+				 
+				 <if test="soldState == 0">
+					AND soldState=#{soldState}
+				</if>
+				<if test="soldState == 1">
+					AND soldState=#{soldState}
+				</if>
+				<if test="soldState == 2">
+					AND soldState=#{soldState}
+				</if>
+				 
+				<if test="s_category == 'product_name'">
+					AND product_name LIKE '%'||#{s_keyword}||'%'
+				</if>
+				<if test="s_category == 'product_code'">
+					AND product_code LIKE '%'||#{s_keyword}||'%'
+				</if>
+				<if test="s_category == 'product_brand'">
+					AND product_brand LIKE '%'||#{s_keyword}||'%'
+				</if>
+				
+				<if test="s_product_group == 'dogGoods'">
+					AND product_group=#{dogGoods}
+				</if>
+				<if test="s_product_group == 'catGoods'">
+					AND product_group=#{catGoods}
+				</if>
+				<if test="s_product_group == 'pub'">
+					AND product_group=#{pub}
+				</if>
+				
+				<if test="s_product_sub_group == 'feed'">
+					AND product_sub_group=#{feed}
+				</if>
+				<if test="s_product_sub_group == 'snack'">
+					AND product_sub_group=#{snack}
+				</if>
+				<if test="s_product_sub_group == 'toilet'">
+					AND product_sub_group=#{toilet}
+				</if>
+				<if test="s_product_sub_group == 'play'">
+					AND product_sub_group=#{play}
+				</if>
+				<if test="s_product_sub_group == 'beauty'">
+					AND product_sub_group=#{beauty}
+				</if>
+				
+				
+			</if>
+		   </where>
+		   
+		   
+		<!-- WHERE RNUM BETWEEN ${start} AND ${end} -->
+</select>
 
 
-<!-- 상품등록 -->
+<!-- 상품등록(관리자) -->
 <insert id="productInsert" parameterType="cd.com.a.model.productDto">
 	INSERT INTO product(
-			PRODUCT_NAME, PRODUCT_READCOUNT, PRODUCT_IMG, PRODUCT_PRICE,
-			PRODUCT_GROUP, PRODUCT_SUB_GROUP, PRODUCT_CODE, PRODUCT_CONTENT
+			product_name, product_readcount, product_img, product_price,
+			product_group, product_sub_group, product_code, product_content, product_regi_date,
+			product_brand, product_sale, product_hidden, product_stock, product_delivery_auth
 		)
 
 	VALUES(
 			#{product_name}, 0, #{product_img}, #{product_price}, 
-			#{product_group}, #{product_sub_group}, #{product_code}, #{product_content}
+			#{product_group}, #{product_sub_group}, #{product_code}, #{product_content}, CURRENT_TIMESTAMP(),
+			#{product_brand}, #{product_sale}, #{product_hidden}, #{product_stock}, #{product_delivery_auth}
 		)
 </insert>
+
+<!-- ========= 상품리스트(client)  ======== -->
+<select id="getPrdList" resultType="cd.com.a.model.productDto">
+	SELECT 
+	product_num, product_code, product_img, product_name, product_price, 
+		   product_brand, product_hidden, product_sale, product_stock, 
+		   product_regi_date, product_del
+	FROM product
+</select>
+
+<!-- ========= 상품구매(client) 상품상세 ======== -->
+<select id="getPrd" parameterType="java.lang.Integer" resultType="cd.com.a.model.productDto">
+	SELECT product_num, product_code, product_img, product_name, product_price, 
+		   product_brand, product_hidden, product_sale, product_stock, 
+		   product_regi_date, product_del
+	FROM product
+	WHERE product_num = #{product_num}
+</select>
 
 </mapper>

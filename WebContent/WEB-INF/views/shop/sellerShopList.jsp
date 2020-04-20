@@ -22,7 +22,7 @@
 		</c:if>
 		<c:if test="${fn:length(shopList) !=0 }">
 			<c:forEach items="${shopList }" var="shop" varStatus="sp">
-			<tr>
+			<tr >
 				<th>${sp.index+1 }</th>
 				<td>${shop.shop_name }</td>
 				<td>${shop.shop_addr }</td>
@@ -35,11 +35,11 @@
 						<span style="color : blue;">승인</span>
 					</c:if>
 				</td>
-				<td>
-					<input type = "button" id ="shopUpdateBtn" value ="수정">
-					<input type = "button" id = "shopDeleteBtn" value ="삭제">
+				<td >
+					<input type = "button" id ="shopUpdateBtn" class="btn_line_s" value ="수정">
+					<input type = "button" id = "shopDeleteBtn" class="btn_line_s" value ="삭제">
 					<c:if test = "${shop.shop_auth == 1 }">
-					<input type = "button" id = "addDesignBtn" value ="디자이너 추가">					
+					<input type = "button" shop_seq = "${shop.shop_seq }" id = "addDesignBtn" class="btn_line_s" value ="디자이너 추가">					
 					</c:if>
 				</td>
 			</tr>
@@ -50,8 +50,9 @@
 </div>
 
 <script type="text/javascript">
-	$("#addDesignBtn").click(function{
-		
+	$("#addDesignBtn").click(function(){
+		var shop_seq = $("#addDesignBtn").attr("shop_seq");
+		location.href = "shopDesignAdd.do?shop_seq="+shop_seq;
 	});
 </script>
 <%@ include file="./../../../include/footer.jsp" %>

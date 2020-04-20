@@ -45,5 +45,9 @@ public class ShopServiceImpl implements ShopService {
 	public shopDto getShopDetail(int shop_seq) {
 		return shopDao.getShopDetail(shop_seq);
 	}
+	@Override
+	public boolean addDesigner(shopDesignerDto designer) {
+		return shopDao.addDesigner(designer);
+	}
 	
 }

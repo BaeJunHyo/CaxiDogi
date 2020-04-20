@@ -1,6 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
 <%@ include file="./../../../include/header.jsp"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link href="./css/layout.css" rel="stylesheet">
 <link href="./css/style.css" rel="stylesheet">
 
@@ -32,16 +35,16 @@
 		<div class="mproduct_area">
 			<ul>
 		<c:forEach items="${shoplist }" var="shop" varStatus="sp">
-<%-- 		<c:if test="${shop.shop_auth == 1 }"> --%>
+		<c:if test="${shop.shop_auth == 1 }">
 				<li><a
-					href="shopResv.do?seq=${shop.shop_seq }"
+					href="shopResv.do?shop_seq=${shop.shop_seq }"
 					class="box">
 						<div class="img">
-						<c:if test ="${shop.shop_photo == 'default' }">
+						<c:if test="${shop.shop_photo == 'default' }">
 							<img class="MS_prod_img_m"
-								src="<%=request.getContextPath() %>/images/shopImg/grooming.png" alt="">
+								src="./images/shopImg/default.png" alt="">
 						</c:if>
-						<c:if test ="${shop.shop_photo != 'default' }">
+						<c:if test="${shop.shop_photo != 'default' }">
 							<img class="MS_prod_img_m"
 								src="<%=request.getContextPath() %>/images/shopImg/${shop.shop_photo }" alt="">
 						</c:if>
@@ -57,7 +60,7 @@
 							</dd>
 						</dl>
 				</a></li>
-				<%--  </c:if>--%>
+				</c:if>
 		</c:forEach>
 			</ul>
 		</div>

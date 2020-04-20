@@ -31,6 +31,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.google.gson.JsonObject;
 
 import cd.com.a.model.memberDto;
+import cd.com.a.model.shopDesignerDto;
 import cd.com.a.model.shopDto;
 import cd.com.a.model.shopResvDto;
 import cd.com.a.service.ShopService;
@@ -168,6 +169,34 @@ public class ShopController {
 		return "/shop/sellerShopList";
 	}
 	
+
+	@RequestMapping(value="shopDesignAdd.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String shopDesignAdd(int shop_seq, Model model) {
+		System.out.println(shop_seq);
+		model.addAttribute("shop_seq", shop_seq);
+		
+		return "/shop/regi_design";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="shopDesignAdAf.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String shopDesignAdAf(shopDesignerDto designer) {
+		String str = "";
+		System.out.println(designer.toString());
+		boolean	status = shopService.addDesigner(designer);
+		
+		if(status == true) {
+			str = "ok";
+		} else {
+			str = "no";
+		}
+		
+		return str;
+	}
+	
+	
+	
+//--------------------------------------------------------------MJ--------------------------------------------------	
 	@RequestMapping(value="shop.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public String shop() {
 		return "/shop/shop";
@@ -215,7 +244,7 @@ public class ShopController {
 	
 	
 	@ResponseBody
-	@RequestMapping(value="resv.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value="getResvTime.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public Map<Integer, Object> resv(shopResvDto resvDto) {
 		System.out.println("======ResvDto:" + resvDto.toString());
 		
@@ -320,7 +349,7 @@ public class ShopController {
 		model.addAttribute("shopDetail", shopDetail);
 		model.addAttribute("designerList", designerList);
 		
-		return "/shop/shopResv2";
+		return "/shop/shopDetail";
 	}
 	
 }

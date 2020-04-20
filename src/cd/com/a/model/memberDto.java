@@ -42,7 +42,10 @@ public class memberDto implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+	public memberDto(int mem_seq) {
+		super();
+		this.mem_seq = mem_seq;
+	}
 
 	public memberDto(int mem_seq,String id, String password, int user_api, String nick_name, String user_name, String birthday,
 			String address, String phone, int pass_question, String pass_hint, int point, int auth

@@ -12,6 +12,16 @@
   <link href="./css/calstyle2.css" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  
+  
+<style>
+.cant{
+	opacity: 0.65; 
+   cursor: not-allowed; 
+
+} 
+
+</style>  
 <div class="category_dept">
 	<ul>
 		<li>HOME</li>
@@ -20,14 +30,7 @@
 	</ul>
 </div>
 
-<%
-/* List<shopDesignerDto> desList = (List<shopDesignerDto>)request.getAttribute("designerList");
-for(int i=0; i<desList.size(); i++){
-	shopDesignerDto dto =desList.get(i);
-	if(dto.getDesign_seq() == )
-	
-} */
-%>
+
 
 <!-- container S : -->
 <div class="container_subWrap sub_detail">
@@ -83,7 +86,7 @@ for(int i=0; i<desList.size(); i++){
 			</div>
 			<!--// col1 -->
 
-
+		  <form action="">
 			<div class="col2">
 				<div class="info">
 				<input type="hidden" name="shop_seq" id="shop_seq" value="${shopDetail.shop_seq }">
@@ -129,7 +132,7 @@ for(int i=0; i<desList.size(); i++){
 							<dl>
 								<dt>주소</dt>
 								<dd>
-									<strong>${shopDetail.shop_addr}</strong>
+									<strong>${fn:split(shopDetail.shop_addr, '/')[1]}</strong>
 							
 								</dd>
 							</dl>
@@ -139,9 +142,9 @@ for(int i=0; i<desList.size(); i++){
 						<li>
 						
 						<div  id="datepicker" align="center"></div>
-						<input type="hidden" id="shop_resv_rday">
+						<input type="hidden" id="shop_resv_rday" name="shop_resv_rday">
 						</li>
-						<li>
+						<li class="desginerName">
 						<div id="desginerName">
 						
 						<input type="hidden" name="">
@@ -149,49 +152,44 @@ for(int i=0; i<desList.size(); i++){
 								<%-- <dt id="desName">${desList.design_name}</dt> --%>
 								<dt>
 								<select id="sel">
-								<option class="selDes" value="-1">디자이너 선택</option>
+								<option class="selDes" value="-1" selected="selected">디자이너 선택</option>
 								<c:forEach items="${designerList }" var="desList" varStatus="des">
-									<%-- <input type="hidden" name="design_seq" value="${desList.design_seq }" id="design_seq"> --%>
 									<option class="selDes" design_time="${desList.design_time }"  design_seq="${desList.design_seq}" value="${desList.design_seq }">${desList.design_name}</option>
 								</c:forEach>
 								</select>
+								<input type="hidden" name="design_seq" value="${desList.design_seq}">
+								<input type="hidden" name="design_seq" value="${desList.design_seq}">
 								
 								<%-- <span id="getTime" design_time="${desList.design_time }"  design_seq="${desList.design_seq}" class="getTime">${desList.design_name}</span> --%></dt>
 								<dd></dd>
 							</dl>
 						</div>
 						</li>
-						<li>
+						<li class="desginerName destime">
 							<div id="desginerTime">
-							<c:forEach items="${designerList }" var="desList" varStatus="des">
+							<%-- <c:forEach items="${designerList }" var="desList" varStatus="des"> --%>
 						
-								<ul id="dtime">
-									<%-- <%-- <li>${fn:split(desList.design_time, '/') }</li> --%>
+								<ul id="dtime" style="display: none">
+								
 								</ul>
-							</c:forEach>
+							<%-- </c:forEach> --%>
 							</div>
 						</li>
-							<li>
+							<li style="clear: both;">
 							
 								<hr class="mt15">
 							</li>
-						</div>
 					</ul>
-
-					
-
-					<p class="total_price clearfix pt20 pb15">
-						<span class="fl pt5">총 합계금액</span>
-						<span class="fr"><strong class="c_red">1,000,000</strong>원</span>
-					</p>
-
+				</div>
 					<p class="prdBtns clearfix">
 						<a href="#n" class="btn_green_l p0">바로구매</a>
-						<a href="#n" class="btn_dark_l p0">장바구니</a>
+						<a href="#n" class="btn_dark_l p0">예약하기</a>
 						<!-- <span class="sign_soldout">일시품절인 상품입니다.</span> -->
 						<a href="#n" class="btn_line_l p0 btn_wishlist" alt="위시리스트"></a>
 					</p>
+				
 				</div>
+				</form>
 			</div>
 			<!--// col2 -->
 		</div>
@@ -630,6 +628,7 @@ for(int i=0; i<desList.size(); i++){
  <script>
  $(document).ready(function(){
 	$("#desginerName").hide();
+	
 
 });
  	var index = $('input[name="shop_seq"]').val();
@@ -646,6 +645,13 @@ for(int i=0; i<desList.size(); i++){
 		//alert("누른값"+$("#shop_resv_rday").val());
 		
 		$("#desginerName").show();
+		$("#sel option:eq(0)").prop("selected", true);
+
+		$("#dtime *").remove();
+
+		
+		
+		
 		/* $.ajax({
 			type:'post',
 			url:"resv.do?shop_seq=" + shop_seq,
@@ -701,22 +707,80 @@ $("#sel").on('change', function(){
 	alert("design_time:" + design_time);
 	var design_seq = $('option:selected', this).attr('design_seq');
 	alert("design_seq:" + design_seq);
+	var sTime = design_time.split("/");
+	alert("stime"+sTime);
 
+	$("#dtime *").remove();
+	
+	
+	for(var i=0; i<sTime.length; i++){
+			$("#dtime").append("<li class='timeBtn'><button type='button' class='btn' id='sbtn' value='"+sTime[i]+"' sTime='"+sTime[i]+"'>"+sTime[i]+"</button></li>");
+	}
+
+	
+	
+	
 	var shop_seq = $("#shop_seq").val();
 	alert("shop_seq: " + shop_seq);
 	var shop_resv_rday = $("#shop_resv_rday").val();
 	alert("shop_resv_rday: " + shop_resv_rday);
 	var allData = {"design_seq":design_seq, "shop_seq":shop_seq, "shop_resv_rday":shop_resv_rday};
 
-	
+	$("#dtime").show();
 	$.ajax({
-		url: 'resv.do',
+		url: 'getResvTime.do',
 		type:'post',
 		data: allData,
 		success: function(data){
 			alert("data: " +data);
 			str = JSON.stringify(data);
+			str = JSON.parse(str);
 			alert("str: " + str);
+			
+			var obj_length = Object.keys(str).length;
+			alert("length:" + obj_length);
+			
+			//sTime == str[key]
+			
+			var v = new Array();
+			
+
+			// 어펜드를 미리 시켜놓고 가져온 값을 비교해서 비지블 안비지블
+			
+			for( key in str){
+				//var v = str[key];
+				//alert("제발"+v);
+				v[key]= str[key];
+				alert("val[]: " + v[key]);
+			}
+
+			
+			alert("포문밖 브이: " + v);
+
+
+			 for(var j=0; j<v.length; j++){
+				//$('button:contains("'+v[j]+'")').css('disabled');
+				$('button:contains("'+v[j]+'")').addClass('cant');
+				$('button:contains("'+v[j]+'")').attr("disabled","disabled");
+			 }
+
+			 
+			 $(document).on('click','.btn',function(){
+					var pcode = $(this).val(); //이거는 해당 element의 id value값을 가져오는것.
+					//var test = txt;
+					$(this).attr("name", "shop_resv_time");
+					$("#shop_resv_time").val(pcode);
+					alert("pcode:" + pcode);
+				});
+
+			
+			/* for(var j=0; j<sTime.length; j++){
+				if(sTime.indexOf(v)){
+					$( 'li:has( v )' ).css( 'border', '1px solid red' );
+				}
+			} */
+			
+			
 		},
 		error: function(){
 			alert('err');

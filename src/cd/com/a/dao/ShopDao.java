@@ -13,4 +13,6 @@ public interface ShopDao {
 	public List<shopDesignerDto> getDesigner(int shop_seq);
 	public List<String> getResv(shopResvDto resvDto);
 	public shopDto getShopDetail(int shop_seq);
+	public boolean addDesigner(shopDesignerDto designer);
+
 }

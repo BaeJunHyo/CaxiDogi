@@ -109,7 +109,7 @@ public class ShopController {
 	
 	@ResponseBody
 	@RequestMapping(value = "shopRegiAf.do",method=RequestMethod.POST)
-	   public String multipartUpload(@ModelAttribute shopDto shop, @RequestParam(value="fileload")MultipartFile fileload, HttpServletRequest req){
+	   public String shopRegiAf(@ModelAttribute shopDto shop, @RequestParam(value="fileload")MultipartFile fileload, HttpServletRequest req){
 		String str = "";
 		if(!fileload.isEmpty()) {
 			String fileUpload = req.getServletContext().getRealPath("/images/shopImg"); 
@@ -154,7 +154,55 @@ public class ShopController {
 		}
 		
 		return str;
-	}
+	}	
+	
+	@ResponseBody
+	@RequestMapping(value = "shopModifyAf.do",method=RequestMethod.POST)
+	   public String shopModifyAf(@ModelAttribute shopDto shop, @RequestParam(value="fileload")MultipartFile fileload, HttpServletRequest req){
+		String str = "";
+		if(!fileload.isEmpty()) {
+			String fileUpload = req.getServletContext().getRealPath("/images/shopImg"); 
+			System.out.println("fileUpload" + fileUpload); // 업로드 위치
+			//System.out.println(fileUpload);
+			String fileName = fileload.getOriginalFilename();
+			String saveFileName = "";
+			String filepost = "";
+			if(fileName.indexOf('.') >= 0) { // 확장자 명이 있을때
+				filepost = fileName.substring(fileName.indexOf('.'));
+				saveFileName = new Date().getTime() + filepost;
+			} 
+			shop.setShop_photo(saveFileName);
+			
+			File file = new File(fileUpload + "/" + saveFileName);
+
+			//실제 파일 업로드 되는 부분
+			try {
+				FileUtils.writeByteArrayToFile(file, fileload.getBytes());
+				System.out.println(shop.toString());
+				//db저장
+				boolean	status = shopService.shopModifyAf(shop);
+			
+				if(status == true) {
+					str = "ok";
+				} else {
+					str = "no";
+				}
+			
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			boolean	status = shopService.shopModifyAf(shop);
+			
+			if(status == true) {
+				str = "ok";
+			} else {
+				str = "no";
+			}
+		}
+		
+		return str;
+	}	
 	
 	@RequestMapping(value="sellerShopList.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public String sellerShopList(HttpSession session, Model model) {
@@ -189,6 +237,14 @@ public class ShopController {
 		}
 		
 		return str;
+	}
+	
+	@RequestMapping(value="shopDesignList.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String shopDesignList(int shop_seq, Model model) {
+		List<shopDesignerDto> designerList = shopService.getDesigner(shop_seq);
+		model.addAttribute("designerList", designerList);
+		
+		return "/smypage/shopDesignList";
 	}
 	
 	@RequestMapping(value="modifyShop.do",  method= {RequestMethod.GET,RequestMethod.POST})

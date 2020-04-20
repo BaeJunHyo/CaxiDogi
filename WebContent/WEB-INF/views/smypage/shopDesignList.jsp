@@ -22,7 +22,7 @@ if(sessionUser == null){
 	<div class="cusSec_right">
 		<div class="cusSec_tableWrap tw_wFull">
 			<h3>
-				<span class="t_sbj">Shop 리스트</span>
+				<span class="t_sbj">디자이너 리스트</span>
 			</h3>
 		</div>
 		
@@ -30,41 +30,26 @@ if(sessionUser == null){
 		<table class ="basic_tableStyle" width = "100%">
 		<tr>
 			<th>번호</th>
-			<th>SHOP이름</th>
-			<th>SHOP주소</th>
-			<th>SHOP영업시간</th>
-			<th>승인여부</th>
+			<th>이름</th>
+			<th>추가금</th>
+			<th>예약시간</th>
 			<th>작업</th>
 		</tr>
-		<c:if test = "${fn:length(shopList) == 0 }">
+		<c:if test = "${fn:length(designerList) == 0 }">
 		<tr align="center">
-			<td colspan="6" >등록된 shop이 없습니다</td>
+			<td colspan="5" >등록된 디자이너가 없습니다</td>
 		</tr>
 		</c:if>
-		<c:if test="${fn:length(shopList) !=0 }">
-			<c:forEach items="${shopList }" var="shop" varStatus="sp">
+		<c:if test="${fn:length(designerList) !=0 }">
+			<c:forEach items="${designerList }" var="designer" varStatus="sp">
 			<tr >
 				<th>${sp.index+1 }</th>
-				<td>${shop.shop_name }</td>
-				<td>${shop.shop_addr }</td>
-				<td>${shop.shop_time }</td>
-				<td>
-					<c:if test = "${shop.shop_auth == 0 }">
-						<span style="color : red;">승인대기</span>
-					</c:if>
-					<c:if test = "${shop.shop_auth == 1 }">
-						<span style="color : blue;">승인</span>
-					</c:if>
-				</td>
+				<td>${designer.design_name }</td>
+				<td>${designer.design_price }</td>
+				<td>${designer.design_time }</td>
 				<td >
-					<input type = "button" shop_seq = "${shop.shop_seq }" id ="modifyShopBtn" class="btn_line_s" value ="수정">
-					<input type = "button" shop_seq = "${shop.shop_seq }" id = "shopDeleteBtn" class="btn_line_s" value ="삭제">
-					<c:if test = "${shop.shop_auth == 1 }">
-					<p style ="margin-top:10px;">
-					<input type = "button" shop_seq = "${shop.shop_seq }" id = "addDesignBtn" class="btn_line_s" value ="디자이너 추가">					
-					<input type = "button" shop_seq = "${shop.shop_seq }" id = "modifyDesignBtn" class="btn_line_s" value ="디자이너 관리">					
-					</p>
-					</c:if>
+					<input type = "button" design_seq = "${designer.design_seq }" id ="modifydesignBtn" class="btn_line_s" value ="수정">
+					<input type = "button" design_seq = "${designer.design_seq }" id = "designDeleteBtn" class="btn_line_s" value ="삭제">
 				</td>
 			</tr>
 			</c:forEach>
@@ -72,7 +57,7 @@ if(sessionUser == null){
 	</table>
 		</div>
 	<div style = "margin-top : 10px;" align = "right">
-	<button type="button" class="btn_dark_m" onclick ="location.href='shopRegi.do'">shop 등록</button>
+	<button type="button" class="btn_dark_m" onclick ="location.href='shopRegi.do'">디자이너 등록</button>
 	</div>
 	</div><!--// contents -->
 
@@ -89,11 +74,5 @@ if(sessionUser == null){
 		var shop_seq = $("#modifyShopBtn").attr("shop_seq");
 		location.href = "modifyShop.do?shop_seq="+shop_seq;
 	});
-	
-	$("#modifyDesignBtn").click(function(){
-		var shop_seq = $("#modifyDesignBtn").attr("shop_seq");
-		location.href = "shopDesignList.do?shop_seq="+shop_seq;
-	});
-	
 </script>
 <%@ include file="./../../../include/footer.jsp" %>

@@ -20,9 +20,13 @@ if(sessionUser == null){
 <%@ include file="./../../../include/left_frm_seller.jsp" %>
 		<!-- 마이페이지 메인 -->
 	<div class="cusSec_right">
+		<div class="cusSec_tableWrap tw_wFull">
+			<h3>
+				<span class="t_sbj">수영장 리스트</span>
+			</h3>
+		</div>
 		
-		<button type="button" class="btn_dark_m" onclick ="location.href='regiPool.do'">수영장 등록</button>
-		<div class="clearfix" style = "margin-top: 15px;">
+		<div class="clearfix">
 		<table class ="basic_tableStyle" width = "100%">
 		<tr>
 			<th>번호</th>
@@ -60,8 +64,11 @@ if(sessionUser == null){
 			</c:forEach>
 		</c:if>
 	</table>
-		</div>
 	
+		</div>
+		<div style = "margin-top : 10px;" align = "right">
+	<button type="button" class="btn_dark_m" onclick ="location.href='regiPool.do'">수영장 등록</button>
+	</div>
 	</div><!--// contents -->
 
 </div><!--container E : -->

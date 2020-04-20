@@ -11,6 +11,7 @@
 	String time[] = shop.getShop_time().split("~");
 	String startTime[] = time[0].trim().split(":");
 	String endTime[] = time[1].trim().split(":");
+	String address[] = shop.getShop_addr().split("/");
 %>
 	<div class="cusSec_right">
 
@@ -20,7 +21,7 @@
 			</h3>
 		<form name ="shopForm" id ="shopForm" method ="post" enctype="multipart/form-data">
 		<div class ="company_regi"  style = "margin-top : 10px;">
-		
+			<input type ="hidden" value ="${shop.shop_seq }" name = "shop_seq">
 			<label style = "width:100px;">Shop명</label>
 			<input type="text" value ="${shop.shop_name }" id = "shop_name" name="shop_name" size = "500" >
 		</div>
@@ -34,11 +35,11 @@
 		</div>
 		<div class ="company_regi"  style = "margin-top : 10px;">
 			<label style = "width:100px;">Shop주소</label>
-			<input type="text"  id="sample6_postcode" onclick="sample6_execDaumPostcode()" placeholder="우편번호" readonly >
+			<input type="text" value ="<%=address[0] %>" id="sample6_postcode" onclick="sample6_execDaumPostcode()" placeholder="우편번호" readonly >
 
 			<input type="button" class = "btn_line_s"  onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-			<input style = "margin-top:10px; margin-left : 120px;" type="text" id="sample6_address" placeholder="주소" readonly ><br>
-			<input style = "margin-top:10px; margin-left : 120px;" type="text" id="sample6_detailAddress" placeholder="상세주소" >
+			<input style = "margin-top:10px; margin-left : 120px;" value ="<%=address[1] %>" type="text" id="sample6_address" placeholder="주소" readonly ><br>
+			<input style = "margin-top:10px; margin-left : 120px;" type="text" value ="<%=address[2] %>" id="sample6_detailAddress" placeholder="상세주소" >
 			<input style = "margin-top:10px;" type="text" id="sample6_extraAddress" placeholder="참고항목" readonly >
 			<input type = "hidden" id ="shop_addr" name ="shop_addr">
 
@@ -78,26 +79,25 @@
 		</div>
 		<div class ="company_regi"  style = "margin-top : 10px;">
 			<label style = "width:100px;">Shop 한마디</label>
-			<input type="text" id = "shop_etc" name = "shop_etc" placeholder="한줄 홍보" size = "150">
+			<input type="text" id = "shop_etc" name = "shop_etc" value="${shop.shop_etc }" size = "150">
 		</div>
 		<div class ="company_regi" style = "margin-top : 10px;">
 			<label style = "width:100px;">소형 금액</label>
-			<input type="text" id = "shop_small_price" name = "shop_small_price"  placeholder="소형견" size = "150">
+			<input type="text" id = "shop_small_price" name = "shop_small_price"  value="${shop.shop_small_price }" size = "150">
 		</div>
 		<div class ="company_regi" style = "margin-top : 10px;">
 			<label style = "width:100px;">중형 금액</label>
-			<input type="text" id = "shop_medium_price"  name = "shop_medium_price" placeholder="중형견" size = "150">
+			<input type="text" id = "shop_medium_price"  name = "shop_medium_price" value="${shop.shop_medium_price }" size = "150">
 		</div>
 		<div class ="company_regi" style = "margin-top : 10px;">
 			<label style = "width:100px;">대형 금액</label>
-			<input type="text" id = "shop_large_price" name = "shop_large_price" placeholder="대형견" size = "150">
+			<input type="text" id = "shop_large_price" name = "shop_large_price" value="${shop.shop_large_price }" size = "150">
 		</div>
 		<div class ="company_regi" style = "margin-top : 10px;">
-			<textarea id="content" ></textarea>
+			<textarea id="content" >${shop.shop_content }</textarea>
 			<script>CKEDITOR.replace('content',{filebrowserUploadUrl:'imageUpload.do'});</script>
 			<input type="hidden" id ="shop_content" name ="shop_content" >
 		</div>
-		<input type="hidden" name = "mem_seq" value ="${loginUser.mem_seq }">
 		<div style ="margin-top:10px;" align ="center">
 			<input class = "btn_line_m" type ="button" id = "shop_regi" value = "등록">		
 			<input class ="btn_line_m" type ="button" id = "cancle" value = "취소">		
@@ -157,7 +157,7 @@
 			var formData = new FormData(form);
 			
 		      $.ajax({
-		          url:"./shopRegiAf.do",
+		          url:"./shopModifyAf.do",
 		          type:'post',
 		          data: formData,
 		          enctype:'multipart/form-data',
@@ -167,7 +167,7 @@
 		          timeout: 600000,
 		          //datatype:'text',
 		          success: function (data){
-		             alert("샵 등록에 성공하셨습니다.");
+		             alert("샵 수정에 성공하셨습니다.");
 		             location.href="sellerShopList.do";
 		          },
 		          error: function (e){

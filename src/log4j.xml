@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="bit.com.a">
+	<logger name="cd.com.a">
 		<level value="info" />
 	</logger>
 	

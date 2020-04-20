@@ -51,12 +51,7 @@ public class ShopController {
 	}
 	
 	@RequestMapping(value="shopRegi.do",  method= {RequestMethod.GET,RequestMethod.POST})
-	public String shopRegi(HttpSession session) {
-		
-		memberDto mem = new memberDto(5);
-		session.setAttribute("login", mem);
-		session.setMaxInactiveInterval(60*60*365);
-		
+	public String shopRegi() {
 		return "/shop/regi_shop";
 	}
 	
@@ -162,11 +157,13 @@ public class ShopController {
 	}
 	
 	@RequestMapping(value="sellerShopList.do",  method= {RequestMethod.GET,RequestMethod.POST})
-	public String sellerShopList(int mem_seq, Model model) {
-		List<shopDto> list = shopService.getSellerShopList(mem_seq);
+	public String sellerShopList(HttpSession session, Model model) {
+		memberDto mem = (memberDto)session.getAttribute("loginUser");
+		System.out.println(mem.toString());
+		List<shopDto> list = shopService.getSellerShopList(mem.getMem_seq());
 		model.addAttribute("shopList", list);
 		
-		return "/shop/sellerShopList";
+		return "/mypage/sellerShopList";
 	}
 	
 

@@ -86,7 +86,7 @@ memberDto loginUser = (memberDto)request.getSession().getAttribute("loginUser");
 			%>
 			
 			  
-				<li><a href="#n">셀러페이지</a></li>
+				<li><a href="sellerMyPage.do">셀러페이지</a></li>
 				<li><a href="#none" onclick="mypage()">마이페이지</a></li>
 			<%		
 				}else if(loginUser.getAuth() == 4 || loginUser.getAuth() == 5){

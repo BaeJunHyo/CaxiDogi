@@ -3,10 +3,13 @@
 
 <%@ include file="./../../../include/header.jsp" %>
 <script src = "<%=request.getContextPath() %>/js/ckeditor/ckeditor.js"></script>
-<!-- container S : -->
-<div class="container" >
-	<div class ="container_subWrap">
-		<h1>Shop등록</h1>
+<%@ include file="./../../../include/left_frm_seller.jsp" %>
+	<div class="cusSec_right">
+
+		<div class="cusSec_tableWrap tw_wFull">
+			<h3>
+				<span class="t_sbj">Shop등록</span>
+			</h3>
 		<form name ="shopForm" id ="shopForm" method ="post" enctype="multipart/form-data">
 		<div class ="company_regi"  style = "margin-top : 10px;">
 		
@@ -86,15 +89,22 @@
 			<script>CKEDITOR.replace('content',{filebrowserUploadUrl:'imageUpload.do'});</script>
 			<input type="hidden" id ="shop_content" name ="shop_content" >
 		</div>
-		<input type="hidden" name = "mem_seq" value ="${login.mem_seq }">
+		<input type="hidden" name = "mem_seq" value ="${loginUser.mem_seq }">
 		<div style ="margin-top:10px;" align ="center">
 			<input class = "btn_line_m" type ="button" id = "shop_regi" value = "등록">		
 			<input class ="btn_line_m" type ="button" id = "cancle" value = "취소">		
 			
 		</div>
 		</form>
-	</div>
-</div>
+		</div>
+	
+
+	
+	</div><!--// contents -->
+
+</div><!--container E : -->
+<!-- container S : -->
+
 <!-- container E : -->
 <script type="text/javascript">
 	$("#shop_regi").click(function(){
@@ -150,7 +160,7 @@
 		          //datatype:'text',
 		          success: function (data){
 		             alert("샵 등록에 성공하셨습니다.");
-		             location.href="getShopList.do";
+		             location.href="sellerShopList.do";
 		          },
 		          error: function (e){
 		             alert("통신실패");

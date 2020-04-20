@@ -3,10 +3,27 @@
 <%@ include file="./../../../include/header.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<!-- container S : -->
-<div class="container" >
-	<div class ="container_subWrap">
-	<table border =1 width = "100%">
+<%
+memberDto sessionUser = (memberDto)request.getSession().getAttribute("loginUser");
+if(sessionUser == null){
+%>
+<script>
+	if(confirm("세션이 만료되었습니다.\n 다시 로그인 하시겠습니까?")){
+		location.href="login.do";
+	}else{
+		location.href="main.do";
+	}
+</script>
+<%
+}
+%>
+<%@ include file="./../../../include/left_frm_seller.jsp" %>
+		<!-- 마이페이지 메인 -->
+	<div class="cusSec_right">
+		
+		<button type="button" class="btn_dark_m" onclick ="location.href='shopRegi.do'">shop 등록</button>
+		<div class="box_cusMain clearfix">
+		<table border =1 width = "100%">
 		<tr>
 			<th>번호</th>
 			<th>SHOP이름</th>
@@ -16,8 +33,8 @@
 			<th>작업</th>
 		</tr>
 		<c:if test = "${fn:length(shopList) == 0 }">
-		<tr>
-			<td colspan="6">등록된 shop이 없습니다</td>
+		<tr align="center">
+			<td colspan="6" >등록된 shop이 없습니다</td>
 		</tr>
 		</c:if>
 		<c:if test="${fn:length(shopList) !=0 }">
@@ -46,8 +63,12 @@
 			</c:forEach>
 		</c:if>
 	</table>
-	</div>
-</div>
+		</div>
+	
+	</div><!--// contents -->
+
+</div><!--container E : -->
+
 
 <script type="text/javascript">
 	$("#addDesignBtn").click(function(){

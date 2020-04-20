@@ -26,7 +26,7 @@ VALUES(#{id},#{password},0,#{nick_name},#{user_name},#{birthday},#{address},#{ph
 </insert>
 
 <select id="login" parameterType="cd.com.a.model.memberDto" resultType="cd.com.a.model.memberDto">
-SELECT id,user_api,nick_name,user_name,birthday,address,phone,pass_question,point,auth
+SELECT mem_seq,id,user_api,nick_name,user_name,birthday,address,phone,pass_question,point,auth
 FROM member
 WHERE id=#{id} AND password=#{password}
 </select>

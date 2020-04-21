@@ -85,7 +85,7 @@ public class PoolController {
 	@RequestMapping(value = "poolResvAf.do", method= {RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
 	public Map<String, Object> poolResvAf(@ModelAttribute poolResvDto poolResv) {
-		System.out.println("�씠嫄곕굹�샂" + poolResv.toString());
+		System.out.println("이거나옴" + poolResv.toString());
 		int	result = poolService.resvPool(poolResv);
 		Map<String, Object> rmap = new HashMap<String, Object>();
 		if(result != 0) {
@@ -99,7 +99,7 @@ public class PoolController {
 	
 	@RequestMapping(value = "pool_reservation.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public String poolReservation(int pool_resv_seq, Model model) {
-		System.out.println("�삁�빟踰덊샇" + pool_resv_seq);
+		System.out.println("예약번호" + pool_resv_seq);
 		poolResvDto resv = poolService.getResvPool(pool_resv_seq);
 		poolDto pool = poolService.getPoolDetail(resv.getPool_seq()); 
 		model.addAttribute("pool_resv", resv);
@@ -129,7 +129,6 @@ public class PoolController {
 					try{
 						String fileName = file.getName();
 						byte[] bytes = file.getBytes();
-						
 						String uploadPath = req.getServletContext().getRealPath("/images/poolImg");
 						File uploadFile = new File(uploadPath);
 						if(!uploadFile.exists()){
@@ -144,9 +143,9 @@ public class PoolController {
                         resp.setContentType("text/html");
                         String fileUrl = req.getContextPath() + "/images/poolImg/" + fileName;
                         
-                        // json �뜲�씠�꽣濡� �벑濡�
+                        // json 데이터로 등록
                         // {"uploaded" : 1, "fileName" : "test.jpg", "url" : "/img/test.jpg"}
-                        // �씠�윴 �삎�깭濡� 由ы꽩�씠 �굹媛��빞�븿.
+                        // 이런 형태로 리턴이 나가야함.
                         json.addProperty("uploaded", 1);
                         json.addProperty("fileName", fileName);
                         json.addProperty("url", fileUrl);
@@ -177,12 +176,12 @@ public class PoolController {
 		
 		if(!fileload.isEmpty()) {
 			String fileUpload = req.getServletContext().getRealPath("/images/poolImg"); 
-			System.out.println("fileUpload" + fileUpload); // �뾽濡쒕뱶 �쐞移�
+			System.out.println("fileUpload" + fileUpload); // 업로드 위치
 			//System.out.println(fileUpload);
 			String fileName = fileload.getOriginalFilename();
 			String saveFileName = "";
 			String filepost = "";
-			if(fileName.indexOf('.') >= 0) { // �솗�옣�옄 紐낆씠 �엳�쓣�븣
+			if(fileName.indexOf('.') >= 0) { // 확장자 명이 있을때
 				filepost = fileName.substring(fileName.indexOf('.'));
 				saveFileName = new Date().getTime() + filepost;
 			} 
@@ -190,11 +189,11 @@ public class PoolController {
 			
 			File file = new File(fileUpload + "/" + saveFileName);
 
-			//�떎�젣 �뙆�씪 �뾽濡쒕뱶 �릺�뒗 遺�遺�
+			//실제 파일 업로드 되는 부분
 			try {
 				FileUtils.writeByteArrayToFile(file, fileload.getBytes());
 				System.out.println(pool.toString());
-				//db���옣
+				//db저장
 				boolean	status = poolService.addPool(pool);
 			
 				if(status == true) {

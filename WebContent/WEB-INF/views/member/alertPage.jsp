@@ -9,13 +9,14 @@ String regi = (String)request.getAttribute("regi");
 String update = (String)request.getAttribute("update");
 String msg = (String)request.getAttribute("msg");
 memberDto loginUser = (memberDto)request.getSession().getAttribute("loginUser");
+memberDto memberDetail = (memberDto)request.getAttribute("memberDetail");
 String sns = "";
 
 
 // 로그인시 API구분 변수
 // 로그인 MSG
 if(login != null){
-	if(login.equals("true")){
+	if(login.equals("success")){
 		if(loginUser!=null){
 			if(loginUser.getUser_api() == 1){
 				 sns ="카카오계정";
@@ -24,12 +25,12 @@ if(login != null){
 			}else if(loginUser.getUser_api() == 3){
 				 sns ="구글계정";
 			}else{
-				 sns ="일반계정";
+				 sns ="";
 			}
 		}
 %>
 <script>
-	alert("[<%=sns%>] 으로 \n 정상 로그인 되었습니다.");
+	alert("<%=sns%> \n 정상 로그인 되었습니다.");
 	// 자체회원은 메인
 </script>
 		<%
@@ -41,11 +42,11 @@ if(login != null){
 		<%		
 	// sns 마이페이지 회원정보이동
 		}else{
-			if(loginUser.getUser_name()==null || 
-				loginUser.getNick_name()==null ||
-				(loginUser.getAddress().replaceAll(" ", "")).replaceAll("/", "") ==null ||
-				loginUser.getPhone()==null ||
-				loginUser.getBirthday()==null ){
+			if(memberDetail.getUser_name()==null || 
+				memberDetail.getNick_name()==null ||
+				memberDetail.getAddress() ==null ||
+				memberDetail.getPhone()==null ||
+				memberDetail.getBirthday()==null ){
 			%>
 			<script>
 				alert("원활한 이용을 위해 \n 미입력된 정보를 기입해주세요^^")
@@ -60,6 +61,16 @@ if(login != null){
 			<%
 			} 
 		}
+	}else if(login.equals("secession")){
+%>
+<script>
+	if(confirm("탈퇴 처리 된 계정 입니다.\n복구 처리 하시겠습니까?")){
+		location.href="loginView.do?recovery=true";
+	}else{
+		location.href="loginView.do";
+	}
+</script>
+<%
 	}else{
 %>
 <script>
@@ -95,28 +106,19 @@ if(regi != null){
 
 // 회원정보 업데이트 MSG
 if(update != null){
-	if(update.equals("true")){
-		if(loginUser.getUser_api()==0){
+	if(update.equals("true")){		
 %>
 		<script>
-			alert("정상적으로 적용되었습니다.")
+			alert("정상적으로 변경 되었습니다.")
 			location.href="memberDetail.do";
 		</script>
 <%
-		}else{
-%>
-		<script>
-			alert("정상적으로 적용되었습니다.")
-			location.href="main.do";
-		</script>
-<%
-		}
 	}else{
 %>
-<script>
-	alert("회원정보 업데이트 간 문제 발생")
-	location.href="mypageMove.do";
-</script>	
+		<script>
+			alert("회원정보 업데이트 간 문제 발생")
+			location.href="mypageMove.do";
+		</script>	
 <%	
 	}
 }

@@ -20,11 +20,12 @@
 		<div class ="company_regi"  style = "margin-top : 10px;">
 			<input type ="hidden" id = "shop_seq" name="shop_seq" value="${shop.shop_seq }">
 			<label style = "width:100px;">디자이너명</label>
-			<input  type="text" id = "design_name" name = "design_name" placeholder="디자이너명을 입력해주세요" size = "500">
+			<input  type="text" id = "design_name" name = "design_name" value="${designer.design_name }" size = "500">
+			
 		</div>
 		<div class ="company_regi"  style = "margin-top : 10px;">
 			<label style = "width:100px;">디자이너 추가금</label>
-			<input type="text" id = "design_price" name = "design_price" placeholder="디자이너 추가금을 입력해주세요" size = "500">
+			<input type="text" id = "design_price" name = "design_price" value="${designer.design_price }" size = "500">
 		</div>
 
 		<div class ="time" style = "margin-top : 10px;">
@@ -47,9 +48,9 @@
 			</ul>
 		</div>
 		<div style ="margin-top:10px; " align ="center">
-			<input class = "btn_line_m" type ="button" id = "designAddBtn" value = "등록">		
+			<input class = "btn_line_m" type ="button" id = "designModifyBtn" value = "수정">		
 			
-			<input class ="btn_line_m" type ="button" onclick = "location.href='sellerShopList.do'" value = "취소">		
+			<input class ="btn_line_m" type ="button" onclick = "location.href='shopDesignList.do?shop_seq=${shop.shop_seq}'" value = "취소">		
 			
 		</div>
 	</div>
@@ -87,11 +88,8 @@
 		});
 
 
-	$("#designAddBtn").on("click", function(){
-		if($("#design_name").val() ==''){
-			alert("디자이너명을 입력해 주세요");
-			$("#design_name").focus();
-		} else {
+	$("#designModifyBtn").on("click", function(){
+		
 			var hourList = new Array();
 			var minList = new Array();
 			var timetable = "";
@@ -109,26 +107,32 @@
 					timetable += hourList[i]+":"+minList[i];
 				}
 			}
+			var result = confirm(timetable+"변경된 시간이 맞습니까?");
 
+			if(result){
 			var formData = {
 					"shop_seq": $("#shop_seq").val(),
 					"design_price" : $("#design_price").val()==""?0:$("#design_price").val(),
+					"design_seq" : ${designer.design_seq},
 					"design_name" : $("#design_name").val(),
 					"design_time" : timetable
 			}
 			  $.ajax({
-		          url:"./shopDesignAdAf.do",
+		          url:"./shopDesignModifyAf.do",
 		          type:'post',
 		          data: formData,
 		          success: function (data){
-		             alert("디자이너 등록에 성공하셨습니다.");
-		             location.href="sellerShopList.do?mem_seq="+$("#shop_seq").val();
+		             alert("디자이너 수정에 성공하셨습니다.");
+		             location.href="shopDesignList.do?shop_seq="+$("#shop_seq").val();
+		             
 		          },
 		          error: function (e){
 		             alert("통신실패");
 		     	}
 			});
-		} 
+			} else {
+				return;
+			}
 	}); 
 	
 </script>

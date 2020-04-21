@@ -56,7 +56,12 @@
 	insert into shop_designer (shop_seq, design_price, design_name, design_time, design_auth)
 	values(#{shop_seq}, #{design_price}, #{design_name}, #{design_time}, 0)
 </insert>
-
+ <select id="getDesignerInfo" parameterType="cd.com.a.model.shopDesignerDto" resultType="cd.com.a.model.shopDesignerDto">
+    select shop_seq, design_seq, design_price, design_name, design_time, design_auth
+    from shop_designer
+    where shop_seq = #{shop_seq} and design_seq=#{design_seq}
+ </select>
+ 
  <select id="getShopDetail" resultType="cd.com.a.model.shopDto">
  	select shop_seq, shop_owner, shop_number, shop_name, shop_addr, shop_tel, shop_auth,
  	mem_seq, shop_time, shop_photo, shop_etc, shop_small_price, shop_medium_price, 
@@ -70,6 +75,12 @@ select count(shop_resv_rday) from shop_reservation
 where shop_seq=#{shop_seq} and design_seq=#{design_seq} and shop_resv_auth=0
 <![CDATA[and shop_resv_rday >= curdate()]]>
 </select>
+
+<update id ="designModify" parameterType ="cd.com.a.model.shopDesignerDto">
+update shop_designer
+set design_price=#{design_price}, design_name=#{design_name}, design_time=#{design_time}
+where shop_seq=#{shop_seq} and design_seq=#{design_seq}
+</update>
 
 <update id="stopDesignAf" parameterType = "cd.com.a.model.shopDesignerDto">
 update shop_designer

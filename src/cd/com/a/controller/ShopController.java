@@ -294,6 +294,21 @@ public class ShopController {
 		
 		return str;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="shopDesignModifyAf.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String shopDesignModifyAf(shopDesignerDto shopDesign) {
+		String str = "";
+		boolean status = shopService.designModify(shopDesign);
+		
+		if(status == true) {
+			str = "ok";
+		} else {
+			str = "no";
+		}
+		
+		return str;
+	}
 
 	@ResponseBody
 	@RequestMapping(value="deleteDesignAf.do",  method= {RequestMethod.GET,RequestMethod.POST})
@@ -317,9 +332,10 @@ public class ShopController {
 	
 	@RequestMapping(value="designModify.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public String designModify(shopDesignerDto shopDesign, Model model) {
-		//shopDto shop = shopService.getShopDetail(shop_seq);
-		//model.addAttribute("shop", shop);
-		
+		shopDto shop = shopService.getShopDetail(shopDesign.getShop_seq());
+		shopDesignerDto designer = shopService.getDesignerInfo(shopDesign);
+		model.addAttribute("shop", shop);
+		model.addAttribute("designer", designer);
 		return "/smypage/modify_design";
 	}
 	

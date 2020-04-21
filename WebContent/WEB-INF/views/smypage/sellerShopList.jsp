@@ -33,7 +33,7 @@ if(sessionUser == null){
 			<th>SHOP이름</th>
 			<th>SHOP주소</th>
 			<th>SHOP영업시간</th>
-			<th>승인여부</th>
+			<th>상태</th>
 			<th>작업</th>
 		</tr>
 		<c:if test = "${fn:length(shopList) == 0 }">
@@ -55,14 +55,17 @@ if(sessionUser == null){
 					<c:if test = "${shop.shop_auth == 1 }">
 						<span style="color : blue;">승인</span>
 					</c:if>
+					<c:if test = "${shop.shop_auth == 3 }">
+						<span style="color : blue;">정지</span>
+					</c:if>
 				</td>
 				<td >
-					<input type = "button" shop_seq = "${shop.shop_seq }" id ="modifyShopBtn" class="btn_line_s" value ="수정">
-					<input type = "button" shop_seq = "${shop.shop_seq }" id = "shopDeleteBtn" class="btn_line_s" value ="삭제">
+					<input type = "button" shop_seq = "${shop.shop_seq }" class="btn_line_s modifyShopBtn" value ="수정">
+					<input type = "button" shop_seq = "${shop.shop_seq }" class="btn_line_s shopDeleteBtn" value ="정지">
 					<c:if test = "${shop.shop_auth == 1 }">
 					<p style ="margin-top:10px;">
-					<input type = "button" shop_seq = "${shop.shop_seq }" id = "addDesignBtn" class="btn_line_s" value ="디자이너 추가">					
-					<input type = "button" shop_seq = "${shop.shop_seq }" id = "modifyDesignBtn" class="btn_line_s" value ="디자이너 관리">					
+					<input type = "button" shop_seq = "${shop.shop_seq }" class="btn_line_s addDesignBtn" value ="디자이너 추가">					
+					<input type = "button" shop_seq = "${shop.shop_seq }" class="btn_line_s modifyDesignBtn" value ="디자이너 관리">					
 					</p>
 					</c:if>
 				</td>
@@ -80,18 +83,18 @@ if(sessionUser == null){
 
 
 <script type="text/javascript">
-	$("#addDesignBtn").click(function(){
-		var shop_seq = $("#addDesignBtn").attr("shop_seq");
+	$(".addDesignBtn").click(function(){
+		var shop_seq = $(this).attr("shop_seq");
 		location.href = "shopDesignAdd.do?shop_seq="+shop_seq;
 	});
 	
-	$("#modifyShopBtn").click(function(){
-		var shop_seq = $("#modifyShopBtn").attr("shop_seq");
+	$(".modifyShopBtn").click(function(){
+		var shop_seq = $(this).attr("shop_seq");
 		location.href = "modifyShop.do?shop_seq="+shop_seq;
 	});
 	
-	$("#modifyDesignBtn").click(function(){
-		var shop_seq = $("#modifyDesignBtn").attr("shop_seq");
+	$(".modifyDesignBtn").click(function(){
+		var shop_seq = $(this).attr("shop_seq");
 		location.href = "shopDesignList.do?shop_seq="+shop_seq;
 	});
 	

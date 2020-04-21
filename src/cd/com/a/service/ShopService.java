@@ -14,6 +14,8 @@ public interface ShopService {
 	public List<shopDto> getSellerShopList(int mem_seq);
 	public List<shopDesignerDto> getDesigner(int shop_seq);
 	public List<shopDesignerDto> getDesignerAll(int shop_seq);
+	public shopDesignerDto getDesignerInfo(shopDesignerDto designer);
+	public boolean designModify(shopDesignerDto designer);
 	public List<String> getResv(shopResvDto resvDto);
 	public shopDto getShopDetail(int shop_seq);
 	public boolean addDesigner(shopDesignerDto designer);

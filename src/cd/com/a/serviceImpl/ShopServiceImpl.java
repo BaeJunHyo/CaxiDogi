@@ -79,4 +79,14 @@ public class ShopServiceImpl implements ShopService {
 	public boolean delDesignAf(shopDesignerDto designer) {
 		return shopDao.delDesignAf(designer);
 	}
+
+	@Override
+	public shopDesignerDto getDesignerInfo(shopDesignerDto designer) {
+		return shopDao.getDesignerInfo(designer);
+	}
+
+	@Override
+	public boolean designModify(shopDesignerDto designer) {
+		return shopDao.designModify(designer);
+	}
 }

@@ -93,4 +93,15 @@ public class ShopDaoImpl implements ShopDao {
 		int n = sqlSession.update(ns+"delDesignAf", designer);
 		return n>0?true:false;
 	}
+
+	@Override
+	public shopDesignerDto getDesignerInfo(shopDesignerDto designer) {
+		return sqlSession.selectOne(ns+"getDesignerInfo", designer);
+	}
+
+	@Override
+	public boolean designModify(shopDesignerDto designer) {
+		int n = sqlSession.update(ns+"designModify", designer);
+		return n>0?true:false;
+	}
 }

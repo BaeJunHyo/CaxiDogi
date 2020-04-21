@@ -61,8 +61,9 @@
 								<td>상품선택</td>
 								<td colspan="3">
 									<select id="prdSelect">
-										<option value="0" selected="selected">상품 상세 선택</option>
+										<option value="0" selected="selected" disabled>상품 상세 선택</option>
 										<option value="101">건강사료 100g</option>
+										<option disabled>------------------------ 옵션 상품  -------------------------</option>
 										<option value="202">건강사료 250g</option>
 										<option value="303">건강사료 500g</option>
 										<option value="404">건강사료 1Kg</option>
@@ -83,7 +84,7 @@
 						
 						
 						<p class="prdBtns clearfix">
-							<a href="#n" class="btn_green_l p0">바로구매</a>
+							<a href="#n" class="btn_green_l p0" id="orderBtn">바로구매</a>
 							<a href="#n" class="btn_dark_l p0">장바구니</a>
 							<!-- <span class="sign_soldout">일시품절인 상품입니다.</span> -->
 							<a href="#n" class="btn_line_l p0 btn_wishlist" alt="위시리스트"></a>
@@ -632,6 +633,11 @@
 			$("#select_product").append(createProduct);
 		})
 			
+
+		$('#orderBtn').on('click', function (){
+
+
+		})
 			
 		
 	})

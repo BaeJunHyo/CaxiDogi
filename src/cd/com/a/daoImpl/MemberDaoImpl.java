@@ -38,8 +38,6 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public memberDto login(memberDto dto) {
 		memberDto mem = sqlSession.selectOne(ns+"login",dto);
-		System.out.println("mem = " + mem);
-		
 		return mem; 
 	}
 
@@ -82,6 +80,44 @@ public class MemberDaoImpl implements MemberDao {
 	public memberDto resvMem(int mem_seq) {
 		return sqlSession.selectOne(ns+"resvMem", mem_seq);
 	}
+	
+	@Override
+	public boolean userUpdate(memberDto dto) {
+		int result = sqlSession.update(ns+"userUpdate", dto);
+		return result>0?true:false;
+	}
+	@Override
+	public boolean snsUserUpdate(memberDto dto) {
+		int result = sqlSession.update(ns+"snsUserUpdate", dto);
+		return result>0?true:false;
+	}
+
+	@Override
+	public boolean sellerAccess(int mem_seq) {
+		int result = sqlSession.update(ns+"sellerAccess",mem_seq);
+		return result>0?true:false;
+	}
+	
+	@Override
+	public void memberEscape(int mem_seq) {
+		sqlSession.update(ns+"memberEscape",mem_seq);
+	}
+	
+	@Override
+	public void recoveryId(int mem_seq) {
+		sqlSession.update(ns+"recoveryId",mem_seq);
+	}
+	
+	@Override
+	public int findSeq(memberDto dto) {
+		return sqlSession.selectOne(ns+"findSeq",dto);
+	}
+	@Override
+	public boolean recoveryCheck(memberDto dto) {
+		int result = sqlSession.selectOne(ns+"recoveryCheck",dto);
+		return result>0?true:false;
+	}
+	
 	
 	
 	

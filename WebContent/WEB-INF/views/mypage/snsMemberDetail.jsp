@@ -17,95 +17,102 @@ if(sessionUser == null){
 </script>
 <%
 }
+memberDto memberDetail = (memberDto)request.getAttribute("memberDetail");
 
 %>
 
 <%@ include file="./../../../include/left_frm.jsp" %>
 	
 	<!--  detail main -->
+	<div class="cusSec_right">
 	<div class="snsMemberDetail">	
 	   <form method="post" action="">
 	      <div class="frm_cont border-btm">
 			<div>
-				<div>아이디</div>
-				<div>
+				<div class ="company_regi">
+				<label>아이디</label>
 					<input type="text" name="id" value="${loginUser.id}" readonly="readonly">
 					<input type="hidden" name="mem_seq" value="${loginUser.mem_seq}">
 				</div>
 			</div>
 			
 			<div class="frm_line clfix">
-	            <div class="tit">이름</div>
+				<div class ="company_regi" style="margin-top: 10px;">
 	            <div class="cont nameComentColor">
+	            <label>이름</label>
 			<%
 			// SNS로 첫로그인시 초기setting
-			if(sessionUser.getUser_name() == null || sessionUser.getUser_name().equals("")){
+			if(memberDetail.getUser_name() == null || memberDetail.getUser_name().equals("")){
 			%>
 				<input class="memberName" type="text" maxlength="4" name="user_name" id="name" value="" placeholder="한글만 입력가능">
 			<%
 			// 초기세팅 이후
 			}else{
 			%>
-				<input type="text" class="memberName" name="user_name" value="${loginUser.user_name}" readonly="readonly">
+				<input type="text" class="memberName" name="user_name" value="${memberDetail.user_name}" readonly="readonly">
 			<%	
 			}
 			%>
 				<span class="nameCheck"></span>
 				</div>
+				</div>
 			</div>
 			
 			<div class="frm_line clfix">
-	            <div class="tit">닉네임</div>
+	            <div class ="company_regi" style="margin-top: 10px;">
 	            <div class="cont nickComentColor">
+	            <label>닉네임</label>
 			<%
 			// SNS로 첫로그인시 초기setting
-			if(sessionUser.getNick_name() == null || sessionUser.getNick_name().equals("")){
+			if(memberDetail.getNick_name() == null || memberDetail.getNick_name().equals("")){
 			%>
 				<input class="memberNick" type="text" maxlength="10" name="nick_name" id="nick_name" value="" placeholder="최대10글자">
-	            <button type="button" onclick="nickCheck()" class="frm_adr_btn">중복체크</button>
+	            <button type="button" onclick="nickCheck()" class="frm_adr_btn" style="width:80px;height:40px; background: #f2f2f2; margin-top: 10px;">중복체크</button>
 			<%
 			// 초기세팅 이후
 			}else{
 			%>
-				<input type="text" class="memberNick" name="nick_name" value="${loginUser.nick_name}" readonly="readonly">
+				<input type="text" class="memberNick" name="nick_name" value="${memberDetail.nick_name}" readonly="readonly">
 			<%	
 			}
 			%>
 				<span class="nickCheck"></span>
 				</div>
+				</div>
 			</div>
 			
 			<div class="frm_line clfix">
-	            <div class="tit">연락처</div>
+	            <div class ="company_regi" style="margin-top: 10px;">
 	            <div class="cont phoneComentColor">
+	            <label>연락처</label>
 			<%
 			// SNS로 첫로그인시 초기setting
-			if(sessionUser.getPhone() == null || sessionUser.getPhone().equals("")){
+			if(memberDetail.getPhone() == null || memberDetail.getPhone().equals("")){
 			%>
 				<input class="memberPhone" type="text" maxlength="11" name="phone" placeholder="(-)하이픈 제외하고 입력">
 			<%
 			// 초기세팅 이후
 			}else{
 			%>
-				<input type="text" class="memberPhone" name="phone" value="${loginUser.phone}" readonly="readonly">
+				<input type="text" class="memberPhone" name="phone" value="${memberDetail.phone}" readonly="readonly">
 			<%	
 			}
 			%>
 				<span class="phoneCheck"></span>
 				</div>
+				</div>
 			</div>
 			
 			<div class="frm_line clfix">
-	           <div class="tit">생년월일</div>
+				<div class ="company_regi" style="margin-top: 10px;">
+	           <label>생년월일</label>
 			<%
 			// SNS로 첫로그인시 초기setting
-			if(sessionUser.getBirthday()== null || sessionUser.getBirthday().equals("")){
+			if(memberDetail.getBirthday()== null || memberDetail.getBirthday().equals("")){
 			%>
-	            <div class="cont">
+	            <!-- <div class="cont">
 				<input class="byear" type="text" name="memberYear" value="" maxlength="4" placeholder="년(4자)">
-			    </div> 
-			    
-				
+			    </div>  -->
 				<div class="cont">
 					<select class="select-month" name="memberMonth" id="month">
 	                  <option value="월">월</option>
@@ -135,8 +142,8 @@ if(sessionUser == null){
 			<%
 			// 초기세팅 이후
 			}else{
-				String month = sessionUser.getBirthday().substring(0,2);
-				String day = sessionUser.getBirthday().substring(2);
+				String month = memberDetail.getBirthday().substring(0,2);
+				String day = memberDetail.getBirthday().substring(2);
 				String birth = month + "-"+day;
 			%>
 				<div>
@@ -151,16 +158,18 @@ if(sessionUser == null){
 			}
 			%>
 			</div>
+			</div>
 			
 			<div class="frm_line clfix">
-	           <div class="tit">주소</div>
+				<div class ="company_regi" style="margin-top: 10px;">
 	           <div class="cont">
+	           <label>주소</label>
 			<%
 			
-			if(sessionUser.getAddress()== null || sessionUser.getAddress().equals("")){
+			if(memberDetail.getAddress()== null || memberDetail.getAddress().equals("")){
 			%>
 	               <input type="text" id="kakao_postcode" name="memberPostCode" readonly="readonly" placeholder="우편번호"> 
-	                <span onclick="DaumPostcode()" class="frm_adr_btn">주소검색</span><br>
+	                <button type="button" onclick="DaumPostcode()" class="frm_adr_btn" style="width:80px;height:40px; background: #f2f2f2; margin-top: 10px;">주소검색</button><br>
 	                <input type="text" class="mt08" id="kakao_roadAddress" name="memberStreetName" placeholder="도로명주소" readonly="readonly">
 	                <input type="text" style="display:none;" id="kakao_jibunAddress" placeholder="지번주소">
 	                <span id="guide" style="color:#999;display:none"></span>
@@ -169,41 +178,45 @@ if(sessionUser == null){
 	                <input type="hidden" name="address" id="address" value="">
 	        <%
 			}else{
-			String[] addr = sessionUser.getAddress().split("/");
+			String[] addr = memberDetail.getAddress().split("/");
 	        %>
 					<input type="text" id="kakao_postcode" name="memberPostCode" readonly="readonly" value="<%=addr[0]%>">
 					<input type="text" id="kakao_roadAddress" name="memberStreetName" readonly="readonly" value="<%=addr[1]%>">
 					<input type="text" id="kakao_detailAddress" name="memberDetailStreetName" readonly="readonly" value="<%=addr[2]%>">
-	            	<input type="hidden" name="address" id="address" value="${loginUser.address}">
+	            	<input type="hidden" name="address" id="address" value="${memberDetail.address}">
 			<%
 			}
 			%>
 				</div>
 			</div>
 			<%
-			if(sessionUser.getUser_name() == null || sessionUser.getUser_name().equals("") ||
-				sessionUser.getNick_name() == null || sessionUser.getNick_name().equals("") ||
-				sessionUser.getPhone() == null || sessionUser.getPhone().equals("") ||
-				sessionUser.getBirthday()== null || sessionUser.getBirthday().equals("") ||
-				sessionUser.getAddress()== null || sessionUser.getAddress().equals("")){
+			if(memberDetail.getUser_name() == null || memberDetail.getUser_name().equals("") ||
+				memberDetail.getNick_name() == null || memberDetail.getNick_name().equals("") ||
+				memberDetail.getPhone() == null || memberDetail.getPhone().equals("") ||
+				memberDetail.getBirthday()== null || memberDetail.getBirthday().equals("") ||
+				memberDetail.getAddress()== null || memberDetail.getAddress().equals("")){
 			%>
 				<div>
-	         		<button type="button" class="reserv_btn sBtn" >적용</button>
+ 	         		<button type="button" class="reserv_btn sBtn" style="width:80px;height:40px; background: #f2f2f2; margin-top: 10px;" >적용</button> 
 	         	</div>
+	         	<script>
+					alert("원활한 이용을 위해 \n 미입력된 정보를 기입해주세요^^");
+				</script>
 			<%
 			}else{
 			%>	
 				<div>
-		         	<button type="button" class="reserv_btn sBtn2" >변경</button>
-		         	<button type="button" class="reserv_btn sBtn3" >탈퇴</button>
+		         	<button type="button" class="reserv_btn sBtn2" style="width:80px;height:40px; background: #f2f2f2; margin-top: 10px;">변경</button>
 		        </div>
 		    <%
 			}
 		    %>
-		    	<input type="hidden" name="user_api" value="${loginUser.user_api }">			
+		    	<input type="hidden" name="user_api" value="${memberDetail.user_api }">			
+	         </div>
 	         </div>
 		</form>
 	</div><!-- // frm_wrap -->
+	</div><!-- //cusSec_right -->
 </div> <!-- // include left_frm  -->
 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -268,7 +281,7 @@ if(sessionUser == null){
 <%@ include file="./../../../include/footer.jsp" %>
 <script src="<%=request.getContextPath() %>/js/snsRegi.js"></script>
 
-<%
+<%-- <%
 String info = request.getAttribute("info")==null?"":(String)request.getAttribute("info");
 if(info.equals("false")){
 %>
@@ -277,7 +290,7 @@ alert("원활한 이용을 위해 \n 미입력된 정보를 기입해주세요^^
 </script>
 <%
 }
-%> 
+%>  --%>
 
 
 

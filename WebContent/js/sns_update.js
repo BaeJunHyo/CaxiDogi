@@ -2,35 +2,8 @@ function getContextPath() {
    var hostIndex = location.href.indexOf( location.host ) + location.host.length;
    return location.href.substring( hostIndex, location.href.indexOf('/', hostIndex + 1) );
 };
-//이름 정규식 + 멘트 (한글만)
-var memberName = document.querySelector('.memberName');
-memberName.addEventListener("change", function(e){
-	var nm = /^[가-힣]+$/g;
-	if($('.memberName').val() == ""){
-		if($('span.memberName').hasClass('alert-red')){
-			$('.nameComentColor span').removeClass('alert-red');
-		}
-		document.querySelector(".nameCheck").innerHTML = "";
-	} else {
-		if( !nm.test( $(".memberName").val() )) {
-			if($('span.nameCheck').hasClass('alert-green')) {
-        		$('.nameComentColor span').removeClass('alert-green');
-        	}
-        	$('.nameComentColor span').addClass('alert-red');
-        	alert("이름은 한글만 입력 가능합니다");
-        	document.querySelector(".nameCheck").innerHTML = "형식 불일치";
-            $("#name").focus();
-        	return;
-		} else {
-			if($('span.nameCheck').hasClass('alert-red')) {
-        		$('.nameComentColor span').removeClass('alert-red');
-        	}
-        	$('.nameComentColor span').addClass('alert-green');
-        	document.querySelector(".nameCheck").innerHTML = "";
-        	
-		}
-	}
-});
+
+
 //닉네임 체크 (특수문자제외)
 var memNick = document.querySelector(".memberNick");
 memNick.addEventListener("change", function(e){
@@ -86,7 +59,6 @@ function nickCheck(){
 				$('.nickComentColor span').addClass('alert-green');
 				document.querySelector(".nickCheck").innerHTML = "사용가능한 닉네임입니다.";
 			}
-
 		},
 		error:function(request,status,error){
 			
@@ -126,41 +98,8 @@ phone.addEventListener("blur", function(e){
 	}
 });
 
-// day 정규식
-var bday = document.querySelector(".memberDay");
-bday.addEventListener("change", function(e){
-	var days = /^[0-3]+[0-9]$/g;
-	if($(".bday").val() == ""){
-		if($('span.dayCheck').hasClass('alert-red')) {
-    		$('.dayComentColor span').removeClass('alert-red');
-    	}
-		document.querySelector(".dayCheck").innerHTML = "";
-	} else {
-	    if( !days.test( $(".memberDay").val() )) {
-	    	if($('span.dayCheck').hasClass('alert-green')) {
-	    		$('.dayComentColor span').removeClass('alert-green');
-	    	}
-	    	$('.dayComentColor span').addClass('alert-red');
-	    	alert("날짜 형식은 (01~31)만 가능합니다");
-	    	document.querySelector(".dayCheck").innerHTML = "날짜형식은 ( 01 ~ 31 ) 만 가능합니다";
-	        return;
-	    } else {
-	    	if($('span.dayCheck').hasClass('alert-red')) {
-	    		$('.dayComentColor span').removeClass('alert-red');
-	    	}
-	    	$('.dayComentColor span').addClass('alert-green');
-	    	
-	    	document.querySelector(".dayCheck").innerHTML = "";
-	    }
-	}
-});
-
 $('button.sBtn').click(function(){
-	if($("#name").val().trim() == ""|| $(".nameComentColor span").hasClass('alert-red')) {
-		alert("이름을 확인해 주세요");
-		$("#name").focus();
-		return false;
-	} else if($('input[name=nick_name]').val().trim() == "" || $(".nickComentColor span").hasClass('alert-red')) {
+	if($('input[name=nick_name]').val().trim() == "" || $(".nickComentColor span").hasClass('alert-red')) {
 		alert("닉네임를 확인해주세요");
 		$('input[name=nick_name]').focus();
 		return false;
@@ -168,18 +107,6 @@ $('button.sBtn').click(function(){
 		alert("연락처를 확인해주세요");
 		$('.memberPhone').val("");
 		$('.memberPhone').focus();
-		return false;
-	} else if($('.select-month').val() == "월"){
-		alert("생년월일을 확인해주세요");
-		$('.select-month').focus();
-		return false;
-/*	} else if($('input[name=memberYear]').val().length < 4){
-		alert("생년월일을 확인해주세요");
-		$('input[name=memberYear]').focus();
-		return false;*/
-	} else if($('.dayComentColor span').hasClass('alert-red') || $('.memberDay').val().trim() == "") {
-		alert("생년월일(날짜)를 확인해주세요");
-		$('.memberDay').focus();
 		return false;
 	} else if($('input[name=memberPostCode]').val().trim() == ""){
 		alert("주소를 확인해주세요");
@@ -190,35 +117,22 @@ $('button.sBtn').click(function(){
 		$('input[name=memberDetailStreetName]').focus();
 		return false;
 	} else {
-		if(confirm("입력하신 정보로 기입 하시겠습니까?")){
-			if($("#birthday").val()==""){
-				var month = document.getElementById('month').value.trim();
-				var day = document.getElementById('day').value.trim();
-				var birth = month +""+ day;
-				$("#birthday").val(birth);
-				
-			}
-			if($("#address").val()==""){
-				var postCode = document.getElementById('kakao_postcode').value.trim();
-				var roadAddr = document.getElementById('kakao_roadAddress').value;
-				var detail = document.getElementById('kakao_detailAddress').value;
-				var addr = postCode+"/"+roadAddr+"/"+detail;
-				$("#address").val(addr);
-			}
-			$("form").attr("action", "snsFirstUpdate.do").submit();
-			
+		if(confirm("입력하신 정보로 변경 하시겠습니까?")){
+			var postCode = document.getElementById('kakao_postcode').value.trim();
+			var roadAddr = document.getElementById('kakao_roadAddress').value;
+			var detail = document.getElementById('kakao_detailAddress').value;
+			var addr = postCode+"/"+roadAddr+"/"+detail;
+			$("#address").val(addr);
+			$("form").attr("action", "userUpdate.do").submit();
+		}else{
+			return false;
 		}
 	}
 });
 
 $('button.sBtn2').on("click",function(){
-location.href="memberUpdateMove.do";
+location.href="main.do";
 });
-
-$('button.sBtn3').on("click",function(){
-	//탈퇴
-	location.href="#none";
-	});
 
 
 

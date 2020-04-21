@@ -161,7 +161,7 @@ public class ProductController {
 		                byte[] bytes = file.getBytes();
 		                String uploadPath = req.getServletContext().getRealPath("/upload/boUpload");
 		                File uploadFile = new File(uploadPath);
-	                    
+	                  
 		                if(!uploadFile.exists()){
 		                   uploadFile.mkdirs();
 		                }

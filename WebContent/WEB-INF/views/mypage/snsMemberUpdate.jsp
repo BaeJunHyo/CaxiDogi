@@ -1,30 +1,13 @@
+<%@page import="cd.com.a.model.memberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<%@ include file="./../../../include/header.jsp" %>
 
-<!-- 코어태그 -->
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix = "fn"  uri = "http://java.sun.com/jsp/jstl/functions" %>
-<fmt:requestEncoding value="utf-8"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-
+<%@ include file="./../../../include/header.jsp" %>
 <%
 memberDto sessionUser = (memberDto)request.getSession().getAttribute("loginUser");
-memberDto memberDetail = (memberDto)request.getAttribute("memberDetail");
-String month = memberDetail.getBirthday().substring(0,2);
-String day = memberDetail.getBirthday().substring(2);
-String birthday = month + "-"+day;
-String[] addr = memberDetail.getAddress().split("/");
-
-
-
-
 if(sessionUser == null){
 %>
-
 <script>
 	if(confirm("세션이 만료되었습니다.\n 다시 로그인 하시겠습니까?")){
 		location.href="loginView.do";
@@ -34,14 +17,16 @@ if(sessionUser == null){
 </script>
 <%
 }
+memberDto memberDetail = (memberDto)request.getAttribute("memberDetail");
+String[] addr = memberDetail.getAddress().split("/");
 %>
 
 <%@ include file="./../../../include/left_frm.jsp" %>
-
-	<!-- detail main -->
+	
+	<!--  detail main -->
 	<div class="cusSec_right">
-	<div class="member_detail">
-		<form method="post" action="">
+	<div class="snsMemberDetail">	
+	   <form method="post" action="">
 		      <div class="frm_cont border-btm">
 		      
 		         <div class="frm_line clfix">
@@ -50,31 +35,11 @@ if(sessionUser == null){
 		            	<label>아이디</label>
 		               <input class="ttext memberId" type="text" maxlength="30" name="id" id="id" value="${memberDetail.id }" readonly="readonly">
 		               <input type="hidden" name="mem_seq" value="${memberDetail.mem_seq }" >
+		               <input type="hidden" name="user_api" value="${memberDetail.user_api }" >
 		            </div>
 		         </div>            
 		         </div>
-		         
-		         <div class="frm_line clfix">
-		         <div class ="company_regi" style="margin-top: 10px;">
-		            <div class="cont pwdComentColor">
-		            	<label>비밀번호</label>
-		               <input class="memberPwd" type="password" maxlength="20" name="memberPassword" value="" placeholder="6~20자 영문자, 숫자">
-		               <span class="pwdCheck"></span>
-		            </div>
-		         </div>            
-		         </div>
-		         
-		         <div class="frm_line clfix">
-		         <div class ="company_regi" style="margin-top: 10px;">
-		            <div class="cont pwdReCheckComentColor">
-		            	<label>비밀번호 재확인</label>
-		               <input class="memberPwdReCheck"  type="password" maxlength="20" name="password" value="">
-		               <span class="pwdEqualCheck"></span>
-		            </div>
-		         </div>            
-		         </div>
-		         
-		         
+
 		          <div class="frm_line clfix">
 		          <div class ="company_regi" style="margin-top: 10px;">
 		            <div class="cont nameComentColor">
@@ -124,34 +89,14 @@ if(sessionUser == null){
 		         </div>            
 		         </div>
 		         
-		         <div class="frm_line clfix" style="padding:40px 0;">
-		            <label>비밀번호 찾기 질문</label>
-		         <div class ="company_regi" style="margin-top: 10px;">
-		            <div class="cont floatNone mt20">
-		            	<c:set var="question" value="<%=memberDetail.getPass_question() %>"/>
-		               <select class="select-hint" name="pass_question" id="pass_question">
-		                  <option value="1" 
-		                  <c:if test="${question == 1}"> selected</c:if>>기억에 남는 추억의 장소는?</option>
-		                  <option value="2"
-		                  <c:if test="${question == 2}"> selected</c:if>>나의 보물 1호는?</option>
-		                  <option value="3"
-		                  <c:if test="${question == 3}"> selected</c:if>>나의 출신 초등학교는?</option>
-		                  <option value="4"
-		                  <c:if test="${question == 4}"> selected</c:if>>가장 좋아하는 색깔은?</option>
-		                  <option value="5"
-		                 <c:if test="${question == 5}"> selected</c:if>>아버지 성함은?</option>
-		               </select><br>
-		               <input class="hint-answer" type="text" name="pass_hint" id="pass_hint" value="${memberDetail.pass_hint }"placeholder="답을 입력해주세요">
-		            </div>            
-		         </div>
-		         </div>      
+		      
 		      </div><!-- frm_cont -->      
 		      <button class="reserv_btn sBtn" type="button" style="width:80px;height:40px; background: #f2f2f2; margin-top: 10px;">변경</button>
 		      <button class="reserv_btn sBtn2" type="button" style="width:80px;height:40px; background: #f2f2f2; margin-top: 10px;">메인으로</button>
 		   </form><!-- insertFrm -->
-	</div><!--// contents -->
+	</div><!-- // frm_wrap -->
 	</div><!-- //cusSec_right -->
-</div><!-- //include left_frm  -->
+</div> <!-- // include left_frm  -->
 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -213,6 +158,5 @@ if(sessionUser == null){
 </script>
 
 <%@ include file="./../../../include/footer.jsp" %>
-<script src="<%=request.getContextPath() %>/js/user_update.js"></script>
-
+<script src="<%=request.getContextPath() %>/js/sns_update.js"></script>
 

@@ -239,12 +239,88 @@ public class ShopController {
 		return str;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="stopDesignAf.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String stopDesignAf(shopDesignerDto designer) {
+		String str = "";
+		System.out.println(designer.toString());
+		boolean	status = shopService.stopDesignAf(designer);
+		
+		if(status == true) {
+			str = "ok";
+		} else {
+			str = "no";
+		}
+		
+		return str;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="playDesignAf.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String playDesignAf(shopDesignerDto designer) {
+		String str = "";
+		System.out.println(designer.toString());
+		boolean	status = shopService.playDesignAf(designer);
+		
+		if(status == true) {
+			str = "ok";
+		} else {
+			str = "no";
+		}
+		
+		return str;
+	}
+	
 	@RequestMapping(value="shopDesignList.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public String shopDesignList(int shop_seq, Model model) {
-		List<shopDesignerDto> designerList = shopService.getDesigner(shop_seq);
+		List<shopDesignerDto> designerList = shopService.getDesignerAll(shop_seq);
 		model.addAttribute("designerList", designerList);
-		
+		model.addAttribute("shop_seq", shop_seq);
 		return "/smypage/shopDesignList";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="checkDesign.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String checkDesign(shopDesignerDto shopDesign) {
+		String str = "";
+		System.out.println("design_seq : "+shopDesign.getDesign_seq());
+		int count = shopService.checkDesign(shopDesign);
+		
+		if(count == 0) {
+			str = "ok";
+		} else {
+			str = "no";
+		}
+		
+		return str;
+	}
+
+	@ResponseBody
+	@RequestMapping(value="deleteDesignAf.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String deleteDesign(shopDesignerDto shopDesign) {
+		String str = "";
+		int count = shopService.checkDesign(shopDesign);
+		
+		if(count == 0) {
+			boolean status = shopService.delDesignAf(shopDesign);
+			if(status == true) {
+				str = "ok";
+			} else {
+				str = "no";
+			}
+		} else {
+			str = "no";
+		}
+		
+		return str;
+	}
+	
+	@RequestMapping(value="designModify.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String designModify(shopDesignerDto shopDesign, Model model) {
+		//shopDto shop = shopService.getShopDetail(shop_seq);
+		//model.addAttribute("shop", shop);
+		
+		return "/smypage/modify_design";
 	}
 	
 	@RequestMapping(value="modifyShop.do",  method= {RequestMethod.GET,RequestMethod.POST})

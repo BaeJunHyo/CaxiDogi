@@ -41,6 +41,12 @@ public class ShopDaoImpl implements ShopDao {
 		List<shopDesignerDto> deslist = sqlSession.selectList(ns+"getDesigner", shop_seq);
 		return deslist;
 	}
+	
+	@Override
+	public List<shopDesignerDto> getDesignerAll(int shop_seq) {
+		List<shopDesignerDto> deslist = sqlSession.selectList(ns+"getDesignerAll", shop_seq);
+		return deslist;
+	}
 
 	@Override
 	public List<String> getResv(shopResvDto resvDto) {
@@ -64,5 +70,27 @@ public class ShopDaoImpl implements ShopDao {
 		int n = sqlSession.insert(ns+"shopModifyAf", shop);
 		return n>0?true:false;
 	}
+
+	@Override
+	public int checkDesign(shopDesignerDto designer) {
+		return sqlSession.selectOne(ns+"checkDesign", designer);
+	}
+
+	@Override
+	public boolean stopDesignAf(shopDesignerDto designer) {
+		int n = sqlSession.update(ns+"stopDesignAf", designer);
+		return n>0?true:false;
+	}
 	
+	@Override
+	public boolean playDesignAf(shopDesignerDto designer) {
+		int n = sqlSession.update(ns+"playDesignAf", designer);
+		return n>0?true:false;
+	}
+
+	@Override
+	public boolean delDesignAf(shopDesignerDto designer) {
+		int n = sqlSession.update(ns+"delDesignAf", designer);
+		return n>0?true:false;
+	}
 }

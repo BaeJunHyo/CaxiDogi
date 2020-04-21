@@ -25,7 +25,6 @@ if(sessionUser == null){
 				<span class="t_sbj">디자이너 리스트</span>
 			</h3>
 		</div>
-		
 		<div class="clearfix">
 		<table class ="basic_tableStyle" width = "100%">
 		<tr>
@@ -33,6 +32,7 @@ if(sessionUser == null){
 			<th>이름</th>
 			<th>추가금</th>
 			<th>예약시간</th>
+			<th>상태</th>
 			<th>작업</th>
 		</tr>
 		<c:if test = "${fn:length(designerList) == 0 }">
@@ -42,14 +42,33 @@ if(sessionUser == null){
 		</c:if>
 		<c:if test="${fn:length(designerList) !=0 }">
 			<c:forEach items="${designerList }" var="designer" varStatus="sp">
-			<tr >
+			<tr>
 				<th>${sp.index+1 }</th>
 				<td>${designer.design_name }</td>
 				<td>${designer.design_price }</td>
 				<td>${designer.design_time }</td>
+				<td>
+					<c:if test ="${designer.design_auth == 0 }">
+						재직
+					</c:if>
+					<c:if test ="${designer.design_auth == 1 }">
+						퇴사
+					</c:if>
+					<c:if test ="${designer.design_auth == 2 }">
+						정지
+					</c:if>
+				</td>
 				<td >
-					<input type = "button" design_seq = "${designer.design_seq }" id ="modifydesignBtn" class="btn_line_s" value ="수정">
-					<input type = "button" design_seq = "${designer.design_seq }" id = "designDeleteBtn" class="btn_line_s" value ="삭제">
+					
+					<c:if test="${designer.design_auth == 0 }">
+						<input type = "button"  design_seq = "${designer.design_seq }" class="btn_line_s modifydesignBtn" value ="수정">
+						<input type = "button"  design_seq = "${designer.design_seq }" class="btn_line_s stopDesignBtn" value ="정지">
+						<input type = "button"  design_seq = "${designer.design_seq }" class="btn_line_s designDeleteBtn" value ="삭제">
+					</c:if>
+					<c:if test="${designer.design_auth == 2 }">
+						<input type = "button"  design_seq = "${designer.design_seq }" class="btn_line_s playDesignBtn" value ="복귀">
+						<input type = "button"  design_seq = "${designer.design_seq }" class="btn_line_s designDeleteBtn" value ="삭제">
+					</c:if>
 				</td>
 			</tr>
 			</c:forEach>
@@ -57,7 +76,7 @@ if(sessionUser == null){
 	</table>
 		</div>
 	<div style = "margin-top : 10px;" align = "right">
-	<button type="button" class="btn_dark_m" onclick ="location.href='shopRegi.do'">디자이너 등록</button>
+	<button type="button" class="btn_dark_m" onclick ="location.href='shopDesignAdd.do?shop_seq=${shop_seq}'">디자이너 등록</button>
 	</div>
 	</div><!--// contents -->
 
@@ -65,14 +84,97 @@ if(sessionUser == null){
 
 
 <script type="text/javascript">
-	$("#addDesignBtn").click(function(){
-		var shop_seq = $("#addDesignBtn").attr("shop_seq");
-		location.href = "shopDesignAdd.do?shop_seq="+shop_seq;
+	$(".modifydesignBtn").click(function(){
+		var design_seq = $(this).attr("design_seq");
+		var shop_seq = ${shop_seq};
+		
+		 $.ajax({
+	          url:"./checkDesign.do",
+	          type:'post',
+	          data: {"design_seq" : design_seq,
+		          	  "shop_seq" : shop_seq},
+	          success: function (data){
+	             //alert("성공");
+				 if(data == "ok"){
+	             	location.href="designModify.do?design_seq="+design_seq+"&shop_seq="+shop_seq;
+				 } else {
+					 alert("해당 디자이너의 예약 정보가 남아있습니다.");
+				}
+	          },
+	          error: function (e){
+	             alert("통신실패");
+	     	}
+		});
+		
 	});
 	
-	$("#modifyShopBtn").click(function(){
-		var shop_seq = $("#modifyShopBtn").attr("shop_seq");
-		location.href = "modifyShop.do?shop_seq="+shop_seq;
+	$(".designDeleteBtn").click(function(){
+		var design_seq = $(this).attr("design_seq");
+		var shop_seq = ${shop_seq};
+		$.ajax({
+	          url:"./deleteDesignAf.do",
+	          type:'post',
+	          data: {"design_seq" : design_seq,
+		          	  "shop_seq" : shop_seq},
+	          success: function (data){
+	             //alert("성공");
+				 if(data == "ok"){
+					 alert("해당 디자이너의 상태를 변경하였습니다.")
+					 location.href="shopDesignList.do?shop_seq="+${shop_seq};
+				 } else {
+					 alert("해당 디자이너의 예약 정보가 남아있습니다.");
+				}
+	          },
+	          error: function (e){
+	             alert("통신실패");
+	     	}
+		});
+	});
+
+	$(".stopDesignBtn").click(function(){
+		var design_seq = $(this).attr("design_seq");
+		var shop_seq = ${shop_seq};
+		$.ajax({
+	          url:"./stopDesignAf.do",
+	          type:'post',
+	          data: {"design_seq" : design_seq,
+		          	  "shop_seq" : shop_seq},
+	          success: function (data){
+	             //alert("성공");
+				 if(data == "ok"){
+					 alert("해당 디자이너의 상태를 정지로 변경하였습니다.")
+	             	location.href="shopDesignList.do?shop_seq="+${shop_seq};
+				 } else {
+					 alert("해당 디자이너의 상태를 변경하지 못하였습니다.");
+				}
+	          },
+	          error: function (e){
+	             alert("통신실패");
+	     	}
+		});
+	});
+	
+	$(".playDesignBtn").click(function(){
+		var design_seq = $(this).attr("design_seq");
+		var shop_seq = ${shop_seq};
+		$.ajax({
+	          url:"./playDesignAf.do",
+	          type:'post',
+	          data: {"design_seq" : design_seq,
+		          	  "shop_seq" : shop_seq},
+	          success: function (data){
+	             //alert("성공");
+				 if(data == "ok"){
+					 alert("해당 디자이너의 상태를 변경하였습니다.")
+	             	location.href="shopDesignList.do?shop_seq="+${shop_seq};
+				 } else {
+					 alert("해당 디자이너의 상태를 변경하지 못하였습니다.");
+				}
+	          },
+	          error: function (e){
+	             alert("통신실패");
+	     	}
+		});
 	});
 </script>
 <%@ include file="./../../../include/footer.jsp" %>

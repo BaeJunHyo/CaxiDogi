@@ -2,9 +2,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@ include file="./../../../include/header.jsp" %>
+<%@ include file="./../../../../include/header.jsp" %>
 <script src = "<%=request.getContextPath() %>/js/ckeditor/ckeditor.js"></script>
-<%@ include file="./../../../include/left_frm_seller.jsp" %>
+<%@ include file="./../../../../include/left_frm_seller.jsp" %>
 
 <%
 	poolDto pool = (poolDto)request.getAttribute("pool");
@@ -240,4 +240,4 @@
         }).open();
     }
 </script>
-<%@ include file="./../../../include/footer.jsp" %>
+<%@ include file="./../../../../include/footer.jsp" %>

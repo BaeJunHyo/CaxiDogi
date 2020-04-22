@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="./../../../include/header.jsp" %>
+<%@ include file="./../../../../include/header.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%
@@ -17,7 +17,7 @@ if(sessionUser == null){
 <%
 }
 %>
-<%@ include file="./../../../include/left_frm_seller.jsp" %>
+<%@ include file="./../../../../include/left_frm_seller.jsp" %>
 		<!-- 마이페이지 메인 -->
 	<div class="cusSec_right">
 		<div class="cusSec_tableWrap tw_wFull">
@@ -131,4 +131,4 @@ if(sessionUser == null){
 	});
 	
 </script>
-<%@ include file="./../../../include/footer.jsp" %>
+<%@ include file="./../../../../include/footer.jsp" %>

@@ -53,7 +53,7 @@ if(loginUser.getAuth()==1 || loginUser.getAuth()==2){
 					<a href="#n">예약정보관리</a>
 					<ul>
 						<li><a href="">Shop 예약</a></li>
-						<li><a href="">Pool 예약</a></li>
+						<li><a href="poolList.do">Pool 예약</a></li>
 						<li><a href="">Ground 예약</a>
 					</ul>
 				</li>

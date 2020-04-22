@@ -61,15 +61,25 @@ public class PoolController {
 		List<poolDto> list = poolService.getSellerPoolList(mem.getMem_seq());
 		model.addAttribute("poolList", list);
 		
-		return "/smypage/sellerPoolList";
+		return "/smypage/pool/sellerPoolList";
 	}
 	
+		@RequestMapping(value="poolList.do",  method= {RequestMethod.GET,RequestMethod.POST})
+		public String poolList(HttpSession session, Model model) {
+			memberDto mem = (memberDto)session.getAttribute("loginUser");
+			System.out.println(mem.toString());
+			List<poolDto> list = poolService.getSellerPoolList(mem.getMem_seq());
+			model.addAttribute("poolList", list);
+			
+			return "/smypage/pool/poolList";
+		}
+		
 	@RequestMapping(value="modifyPool.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public String modifyPool(Model model, int pool_seq, HttpSession session) {
 		poolDto pool = poolService.getPoolDetail(pool_seq);
 		model.addAttribute("pool", pool);
 		
-		return "/smypage/modify_pool";
+		return "/smypage/pool/modify_pool";
 	}
 	
 	@RequestMapping(value="reModifyPool.do",  method= {RequestMethod.GET,RequestMethod.POST})
@@ -77,7 +87,7 @@ public class PoolController {
 		poolDto pool = poolService.getPoolDetail(pool_seq);
 		model.addAttribute("pool", pool);
 		
-		return "/smypage/re_modify_pool";
+		return "/smypage/pool/re_modify_pool";
 	}
 	
 	@RequestMapping(value="poolDetail.do",  method= {RequestMethod.GET,RequestMethod.POST})
@@ -130,7 +140,7 @@ public class PoolController {
 	
 	@RequestMapping(value="regiPool.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public String regiPool(){
-		return "/smypage/regi_pool";
+		return "/smypage/pool/regi_pool";
 	}
 	
 	@RequestMapping(value="poolimageUpload.do", method=RequestMethod.POST)

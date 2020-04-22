@@ -1,155 +1,175 @@
+<%@page import="cd.com.a.model.poolDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@ include file="./../../../include/header.jsp" %>
+<%@ include file="./../../../../include/header.jsp" %>
 <script src = "<%=request.getContextPath() %>/js/ckeditor/ckeditor.js"></script>
-<%@ include file="./../../../include/left_frm_seller.jsp" %>
+<%@ include file="./../../../../include/left_frm_seller.jsp" %>
+
+<%
+	poolDto pool = (poolDto)request.getAttribute("pool");
+	String time[] = pool.getPool_time().split("~");
+	String startTime[] = time[0].trim().split(":");
+	String endTime[] = time[1].trim().split(":");
+	String address[] = pool.getPool_addr().split("/");
+%>
 	<div class="cusSec_right">
 
 		<div class="cusSec_tableWrap tw_wFull">
 			<h3>
-				<span class="t_sbj">Shop등록</span>
+				<span class="t_sbj">수영장등록</span>
 			</h3>
-		<form name ="shopForm" id ="shopForm" method ="post" enctype="multipart/form-data">
+		<form name ="poolForm" id ="poolForm" method ="post" enctype="multipart/form-data">
 		<div class ="company_regi"  style = "margin-top : 10px;">
-		
-			<label style = "width:100px;">Shop명</label>
-			<input type="text" placeholder="업체명을 입력해주세요" id = "shop_name" name="shop_name" size = "500">
+			<label style = "width:100px;">수영장명</label>
+			<input name = "pool_name" id = "pool_name" type="text" value="${pool.pool_name }" readonly size = "500">
 		</div>
 		<div class ="company_regi" style = "margin-top : 10px;">
 			<label style = "width:100px;">대표자명</label>
-			<input type="text" id = "shop_owner" name = "shop_owner" placeholder="대표자명을 입력해주세요" size = "150">
+			<input type="text" name = "pool_owner" id = "pool_owner" value="${pool.pool_owner }" readonly size = "150">
 		</div>
 		<div class ="company_regi"  style = "margin-top : 10px;">
 			<label style = "width:100px;">사업자등록번호</label>
-			<input type="text" id = "shop_number" name = "shop_number" placeholder="사업자 등록번호를 입력해주세요" size = "150">
+			<input type="text" id = "pool_number" name = "pool_number" value= "${pool.pool_number }" readonly size = "150">
 		</div>
 		<div class ="company_regi"  style = "margin-top : 10px;">
-			<label style = "width:100px;">Shop주소</label>
-			<input type="text" id="sample6_postcode" onclick="sample6_execDaumPostcode()" placeholder="우편번호" readonly >
+			<label style = "width:100px;">수영장 주소</label>
+			<input type="text" value ="<%=address[0] %>" id="sample6_postcode" placeholder="우편번호" readonly ><br>
+			<input style = "margin-top:10px; margin-left : 120px;" value ="<%=address[1] %>" type="text" id="sample6_address" placeholder="주소" readonly ><br>
+			<input style = "margin-top:10px; margin-left : 120px;" value ="<%=address[2] %>" readonly  type="text" id="sample6_detailAddress" placeholder="상세주소" >
 
-			<input type="button" class = "btn_line_s"  onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-			<input style = "margin-top:10px; margin-left : 120px;" type="text" id="sample6_address" placeholder="주소" readonly ><br>
-			<input style = "margin-top:10px; margin-left : 120px;" type="text" id="sample6_detailAddress" placeholder="상세주소" >
-			<input style = "margin-top:10px;" type="text" id="sample6_extraAddress" placeholder="참고항목" readonly >
-			<input type = "hidden" id ="shop_addr" name ="shop_addr">
-
+			<input type = "hidden" id ="pool_addr" name ="pool_addr">
+<p style = "font-size:8pt; color:red; margin-top:10px; margin-left:120px;">수정시 QnA를 통해 신청해주세요</p>
 		</div>
 		<div class ="company_regi"  style = "margin-top : 10px;">
-			<label style = "width:100px;">Shop전화번호</label>
-			<input type="text" id = "shop_tel" name = "shop_tel" placeholder="전화번호 숫자만 입력해주세요" size = "150">
+			<label style = "width:100px;">수영장 전화번호</label>
+			<input id = "pool_tel" name = "pool_tel" type="text" value="${pool.pool_tel }" size = "150">
 		</div>
 		<div class ="time" style = "margin-top : 10px;">
 			<label style = "width:100px;">영업시간</label>
 			<select id="open_hour">
 				<% for (int i =7; i<=24; i++){ %>
-				<option><%=i %></option>
+				<option <%=i==Integer.parseInt(startTime[0])? "selected":"" %>><%=i %></option>
 				<%} %>
 			</select>시 
 			<select id = "open_min">
 				<%for(int i=0; i<=59; i++){ %>
-					<option><%=(i<10)? "0"+i: i %></option>
+					<option <%=i==Integer.parseInt(startTime[1])? "selected":"" %>><%=(i<10)? "0"+i: i %></option>
 				<%} %>
 			</select>분 ~ 
 			<select id="close_hour">
 				<% for (int i =7; i<=24; i++){ %>
-				<option><%=i %></option>
+				<option <%=i==Integer.parseInt(endTime[0])? "selected":"" %>><%=i %></option>
 				<%} %>
 			</select>시 
 			<select id = "close_min">
 				<%for(int i=0; i<=59; i++){ %>
-					<option><%=(i<10)? "0"+i: i %></option>
+					<option <%=i==Integer.parseInt(endTime[1])? "selected":"" %>><%=(i<10)? "0"+i: i %></option>
 				<%} %>
 			</select>분
-			<input type ="hidden" id = "shop_time" name = "shop_time">
+			<input type ="hidden" id = "pool_time" name = "pool_time">
+		</div>
+		<div class ="company_regi"  style = "margin-top : 10px;">
+			<label style = "width:100px;">시간당 가격</label>
+			<input type="text" id = "pool_price" name = "pool_price" value="${pool.pool_price }" size = "150">
+		</div>
+		<div class ="company_regi"  style = "margin-top : 10px;">
+			<label style = "width:100px;">샤워실 여부</label>
+			<input id = "chk_shower" type="checkbox" <%=pool.getPool_shower() == 0? "checked":"" %>>
+			<input type="hidden" name = "pool_shower" id="pool_shower">
+		</div>
+		<div class ="company_regi"  style = "margin-top : 10px;">
+			<label style = "width:100px;">대형견 이용 여부</label>
+			<input id ="chk_large" type="checkbox" <%=pool.getPool_large() == 0? "checked":"" %>>
+			<input type="hidden" name = "pool_large" id="pool_large">
+		</div>
+		<div class ="company_regi"  style = "margin-top : 10px;">
+			<label style = "width:100px;">주차장 여부</label>
+			<input id="chk_parking" type="checkbox"<%=pool.getPool_parking() == 0? "checked":"" %>>
+			<input type="hidden" name = "pool_parking" id ="pool_parking">
 		</div>
 		<div class ="company_regi" style = "margin-top : 10px;">
-			<label style = "width:100px;">Shop사진</label>
+			<label style = "width:100px;">수영장 대표 사진</label>
 			<input type="file" name = "fileload" accept=".gif, .jpg, .png">
 			<p style = "font-size:8pt; color:blue; margin-left:120px;">500 X 500픽셀(Pixel) 이미지(.gif, .jpg, .png)파일만 업로드 가능</p>
 		</div>
-		<div class ="company_regi"  style = "margin-top : 10px;">
-			<label style = "width:100px;">Shop 한마디</label>
-			<input type="text" id = "shop_etc" name = "shop_etc" placeholder="한줄 홍보" size = "150">
-		</div>
 		<div class ="company_regi" style = "margin-top : 10px;">
-			<label style = "width:100px;">소형 금액</label>
-			<input type="text" id = "shop_small_price" name = "shop_small_price"  placeholder="소형견" size = "150">
-		</div>
-		<div class ="company_regi" style = "margin-top : 10px;">
-			<label style = "width:100px;">중형 금액</label>
-			<input type="text" id = "shop_medium_price"  name = "shop_medium_price" placeholder="중형견" size = "150">
-		</div>
-		<div class ="company_regi" style = "margin-top : 10px;">
-			<label style = "width:100px;">대형 금액</label>
-			<input type="text" id = "shop_large_price" name = "shop_large_price" placeholder="대형견" size = "150">
-		</div>
-		<div class ="company_regi" style = "margin-top : 10px;">
-			<textarea id="content" ></textarea>
-			<script>CKEDITOR.replace('content',{filebrowserUploadUrl:'imageUpload.do'});</script>
-			<input type="hidden" id ="shop_content" name ="shop_content" >
-		</div>
-		<input type="hidden" name = "mem_seq" value ="${loginUser.mem_seq }">
-		<div style ="margin-top:10px;" align ="center">
-			<input class = "btn_line_m" type ="button" id = "shop_regi" value = "등록">		
-			<input class ="btn_line_m" type ="button"  onclick = "location.href='sellerShopList.do'" value = "취소">		
-			
+			<textarea id="content" >${pool.pool_content }</textarea>
+			<script>CKEDITOR.replace('content',{filebrowserUploadUrl:'poolimageUpload.do'});</script>
+			<input type="hidden" id ="pool_content" name ="pool_content" >
+			<input type ="hidden" name = "pool_photo" value= "${pool.pool_photo }">
+			<input type ="hidden" name = "pool_auth" value = "${pool.pool_auth }">
+			<input type ="hidden" name = "pool_seq" value ="${pool.pool_seq }">
 		</div>
 		</form>
+		<div style ="margin-top:10px;" align ="center">
+			<input class = "btn_line_m" type ="button" id ="pool_modify" value = "수정">		
+			
+			<input class ="btn_line_m" type ="button" onclick="location.href='sellerPoolList.do'" value = "취소">		
+			
 		</div>
-	
-
-	
-	</div><!--// contents -->
-
-</div><!--container E : -->
-<!-- container S : -->
-
+		
+	</div>
+</div>
+</div>
 <!-- container E : -->
 <script type="text/javascript">
-	$("#shop_regi").click(function(){
+	$("#pool_modify").click(function(){
 		var rgEx = /(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/g;
-		if($("#shop_name").val().trim() == ''){
+		if($("#pool_name").val().trim() == ''){
 			alert("상호명을 입력해 주세요");
-			$("#shop_name").focus();
-		} else if($("#shop_owner").val().trim() == ''){
+			$("#pool_name").focus();
+		}  else if($("#pool_owner").val().trim() == ''){
 			alert("대표자명을 입력해주세요");
-			$("#shop_owner").focus();
-		} else if($("#shop_number").val().trim() == ''){
+			$("#pool_owner").focus();
+		} else if($("#pool_number").val().trim() == ''){
 			alert("사업자 등록번호를 입력해 주세요");
-			$("#shop_number").focus();
+			$("#pool_number").focus();
 		}else if($("#sample6_postcode").val() == ''){
 			alert("주소를 입력해 주세요");
 			sample6_execDaumPostcode();
-		} else if($("#shop_tel").val().trim()==''){
+		} else if($("#pool_tel").val().trim()==''){
 			alert("전화번호를 입력해 주세요");
-			$("#shop_tel").focus();
-		} else if(!rgEx.test($("#shop_tel").val())){
+			$("#pool_tel").focus();
+		} else if(!rgEx.test($("#pool_tel").val())){
 			alert("올바른 전화번호가 아닙니다.");
-			$("#shop_tel").val("");
-			$("#shop_tel").focus();
-		} else if($("#shop_small_price").val().trim()==''){
-			alert("소형견 금액을 입력해주세요.");
-			$("#shop_small_price").focus();
-		} else if($("#shop_medium_price").val().trim()==''){
-			alert("중형견 금액을 입력해주세요.");
-			$("#shop_medium_price").focus();
-		} else if($("#shop_large_price").val().trim()==''){
-			alert("대형견 금액을 입력해주세요.");
-			$("#shop_large_price").focus();
-		} else {
+			$("#pool_tel").val("");
+			$("#pool_tel").focus();
+		} else if($("#pool_price").val().trim()==''){
+			alert("기본 금액을 입력해 주세요");
+			$("#pool_price").focus();
+		}  else {
 			var addr = $("#sample6_postcode").val()+"/"+$("#sample6_address").val()+"/" +$("#sample6_detailAddress").val();
 			var time = $("#open_hour").val()+":"+$("#open_min").val()+ " ~ " + $("#close_hour").val() + ":" + $("#close_min").val();
-			$("#shop_time").val(time);
-			$("#shop_addr").val(addr);
+			$("#pool_time").val(time);
+			$("#pool_addr").val(addr);
 			var content = CKEDITOR.instances.content.getData();
-			$("#shop_content").val(content);
+			$("#pool_content").val(content);
 			//alert($("#shop_content").val());
-			var form = $('#shopForm')[0];
+			
+			if($("#chk_shower").is(":checked")==true){
+				$("#pool_shower").val("0");
+			} else {
+				$("#pool_shower").val("1");
+			}
+
+			if($("#chk_large").is(":checked")==true){
+				$("#pool_large").val("0");
+			} else {
+				$("#pool_large").val("1");
+			}
+
+			if($("#chk_parking").is(":checked")==true){
+				$("#pool_parking").val("0");
+			} else {
+				$("#pool_parking").val("1");
+			}
+			
+			var form = $('#poolForm')[0];
 			var formData = new FormData(form);
 			
 		      $.ajax({
-		          url:"./shopRegiAf.do",
+		          url:"./poolModifyAf.do",
 		          type:'post',
 		          data: formData,
 		          enctype:'multipart/form-data',
@@ -159,8 +179,8 @@
 		          timeout: 600000,
 		          //datatype:'text',
 		          success: function (data){
-		             alert("샵 등록에 성공하셨습니다.");
-		             location.href="sellerShopList.do";
+		             alert("수영장 수정에 성공하셨습니다.");
+		             location.href="sellerPoolList.do";
 		          },
 		          error: function (e){
 		             alert("통신실패");
@@ -168,6 +188,7 @@
 			});
 		}		
 	});
+
 </script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -219,4 +240,4 @@
         }).open();
     }
 </script>
-<%@ include file="./../../../include/footer.jsp" %>
+<%@ include file="./../../../../include/footer.jsp" %>

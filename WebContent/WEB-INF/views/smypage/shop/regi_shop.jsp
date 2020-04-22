@@ -1,72 +1,64 @@
-<%@page import="java.io.Console"%>
-<%@page import="cd.com.a.model.shopDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@ include file="./../../../include/header.jsp" %>
+<%@ include file="./../../../../include/header.jsp" %>
 <script src = "<%=request.getContextPath() %>/js/ckeditor/ckeditor.js"></script>
-<%@ include file="./../../../include/left_frm_seller.jsp" %>
-<%
-	shopDto shop = (shopDto)request.getAttribute("shop");
-	String time[] = shop.getShop_time().split("~");
-	String startTime[] = time[0].trim().split(":");
-	String endTime[] = time[1].trim().split(":");
-	String address[] = shop.getShop_addr().split("/");
-%>
+<%@ include file="./../../../../include/left_frm_seller.jsp" %>
 	<div class="cusSec_right">
 
 		<div class="cusSec_tableWrap tw_wFull">
 			<h3>
-				<span class="t_sbj">Shop수정</span>
+				<span class="t_sbj">Shop등록</span>
 			</h3>
 		<form name ="shopForm" id ="shopForm" method ="post" enctype="multipart/form-data">
 		<div class ="company_regi"  style = "margin-top : 10px;">
-			<input type ="hidden" value ="${shop.shop_seq }" name = "shop_seq">
+		
 			<label style = "width:100px;">Shop명</label>
-			<input type="text" value ="${shop.shop_name }" id = "shop_name" readonly name="shop_name" size = "500" >
+			<input type="text" placeholder="업체명을 입력해주세요" id = "shop_name" name="shop_name" size = "500">
 		</div>
 		<div class ="company_regi" style = "margin-top : 10px;">
 			<label style = "width:100px;">대표자명</label>
-			<input type="text" value="${shop.shop_owner }" id = "shop_owner" readonly name = "shop_owner"  size = "150">
+			<input type="text" id = "shop_owner" name = "shop_owner" placeholder="대표자명을 입력해주세요" size = "150">
 		</div>
 		<div class ="company_regi"  style = "margin-top : 10px;">
 			<label style = "width:100px;">사업자등록번호</label>
-			<input type="text" value = "${shop.shop_number }" id = "shop_number" readonly name = "shop_number" size = "150">
+			<input type="text" id = "shop_number" name = "shop_number" placeholder="사업자 등록번호를 입력해주세요" size = "150">
 		</div>
 		<div class ="company_regi"  style = "margin-top : 10px;">
 			<label style = "width:100px;">Shop주소</label>
-			<input type="text" value ="<%=address[0] %>" id="sample6_postcode" placeholder="우편번호" readonly >
-<br>
-			<input style = "margin-top:10px; margin-left : 120px;" value ="<%=address[1] %>" type="text" id="sample6_address" placeholder="주소" readonly ><br>
-			<input style = "margin-top:10px; margin-left : 120px;" type="text" value ="<%=address[2] %>" readonly id="sample6_detailAddress" placeholder="상세주소" >
+			<input type="text" id="sample6_postcode" onclick="sample6_execDaumPostcode()" placeholder="우편번호" readonly >
 
+			<input type="button" class = "btn_line_s"  onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+			<input style = "margin-top:10px; margin-left : 120px;" type="text" id="sample6_address" placeholder="주소" readonly ><br>
+			<input style = "margin-top:10px; margin-left : 120px;" type="text" id="sample6_detailAddress" placeholder="상세주소" >
+			<input style = "margin-top:10px;" type="text" id="sample6_extraAddress" placeholder="참고항목" readonly >
 			<input type = "hidden" id ="shop_addr" name ="shop_addr">
-		<p style = "font-size:8pt; color:red; margin-left:120px;">수정시 QnA를 통해 신청해주세요</p>
+
 		</div>
 		<div class ="company_regi"  style = "margin-top : 10px;">
 			<label style = "width:100px;">Shop전화번호</label>
-			<input type="text" id = "shop_tel" name = "shop_tel" value ="${shop.shop_tel }" size = "150">
+			<input type="text" id = "shop_tel" name = "shop_tel" placeholder="전화번호 숫자만 입력해주세요" size = "150">
 		</div>
 		<div class ="time" style = "margin-top : 10px;">
 			<label style = "width:100px;">영업시간</label>
 			<select id="open_hour">
 				<% for (int i =7; i<=24; i++){ %>
-				<option <%=i==Integer.parseInt(startTime[0])? "selected":"" %>><%=i %></option>
+				<option><%=i %></option>
 				<%} %>
 			</select>시 
 			<select id = "open_min">
 				<%for(int i=0; i<=59; i++){ %>
-					<option <%=i==Integer.parseInt(startTime[1])? "selected":"" %>><%=(i<10)? "0"+i: i %></option>
+					<option><%=(i<10)? "0"+i: i %></option>
 				<%} %>
 			</select>분 ~ 
 			<select id="close_hour">
 				<% for (int i =7; i<=24; i++){ %>
-				<option <%=i==Integer.parseInt(endTime[0])? "selected":"" %>><%=i %></option>
+				<option><%=i %></option>
 				<%} %>
 			</select>시 
 			<select id = "close_min">
 				<%for(int i=0; i<=59; i++){ %>
-					<option <%=i==Integer.parseInt(endTime[1])? "selected":"" %>><%=(i<10)? "0"+i: i %></option>
+					<option><%=(i<10)? "0"+i: i %></option>
 				<%} %>
 			</select>분
 			<input type ="hidden" id = "shop_time" name = "shop_time">
@@ -78,31 +70,29 @@
 		</div>
 		<div class ="company_regi"  style = "margin-top : 10px;">
 			<label style = "width:100px;">Shop 한마디</label>
-			<input type="text" id = "shop_etc" name = "shop_etc" value="${shop.shop_etc }" size = "150">
+			<input type="text" id = "shop_etc" name = "shop_etc" placeholder="한줄 홍보" size = "150">
 		</div>
 		<div class ="company_regi" style = "margin-top : 10px;">
 			<label style = "width:100px;">소형 금액</label>
-			<input type="text" id = "shop_small_price" name = "shop_small_price"  value="${shop.shop_small_price }" size = "150">
+			<input type="text" id = "shop_small_price" name = "shop_small_price"  placeholder="소형견" size = "150">
 		</div>
 		<div class ="company_regi" style = "margin-top : 10px;">
 			<label style = "width:100px;">중형 금액</label>
-			<input type="text" id = "shop_medium_price"  name = "shop_medium_price" value="${shop.shop_medium_price }" size = "150">
+			<input type="text" id = "shop_medium_price"  name = "shop_medium_price" placeholder="중형견" size = "150">
 		</div>
 		<div class ="company_regi" style = "margin-top : 10px;">
 			<label style = "width:100px;">대형 금액</label>
-			<input type="text" id = "shop_large_price" name = "shop_large_price" value="${shop.shop_large_price }" size = "150">
+			<input type="text" id = "shop_large_price" name = "shop_large_price" placeholder="대형견" size = "150">
 		</div>
 		<div class ="company_regi" style = "margin-top : 10px;">
-			<textarea id="content" >${shop.shop_content }</textarea>
+			<textarea id="content" ></textarea>
 			<script>CKEDITOR.replace('content',{filebrowserUploadUrl:'imageUpload.do'});</script>
 			<input type="hidden" id ="shop_content" name ="shop_content" >
-			<input type ="hidden" name="shop_auth" value ="${shop.shop_auth }">
-			<input type ="hidden" name ="shop_photo" value ="${shop.shop_photo }">
 		</div>
+		<input type="hidden" name = "mem_seq" value ="${loginUser.mem_seq }">
 		<div style ="margin-top:10px;" align ="center">
 			<input class = "btn_line_m" type ="button" id = "shop_regi" value = "등록">		
-			<input class ="btn_line_m" type ="button" onclick = "location.href='sellerShopList.do'" value = "취소">		
-			
+			<input class ="btn_line_m" type ="button"  onclick = "location.href='sellerShopList.do'" value = "취소">		
 			
 		</div>
 		</form>
@@ -159,7 +149,7 @@
 			var formData = new FormData(form);
 			
 		      $.ajax({
-		          url:"./shopModifyAf.do",
+		          url:"./shopRegiAf.do",
 		          type:'post',
 		          data: formData,
 		          enctype:'multipart/form-data',
@@ -169,7 +159,7 @@
 		          timeout: 600000,
 		          //datatype:'text',
 		          success: function (data){
-		             alert("샵 수정에 성공하셨습니다.");
+		             alert("샵 등록에 성공하셨습니다.");
 		             location.href="sellerShopList.do";
 		          },
 		          error: function (e){
@@ -229,4 +219,4 @@
         }).open();
     }
 </script>
-<%@ include file="./../../../include/footer.jsp" %>
+<%@ include file="./../../../../include/footer.jsp" %>

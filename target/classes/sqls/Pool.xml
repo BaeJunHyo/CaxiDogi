@@ -42,4 +42,6 @@
    	pool_parking,pool_content, pool_photo from pool
    	where mem_seq = #{mem_seq}
    </select>
+   
+
    </mapper>

@@ -52,7 +52,7 @@ public class ShopController {
 	
 	@RequestMapping(value="shopRegi.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public String shopRegi() {
-		return "/smypage/regi_shop";
+		return "/smypage/shop/regi_shop";
 	}
 	
 	@RequestMapping(value="imageUpload.do", method=RequestMethod.POST)
@@ -230,7 +230,7 @@ public class ShopController {
 		List<shopDto> list = shopService.getSellerShopList(mem.getMem_seq());
 		model.addAttribute("shopList", list);
 		
-		return "/smypage/sellerShopList";
+		return "/smypage/shop/sellerShopList";
 	}
 	
 
@@ -239,7 +239,7 @@ public class ShopController {
 		shopDto shop = shopService.getShopDetail(shop_seq);
 		model.addAttribute("shop", shop);
 		
-		return "/smypage/regi_design";
+		return "/smypage/shop/regi_design";
 	}
 	
 	@ResponseBody
@@ -296,7 +296,7 @@ public class ShopController {
 		List<shopDesignerDto> designerList = shopService.getDesignerAll(shop_seq);
 		model.addAttribute("designerList", designerList);
 		model.addAttribute("shop_seq", shop_seq);
-		return "/smypage/shopDesignList";
+		return "/smypage/shop/shopDesignList";
 	}
 	
 	@ResponseBody
@@ -356,7 +356,7 @@ public class ShopController {
 		shopDesignerDto designer = shopService.getDesignerInfo(shopDesign);
 		model.addAttribute("shop", shop);
 		model.addAttribute("designer", designer);
-		return "/smypage/modify_design";
+		return "/smypage/shop/modify_design";
 	}
 	
 	@RequestMapping(value="modifyShop.do",  method= {RequestMethod.GET,RequestMethod.POST})
@@ -364,7 +364,7 @@ public class ShopController {
 		shopDto shop = shopService.getShopDetail(shop_seq);
 		model.addAttribute("shop", shop);
 		
-		return "/smypage/modify_shop";
+		return "/smypage/shop/modify_shop";
 	}
 	
 	@RequestMapping(value="reModifyShop.do",  method= {RequestMethod.GET,RequestMethod.POST})
@@ -372,7 +372,7 @@ public class ShopController {
 		shopDto shop = shopService.getShopDetail(shop_seq);
 		model.addAttribute("shop", shop);
 		
-		return "/smypage/re_modify_shop";
+		return "/smypage/shop/re_modify_shop";
 	}
 //--------------------------------------------------------------MJ--------------------------------------------------	
 	@RequestMapping(value="shop.do",  method= {RequestMethod.GET,RequestMethod.POST})

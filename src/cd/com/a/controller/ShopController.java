@@ -160,6 +160,9 @@ public class ShopController {
 	@RequestMapping(value = "shopModifyAf.do",method=RequestMethod.POST)
 	   public String shopModifyAf(@ModelAttribute shopDto shop, @RequestParam(value="fileload")MultipartFile fileload, HttpServletRequest req){
 		String str = "";
+		if(shop.getShop_auth() == 2) {
+			shop.setShop_auth(4);
+		}
 		if(!fileload.isEmpty()) {
 			String fileUpload = req.getServletContext().getRealPath("/images/shopImg"); 
 			System.out.println("fileUpload" + fileUpload); // 업로드 위치
@@ -203,6 +206,22 @@ public class ShopController {
 		
 		return str;
 	}	
+
+	@ResponseBody
+	@RequestMapping(value="shopStop.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String shopStop(int shop_seq) {
+		String str = "";
+		boolean	status = shopService.shopStopAf(shop_seq);
+		
+		if(status == true) {
+			str = "ok";
+		} else {
+			str = "no";
+		}
+		
+		return str;
+	}
+
 	
 	@RequestMapping(value="sellerShopList.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public String sellerShopList(HttpSession session, Model model) {
@@ -224,8 +243,8 @@ public class ShopController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="shopDesignAdAf.do",  method= {RequestMethod.GET,RequestMethod.POST})
-	public String shopDesignAdAf(shopDesignerDto designer) {
+	@RequestMapping(value="shopDesignAddAf.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String shopDesignAddAf(shopDesignerDto designer) {
 		String str = "";
 		System.out.println(designer.toString());
 		boolean	status = shopService.addDesigner(designer);
@@ -254,6 +273,7 @@ public class ShopController {
 		
 		return str;
 	}
+	
 	
 	@ResponseBody
 	@RequestMapping(value="playDesignAf.do",  method= {RequestMethod.GET,RequestMethod.POST})
@@ -347,6 +367,13 @@ public class ShopController {
 		return "/smypage/modify_shop";
 	}
 	
+	@RequestMapping(value="reModifyShop.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String reModifyShop(int shop_seq, Model model) {
+		shopDto shop = shopService.getShopDetail(shop_seq);
+		model.addAttribute("shop", shop);
+		
+		return "/smypage/re_modify_shop";
+	}
 //--------------------------------------------------------------MJ--------------------------------------------------	
 	@RequestMapping(value="shop.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public String shop() {

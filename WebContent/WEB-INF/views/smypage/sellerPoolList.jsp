@@ -49,16 +49,30 @@ if(sessionUser == null){
 				<td>${pool.pool_addr }</td>
 				<td>${pool.pool_time }</td>
 				<td>
-					<c:if test = "${pool.pool_auth == 0 }">
+					<c:if test = "${pool.pool_auth == 0 || pool.pool_auth == 4}">
 						<span style="color : red;">승인대기</span>
 					</c:if>
-					<c:if test = "${shop.shop_auth == 1 }">
+					<c:if test = "${pool.pool_auth == 1 }">
 						<span style="color : blue;">승인</span>
+					</c:if>
+					<c:if test = "${pool.pool_auth == 2 }">
+						<span style="color : red;">재신청</span>
+					</c:if>
+					<c:if test = "${pool.pool_auth == 3 }">
+						<span style="color : red;">정지</span>
 					</c:if>
 				</td>
 				<td >
-					<input type = "button" id ="poolUpdateBtn" class="btn_line_s" value ="수정">
-					<input type = "button" id = "poolDeleteBtn" class="btn_line_s" value ="삭제">
+					<c:if test = "${pool.pool_auth == 0 || pool.pool_auth == 4 }">
+						<input type = "button" pool_seq = "${pool.pool_seq }" class="btn_line_s modifyPoolBtn" value ="수정">
+					</c:if>
+					<c:if test = "${pool.pool_auth == 1 }">
+						<input type = "button" pool_seq = "${pool.pool_seq }" class="btn_line_s modifyPoolBtn" value ="수정">
+						<input type = "button"  class="btn_line_s stopPoolBtn" value ="정지">
+					</c:if>
+					<c:if test = "${pool.pool_auth == 2 }">
+						<input type = "button" pool_seq = "${pool.pool_seq }" class="btn_line_s reModifyPoolBtn" value ="재신청">
+					</c:if>
 				</td>
 			</tr>
 			</c:forEach>
@@ -72,6 +86,36 @@ if(sessionUser == null){
 	</div><!--// contents -->
 
 </div><!--container E : -->
+<script type="text/javascript">
+$(".modifyPoolBtn").click(function(){
+	var pool_seq = $(this).attr("pool_seq");
+	location.href = "modifyPool.do?pool_seq="+pool_seq;
+});
+$(".reModifyPoolBtn").click(function(){
+	var pool_seq = $(this).attr("pool_seq");
+	location.href = "reModifyPool.do?pool_seq="+pool_seq;
+});
+$(".stopPoolBtn").click(function(){
+	var pool_seq = $(this).attr("pool_seq");
+	$.ajax({
+          url:"./poolStop.do",
+          type:'post',
+          data: {"pool_seq" : pool_seq},
+          success: function (data){
+             //alert("성공");
+			 if(data == "ok"){
+				 alert("해당 pool의 상태를 정지로 변경하였습니다.")
+				 location.href="sellerPoolList.do";
+			 } else {
+				 alert("해당 pool의 상태를 변경하지 못하였습니다.");
+			}
+          },
+          error: function (e){
+             alert("통신실패");
+     	}
+	});
+});
 
+</script>
 
 <%@ include file="./../../../include/footer.jsp" %>

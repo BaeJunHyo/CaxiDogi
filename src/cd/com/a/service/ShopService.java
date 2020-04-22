@@ -10,6 +10,7 @@ public interface ShopService {
 	
 	public boolean addShop(shopDto shop);
 	public boolean shopModifyAf(shopDto shop);
+	public boolean shopStopAf(int shop_seq);
 	public List<shopDto> getShopList();
 	public List<shopDto> getSellerShopList(int mem_seq);
 	public List<shopDesignerDto> getDesigner(int shop_seq);

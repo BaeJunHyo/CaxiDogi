@@ -117,7 +117,7 @@
 					"design_time" : timetable
 			}
 			  $.ajax({
-		          url:"./shopDesignAdAf.do",
+		          url:"./shopDesignAddAf.do",
 		          type:'post',
 		          data: formData,
 		          success: function (data){

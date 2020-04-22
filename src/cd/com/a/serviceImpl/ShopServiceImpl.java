@@ -89,4 +89,10 @@ public class ShopServiceImpl implements ShopService {
 	public boolean designModify(shopDesignerDto designer) {
 		return shopDao.designModify(designer);
 	}
+
+	@Override
+	public boolean shopStopAf(int shop_seq) {
+		return shopDao.shopStopAf(shop_seq);
+	}
+
 }

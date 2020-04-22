@@ -45,4 +45,9 @@ public class PoolServiceImpl implements PoolService {
 		return poolDao.getSellerPoolList(mem_seq);
 	}
 
+	@Override
+	public boolean modifyPool(poolDto pool) {
+		return poolDao.modifyPool(pool);
+	}
+
 }

@@ -97,7 +97,7 @@
 		<div style ="margin-top:10px;" align ="center">
 			<input class = "btn_line_m" type ="button" id ="pool_regi" value = "등록">		
 			
-			<input class ="btn_line_m" type ="button" value = "취소">		
+			<input class ="btn_line_m" type ="button" onclick="location.href='sellerPoolList.do'" value = "취소">		
 			
 		</div>
 		
@@ -180,6 +180,7 @@
 			});
 		}		
 	});
+
 </script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>

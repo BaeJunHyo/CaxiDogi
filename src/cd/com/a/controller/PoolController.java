@@ -64,6 +64,22 @@ public class PoolController {
 		return "/smypage/sellerPoolList";
 	}
 	
+	@RequestMapping(value="modifyPool.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String modifyPool(Model model, int pool_seq, HttpSession session) {
+		poolDto pool = poolService.getPoolDetail(pool_seq);
+		model.addAttribute("pool", pool);
+		
+		return "/smypage/modify_pool";
+	}
+	
+	@RequestMapping(value="reModifyPool.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String reModifyPool(Model model, int pool_seq, HttpSession session) {
+		poolDto pool = poolService.getPoolDetail(pool_seq);
+		model.addAttribute("pool", pool);
+		
+		return "/smypage/re_modify_pool";
+	}
+	
 	@RequestMapping(value="poolDetail.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public String getPoolDetail(Model model, int pool_seq, HttpSession session) {
 		poolDto pool = poolService.getPoolDetail(pool_seq);
@@ -171,7 +187,7 @@ public class PoolController {
 	
 	@ResponseBody
 	@RequestMapping(value = "poolRegiAf.do",method=RequestMethod.POST)
-	   public String multipartUpload(@ModelAttribute poolDto pool, @RequestParam(value="fileload")MultipartFile fileload, HttpServletRequest req){
+	   public String poolRegiAf(@ModelAttribute poolDto pool, @RequestParam(value="fileload")MultipartFile fileload, HttpServletRequest req){
 		String str = "";
 		
 		System.out.println(pool.toString());
@@ -210,6 +226,59 @@ public class PoolController {
 		} else {
 			pool.setPool_photo("default");
 			boolean	status = poolService.addPool(pool);
+			
+			if(status == true) {
+				str = "ok";
+			} else {
+				str = "no";
+			}
+		}
+		
+		return str;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "poolModifyAf.do",method=RequestMethod.POST)
+	   public String poolModifyAf(@ModelAttribute poolDto pool, @RequestParam(value="fileload")MultipartFile fileload, HttpServletRequest req){
+		String str = "";
+		if(pool.getPool_auth() == 2) {
+			pool.setPool_auth(4);
+		}
+		System.out.println(pool.toString());
+		
+		if(!fileload.isEmpty()) {
+			String fileUpload = req.getServletContext().getRealPath("/images/poolImg"); 
+			System.out.println("fileUpload" + fileUpload); // 업로드 위치
+			//System.out.println(fileUpload);
+			String fileName = fileload.getOriginalFilename();
+			String saveFileName = "";
+			String filepost = "";
+			if(fileName.indexOf('.') >= 0) { // 확장자 명이 있을때
+				filepost = fileName.substring(fileName.indexOf('.'));
+				saveFileName = new Date().getTime() + filepost;
+			} 
+			pool.setPool_photo(saveFileName);
+			
+			File file = new File(fileUpload + "/" + saveFileName);
+
+			//실제 파일 업로드 되는 부분
+			try {
+				FileUtils.writeByteArrayToFile(file, fileload.getBytes());
+				System.out.println(pool.toString());
+				//db저장
+				boolean	status = poolService.modifyPool(pool);
+			
+				if(status == true) {
+					str = "ok";
+				} else {
+					str = "no";
+				}
+			
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			boolean	status = poolService.modifyPool(pool);
 			
 			if(status == true) {
 				str = "ok";

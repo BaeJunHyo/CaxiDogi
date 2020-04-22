@@ -49,25 +49,35 @@ if(sessionUser == null){
 				<td>${shop.shop_addr }</td>
 				<td>${shop.shop_time }</td>
 				<td>
-					<c:if test = "${shop.shop_auth == 0 }">
+					<c:if test = "${shop.shop_auth == 0 || shop.shop_auth == 4}">
 						<span style="color : red;">승인대기</span>
 					</c:if>
 					<c:if test = "${shop.shop_auth == 1 }">
 						<span style="color : blue;">승인</span>
 					</c:if>
 					<c:if test = "${shop.shop_auth == 3 }">
-						<span style="color : blue;">정지</span>
+						<span style="color : red;">정지</span>
+					</c:if>
+					<c:if test = "${shop.shop_auth == 2 }">
+						<span style="color : red;">재신청</span>
 					</c:if>
 				</td>
 				<td >
+					<c:if test = "${shop.shop_auth == 0 || shop.shop_auth == 4}">
+						<input type = "button" shop_seq = "${shop.shop_seq }" class="btn_line_s modifyShopBtn" value ="수정">
+					</c:if>
+					<c:if test = "${shop.shop_auth == 1 }">
 					<input type = "button" shop_seq = "${shop.shop_seq }" class="btn_line_s modifyShopBtn" value ="수정">
 					<input type = "button" shop_seq = "${shop.shop_seq }" class="btn_line_s shopDeleteBtn" value ="정지">
-					<c:if test = "${shop.shop_auth == 1 }">
-					<p style ="margin-top:10px;">
-					<input type = "button" shop_seq = "${shop.shop_seq }" class="btn_line_s addDesignBtn" value ="디자이너 추가">					
+					<p style ="margin-top:10px;">				
 					<input type = "button" shop_seq = "${shop.shop_seq }" class="btn_line_s modifyDesignBtn" value ="디자이너 관리">					
 					</p>
 					</c:if>
+
+					<c:if test = "${shop.shop_auth == 2}">
+						<input type = "button" shop_seq = "${shop.shop_seq }" class="btn_line_s reModifyShopBtn" value ="수정">
+					</c:if>
+					
 				</td>
 			</tr>
 			</c:forEach>
@@ -83,14 +93,36 @@ if(sessionUser == null){
 
 
 <script type="text/javascript">
-	$(".addDesignBtn").click(function(){
+	$(".shopDeleteBtn").click(function(){
 		var shop_seq = $(this).attr("shop_seq");
-		location.href = "shopDesignAdd.do?shop_seq="+shop_seq;
+		$.ajax({
+	          url:"./shopStop.do",
+	          type:'post',
+	          data: {"shop_seq" : shop_seq},
+	          success: function (data){
+	             //alert("성공");
+				 if(data == "ok"){
+					 alert("해당 shop의 상태를 정지로 변경하였습니다.")
+					 location.href="sellerShopList.do";
+				 } else {
+					 alert("해당 shop의 상태를 변경하지 못하였습니다.");
+				}
+	          },
+	          error: function (e){
+	             alert("통신실패");
+	     	}
+		});
 	});
+
 	
 	$(".modifyShopBtn").click(function(){
 		var shop_seq = $(this).attr("shop_seq");
 		location.href = "modifyShop.do?shop_seq="+shop_seq;
+	});
+	
+	$(".reModifyShopBtn").click(function(){
+		var shop_seq = $(this).attr("shop_seq");
+		location.href = "reModifyShop.do?shop_seq="+shop_seq;
 	});
 	
 	$(".modifyDesignBtn").click(function(){

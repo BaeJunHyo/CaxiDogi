@@ -76,6 +76,7 @@ if(sessionUser == null){
 	</table>
 		</div>
 	<div style = "margin-top : 10px;" align = "right">
+	<button type="button" class="btn_dark_m" onclick ="location.href='sellerShopList.do'">Shop List</button>
 	<button type="button" class="btn_dark_m" onclick ="location.href='shopDesignAdd.do?shop_seq=${shop_seq}'">디자이너 등록</button>
 	</div>
 	</div><!--// contents -->

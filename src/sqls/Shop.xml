@@ -11,12 +11,19 @@
 	#{shop_small_price}, #{shop_medium_price}, #{shop_large_price}, #{shop_content})
 </insert>
 
-<insert id="shopModifyAf" parameterType="cd.com.a.model.shopDto">
+<update id="shopModifyAf" parameterType="cd.com.a.model.shopDto">
 	update shop 
 	set shop_owner=#{shop_owner}, shop_number=#{shop_number}, shop_name=#{shop_name}, shop_addr=#{shop_addr}, shop_tel=#{shop_tel}, shop_time=#{shop_time}, shop_photo=#{shop_photo}, shop_etc=#{shop_etc}, 
-	shop_small_price=#{shop_small_price}, shop_medium_price=#{shop_medium_price}, shop_large_price=#{shop_large_price}, shop_content=#{shop_content}
+	shop_small_price=#{shop_small_price}, shop_medium_price=#{shop_medium_price}, shop_large_price=#{shop_large_price}, shop_content=#{shop_content}, shop_auth=#{shop_auth}
 	where shop_seq=#{shop_seq}
-</insert>
+</update>
+
+<update id="shopStopAf" parameterType="java.lang.Integer">
+	update shop 
+	set shop_auth=3
+	where shop_seq=#{shop_seq}
+</update>
+
 
 <select id="getShopList" resultType="cd.com.a.model.shopDto">
 	select shop_seq, shop_owner, shop_number, shop_name, shop_addr, shop_tel, shop_auth,

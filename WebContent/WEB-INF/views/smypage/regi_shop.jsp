@@ -92,7 +92,7 @@
 		<input type="hidden" name = "mem_seq" value ="${loginUser.mem_seq }">
 		<div style ="margin-top:10px;" align ="center">
 			<input class = "btn_line_m" type ="button" id = "shop_regi" value = "등록">		
-			<input class ="btn_line_m" type ="button" id = "cancle" value = "취소">		
+			<input class ="btn_line_m" type ="button"  onclick = "location.href='sellerShopList.do'" value = "취소">		
 			
 		</div>
 		</form>

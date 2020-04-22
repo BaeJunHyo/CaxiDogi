@@ -43,29 +43,12 @@ public class poolResvDto implements Serializable {
 	   private int pool_resv_total_price;	// 최종금액
 	   private int pool_resv_price;			// 가금액
 	   private int mem_seq;					// 예약자 아이디
+	   private String pool_resv_comment;	//코멘트
+	   private int pool_resv_auth;				//예약 상태
 	   
 	public poolResvDto() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-
-	public poolResvDto(int pool_resv_seq, int pool_seq, int pool_resv_user, int pool_resv_pet, String pool_resv_time,
-			String pool_resv_ydate, String pool_resv_sdate, String pool_resv_tel, String pool_resv_name,
-			int pool_resv_payment, int pool_resv_total_price, int pool_resv_price, int mem_seq) {
-		super();
-		this.pool_resv_seq = pool_resv_seq;
-		this.pool_seq = pool_seq;
-		this.pool_resv_user = pool_resv_user;
-		this.pool_resv_pet = pool_resv_pet;
-		this.pool_resv_time = pool_resv_time;
-		this.pool_resv_ydate = pool_resv_ydate;
-		this.pool_resv_sdate = pool_resv_sdate;
-		this.pool_resv_tel = pool_resv_tel;
-		this.pool_resv_name = pool_resv_name;
-		this.pool_resv_payment = pool_resv_payment;
-		this.pool_resv_total_price = pool_resv_total_price;
-		this.pool_resv_price = pool_resv_price;
-		this.mem_seq = mem_seq;
 	}
 
 	public int getPool_resv_seq() {
@@ -172,6 +155,44 @@ public class poolResvDto implements Serializable {
 		this.mem_seq = mem_seq;
 	}
 
+	public String getPool_resv_comment() {
+		return pool_resv_comment;
+	}
+
+	public void setPool_resv_comment(String pool_resv_comment) {
+		this.pool_resv_comment = pool_resv_comment;
+	}
+
+	public int getPool_resv_auth() {
+		return pool_resv_auth;
+	}
+
+	public void setPool_resv_auth(int pool_resv_auth) {
+		this.pool_resv_auth = pool_resv_auth;
+	}
+
+	public poolResvDto(int pool_resv_seq, int pool_seq, int pool_resv_user, int pool_resv_pet, String pool_resv_time,
+			String pool_resv_ydate, String pool_resv_sdate, String pool_resv_tel, String pool_resv_name,
+			int pool_resv_payment, int pool_resv_total_price, int pool_resv_price, int mem_seq,
+			String pool_resv_comment, int pool_resv_auth) {
+		super();
+		this.pool_resv_seq = pool_resv_seq;
+		this.pool_seq = pool_seq;
+		this.pool_resv_user = pool_resv_user;
+		this.pool_resv_pet = pool_resv_pet;
+		this.pool_resv_time = pool_resv_time;
+		this.pool_resv_ydate = pool_resv_ydate;
+		this.pool_resv_sdate = pool_resv_sdate;
+		this.pool_resv_tel = pool_resv_tel;
+		this.pool_resv_name = pool_resv_name;
+		this.pool_resv_payment = pool_resv_payment;
+		this.pool_resv_total_price = pool_resv_total_price;
+		this.pool_resv_price = pool_resv_price;
+		this.mem_seq = mem_seq;
+		this.pool_resv_comment = pool_resv_comment;
+		this.pool_resv_auth = pool_resv_auth;
+	}
+
 	@Override
 	public String toString() {
 		return "poolResvDto [pool_resv_seq=" + pool_resv_seq + ", pool_seq=" + pool_seq + ", pool_resv_user="
@@ -179,7 +200,8 @@ public class poolResvDto implements Serializable {
 				+ ", pool_resv_ydate=" + pool_resv_ydate + ", pool_resv_sdate=" + pool_resv_sdate + ", pool_resv_tel="
 				+ pool_resv_tel + ", pool_resv_name=" + pool_resv_name + ", pool_resv_payment=" + pool_resv_payment
 				+ ", pool_resv_total_price=" + pool_resv_total_price + ", pool_resv_price=" + pool_resv_price
-				+ ", mem_seq=" + mem_seq + "]";
+				+ ", mem_seq=" + mem_seq + ", pool_resv_comment=" + pool_resv_comment + ", pool_resv_auth="
+				+ pool_resv_auth + "]";
 	}
 
 	

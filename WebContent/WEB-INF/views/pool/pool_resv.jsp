@@ -97,6 +97,14 @@
 						</dd>
 					</dl>
 				</li>
+				<li>
+					<dl>
+						<dt>코멘트</dt>
+						<dd>
+							<input type ="text" id="pool_resv_comment" name ="pool_resv_comment" style="width:800px;" placeholder="코멘트란">
+						</dd>
+					</dl>
+				</li>
 
 			</ul>
 			<p class="poolBtns clearfix" align="center">

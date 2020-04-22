@@ -28,9 +28,9 @@
    
    <insert id ="resvPool" parameterType="cd.com.a.model.poolResvDto" useGeneratedKeys="true" keyProperty="pool_resv_seq">
    	insert into pool_reservation (pool_seq, pool_resv_user, pool_resv_pet, pool_resv_time, pool_resv_ydate, pool_resv_sdate,
-								pool_resv_tel, pool_resv_name, pool_resv_payment, pool_resv_price, mem_seq)
+								pool_resv_tel, pool_resv_name, pool_resv_payment, pool_resv_price, mem_seq, pool_resv_comment, pool_resv_auth)
 						values(#{pool_seq}, #{pool_resv_user}, #{pool_resv_pet}, #{pool_resv_time}, now(), #{pool_resv_sdate},
-								#{pool_resv_tel}, #{pool_resv_name}, 0, #{pool_resv_price}, #{mem_seq})
+								#{pool_resv_tel}, #{pool_resv_name}, 0, #{pool_resv_price}, #{mem_seq}, #{pool_resv_comment}, 0)
    </insert>
    <select id="getResvPool" parameterType ="java.lang.Integer" resultType="cd.com.a.model.poolResvDto">
    	select * from pool_reservation

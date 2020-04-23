@@ -37,7 +37,7 @@
 		<c:forEach items="${shoplist }" var="shop" varStatus="sp">
 		<c:if test="${shop.shop_auth == 1 }">
 				<li><a
-					href="shopResv.do?shop_seq=${shop.shop_seq }"
+					href="shopDetail.do?shop_seq=${shop.shop_seq }"
 					class="box">
 						<div class="img">
 						<c:if test="${shop.shop_photo == 'default' }">

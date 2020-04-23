@@ -21,6 +21,7 @@ public class DetailController {
 	@RequestMapping(value="prdList.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public String prdList(Model model) {
 		List<productDto> prdlist = detailService.getPrdList();
+		
 		for(int i=0; i<prdlist.size(); i++) {
 			productDto dto = prdlist.get(i);
 			System.out.println("====dto.img" + dto.getProduct_img());
@@ -36,13 +37,13 @@ public class DetailController {
 	@RequestMapping(value="productDetail.do",  method = {RequestMethod.POST, RequestMethod.GET})
 	public String getPrd(int product_num, Model model) {
 		System.out.println("prd_num="+product_num);
+		
 		productDto produc = detailService.getPrd(product_num);
+		
+		
 		model.addAttribute("prddetail", produc);
 		
 		System.out.println("num" + produc.toString());
-		
-		
-		
 		
 		
 		return "/goodsShop/product_detail";

@@ -37,7 +37,7 @@
    <mvc:default-servlet-handler/>
 	
 	<!-- mapping : 가상 경로(상대경로), location : 리소스가 실제로 저장된 경로 -->
-	<mvc:resources location="/upload/boUpload/" mapping="/boUpload/**"></mvc:resources>
+	<!-- <mvc:resources location="/upload/boUpload/" mapping="/boUpload/**"></mvc:resources> -->
 	
 	<!-- tiles setting  -->
 	<!-- <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">

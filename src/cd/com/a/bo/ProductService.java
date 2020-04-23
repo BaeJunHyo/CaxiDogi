@@ -10,4 +10,7 @@ public interface ProductService {
 	public List<productDto> prdSearchList(ProductParam prdParam);
 	public boolean productInsert(productDto dto);
 	
+	public productDto getPrd(int product_num);
+	
+	public void prdUpdate(productDto dto);
 }

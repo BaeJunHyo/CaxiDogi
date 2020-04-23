@@ -65,7 +65,9 @@
 .prdCounter_wrap table {width: 100%; border-top: 1px solid #dbdbdb; border-bottom: 1px solid #dbdbdb;}
 .prdCounter_wrap table tr {border-top: 1px solid #dbdbdb; border-bottom: 1px solid #dbdbdb;}
 .prdCounter_wrap table td.counter_prdname {width: 247px; padding: 22px 30px 22px 0; line-height: 18px; color: #858586; font-size: 13px;}
-.prdCounter_wrap table td .counter {display: block; width: 79px; height: 34px; border: 1px solid #dbdbdb;}
+.prdCounter_wrap table td .counter {
+	display: block; width: 79px; height: 34px; border: 1px solid #dbdbdb;
+}
 .prdCounter_wrap table td .counter input {float: left;width: 57px; height: 34px; margin: 0; line-height: 34px; text-align: center; font-size: 15px; border: none;}
 .prdCounter_wrap table td .counter .counterBtn {display: block; float: right; position: relative; width: 21px; height: 34px; border-left: 1px solid #dbdbdb;}
 .prdCounter_wrap table td .counter .counterBtn a {display: block; width: 21px; height: 17px;}
@@ -157,11 +159,6 @@
 
 
 
-/*
-@DATE : 2017-03-27
-@USE : mouseover zoom in, wishlist
-@WRITER : 理쒖삁吏�
-*/
 .prd_infoWrap .prdInfo_section .col2 {box-sizing: border-box; padding-left: 20px;}
 .prdCounter_wrap {width: 100%;}
 
@@ -181,11 +178,25 @@
 
 
 
-/*
-@DATE : 2017-04-18
-@USE : �쇱떆�덉젅
-@WRITER : 理쒖삁吏�
-*/
 .sign_soldout {display: block; box-sizing: border-box; float: left; width: 463px; height: 50px; line-height: 42px; margin-right: 10px; font-size: 16px; font-weight: 600; color: #fff; border: 4px solid #6e0000; box-shadow: 0 0 0 1px #fff inset; background: #6e0000;}
 .prdArea > li.prd_soldout a .prdImg_section img {opacity: 0.5;}
 .prdArea > li a .prdImg_section img.sign_prdSoldout {display: block; position: absolute; width: 154px; height: 26px; top: 35%; left: 50%; margin: -13px 0 0 -77px; opacity: 1;}
+
+
+
+
+/* 상품 Detail 페이지 */
+.loginWrap .login_inputWrap li .btn_green_l {display: block; position: absolute; width: 101px; height: 101px; top: 0; right: 0; line-height: 101px; padding: 0; font-size: 17px;}
+
+.btn_green_l {
+    color: #fff;
+    background: #8ca15a;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.prdCounter_wrap table td .counter{float: right;}
+

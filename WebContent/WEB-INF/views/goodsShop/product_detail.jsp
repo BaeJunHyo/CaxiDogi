@@ -4,6 +4,14 @@
 
 <%@ include file="./../../../include/header.jsp"%>
 
+<!-- 코어태그 -->
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix = "fn"  uri = "http://java.sun.com/jsp/jstl/functions" %>
+<fmt:requestEncoding value="utf-8"/>
+
+<form action=".do" id="_prdDetailForm" name="prdDetailForm" method="post">
+
 <div class="category_dept">
 	<ul>
 		<li>HOME</li>
@@ -11,6 +19,7 @@
 		<li>사료</li>
 	</ul>
 </div>
+
 
 <!-- container S : -->
 <div class="container_subWrap sub_detail">
@@ -37,8 +46,8 @@
 					</div> -->
 					
 					<div class="easyzoom easyzoom--adjacent easyzoom--with-thumbnails">
-						<a href="./images/img_prdBigThumb_zoom_1.jpg"> 
-							<img src="${path}/boUpload/${prddetail.product_img}" alt="" class="detailPrdSize"/>
+						<a href="<%=request.getContextPath() %>/images/goodsImg/${prddetail.product_img }"> 
+							<img src="<%=request.getContextPath() %>/images/goodsImg/${prddetail.product_img }" alt="" class="detailPrdSize"/>
 						</a>
 					</div>
 						
@@ -64,11 +73,15 @@
 			</div>
 			<!--// col1 -->
 
-
 			<div class="col2">
-				<div class="info">
-					<h3>${prddetail.product_name }</h3>
+				<!-- <div class="info"> -->
 					<ul>
+						<li>
+							<dl>
+								<dt>상품명</dt>
+								<dd><strong>${prddetail.product_name }</strong></dd>
+							</dl>
+						</li>
 						<li>
 							<dl>
 								<dt>판매가</dt>
@@ -76,17 +89,19 @@
 									<strong class="fs20">
 										<fmt:formatNumber value="${prddetail.product_price}" pattern="###,###,###"/>
 									</strong>
+									원
 								</dd>
 							</dl>
 						</li>
-						<!-- <li>
+						<li>
 							<dl>
 								<dt>할인가</dt>
 								<dd class="price-red">
-									<strong>90,000</strong>원
+									<strong>0</strong>원
 								</dd>
 							</dl>
 						</li>
+						<!-- 
 						<li>
 							<dl>
 								<dt>회원가</dt>
@@ -365,25 +380,46 @@
 
 					</ul>
 
-					<table class="select_prd_wrap">
+					
+					<div class="prdCounter_wrap mt30">
+					<table>
 						<colgroup>
-							<col width="23%">
 							<col width="*">
+							<col width="20%">
+							<col width="20%">
+							<col width="5%">
 						</colgroup>
 						<tr>
-							<td>상품선택</td>
-							<td>
-								<select id="" name="">
-									<option value="" selected="selected">${prddetail.product_name }</option>
-								</select>
-							</td>
-						</tr>
+						<tbody>
+							<tr>
+								<td class="counter_prdname">${prddetail.product_name }</td>
+								<td colspan="2">
+									<span class="counter">
+										<input type="text" value="1" id="count" class="tCount" readonly="readonly">
+										<span class="counterBtn">
+											<a href="#n" class="btnPlus" onclick="plus()"></a>
+											<a href="#n" class="btnMinus" onclick="minus()"></a>
+										</span> 
+									</span>
+								</td>
+								<!-- <td>
+									<a href="#n" class="delete_prdSelected"><img src="./images/ico_close_m_square.png"></a>
+								</td> -->
+							</tr>
+						</tbody>
 					</table>
-
+				</div>
+					
+					
 
 					<p class="total_price clearfix pt20 pb15">
 						<span class="fl pt5">총 합계금액</span>
-						<span class="fr"><strong class="c_red totalPrice">1,000,000</strong>원</span>
+						<span class="fr">
+							<input type="text" value="${prddetail.product_price }" id="total_count" class="ex_price_hidden" hidden=hidden />
+							<span class="c_red">
+								<strong class="totalPrice">${prddetail.product_price }</strong>원
+							</span>
+						</span>
 					</p>
 
 					<p class="prdBtns clearfix">
@@ -392,7 +428,7 @@
 						<!-- <span class="sign_soldout">일시품절인 상품입니다.</span> -->
 						<a href="#n" class="btn_line_l p0 btn_wishlist" alt="위시리스트"></a>
 					</p>
-				</div>
+				<!-- </div> -->
 			</div>
 			<!--// col2 -->
 		</div>
@@ -401,20 +437,11 @@
 	<!--// prd_infoWrap -->
 	<div class="prd_detail_infoWrap">
 		<ul class="detailTab">
-			<li>
-				<a href=".move01" class="current">
-					상품설명
-					<img src="./images/ico_arrow_prdDetail.gif">
-				</a>
-			</li>
-			<li><a href=".move02">상품정보<img
-					src="./images/ico_arrow_prdDetail.gif"></a></li>
-			<li><a href=".move03">상품평(0)<img
-					src="./images/ico_arrow_prdDetail.gif"></a></li>
-			<li><a href=".move04">상품Q&amp;A<img
-					src="./images/ico_arrow_prdDetail.gif"></a></li>
-			<li><a href=".move05">배송/교환/반품<img
-					src="./images/ico_arrow_prdDetail.gif"></a></li>
+			<li><a href=".move01" class="current">상품설명<img src="./images/ico_arrow_prdDetail.gif"></a></li>
+			<li><a href=".move02">상품정보<img src="./images/ico_arrow_prdDetail.gif"></a></li>
+			<li><a href=".move03">상품평(0)<img src="./images/ico_arrow_prdDetail.gif"></a></li>
+			<li><a href=".move04">상품Q&amp;A<img src="./images/ico_arrow_prdDetail.gif"></a></li>
+			<li><a href=".move05">배송/교환/반품<img src="./images/ico_arrow_prdDetail.gif"></a></li>
 		</ul>
 		
 		<div class="detailView move01">
@@ -422,6 +449,7 @@
 			<!-- <img src="./images/img_prdInfo.jpg"> -->
 		</div>
 		
+		<!-- 상품정보 -->
 		<div class="detailView move02">
 			<h3>상품정보</h3>
 			<table class="basic_tableStyle basic_tableStyle_vert">
@@ -461,6 +489,8 @@
 				</tbody>
 			</table>
 		</div>
+		
+		<!-- 상품평 -->
 		<div class="detailView move03">
 			<h3>
 				상품평
@@ -482,6 +512,7 @@
 						class="ml5 mr5">(4.4)</li>
 				</ul>
 			</div>
+			
 			<div class="table_menu clearfix">
 				<ul class="clearfix">
 					<li><a href="#n" class="current"><img
@@ -493,6 +524,7 @@
 				<a href="#n" class="btn_line_s fr mr5">최신 등록순<img
 					src="./images/ico_arrow_s.gif" class="ml5 p0"></a>
 			</div>
+			
 			<table class="basic_tableStyle">
 				<colgroup>
 					<col width="128px">
@@ -603,14 +635,17 @@
 					</tr>
 				</tbody>
 			</table>
+			
+			<!-- 페이징 -->
 			<p class="pagination">
-				<a href="#n" class="btn_table_prev">
-				</a><a href="#n" class="current">
-				1</a><a href="#n">
-				2</a><a href="#n" class="btn_table_next">
-				</a>
+				<a href="#n" class="btn_table_prev"></a>
+				<a href="#n" class="current">1</a>
+				<a href="#n">2</a>
+				<a href="#n" class="btn_table_next"></a>
 			</p>
 		</div>
+		
+		<!-- 상품 Q&A -->
 		<div class="detailView move04">
 			<h3>
 				상품Q&amp;A
@@ -727,6 +762,8 @@
 				</a>
 			</p>
 		</div>
+		
+		<!-- 배송/반품/교환안내 -->
 		<div class="detailView move05">
 			<h3>배송/반품/교환안내</h3>
 			<p class="table_menu">
@@ -760,6 +797,7 @@
 			<p class="table_menu mt30">
 				<img src="./images/ico_box.gif">반품/교환안내
 			</p>
+			
 			<table class="basic_tableStyle">
 				<colgroup>
 					<col width="190px">
@@ -784,6 +822,8 @@
 				</tbody>
 			</table>
 		</div>
+		
+		
 		<!-- 상품 옵션 선택 하단 레이어 S : -->
 		<div class="bttm_optionLayer">
 			<div class="optionBox clearfix">
@@ -797,98 +837,42 @@
 					<a href="#n" class="btn_dark_m">장바구니</a>
 				</p>
 			</div>
+			
 			<div class="optionView">
-				<p class="prd_name">힐링 관절용사료</p>
-				<a href="#n" class="btn_close_optionView"><img
-					src="./images/btn_close_m.png"></a>
+				<p class="prd_name"></p>
+				<a href="#n" class="btn_close_optionView">
+					<img src="./images/btn_close_m.png">
+				</a>
+				
 				<!-- 일반상품 선택시 -->
 				<div class="prdCounter_wrap normalPrd_option">
 					<table class="border_none">
 						<tbody>
 							<tr>
+								<td><p class="prd_name">${prddetail.product_name }</p></td>
 								<td>
 									<span class="counter">
-										<input type="text" value="1">
+										<input type="text" value="1" id="count" class="tCount" readonly="readonly">
 										<span class="counterBtn">
-											<a href="#n" class="btnPlus"></a>
-											<a href="#n" class="btnMinus"></a>
-										</span>
+											<a href="#n" class="btnPlus" onclick="plus()"></a>
+											<a href="#n" class="btnMinus" onclick="minus()"></a>
+										</span> 
 									</span>
 								</td>
-								<td></td>
-								<td class="total_price">1,000,000원</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 
-				<!-- 옵션상품 선택시 -->
-				<!-- <select class="optionSelector">
-					<option>옵션선택</option>
-					<option>옵션선택</option>
-				</select>
-				<div class="prdCounter_wrap">
-					<table>
-						<colgroup>
-							<col width="65%">
-							<col width="20%">
-							<col width="15%">
-						</colgroup>
-						<tbody>
-							<tr>
-								<td class="counter_prdname">[세이코시계 SEIKO] SKS515P1 / 크로노그래프 남성 메탈시계 44mm</td>
-								<td>
-									<span class="counter">
-										<input type="text" value="1">
-										<span class="counterBtn">
-											<a href="#n" class="btnPlus"></a>
-											<a href="#n" class="btnMinus"></a>
-										</span>
-									</span>
-								</td>
-								<td class="total_price">1,000,000원</td>
-								<td><a href="#n" class="btn_prdDelete"><img src="./images/btn_del.gif"></a></td>
-							</tr>
-							<tr>
-								<td class="counter_prdname">[세이코시계 SEIKO] SKS515P1 / 크로노그래프 남성 메탈시계 44mm</td>
-								<td>
-									<span class="counter">
-										<input type="text" value="1">
-										<span class="counterBtn">
-											<a href="#n" class="btnPlus"></a>
-											<a href="#n" class="btnMinus"></a>
-										</span>
-									</span>
-								</td>
-								<td class="total_price">1,000,000원</td>
-								<td><a href="#n" class="btn_prdDelete"><img src="./images/btn_del.gif"></a></td>
-							</tr>
-							<tr>
-								<td class="counter_prdname">[세이코시계 SEIKO] SKS515P1 / 크로노그래프 남성 메탈시계 44mm</td>
-								<td>
-									<span class="counter">
-										<input type="text" value="1">
-										<span class="counterBtn">
-											<a href="#n" class="btnPlus"></a>
-											<a href="#n" class="btnMinus"></a>
-										</span>
-									</span>
-								</td>
-								<td class="total_price">1,000,000원</td>
-								<td><a href="#n" class="btn_prdDelete"><img src="./images/btn_del.gif"></a></td>
-							</tr>
-						</tbody>
-					</table>
-				</div> -->
-
 				<p class="total_price tr">
-					총 합계금액 <span class="c_red"><strong>1,000,000</strong>원</span>
+					총 합계금액 <span class="c_red"><strong class="totalPrice">${prddetail.product_price }</strong>원</span>
 				</p>
 			</div>
 		</div>
 		<!-- 상품 옵션 선택 하단 레이어 E : -->
 	</div>
 	<!--// prd_detail_infoWrap -->
+	
 
 </div>
 <!-- container E : -->
@@ -907,5 +891,58 @@
 		<a href="#" class="btn_dark_m">닫기</a>
 	</p>
 </div> -->
+</form>
+<input type="text" id="qty" vlaue="0">
+
+<script type="text/javascript">
+
+
+// 수량 + / - 하기
+function minus(){
+   var qty = $("input#count").val();
+   var price = ${prddetail.product_price };   
+   qty = (Number(qty)-1); // 수량 -1
+   	  
+   if(qty>=1){ // 0 이하는 적용 안됨
+	   $("input#count").val(qty);
+	   var totalPrice = qty * price;
+	   //alert(total); 
+	   
+	   $(".totalPrice").text(totalPrice);
+	   
+   }   
+};
+
+function plus() {
+   var qty = $("input#count").val();
+   var price = ${prddetail.product_price };    
+   qty = (Number(qty)+1); // 수량 +1
+   
+   if($("input#count").val()<50){ // 50 이상은 적용 안됨
+	   $("input#count").val(qty);
+	   $(".totalPrice").text(qty * Number(price));
+   }
+  
+};   
+
+
+// 총 상품 금액 계산하기
+function calc(){
+   /*var ex_price = $('.totalPrice input').text().replace(",","");*/
+   /* var ex_price = $('input.ex_price_hidden').val(); */
+   var qty = $("input#count").val(); // 수량
+   var total;   
+   total = ${prddetail.product_price }*qty;   
+   $(".totalPrice").text(total);
+   
+	
+   /* $(".totalPrice").text(totalPrice); */
+}
+
+
+
+
+</script>
+
 <%@ include file="./../../../include/footer.jsp"%>
 

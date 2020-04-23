@@ -27,11 +27,16 @@ public class kakaoPayController {
 		
 		System.out.println("kakaoPayController  kakaoPayReady()");
 		
+		
+		//db 주문테이블 생성
+		
+		
+		
+		
+		
+		
+		//서버와 통신할 객체 생성
 		RestTemplate restTemplate = new RestTemplate();
-		
-		
-		
-		
 		
 		//서버로 요청할 header 
 		HttpHeaders headers = new HttpHeaders();
@@ -67,6 +72,9 @@ public class kakaoPayController {
 			
 			System.out.println();
 			
+			//db 주문 테이블 update (tid 넣기)
+			
+			
 			return kakaoPayDto.getNext_redirect_pc_url();
 			
 		} catch (RestClientException e) {
@@ -80,7 +88,7 @@ public class kakaoPayController {
         return null;
 	}
 	
-	
+	/*
 	 @RequestMapping(value="kakaoPaySuccess.do",method= {RequestMethod.GET,RequestMethod.POST})
 	    public void kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model) {
 	        logger.info("kakaoPaySuccess get............................................");
@@ -109,5 +117,5 @@ public class kakaoPayController {
 	    }
 	
 	
-	
+	*/
 }

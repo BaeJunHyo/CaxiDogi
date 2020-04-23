@@ -34,6 +34,7 @@ import cd.com.a.model.memberDto;
 import cd.com.a.model.shopDesignerDto;
 import cd.com.a.model.shopDto;
 import cd.com.a.model.shopResvDto;
+import cd.com.a.service.MemberService;
 import cd.com.a.service.ShopService;
 import cd.com.a.util.FileUploadUtil;
 
@@ -42,13 +43,8 @@ public class ShopController {
 	@Autowired
 	ShopService shopService;
 	
-	@RequestMapping(value="getShopList.do",  method= {RequestMethod.GET,RequestMethod.POST})
-	public String getShopList(Model model) {
-		List<shopDto> shoplist = shopService.getShopList();
-		model.addAttribute("shoplist", shoplist);
-		
-		return "/shop/shop";
-	}
+	@Autowired
+	MemberService memService;
 	
 	@RequestMapping(value="shopRegi.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public String shopRegi(HttpSession session) {
@@ -197,50 +193,15 @@ public class ShopController {
 	
 	
 //--------------------------------------------------------------MJ--------------------------------------------------	
-	@RequestMapping(value="shop.do",  method= {RequestMethod.GET,RequestMethod.POST})
-	public String shop() {
+	
+	@RequestMapping(value="getShopList.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String getShopList(Model model) {
+		List<shopDto> shoplist = shopService.getShopList();
+		model.addAttribute("shoplist", shoplist);
+		
 		return "/shop/shop";
 	}
 	
-	
-	@ResponseBody
-	@RequestMapping(value="getshopResv.do",  method= {RequestMethod.GET,RequestMethod.POST})
-	public Map<String, Object> getshopResv(Model model, int shop_seq, int design_seq) {
-//		List<shopParam> sParam = service.getDesigner(seq);
-//		for(int i = 0; i< sParam.size(); i++) {
-//			shopParam dto = sParam.get(i);
-//			String str = dto.getDesign_time();
-//			String [] time = str.split("/");
-//			String dtime[] = time;
-//			System.out.println("============"+dtime);
-//		}
-//		System.out.println("============"+seq);
-//		System.out.println("dto=======" + sParam.get(0).getShop_small_price());
-//		//String sp = sParam.get(0).getDesign_name();
-//		model.addAttribute("getDesigner", sParam);
-//		/* model.addAttribute("getDesignerTime", time); */
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		
-		//shopDesignerDto designgDto = shopService.getDesigner(shop_seq); 
-	//	List<shopResvDto> resvlist = shopService.getResv(design_seq); 얘는 에이작스 불러올때 필요함
-		List<shopDto> shoplist = shopService.getShopList();
-		
-		
-		//map.put("designerDto", designgDto);
-		//map.put("resvlist", resvlist);
-		
-//		
-//		
-//		model.addAttribute("designgDto", designgDto);
-//		model.addAttribute("resvlist", resvlist);
-//		
-		
-		
-		
-		return map;
-	}
 	
 	
 	@ResponseBody
@@ -302,42 +263,6 @@ public class ShopController {
 		return map;
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="test.do",  method= {RequestMethod.GET,RequestMethod.POST})
-	public String test(Model model, String data,int design_seq, int shop_seq, String shop_resv_rday) {
-		System.out.println("======Testdata:" + data);
-		System.out.println("======Testshop_seq:" + shop_seq);
-		System.out.println("============Testdesign_seq:" + design_seq);
-		System.out.println("============Testshop_resv_rday:" + shop_resv_rday);
-		
-		String resvTime = "";
-		String noResvTime = "";
-		
-//		List<shopResvDto> resvTimeList = shopService.getResv(design_seq);
-//		for(int i = 0; i<resvTimeList.size(); i++) {
-//			shopResvDto dto = resvTimeList.get(i);
-//			if(dto.getShop_resv_rday().equals(shop_resv_rday) && dto.getDesign_seq() == design_seq ) {
-//				resvTime = dto.getShop_resv_time();
-//				System.out.println("======TestresvTime:" +resvTime);
-//			}else if(dto.getShop_resv_rday().equals(shop_resv_rday) && dto.getDesign_seq() == design_seq && !dto.getShop_resv_time().equals(resvTime)){
-//				noResvTime = dto.getShop_resv_time();
-//				System.out.println("======TestNoResvTime:" +noResvTime);
-//			}
-//		}
-		
-		
-		
-//		List<shopDesignerDto> desList = shopService.getDesigner(shop_seq);
-//		for(int j = 0; j<desList.size(); j++ ) {
-//			shopDesignerDto desDto = desList.get(j);
-//			if(desDto.getDesign_seq() == design_seq) {
-//				String desTime = desDto.getDesign_time();
-//				System.out.println("==========TestDesTiem:"+ desTime);
-//			}
-//			
-//		}
-		return resvTime;
-	}
 	
 	@RequestMapping(value="shopResv.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public String shopResv(Model model, int shop_seq) {
@@ -350,6 +275,28 @@ public class ShopController {
 		model.addAttribute("designerList", designerList);
 		
 		return "/shop/shopDetail";
+	}
+	
+	@RequestMapping(value="shopResvWrite.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String shopResvWrite(Model model, HttpServletRequest request, shopResvDto shopResvdto) {
+		//String sshop_seq = request.getParameter("shop_seq");
+		//int shop_seq = Integer.parseInt(sshop_seq);
+		System.out.println("=========!!!!!!!resvdto" + shopResvdto.toString());
+		//System.out.println("===========parameterShopSeq:" +shop_seq);
+		
+		shopDto shopdto = shopService.getShopDetail(shopResvdto.getShop_seq());
+		shopDesignerDto desdto = shopService.getDesignerInfo(shopResvdto.getDesign_seq());
+		
+		memberDto mem = memService.resvMem(shopResvdto.getMem_seq());
+		
+		shopResvdto.setShop_resv_name(mem.getUser_name());
+		shopResvdto.setShop_resv_tel(mem.getPhone());
+		
+		model.addAttribute("shopdto", shopdto);
+		model.addAttribute("desdto", desdto);
+		model.addAttribute("shopResvdto", shopResvdto);
+		
+		return "/shop/shopResvWrite";
 	}
 	
 }

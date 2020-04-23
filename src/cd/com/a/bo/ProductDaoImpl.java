@@ -31,8 +31,9 @@ public class ProductDaoImpl implements ProductDao {
 
 
 	@Override
-	public void prdUpdate(productDto dto) {
-		sqlSession.update(ns + "prdUpdate", dto);
+	public boolean prdUpdate(productDto dto) {
+		int n = sqlSession.update(ns + "prdUpdate", dto);
+		return n > 0?true:false;
 	}
 
 

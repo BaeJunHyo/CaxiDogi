@@ -259,6 +259,19 @@
 			$("#prdUpdateCancle").click(function() {
 				location.href = "productList.do";
 			});
+
+
+			$("#prdUpdate").click(function(){
+				
+				$.ajax({
+					url: "productUpdateAf.do",
+					type: "post",
+					data:
+					success: function(){}
+				})
+				
+			});
+			
 		});
 	</script>
 

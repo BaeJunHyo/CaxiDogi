@@ -12,5 +12,5 @@ public interface ProductService {
 	
 	public productDto getPrd(int product_num);
 	
-	public void prdUpdate(productDto dto);
+	public boolean prdUpdate(productDto dto);
 }

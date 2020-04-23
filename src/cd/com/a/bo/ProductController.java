@@ -1,17 +1,13 @@
 package cd.com.a.bo;
 
 import java.io.File;
-
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-import javax.servlet.GenericServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -28,10 +24,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-import cd.com.a.goods.DetailDao;
 import cd.com.a.model.ProductParam;
 import cd.com.a.model.productDto;
 import cd.com.a.util.FileUploadUtil;
@@ -43,11 +37,6 @@ public class ProductController {
 	ProductService prdService;
 	SqlSession sqlSession;
 	
-	
-//	@RequestMapping(value = "test.do")
-//	public String test() {
-//		return "member/test";
-//	}
 	
 	
 	@RequestMapping(value="productList.do", method= {RequestMethod.GET,RequestMethod.POST})
@@ -124,6 +113,7 @@ public class ProductController {
 		
 	}
 	
+	
 	public String imageUpload(HttpServletRequest req, HttpServletResponse resp, 
 	                 MultipartHttpServletRequest multiFile) throws Exception {
 		
@@ -196,15 +186,66 @@ public class ProductController {
 	}
 	
 	
-	
+	@ResponseBody
 	@RequestMapping(value="productUpdateAf.do", method= RequestMethod.POST)
-	public String productUpdateAf(productDto product, Model model) throws Exception {
-		System.out.println("pro : " + product.toString());
-		prdService.prdUpdate(product);
+	public String productUpdateAf(@ModelAttribute productDto product, Model model, 
+			@RequestParam(value="fileUpload", required=false)MultipartFile fileUpload,
+			HttpServletRequest req) {
 		
-		model.addAttribute("product", product);
+		String str = "";
+		System.out.println("pro : " + product.toString());
+		
+		// 파일 업로드
+		if(!fileUpload.isEmpty()) {
+			
+			// upload경로 설정
+			String fupload = req.getServletContext().getRealPath("/images/goodsImg");
+			// 업로드 위치
+			System.out.println("productUpdateAf controller fupload : " + fupload);
+			
+			// 파일명 변경
+			String newFileName = FileUploadUtil.getNewFileName(fileUpload.getOriginalFilename());
+			product.setProduct_img(newFileName);
+			
+			File productFile = new File(fupload + "/" + newFileName);
+			
+			
+			// 실제 파일 업로드 되는 부분
+			try {
+				FileUtils.writeByteArrayToFile(productFile, fileUpload.getBytes());
+				System.out.println(product.toString());
+				
+				// DB저장
+				boolean status = prdService.prdUpdate(product);
+				
+				if(status == true) {
+					str = "수정 - DB등록 완료";
+					
+				} else {
+					str = "수정 - DB등록 실패";
+				}
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		
+			// 
+		} else {
+			boolean status = prdService.prdUpdate(product);
+			
+			if(status == true) {
+				str = "수정 - DB등록 완료";
+			} else {
+				str = "수정 - DB등록 실패";
+			}
+		}
 		
 		return "redirect:/productList.do";
+//		prdService.prdUpdate(product);
+//		
+//		model.addAttribute("product", product);
+//		
+//		return "redirect:/productList.do";
 	}
 	
 	

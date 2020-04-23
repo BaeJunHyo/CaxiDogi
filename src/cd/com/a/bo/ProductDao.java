@@ -12,6 +12,6 @@ public interface ProductDao {
 	
 	public productDto getPrd(int product_num);
 	
-	public void prdUpdate(productDto dto);
+	public boolean prdUpdate(productDto dto);
 	
 }

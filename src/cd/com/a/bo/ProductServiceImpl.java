@@ -31,8 +31,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public void prdUpdate(productDto dto) {
-		productDao.prdUpdate(dto);
+	public boolean prdUpdate(productDto dto) {
+		return productDao.prdUpdate(dto);
 	}
 
 	

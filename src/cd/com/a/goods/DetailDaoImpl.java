@@ -27,6 +27,16 @@ public class DetailDaoImpl implements DetailDao {
 		productDto prddto = sqlSession.selectOne(ns + "getPrd", product_num);
 		return prddto;
 	}
+
+
+	@Override
+	public List<productDto> getOptionProduct(String product_name) {
+		
+		//디테일 화면으로 갈때 option 제품을 뽑는 메소드
+		List<productDto> list = sqlSession.selectList(ns + "getOptionProduct", product_name);
+		
+		return list;
+	}
 	
 	
 }

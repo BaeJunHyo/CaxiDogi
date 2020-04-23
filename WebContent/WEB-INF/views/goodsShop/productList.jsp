@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@ include file="./../../../include/header.jsp"%>
+<%@ include file="/include/header.jsp"%>
 
 <link href="./css/layout.css" rel="stylesheet">
 <link href="./css/style.css" rel="stylesheet">
@@ -14,14 +14,24 @@
 
 <!-- container S : -->
 <div class="container container_subWrap" id="fixNextTag">
-	<div class="total-sort">
+	
+	<div style="margin-top: 100px; background-color: #86B404; padding: 20px;">
+		<ul class="prdSubMenu"> <!-- #BEF781 -->
+			<li><a href="#n" class="selectMenu">전체</a></li>
+			<li><a href="#n">사료</a></li>
+			<li><a href="#n">놀이용품</a></li>
+			<li><a href="#n">간식</a></li>
+		</ul><!--// gnb -->
+	</div>
+	
+	<div class="total-sort" style="margin-top: 100px;">
 		<!--<dl class="total">
                                     <dt>total:</dt>
                                     <dd>29</dd>
                                 </dl>-->
 		<p class="total" style="color: #a2a2a2;">
 			In this category are <strong>29</strong> products.
-		</p>
+		</p>						<!-- 여기에 제품 수량 넣어줘야됨  -->
 		<dl class="sort">
 			<dt class="blind">검색결과 정렬</dt>
 			<dd>

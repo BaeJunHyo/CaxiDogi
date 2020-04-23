@@ -1,0 +1,33 @@
+.section_title{clear: both;  position: relative; padding: 20px; border-bottom: 1px solid #ddd;}
+
+
+/* 제품정보 css */
+.product_info thead tr{}
+.product_info thead th{border: 1px solid #c8c8c8; padding: 5px 0; background: #eee;}
+
+.product_info tbody {background-color: #fff;}
+.product_info tbody td{border: 1px solid #c8c8c8; text-align: center;}
+
+
+.counter{float: right; display: block; width: 77px; height: 34px; border: 1px solid #dbdbdb;}
+.tCount {float: left; width: 55px !important; height: 34px; margin: 0px; line-height: 34px; text-align: center; font-size: 15px; border: none; padding: 0 0px !important;}
+.counterBtn{display: block; float: right; position: relative; width: 21px; height: 34px; border-left: 1px solid #dbdbdb;}
+.counterBtn a{display: block; width: 21px;}
+.counterBtn a.btnPlus{height: 17px; border-bottom: 1px solid #dbdbdb; background: url(../images/ico_up.gif) no-repeat center center;}
+.counterBtn a.btnMinus{height: 16px; background: url(../images/ico_down.gif) no-repeat center center;}
+
+
+/* 주소정보 css  */
+.address_info{border-collapse: separate; border-spacing: 0 20px;}
+.address_info input[type='text'], select,  textarea{border:1px solid #c8c8c8; margin-bottom: 10px;}
+.address_info textarea{resize:none;}
+
+
+/*  결재정보/주문자 동의 css  */
+.payment_info{border-collapse: separate; border-spacing: 0 40px;}
+
+
+/* 결제 버튼  css*/
+.button_Wrap{text-align: center; margin-top: 40px;}
+.button_Wrap_a{background-color: #8ca15a; font-size: 40px; color: #fff; width: 800px; line-height: 56px; text-align: center; font-family: 'Musinsa'; }
+.button_Wrap .button_span{font-size: 24px!important; color: #fff;}

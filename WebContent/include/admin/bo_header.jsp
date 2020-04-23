@@ -38,12 +38,12 @@
 <body>
 
 <div class="header">
-	<h1><a href="#n" class="logo"><img src="<%=request.getContextPath() %>/images/img_logo_bo.png"></a></h1>
+	<h1><a href="<%=request.getContextPath() %>/admin/main.do" class="logo"><img src="<%=request.getContextPath() %>/images/img_logo_bo.png"></a></h1>
 	<a href="#n" class="btn_menu"><img src="<%=request.getContextPath() %>/images/ico_hamburger.png"></a>
 	<div class="m_right">
 		<a href="main.do" class="btn_user">로그인</a>
 		<ul>
-			<li><a href="#n">사이트맵</a></li>
+			<li><a href="<%=request.getContextPath()%>/main.do">사이트맵</a></li>
 			<li><a href="#n">회원가입</a></li>
 			<li><a href="#n">메뉴얼</a></li>
 			<li><a href="#n">마이쇼핑몰</a></li>

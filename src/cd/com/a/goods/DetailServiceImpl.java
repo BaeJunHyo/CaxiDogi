@@ -22,5 +22,15 @@ public class DetailServiceImpl implements DetailService {
 	public productDto getPrd(int product_num) {
 		return detailDao.getPrd(product_num);
 	}
+
+	@Override
+	public List<productDto> getOptionProduct(String product_name) {
+		//디테일 화면으로 갈때 option 제품을 뽑는 메소드
+		return detailDao.getOptionProduct(product_name);
+	}
+	
+	
+	
+	
 	
 }

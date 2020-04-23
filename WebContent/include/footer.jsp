@@ -33,7 +33,7 @@
         <li class="bg_none">FAX : 02-0000-1243</li>
         <li><a href="#n" class="btn_w_line">서비스문의</a></li>
       </ul>
-      <p>COPYRIGHT(c) 2020 ALL RIGHTS RESERVED</p>
+      <p>COPYRIGHT(c) 2020 <a href="<%=request.getContextPath() %>/admin/main.do">A</a>LL RIGHTS RESERVED</p>
       <img src="images/img_f_logo.png" class="footer_logo" alt="로고">
     </div>
   </div>

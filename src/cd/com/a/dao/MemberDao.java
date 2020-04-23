@@ -26,4 +26,18 @@ public interface MemberDao {
 	
 	public memberDto resvMem(int mem_seq);
 
+	boolean userUpdate(memberDto dto);
+	
+	boolean snsUserUpdate(memberDto dto);
+
+	boolean sellerAccess(int mem_seq);
+
+	void memberEscape(int mem_seq);
+
+	void recoveryId(int mem_seq);
+
+	int findSeq(memberDto dto);
+
+	boolean recoveryCheck(memberDto dto);
+
 }

@@ -4,7 +4,9 @@
 	
 <%
 memberDto loginUser = (memberDto)request.getSession().getAttribute("loginUser");
-
+if(loginUser != null){
+	System.out.println("LoginSessionChecking="+loginUser.toString());
+}
 
 %>	
 <html>
@@ -17,7 +19,13 @@ memberDto loginUser = (memberDto)request.getSession().getAttribute("loginUser");
 <link href="./css/prd_detail.css" rel="stylesheet">
 <link href="./css/style.css" rel="stylesheet">
 <!-- <link href="css/setting.css" rel="stylesheet"> -->
+<<<<<<< HEAD
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+=======
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+	
+>>>>>>> origin/sujin2
 <script src="./js/jquery.bxslider.js"></script>
 <script src="./js/common.js"></script>
 
@@ -72,20 +80,20 @@ memberDto loginUser = (memberDto)request.getSession().getAttribute("loginUser");
 			<%
 			}else{
 				// 세션 닉네임 없을시
-				if(loginUser.getNick_name() == null){
+				if(loginUser.getUser_name() == null){
 			%>
 				<li><Strong><%=loginUser.getId() %></Strong> 님 환영합니다</li>
 			<%
 				// 세션 닉네임 존재시
 			}else{
 			%>
-				<li><Strong><%=loginUser.getNick_name() %></Strong> 님 환영합니다</li>
+				<li><Strong><%=loginUser.getUser_name() %></Strong> 님 환영합니다</li>
 			<%		
 				}
 				if(loginUser.getAuth() == 3){
 			%>
 			  
-				<li><a href="#n">셀러페이지</a></li>
+				<li><a href="sellerMyPage.do">셀러페이지</a></li>
 				<li><a href="#none" onclick="mypage()">마이페이지</a></li>
 			<%		
 				}else if(loginUser.getAuth() == 4 || loginUser.getAuth() == 5){

@@ -35,6 +35,11 @@ public class ShopServiceImpl implements ShopService {
 	public List<shopDesignerDto> getDesigner(int shop_seq) {
 		return shopDao.getDesigner(shop_seq);
 	}
+	
+	@Override
+	public List<shopDesignerDto> getDesignerAll(int shop_seq) {
+		return shopDao.getDesignerAll(shop_seq);
+	}
 
 	@Override
 	public List<String> getResv(shopResvDto resvDto) {
@@ -49,5 +54,45 @@ public class ShopServiceImpl implements ShopService {
 	public boolean addDesigner(shopDesignerDto designer) {
 		return shopDao.addDesigner(designer);
 	}
+
+	@Override
+	public boolean shopModifyAf(shopDto shop) {
+		return shopDao.shopModifyAf(shop);
+	}
+
+	@Override
+	public int checkDesign(shopDesignerDto designer) {
+		return shopDao.checkDesign(designer);
+	}
+
+	@Override
+	public boolean stopDesignAf(shopDesignerDto designer) {
+		return shopDao.stopDesignAf(designer);
+	}
 	
+	@Override
+	public boolean playDesignAf(shopDesignerDto designer) {
+		return shopDao.playDesignAf(designer);
+	}
+
+	@Override
+	public boolean delDesignAf(shopDesignerDto designer) {
+		return shopDao.delDesignAf(designer);
+	}
+
+	@Override
+	public shopDesignerDto getDesignerInfo(shopDesignerDto designer) {
+		return shopDao.getDesignerInfo(designer);
+	}
+
+	@Override
+	public boolean designModify(shopDesignerDto designer) {
+		return shopDao.designModify(designer);
+	}
+
+	@Override
+	public boolean shopStopAf(int shop_seq) {
+		return shopDao.shopStopAf(shop_seq);
+	}
+
 }

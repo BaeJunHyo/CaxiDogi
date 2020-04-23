@@ -21,21 +21,26 @@ public class LoginController {
 	
 	@RequestMapping(value="/login.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public String login(memberDto dto,HttpServletRequest req, Model model) {
-		System.out.println("login="+dto.toString());
-		
 		memberDto login = memberService.login(dto);
 		// 입력한 id,pwd 존재 유무
 		if(login != null && login.getId().equals("") == false ) {
-			
-			req.getSession().setAttribute("loginUser", login);
-			req.getSession().setMaxInactiveInterval(60*60*365);
-			model.addAttribute("login", "true");
-			return "/member/alertPage";
-			// 존재 하지 않을시 
+			//탈퇴 회원 일시 
+			if(login.getAuth() ==0) {
+				model.addAttribute("login", "secession");
+				req.getSession().setAttribute("recoverId", login.getId());
+			// 유지 고객
+			}else {
+				req.getSession().removeAttribute("recoverId");
+				req.getSession().setAttribute("loginUser", login);
+				req.getSession().setMaxInactiveInterval(60*60*365);
+				model.addAttribute("login", "success");
+				model.addAttribute("memberDetail",memberService.loginId(login.getMem_seq()));
+			}
+		// 존재 하지 않을시 
 		}else {
-			model.addAttribute("login", "false");
-			return "/member/alertPage";
+			model.addAttribute("login", "fail");
 		}
+		return "/member/alertPage";
 	}
 	
 	@RequestMapping(value="/logout.do", method= {RequestMethod.GET,RequestMethod.POST})
@@ -83,10 +88,11 @@ public class LoginController {
 			}
 			req.getSession().setAttribute("loginUser", login);
 			req.getSession().setMaxInactiveInterval(60*60*365);
-			model.addAttribute("login", "true");
+			model.addAttribute("login", "success");
+			model.addAttribute("memberDetail",memberService.loginId(login.getMem_seq()));
 			return "/member/alertPage";
 		}
-		model.addAttribute("login", "false");
+		model.addAttribute("login", "fail");
 		return "/member/alertPage";
 	}
 	@RequestMapping(value="/naverLogin.do",method= {RequestMethod.GET,RequestMethod.POST})
@@ -125,10 +131,11 @@ public class LoginController {
 			}
 			req.getSession().setAttribute("loginUser", login);
 			req.getSession().setMaxInactiveInterval(60*60*365);
-			model.addAttribute("login", "true");
+			model.addAttribute("login", "success");
+			model.addAttribute("memberDetail",memberService.loginId(login.getMem_seq()));
 			return "/member/alertPage";
 		}
-		model.addAttribute("login", "false");
+		model.addAttribute("login", "fail");
 		return "/member/alertPage";
 	}
 	@RequestMapping(value="/googleLogin.do",method= {RequestMethod.GET,RequestMethod.POST})
@@ -164,10 +171,11 @@ public class LoginController {
 			}
 			req.getSession().setAttribute("loginUser", login);
 			req.getSession().setMaxInactiveInterval(60*60*365);
-			model.addAttribute("login", "true");
+			model.addAttribute("login", "success");
+			model.addAttribute("memberDetail",memberService.loginId(login.getMem_seq()));
 			return "/member/alertPage";
 		}
-		model.addAttribute("login", "false");
+		model.addAttribute("login", "fail");
 		return "/member/alertPage";
 	}
 }

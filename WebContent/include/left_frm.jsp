@@ -1,32 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-
-<%-- 
-<%
-memberDto sessionUser = (memberDto)request.getSession().getAttribute("loginUser");
-if(sessionUser == null){
-%>
-<script>
-	if(confirm("세션이 만료되었습니다.\n 다시 로그인 하시겠습니까?")){
-		location.href="login.do";
-	}else{
-		location.href="main.do";
-	}
-</script>
-<%
-}
-String memberAuth ="";
-if(loginUser.getAuth()==1 || loginUser.getAuth()==2){
-	memberAuth = "일반회원";
-}else if(loginUser.getAuth()==3){
-	memberAuth = "업체회원";
-}else if(loginUser.getAuth()==4 || loginUser.getAuth()==5){
-	memberAuth = "관리자";
-}else{
-	memberAuth = "탈퇴회원";
-}
-%> --%>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix = "fn"  uri = "http://java.sun.com/jsp/jstl/functions" %>
+<fmt:requestEncoding value="utf-8"/>    
 
 <div class="category_dept">
 	<ul>
@@ -55,7 +33,14 @@ if(loginUser.getAuth()==1 || loginUser.getAuth()==2){
 					<ul>
 						<li><a href="memberDetail.do">회원 정보</a></li>
 						<li><a href="memberAddress.do">배송지 정보</a></li>
-						<li><a href="sellerAccess.do">판매자 등록하기</a>
+						<c:set var="auth" value="${loginUser.auth }"/>
+						<c:if test="${auth == 1 }">
+						<li><a href="#sellerAccess.do" onclick="sellerAccess()">판매자 등록하기</a>
+						</c:if>
+						<c:if test="${auth == 2 }">
+						<li><a href="#sellerAccess.do" onclick="sellerAccess()">판매자 등록하기</a>
+						</c:if>
+						
 					</ul>
 				</li>
 				<li>
@@ -92,3 +77,33 @@ if(loginUser.getAuth()==1 || loginUser.getAuth()==2){
 		</div>
 	</div>
 <!--</div>  //end wrap -->
+
+<script>
+function sellerAccess(){
+	const userAuth = ${loginUser.auth};
+	const mem_seq = ${loginUser.mem_seq};
+	if(userAuth == 1 ){
+		if(confirm("판매자 등록 요청을 원하시나요?")){
+			$.ajax({
+				url:"sellerAccess.do",
+				type: "post",
+				dataType:"text",
+				data: {"mem_seq":mem_seq},
+				success:function(data){
+					alert(data);
+					if(data === "success"){
+						alert("판매자 등록 요청이 완료 되었습니다");
+						location.reload();
+					}
+				},
+				error:function(request,status,error){
+					alert(error);
+				}
+			});
+		}
+	}else if(userAuth==2){
+		alert("관리자 승인 대기 중입니다.");
+	}
+	
+}
+</script>

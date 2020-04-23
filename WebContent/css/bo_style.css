@@ -574,9 +574,9 @@ li {font-size: 12px;}
 .lnb_sbj {}
 .lnbWrap .lnb .lnb_sbj.hidden {height: 40px; overflow: hidden;}
 .lnb_sbj > a,
+.lnb_sbj .sub_lnbmenu {display:none;}
 .sub_lnbmenu li a {position: relative;}
 .sub_lnbmenu li a ul li {padding-left: 40px;}
-
 .sub_lnbmenu li {}
 
 .lnb_sbj .btn_lnb {display: block; width: 17px; height: 17px; position: absolute; top: 50%; right: 10px; margin-top: -8px; /*background: url(../images/bo/ico_open_lnb.png);*/}
@@ -798,6 +798,132 @@ body{overflow-x: hidden;}
 
 
 
+
+
+/*
+ 	박지훈 css
+*/
+/* 여기가 admin 페이지 */
+.admin_containerWrap{box-sizing: border-box; width: 1054px; background-repeat: repeat; margin-left: 246px;}
+.admin_container{min-width: 1034px; padding-left: 20px;}
+.admin_container .top {padding: 10px 0;}
+.admin_container .top .menu_dept li {font-size: 13px;}
+.admin_container .color_info {display: none;}
+
+
+.admin_container .top {padding: 24px 0 15px 0;}
+.admin_container .top .menu_dept {float: left; height: 35px;}
+.admin_container .top .menu_dept li {float: left; padding: 0 23px 0 10px; font-size: 15px; background: url(../images/ico_dept.png) no-repeat center right;}
+.admin_container .top .menu_dept li:first-child {padding-left: 0;}
+.admin_container .top .menu_dept li:last-child {font-weight: 600; background: none;}
+.admin_container .color_info {float: right; height: 35px; padding-right: 15px; border-radius: 4px; background: #fff;}
+.admin_container .color_info li {float: left; line-height: 35px; font-size: 13px;}
+.admin_container .color_info li img {display: inline-block; padding: 0 5px 0 15px; vertical-align: middle;}
+
+.admin_container .search_wrap {clear: both; padding-top: 50px; padding-left: 20px; padding-bottom: 30px;}
+.admin_container .search_wrap .table_top {padding: 0 0 12px 0;}
+.admin_container .search_wrap .table_top .table_sbj {font-size: 20px; font-weight: bold;}
+.admin_container .table_sbj {font-size: 20px; font-weight: bold;}
+.admin_container .search_wrap .table_top .btn_r_red {float: right;}
+.admin_container .search_wrap .table_top .count {float: left; line-height: 37px; font-size: 14px;}
+.admin_container .search_wrap .table_top .count .bar {padding: 0 5px 0 7px; vertical-align: middle;}
+/*.container .cn_wrap .table_top .pageUnit {float: right;}*/
+.admin_container .search_wrap .table_selected {height: 39px; line-height: 39px; padding: 10px 20px; font-size: 14px; border-radius: 5px; border: 1px solid #e1e1e1; background: #ebecec;}
+.admin_container .search_wrap .table_selected p {float: left; font-weight: 600;}
+.admin_container .search_wrap .table_selected p.fl_right {float: right;}
+.admin_container .search_wrap .table_selected p select {margin: 0 0 0 5px;}
+.admin_container .search_wrap .table_selected p a {margin:0 0 0 7px;}
+.admin_container .search_wrap table {width: 100%; border-radius: 8px; border: 1px solid #e1e1e1; background: #fff;}
+.admin_container .search_wrap table tr,
+.admin_container .search_wrap table td {border: 1px solid #e1e1e1;}
+.admin_container .search_wrap table tr {height: 50px; border-right: 1px solid #e1e1e1; border-bottom: 1px solid #e1e1e1;}
+.admin_container .search_wrap table.horizon_tbl tr th {text-align: left; padding: 0 0 0 25px;}
+.admin_container .search_wrap table tr th {font-size: 13px; font-weight: 600; color: #a1a1a1; border-right: 1px solid #e1e1e1; background: #efefef;}
+.admin_container .search_wrap .srch_result table tr td {padding: 0; text-align: center;}
+.admin_container .search_wrap table tr td {padding: 0 0 0 7px; font-size: 13px;}
+.admin_container .search_wrap table tr td.prd_name img {display: inline-block; vertical-align: middle;}
+.admin_container .search_wrap table tr td.prd_name span {display: inline-block; width: 80px; padding: 0 0 0 5px; vertical-align: middle;}
+.admin_container .search_wrap table tr td .input_cal {display: inline-block; width: 187px; height: 35px; vertical-align: middle; text-align: right; border: 1px solid #1d2b36;}
+.admin_container .search_wrap table tr td .input_cal input {float: left; width: 80px; height: 35px; border: none;}
+.admin_container .search_wrap table tr td .input_cal a {display: block; float: right; padding: 6px 6px 0 0;}
+.admin_container .search_wrap table tr td .select_wrap {padding: 0 15px 0 0;}
+.admin_container .search_wrap table tr td.tbl_link a {text-decoration: underline; color: #0675cc;}
+.admin_container .search_wrap table tr td.viewWrite {padding: 20px 25px; line-height: 20px;}
+.admin_container .search_wrap table tr td textarea {width: 100%; height: 300px;}
+.admin_container .search_wrap table tr td .attach_file img {display: inline-block; vertical-align: middle; margin: 0 5px 0 0;}
+
+.admin_container .search_wrap .viewReply {padding: 15px 20px 20px; margin: 20px 0 0 0; line-height: 20px; font-size: 13px; border: 1px solid #e1e1e1; border-radius: 8px; background: #efefef;}
+.admin_container .search_wrap .viewReply .wrtDate{line-height: normal; text-align: right; font-size: 12px;}
+
+.admin_container .search_wrap .writeReply {width: 100%; height: 62px; margin: 20px 0 70px 0;}
+.admin_container .search_wrap .writeReply .writeWrap {padding: 20px; border: 1px solid #e1e1e1; background: #fff;}
+.admin_container .search_wrap .writeReply textarea {width: 100%; height: 100%; line-height: 20px; font-size: 13px;  /*border-radius: 8px;*/}
+.admin_container .search_wrap .writeReply .btn_c03 {display: block; float: right; height: 104px; line-height: 104px;}
+
+.admin_container .search_wrap .table_optionBtn {margin: 10px 0 0 0;}
+.admin_container .search_wrap .table_optionBtn .btn_r02_green {float: right;}
+.admin_container .search_wrap .btn_c {margin: 30px auto 0;}
+
+.admin_container .pagingWrap {margin-top: 30px; text-align: center;}
+.admin_container .paging {display: inline-block; border-radius: 4px; border: 1px solid #e1e1e1;}
+.admin_container .paging a {display:block; float: left; width: 37px; height: 37px; line-height: 37px; text-align: center; font-size: 13px; font-weight: 600; color: #b8b8b8; border-right: 1px solid #e1e1e1; background: #fff;}
+.admin_container .paging a:last-child {border-right: none;}
+.admin_container .paging a.current {color: #fff; background: #0f1922;}
+.admin_container .paging a.btn_first {background: url(../images/ico_paging_first.png) #efefef no-repeat center center;}
+.admin_container .paging a.btn_prev {background: url(../images/ico_paging_prev.png) #efefef no-repeat center center;}
+.admin_container .paging a.btn_next {background: url(../images/ico_paging_next.png) #efefef no-repeat center center;}
+.admin_container .paging a.btn_last {background: url(../images/ico_paging_last.png) #efefef no-repeat center center;}
+
+
+.search_wrap .total_number {}
+.search_wrap .total_number li {float: left; padding: 0 15px; font-weight: 700; background: url(../images/ico_bar03.gif) no-repeat right center;}
+.search_wrap .total_number li:first-child {padding: 0 15px 0 0;}
+.search_wrap .total_number li:last-child {background: none;}
+.search_wrap .total_number li span {padding: 0 0 0 5px; font-weight: normal;}
+
+
+.admin_container .search_wrap table tr td.tbl_link a {text-decoration: none; color: #fff;}
+.admin_container .search_wrap table tr td.tbl_link > a {text-decoration: underline; color: #0675cc;}
+
+.admin_container .search_wrap table tr td {padding: 7px;}
+
+.admin_container .cn_wrap_p.srch_result table tr td {padding: 5px;}
+
+.admin_container .search_wrap .table_top .table_sbj {font-size: 16px;}
+
+.admin_container .search_wrap table {width: 100%;}
+.admin_container .search_wrap table tr {height: 40px;}
+.admin_container .search_wrap table tr th {font-size: 12px; color: #1d2b36;}
+.admin_container .search_wrap table tr td {font-size: 12px;}
+.admin_container .search_wrap table tr td .input_cal {border-color: #e1e1e1}
+
+.admin_container .search_wrap table.horizon_tbl tr th {padding-left: 15px;}
+
+.admin_container .search_wrap .table_top .count {margin-right: 20px; font-size: 13px;}
+.admin_container .search_wrap .table_selected {font-size: 13px; padding: 5px 20px;}
+
+.admin_container .paging a {width: 35px; height: 35px; font-size: 12px;}
+.paging a {width: 35px; height: 35px; font-size: 12px;}
+
+.admin_container .search_wrap .bd_accm_cmnt{background-color:initial;border: 0;}
+.admin_container .search_wrap .bd_accm_cmnt td{border:0;}
+.admin_container .search_wrap .bd_accm_cmnt tr{border: 0;border-bottom: 1px solid #c3c3c3;}
+.admin_container .search_wrap .srch_result table .trl{text-align: left;}
+
+.admin_container .search_wrap.srch_result table tr .txt_eplps{overflow: hidden;text-overflow: ellipsis;word-wrap: normal;white-space: nowrap;max-width: 329px;padding: 0 5px;}
+
+.admin_container .search_wrap table .tbd--bg>th{background: #fff}
+.admin_container .search_wrap table .tb--bg tr td,.container .cn_wrap table .tb--bg tr th{background-color: #fff;font-weight:300;}
+.admin_container .search_wrap table .tf--bg tr td,.container .cn_wrap table .tf--bg tr th{background-color: #fafdff;font-weight:900;}
+
+.admin_container .search_wrap table tr th.backslash {padding:0 8px;background:#efefef url('../images/backslash_ico.png');background-size: 100% 100%;text-align: left;}
+.backslash div { text-align: right;}
+.admin_container .search_wrap table tr th.month__num{font-weight:600;background-color: #efefef;}
+
+
+
+.frm_ul li{margin-bottom: 10px;}
+.file_hidden{display:none;}
 
 
 

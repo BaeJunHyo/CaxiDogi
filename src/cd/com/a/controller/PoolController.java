@@ -33,6 +33,7 @@ import com.google.gson.JsonObject;
 import cd.com.a.model.memberDto;
 import cd.com.a.model.poolDto;
 import cd.com.a.model.poolResvDto;
+import cd.com.a.model.shopDto;
 import cd.com.a.service.MemberService;
 import cd.com.a.service.PoolService;
 
@@ -53,12 +54,44 @@ public class PoolController {
 		return "/pool/pool_list";
 	}
 	
+	@RequestMapping(value="sellerPoolList.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String sellerPoolList(HttpSession session, Model model) {
+		memberDto mem = (memberDto)session.getAttribute("loginUser");
+		System.out.println(mem.toString());
+		List<poolDto> list = poolService.getSellerPoolList(mem.getMem_seq());
+		model.addAttribute("poolList", list);
+		
+		return "/smypage/pool/sellerPoolList";
+	}
+	
+		@RequestMapping(value="poolList.do",  method= {RequestMethod.GET,RequestMethod.POST})
+		public String poolList(HttpSession session, Model model) {
+			memberDto mem = (memberDto)session.getAttribute("loginUser");
+			System.out.println(mem.toString());
+			List<poolDto> list = poolService.getSellerPoolList(mem.getMem_seq());
+			model.addAttribute("poolList", list);
+			
+			return "/smypage/pool/poolList";
+		}
+		
+	@RequestMapping(value="modifyPool.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String modifyPool(Model model, int pool_seq, HttpSession session) {
+		poolDto pool = poolService.getPoolDetail(pool_seq);
+		model.addAttribute("pool", pool);
+		
+		return "/smypage/pool/modify_pool";
+	}
+	
+	@RequestMapping(value="reModifyPool.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String reModifyPool(Model model, int pool_seq, HttpSession session) {
+		poolDto pool = poolService.getPoolDetail(pool_seq);
+		model.addAttribute("pool", pool);
+		
+		return "/smypage/pool/re_modify_pool";
+	}
+	
 	@RequestMapping(value="poolDetail.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public String getPoolDetail(Model model, int pool_seq, HttpSession session) {
-		memberDto mem = new memberDto(1);
-		session.setAttribute("login", mem);
-		session.setMaxInactiveInterval(60*60*365);
-		//System.out.println("pool_seq : " + pool_seq);
 		poolDto pool = poolService.getPoolDetail(pool_seq);
 		model.addAttribute("pool", pool);
 		
@@ -73,11 +106,9 @@ public class PoolController {
 		  memberDto mem = memService.resvMem(poolResv.getMem_seq());
 		  poolResv.setPool_resv_name(mem.getUser_name());
 		  poolResv.setPool_resv_tel(mem.getPhone());
-		  
-		  
+
 		  model.addAttribute("pool", pool); model.addAttribute("poolResv", poolResv);
 		 
-		
 		return "/pool/pool_resv";
 	}
 	
@@ -108,11 +139,8 @@ public class PoolController {
 	}
 	
 	@RequestMapping(value="regiPool.do",  method= {RequestMethod.GET,RequestMethod.POST})
-	public String regiPool(HttpSession session){
-		memberDto mem = new memberDto(4);
-		session.setAttribute("login", mem);
-		session.setMaxInactiveInterval(60*60*365);
-		return "/pool/regi_pool";
+	public String regiPool(){
+		return "/smypage/pool/regi_pool";
 	}
 	
 	@RequestMapping(value="poolimageUpload.do", method=RequestMethod.POST)
@@ -169,7 +197,7 @@ public class PoolController {
 	
 	@ResponseBody
 	@RequestMapping(value = "poolRegiAf.do",method=RequestMethod.POST)
-	   public String multipartUpload(@ModelAttribute poolDto pool, @RequestParam(value="fileload")MultipartFile fileload, HttpServletRequest req){
+	   public String poolRegiAf(@ModelAttribute poolDto pool, @RequestParam(value="fileload")MultipartFile fileload, HttpServletRequest req){
 		String str = "";
 		
 		System.out.println(pool.toString());
@@ -208,6 +236,59 @@ public class PoolController {
 		} else {
 			pool.setPool_photo("default");
 			boolean	status = poolService.addPool(pool);
+			
+			if(status == true) {
+				str = "ok";
+			} else {
+				str = "no";
+			}
+		}
+		
+		return str;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "poolModifyAf.do",method=RequestMethod.POST)
+	   public String poolModifyAf(@ModelAttribute poolDto pool, @RequestParam(value="fileload")MultipartFile fileload, HttpServletRequest req){
+		String str = "";
+		if(pool.getPool_auth() == 2) {
+			pool.setPool_auth(4);
+		}
+		System.out.println(pool.toString());
+		
+		if(!fileload.isEmpty()) {
+			String fileUpload = req.getServletContext().getRealPath("/images/poolImg"); 
+			System.out.println("fileUpload" + fileUpload); // 업로드 위치
+			//System.out.println(fileUpload);
+			String fileName = fileload.getOriginalFilename();
+			String saveFileName = "";
+			String filepost = "";
+			if(fileName.indexOf('.') >= 0) { // 확장자 명이 있을때
+				filepost = fileName.substring(fileName.indexOf('.'));
+				saveFileName = new Date().getTime() + filepost;
+			} 
+			pool.setPool_photo(saveFileName);
+			
+			File file = new File(fileUpload + "/" + saveFileName);
+
+			//실제 파일 업로드 되는 부분
+			try {
+				FileUtils.writeByteArrayToFile(file, fileload.getBytes());
+				System.out.println(pool.toString());
+				//db저장
+				boolean	status = poolService.modifyPool(pool);
+			
+				if(status == true) {
+					str = "ok";
+				} else {
+					str = "no";
+				}
+			
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			boolean	status = poolService.modifyPool(pool);
 			
 			if(status == true) {
 				str = "ok";

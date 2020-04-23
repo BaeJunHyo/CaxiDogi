@@ -19,14 +19,6 @@
 	</ul><!--// gnb -->
 	
 	<div class="admin_container">
-		<div class="top clearfix">
-			<ul class="menu_dept clearfix">
-				<li>상품관리</li>
-				<li>상품리스트</li>
-			</ul>
-			
-		</div><!--  -->
-		
 		<div class="search_wrap">
 			<div class="table_top">
 				<span class="table_sbj">공지사항 검색</span>
@@ -57,12 +49,12 @@
 							</select>
 							<span class="input_cal input_w02">
 								<input type="text" value="2016-08-07">
-								<a href="#n"><img src="<%=request.getContextPath()  %>/images/ico_cal.gif"></a>
+								<a href="#n"><img src="<%=request.getContextPath()  %>/images/bo/ico_cal.gif"></a>
 							</span>
 							~
 							<span class="input_cal input_w02 mr10">
 								<input type="text" value="2016-08-11">
-								<a href="#n"><img src="<%=request.getContextPath()  %>/images/ico_cal.gif"></a>
+								<a href="#n"><img src="<%=request.getContextPath()  %>/images/bo/ico_cal.gif"></a>
 							</span>
 							<a href="#n" class="btn_r_navy">오늘</a>
 							<a href="#n" class="btn_r_navy">7일</a>

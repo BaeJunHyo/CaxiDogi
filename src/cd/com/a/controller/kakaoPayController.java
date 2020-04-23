@@ -29,6 +29,10 @@ public class kakaoPayController {
 		
 		RestTemplate restTemplate = new RestTemplate();
 		
+		
+		
+		
+		
 		//서버로 요청할 header 
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Authorization", "KakaoAK " + "cbff925dffacd0e67ba93eed0db3a9a3");
@@ -55,6 +59,7 @@ public class kakaoPayController {
         //params.add("install_month", integer); 				//카드 할부 개월 0 ~ 12 NULL
         //params.add("custom_json", json map); 				//결제 화면에 보여줄 사용자 정의 문구 (카카오와 협의필요) NULL
         
+        
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
         
         try {
@@ -74,4 +79,35 @@ public class kakaoPayController {
         
         return null;
 	}
+	
+	
+	 @RequestMapping(value="kakaoPaySuccess.do",method= {RequestMethod.GET,RequestMethod.POST})
+	    public void kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model) {
+	        logger.info("kakaoPaySuccess get............................................");
+	        logger.info("kakaoPaySuccess pg_token : " + pg_token);
+	        logger.info("카카오 페이 성공!!!!! ");
+	        
+	    }
+	 
+	 @RequestMapping(value="kakaoPaySuccessFail.do", method= {RequestMethod.GET,RequestMethod.POST})
+	    public String kakaoPaySuccessFail(@RequestParam("pg_token") String pg_token, Model model) {
+	        logger.info("kakaoPaySuccessFail get............................................");
+	        logger.info("kakaoPaySuccessFail pg_token : " + pg_token);
+	        //cid 
+	        //tid
+	        //주문번호 (DB)
+	        //회원아이디(DB)
+	        
+	        
+	        return "";
+	    }
+	 
+	 @RequestMapping(value="kakaoPayCancel.do", method= {RequestMethod.GET,RequestMethod.PUT})
+	    public String kakaoPayCancel(Model model) {
+	        logger.info("kakaoPayCancel get............................................");
+	        return "kakao_close";
+	    }
+	
+	
+	
 }

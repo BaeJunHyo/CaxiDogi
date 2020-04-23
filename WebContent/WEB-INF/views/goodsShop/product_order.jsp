@@ -3,7 +3,6 @@
 
 <%@ include file="/include/header.jsp"%>
 
-<c:set value="5000" var="prdPrice"></c:set>
 <div class="container_subWrap">
 	<div class="prd_infoWrap">
 		<div class="prdName_section clearfix">
@@ -60,7 +59,7 @@
 							</td>
 							<td>
 								<span class="counter">
-                              <input type="text" value="1" id="count" class="tCount" readonly="readonly">
+                              <input type="text" value="${acount }" id="count" class="tCount" readonly="readonly">
                               <span class="counterBtn">
                                  <a href="#n" class="btnPlus" onclick="plus()"></a>
                                  <a href="#n" class="btnMinus" onclick="minus()"></a>

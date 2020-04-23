@@ -423,8 +423,8 @@
 					</p>
 
 					<p class="prdBtns clearfix">
-						<a href="#n" class="btn_green_l p0">바로구매</a>
-						<a href="#n" class="btn_dark_l p0">장바구니</a>
+						<a href="#n" class="btn_green_l p0" onclick="nowPaymentPage()">바로구매</a>
+						<a href="#n" class="btn_dark_l p0" onclick="">장바구니</a>
 						<!-- <span class="sign_soldout">일시품절인 상품입니다.</span> -->
 						<a href="#n" class="btn_line_l p0 btn_wishlist" alt="위시리스트"></a>
 					</p>
@@ -833,8 +833,8 @@
 						class="close_btn">
 				</p>
 				<p class="rightSec">
-					<a href="#n" class="btn_white_m">바로구매</a>
-					<a href="#n" class="btn_dark_m">장바구니</a>
+					<a href="javascript:void(0);" class="btn_white_m" onclick="nowPaymentPage()">바로구매</a>
+					<a href="javascript:void(0);" class="btn_dark_m" onclick="">장바구니</a>
 				</p>
 			</div>
 			
@@ -894,6 +894,11 @@
 </form>
 <input type="text" id="qty" vlaue="0">
 
+<form id="frm" name="frm" method="post" action="productOrder.do">
+	<input type="hidden" id="prd_seq" name="prd_seq" value="${prddetail.product_num }">
+	<input type="hidden" id="acount" name="acount">
+</form>
+
 <script type="text/javascript">
 
 
@@ -909,7 +914,7 @@ function minus(){
 	   //alert(total); 
 	   
 	   $(".totalPrice").text(totalPrice);
-	   
+	   $('#acount').val(qty);
    }   
 };
 
@@ -921,6 +926,7 @@ function plus() {
    if($("input#count").val()<50){ // 50 이상은 적용 안됨
 	   $("input#count").val(qty);
 	   $(".totalPrice").text(qty * Number(price));
+	   $('#acount').val(qty);
    }
   
 };   
@@ -940,7 +946,11 @@ function calc(){
 }
 
 
-
+//바로구매 버튼 클릭시 동작하는 함수
+function nowPaymentPage(){
+	alert($('#acount').val());
+	$('#frm').submit();
+}
 
 </script>
 

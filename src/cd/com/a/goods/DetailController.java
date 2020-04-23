@@ -74,8 +74,15 @@ public class DetailController {
 	}
 	
 	
-	@GetMapping(value="productOrder.do")
+	@PostMapping(value="productOrder.do")
 	public String productOrder(HttpServletRequest request, Model model) {
+		System.out.println("DetailController   productOrder()");
+		
+		
+		System.out.println(request.getParameter("acount"));
+		System.out.println(request.getParameter("prd_seq"));
+		model.addAttribute("acount", request.getParameter("acount"));
+		model.addAttribute("prd_seq", request.getParameter("prd_seq"));
 		
 		return "goodsShop/product_order";
 	}

@@ -5,50 +5,45 @@
 <mapper namespace="Shop">
 
 <insert id="addShop" parameterType="cd.com.a.model.shopDto">
-	insert into shop (shop_owner, shop_number, shop_name, shop_addr, shop_tel, shop_auth, mem_seq, shop_time, shop_photo, shop_etc, 
-	shop_small_price, shop_medium_price, shop_large_price, shop_content)
-	values (#{shop_owner}, #{shop_number}, #{shop_name}, #{shop_addr}, #{shop_tel}, 0, #{mem_seq}, #{shop_time}, #{shop_photo}, #{shop_etc}, 
-	#{shop_small_price}, #{shop_medium_price}, #{shop_large_price}, #{shop_content})
+   insert into shop (shop_owner, shop_number, shop_name, shop_addr, shop_tel, shop_auth, mem_seq, shop_time, shop_photo, shop_etc, 
+   shop_small_price, shop_medium_price, shop_large_price, shop_content)
+   values (#{shop_owner}, #{shop_number}, #{shop_name}, #{shop_addr}, #{shop_tel}, 0, #{mem_seq}, #{shop_time}, #{shop_photo}, #{shop_etc}, 
+   #{shop_small_price}, #{shop_medium_price}, #{shop_large_price}, #{shop_content})
 </insert>
 
 <update id="shopModifyAf" parameterType="cd.com.a.model.shopDto">
-	update shop 
-	set shop_owner=#{shop_owner}, shop_number=#{shop_number}, shop_name=#{shop_name}, shop_addr=#{shop_addr}, shop_tel=#{shop_tel}, shop_time=#{shop_time}, shop_photo=#{shop_photo}, shop_etc=#{shop_etc}, 
-	shop_small_price=#{shop_small_price}, shop_medium_price=#{shop_medium_price}, shop_large_price=#{shop_large_price}, shop_content=#{shop_content}, shop_auth=#{shop_auth}
-	where shop_seq=#{shop_seq}
+   update shop 
+   set shop_owner=#{shop_owner}, shop_number=#{shop_number}, shop_name=#{shop_name}, shop_addr=#{shop_addr}, shop_tel=#{shop_tel}, shop_time=#{shop_time}, shop_photo=#{shop_photo}, shop_etc=#{shop_etc}, 
+   shop_small_price=#{shop_small_price}, shop_medium_price=#{shop_medium_price}, shop_large_price=#{shop_large_price}, shop_content=#{shop_content}, shop_auth=#{shop_auth}
+   where shop_seq=#{shop_seq}
 </update>
 
 <update id="shopStopAf" parameterType="java.lang.Integer">
-	update shop 
-	set shop_auth=3
-	where shop_seq=#{shop_seq}
+   update shop 
+   set shop_auth=3
+   where shop_seq=#{shop_seq}
 </update>
 
-
 <select id="getShopList" resultType="cd.com.a.model.shopDto">
-	select shop_seq, shop_owner, shop_number, shop_name, shop_addr, shop_tel, shop_auth,
-	mem_seq, shop_time, shop_photo, shop_etc, shop_small_price, shop_medium_price, 
-	shop_large_price, shop_content 
-	from shop
-	where shop_auth=1
+   select shop_seq, shop_owner, shop_number, shop_name, shop_addr, shop_tel, shop_auth,
+   mem_seq, shop_time, shop_photo, shop_etc, shop_small_price, shop_medium_price, 
+   shop_large_price, shop_content 
+   from shop
+   where shop_auth=1
 </select>
-	
+   
 <select id="getSellerShopList" parameterType="java.lang.Integer" resultType="cd.com.a.model.shopDto">
-	select shop_seq, shop_owner, shop_number, shop_name, shop_addr, shop_tel, shop_auth,
-	mem_seq, shop_time, shop_photo, shop_etc, shop_small_price, shop_medium_price, 
-	shop_large_price, shop_content 
-	from shop
-	where mem_seq = #{mem_seq}
+   select shop_seq, shop_owner, shop_number, shop_name, shop_addr, shop_tel, shop_auth,
+   mem_seq, shop_time, shop_photo, shop_etc, shop_small_price, shop_medium_price, 
+   shop_large_price, shop_content 
+   from shop
+   where mem_seq = #{mem_seq}
 </select>
 
-<<<<<<< HEAD
 <select id="getDesignerAll" parameterType="java.lang.Integer" resultType="cd.com.a.model.shopDesignerDto">
-=======
-<select id="getDesigner" parameterType="java.lang.Integer" resultType="cd.com.a.model.shopDesignerDto">
->>>>>>> origin/newMinje
-	 select shop_seq, design_seq, design_price, design_name, design_time, design_auth
-	 from shop_designer
-	 where shop_seq = #{shop_seq} and design_auth=0
+    select shop_seq, design_seq, design_price, design_name, design_time, design_auth
+    from shop_designer
+    where shop_seq = #{shop_seq}
  </select>
  
  <select id="getDesigner" parameterType="java.lang.Integer" resultType="cd.com.a.model.shopDesignerDto">
@@ -58,35 +53,33 @@
  </select>
  
  <select id="getShopResv" parameterType="cd.com.a.model.shopResvDto" resultType="java.lang.String">
-	 select shop_resv_time
-	 from shop_reservation
-	 where shop_seq=#{shop_seq} and design_seq=#{design_seq} and shop_resv_rday=#{shop_resv_rday} and shop_resv_auth=0
+    select shop_resv_time
+    from shop_reservation
+    where shop_seq=#{shop_seq} and design_seq=#{design_seq} and shop_resv_rday=#{shop_resv_rday} and shop_resv_auth=0
  </select>
  
  <!-- designer -->
 <insert id = "addDesigner" parameterType = "cd.com.a.model.shopDesignerDto">
-	insert into shop_designer (shop_seq, design_price, design_name, design_time, design_auth)
-	values(#{shop_seq}, #{design_price}, #{design_name}, #{design_time}, 0)
+   insert into shop_designer (shop_seq, design_price, design_name, design_time, design_auth)
+   values(#{shop_seq}, #{design_price}, #{design_name}, #{design_time}, 0)
 </insert>
  <select id="getDesignerInfo" parameterType="cd.com.a.model.shopDesignerDto" resultType="cd.com.a.model.shopDesignerDto">
     select shop_seq, design_seq, design_price, design_name, design_time, design_auth
     from shop_designer
     where shop_seq = #{shop_seq} and design_seq=#{design_seq}
  </select>
- 
- <select id="getShopDetail" resultType="cd.com.a.model.shopDto">
- 	select shop_seq, shop_owner, shop_number, shop_name, shop_addr, shop_tel, shop_auth,
- 	mem_seq, shop_time, shop_photo, shop_etc, shop_small_price, shop_medium_price, 
- 	shop_large_price, shop_content 
- 	from shop
- 	where shop_seq = #{shop_seq}
-</select>
-
-<select id="getDesignerInfo2" parameterType="java.lang.Integer" resultType="cd.com.a.model.shopDesignerDto">
+ <select id="getDesignerInfo2" parameterType="java.lang.Integer" resultType="cd.com.a.model.shopDesignerDto">
 select * from shop_designer where design_seq = #{design_seq}
 </select>
+ 
+ <select id="getShopDetail" resultType="cd.com.a.model.shopDto">
+    select shop_seq, shop_owner, shop_number, shop_name, shop_addr, shop_tel, shop_auth,
+    mem_seq, shop_time, shop_photo, shop_etc, shop_small_price, shop_medium_price, 
+    shop_large_price, shop_content 
+    from shop
+    where shop_seq = #{shop_seq}
+</select>
 
-<<<<<<< HEAD
 <select id="checkDesign" parameterType ="cd.com.a.model.shopDesignerDto" resultType="java.lang.Integer">
 select count(shop_resv_rday) from shop_reservation 
 where shop_seq=#{shop_seq} and design_seq=#{design_seq} and shop_resv_auth=0
@@ -116,13 +109,12 @@ update shop_designer
 set design_auth = 1
 where shop_seq=#{shop_seq} and design_seq=#{design_seq}
 </update>
-  </mapper>
-=======
+
 <insert id="resvShop" parameterType="cd.com.a.model.shopResvDto" useGeneratedKeys="true" keyProperty="shop_resv_seq">
-	insert into shop_reservation (shop_seq, design_seq, mem_seq, shop_resv_time, shop_resv_rday, shop_resv_day,shop_resv_size,
-	 							shop_resv_name, shop_resv_tel,shop_resv_price, shop_resv_auth, shop_resv_comment)
-	 				values(#{shop_seq}, #{design_seq}, #{mem_seq}, #{shop_resv_time}, #{shop_resv_rday}, now(), #{shop_resv_size},
-	 						#{shop_resv_name}, #{shop_resv_tel}, #{shop_resv_price}, 0, #{shop_resv_comment})
+   insert into shop_reservation (shop_seq, design_seq, mem_seq, shop_resv_time, shop_resv_rday, shop_resv_day,shop_resv_size,
+                         shop_resv_name, shop_resv_tel,shop_resv_price, shop_resv_auth, shop_resv_comment)
+                values(#{shop_seq}, #{design_seq}, #{mem_seq}, #{shop_resv_time}, #{shop_resv_rday}, now(), #{shop_resv_size},
+                      #{shop_resv_name}, #{shop_resv_tel}, #{shop_resv_price}, 0, #{shop_resv_comment})
 </insert>
 
 <select id="getShopResvInfo" parameterType ="java.lang.Integer" resultType="cd.com.a.model.shopResvDto">
@@ -130,12 +122,6 @@ select * from shop_reservation
 where shop_resv_seq=#{shop_resv_seq}
 </select>
 
-
-<!-- <select id="showShopResv" parameterType="java.lang.Integer" resultType="cd.com.a.model.shopResvDto">
-select * from shop_reservation
-where shop_resv_auth=0 and 
-order by shop_resv_rday desc
-</select> -->
 
 <select id="showShopResv" parameterType="java.lang.Integer" resultType="cd.com.a.model.shopShowResvParam">
 select r.*,s.shop_name, s.shop_addr, s.shop_tel, s.shop_time, d.design_name
@@ -146,6 +132,7 @@ where shop_resv_auth=0 and r.mem_seq=#{mem_seq}
 order by shop_resv_rday desc;
 </select>
 
+  
   </mapper>
   
   
@@ -168,6 +155,4 @@ order by shop_resv_rday desc;
   
   
   
-  
-  
->>>>>>> origin/newMinje
+

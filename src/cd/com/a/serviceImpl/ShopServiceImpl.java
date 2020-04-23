@@ -90,9 +90,6 @@ public class ShopServiceImpl implements ShopService {
 		return shopDao.showShopResv(mem_seq);
 	}
 
-
-	
-	
 	
 	@Override
 	public boolean playDesignAf(shopDesignerDto designer) {

@@ -21,7 +21,7 @@ if(loginUser != null){
 <!-- <link href="css/setting.css" rel="stylesheet"> -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
-	
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="./js/jquery.bxslider.js"></script>
 <script src="./js/common.js"></script>
 

@@ -33,6 +33,7 @@ import com.google.gson.JsonObject;
 import cd.com.a.model.memberDto;
 import cd.com.a.model.poolDto;
 import cd.com.a.model.poolResvDto;
+import cd.com.a.model.poolResvParam;
 import cd.com.a.model.shopDto;
 import cd.com.a.service.MemberService;
 import cd.com.a.service.PoolService;
@@ -68,8 +69,8 @@ public class PoolController {
 		public String poolList(HttpSession session, Model model) {
 			memberDto mem = (memberDto)session.getAttribute("loginUser");
 			System.out.println(mem.toString());
-			List<poolDto> list = poolService.getSellerPoolList(mem.getMem_seq());
-			model.addAttribute("poolList", list);
+			List<poolResvParam> list = poolService.getSellerResvList(mem.getMem_seq());
+			model.addAttribute("poolSellerResvList", list);
 			
 			return "/smypage/pool/poolList";
 		}

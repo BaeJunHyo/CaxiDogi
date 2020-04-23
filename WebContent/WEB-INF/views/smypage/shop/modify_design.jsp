@@ -122,9 +122,12 @@
 		          type:'post',
 		          data: formData,
 		          success: function (data){
-		             alert("디자이너 수정에 성공하셨습니다.");
-		             location.href="shopDesignList.do?shop_seq="+$("#shop_seq").val();
-		             
+		             Swal.fire({
+		            	  icon: 'success',
+		            	  title: '디자이너 수정에 성공하셨습니다.',
+		            	  showConfirmButton: true
+		            	}).then(function(){
+		        	  window.location="shopDesignList.do?shop_seq="+$("#shop_seq").val();});
 		          },
 		          error: function (e){
 		             alert("통신실패");

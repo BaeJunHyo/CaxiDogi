@@ -10,6 +10,7 @@ import cd.com.a.dao.ShopDao;
 import cd.com.a.model.shopDesignerDto;
 import cd.com.a.model.shopDto;
 import cd.com.a.model.shopResvDto;
+import cd.com.a.model.shopShowResvParam;
 
 @Repository
 public class ShopDaoImpl implements ShopDao {
@@ -64,6 +65,31 @@ public class ShopDaoImpl implements ShopDao {
 		shopDesignerDto dto = sqlSession.selectOne(ns+"getDesignerInfo", design_seq);
 		return dto;
 	}
+
+	@Override
+	public int resvShop(shopResvDto shopResv) {
+		int n = sqlSession.insert(ns+"resvShop", shopResv);
+		System.out.println("============shopDao:"+shopResv.getShop_resv_seq());
+		int shop_resv_seq = 0;
+		if(n>0) {
+			shop_resv_seq = shopResv.getShop_resv_seq();
+		}
+		return shop_resv_seq;
+	}
+
+	@Override
+	public shopResvDto getShopResv(int shop_resv_seq) {
+		return sqlSession.selectOne(ns+"getShopResvInfo", shop_resv_seq);
+	}
+
+	@Override
+	public List<shopShowResvParam> showShopResv(int mem_seq) {
+		List<shopShowResvParam> list = sqlSession.selectList(ns+"showShopResv", mem_seq);
+		return list;
+	}
+
+	
+	
 	
 	
 	

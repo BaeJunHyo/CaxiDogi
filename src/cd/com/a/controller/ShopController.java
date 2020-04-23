@@ -34,6 +34,7 @@ import cd.com.a.model.memberDto;
 import cd.com.a.model.shopDesignerDto;
 import cd.com.a.model.shopDto;
 import cd.com.a.model.shopResvDto;
+import cd.com.a.model.shopShowResvParam;
 import cd.com.a.service.MemberService;
 import cd.com.a.service.ShopService;
 import cd.com.a.util.FileUploadUtil;
@@ -264,7 +265,7 @@ public class ShopController {
 	}
 	
 	
-	@RequestMapping(value="shopResv.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value="shopDetail.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public String shopResv(Model model, int shop_seq) {
 		
 		
@@ -298,5 +299,63 @@ public class ShopController {
 		
 		return "/shop/shopResvWrite";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="shopResv.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public Map<String, Object> shopResv(@ModelAttribute shopResvDto shopResv) {
+		System.out.println("shop 예약 내역:" + shopResv.toString());
+		int result = shopService.resvShop(shopResv);
+		Map<String, Object> rmap = new HashMap<String, Object>();
+		
+		if(result != 0) {
+			rmap.put("status", "ok");
+			rmap.put("rnum", result);
+		}else {
+			rmap.put("status", "no");
+		}
+		return rmap;
+	}
+	
+	
+	@RequestMapping(value="shopResvAf.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String shopResvAf(int shop_resv_seq, Model model) {
+		System.out.println("===========예약완료 시퀀스:"+ shop_resv_seq);
+		shopResvDto shopResv = shopService.getShopResv(shop_resv_seq);
+		shopDto shop = shopService.getShopDetail(shopResv.getShop_seq());
+		System.out.println("shopResvAf shop toString:" + shop.toString() );
+		shopDesignerDto desdto = shopService.getDesignerInfo(shopResv.getDesign_seq());
+		
+		model.addAttribute("shopResv", shopResv);
+		model.addAttribute("shop", shop);
+		model.addAttribute("desdto", desdto);
+		
+		return "/shop/shopResvAf";
+		
+	}
+	
+	@RequestMapping(value="showShopResv.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String showShopResv(Model model, HttpSession session) {
+		memberDto loginUser = (memberDto)session.getAttribute("loginUser");
+		System.out.println("=============showResv: " + loginUser.getMem_seq() );
+		List<shopShowResvParam> showShopList = shopService.showShopResv(loginUser.getMem_seq());
+		//List<shopResvDto> showShopList = shopService.showShopResv(loginUser.getMem_seq());
+		//shopResvDto shopResv = (shopResvDto) shopService.showShopResv(loginUser.getMem_seq());
+		
+		
+		/*
+		 * for(int i = 0; i<showShopList.size(); i++) { shopResvDto dto =
+		 * showShopList.get(i); if(dto.getMem_seq() == loginUser.getMem_seq()) {
+		 * List<shopResvDto> list = shopService.showShopResv(loginUser.getMem_seq());
+		 * model.addAttribute("showShopList2", list); }
+		 * //System.out.println("==========resvdto:" + dto.getShop_resv_time()); }
+		 */
+		//shopResvDto dto = shopService.getShopResv(shop_resv_seq)
+		model.addAttribute("showShopList", showShopList);
+	
+		return "/shop/showShopResv";
+	}
+	
+	
+	
 	
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import cd.com.a.model.shopDesignerDto;
 import cd.com.a.model.shopDto;
 import cd.com.a.model.shopResvDto;
+import cd.com.a.model.shopShowResvParam;
 
 public interface ShopDao {
 	public boolean addShop(shopDto shop);
@@ -15,5 +16,9 @@ public interface ShopDao {
 	public shopDto getShopDetail(int shop_seq);
 	public boolean addDesigner(shopDesignerDto designer);
 	public shopDesignerDto getDesignerInfo(int design_seq);
+	public int resvShop(shopResvDto shopResv);
+	public shopResvDto getShopResv(int shop_resv_seq);
+	//public List<shopResvDto> showShopResv(int mem_seq);
+	public List<shopShowResvParam> showShopResv(int mem_seq);
 
 }

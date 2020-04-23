@@ -21,6 +21,7 @@ memberDto loginUser = (memberDto)request.getSession().getAttribute("loginUser");
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
 <script src="./js/jquery.bxslider.js"></script>
 <script src="./js/common.js"></script>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!--   <script type="text/javascript">
    $(document).ready(function (){

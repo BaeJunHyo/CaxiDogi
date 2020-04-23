@@ -7,7 +7,7 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@ include file="./../../../include/header.jsp"%>
-<link href="./css/shopresv.css" rel="stylesheet">
+<link href="./css/shop_detail.css" rel="stylesheet">
  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="/resources/demos/style.css">
   <link href="./css/calstyle2.css" rel="stylesheet">
@@ -162,7 +162,7 @@
 								</select>
 								 <input type="hidden" name="design_seq" value="${desList.design_seq}" id="dsseq">
 								<input type="hidden" name="shop_resv_time" id="shop_resv_time">
-								<input type="hidden" name="mem_seq" value="${loginUser.mem_seq }">
+								<input type="hidden" name="mem_seq" value="${loginUser.mem_seq }" id="mem_seq">
 								<%-- <span id="getTime" design_time="${desList.design_time }"  design_seq="${desList.design_seq}" class="getTime">${desList.design_name}</span> --%></dt>
 								<dd></dd>
 							</dl>
@@ -320,9 +320,9 @@ $("#sel").on('change', function(){
 	}
 
 	var shop_seq = $("#shop_seq").val();
-	alert("shop_seq: " + shop_seq);
+	//alert("shop_seq: " + shop_seq);
 	var shop_resv_rday = $("#shop_resv_rday").val();
-	alert("shop_resv_rday: " + shop_resv_rday);
+	//alert("shop_resv_rday: " + shop_resv_rday);
 	var allData = {"design_seq":design_seq, "shop_seq":shop_seq, "shop_resv_rday":shop_resv_rday};
 
 	$("#dtime").show();
@@ -331,13 +331,13 @@ $("#sel").on('change', function(){
 		type:'post',
 		data: allData,
 		success: function(data){
-			alert("data: " +data);
+			//alert("data: " +data);
 			str = JSON.stringify(data);
 			str = JSON.parse(str);
-			alert("str: " + str);
+			//alert("str: " + str);
 			
 			var obj_length = Object.keys(str).length;
-			alert("length:" + obj_length);
+			//alert("length:" + obj_length);
 			
 			//sTime == str[key]
 			
@@ -349,11 +349,11 @@ $("#sel").on('change', function(){
 				//var v = str[key];
 				//alert("제발"+v);
 				v[key]= str[key];
-				alert("val[]: " + v[key]);
+				//alert("val[]: " + v[key]);
 			}
 
 			
-			alert("포문밖 브이: " + v);
+			//alert("포문밖 브이: " + v);
 
 
 			 for(var j=0; j<v.length; j++){
@@ -370,7 +370,7 @@ $("#sel").on('change', function(){
 					//var test = txt;
 					$(this).attr("name", "shop_resv_time");
 					$("#shop_resv_time").val(pcode);
-					alert("pcode:" + pcode);
+					//alert("pcode:" + pcode);
 				});
 
 			
@@ -400,6 +400,8 @@ $("#resvwriteBtn").click(function(){
 		
 	}else if($('#shop_resv_time').val() == ""){
 		alert("시간 선택을 안하셨습니다.");
+	}else if($("#mem_seq").val() == ""){
+		alert("로그인 후 이용 가능합니다.");
 	}
 	else{
 		$("#dsseq").val($("#sel option:selected").val());

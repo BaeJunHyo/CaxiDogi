@@ -51,18 +51,32 @@ if(loginUser.getAuth()==1 || loginUser.getAuth()==2){
 					</ul>
 				</li>
 				<li>
+					<a href="#n">미용 예약정보</a>
+					<ul>
+						<li><a href="showShopResv.do">미용 예약 내역보기</a></li>
+						<li><a href="#n">취소 내역보기</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#n">수영장 예약정보</a>
+					<ul>
+						<li><a href="#">수영장 예약 내역보기</a></li>
+						<li><a href="#n">취소 내역보기</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#n">운동장 예약정보</a>
+					<ul>
+						<li><a href="#">운동장 예약 내역보기</a></li>
+						<li><a href="#n">취소 내역보기</a></li>
+					</ul>
+				</li>
+				<li>
 					<a href="#n">회원정보관리</a>
 					<ul>
 						<li><a href="memberDetail.do">회원 정보</a></li>
 						<li><a href="memberAddress.do">배송지 정보</a></li>
 						<li><a href="sellerAccess.do">판매자 등록하기</a>
-					</ul>
-				</li>
-				<li>
-					<a href="#n">혜택정보</a>
-					<ul>
-						<li><a href="#n">포인트 조회</a></li>
-						<li><a href="#n">쿠폰 조회</a></li>
 					</ul>
 				</li>
 				<li>

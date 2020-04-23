@@ -9,6 +9,7 @@ import cd.com.a.dao.ShopDao;
 import cd.com.a.model.shopDesignerDto;
 import cd.com.a.model.shopDto;
 import cd.com.a.model.shopResvDto;
+import cd.com.a.model.shopShowResvParam;
 import cd.com.a.service.ShopService;
 
 @Service
@@ -54,5 +55,24 @@ public class ShopServiceImpl implements ShopService {
 	public shopDesignerDto getDesignerInfo(int design_seq) {
 		return shopDao.getDesignerInfo(design_seq);
 	}
+
+	@Override
+	public int resvShop(shopResvDto shopResv) {
+		return shopDao.resvShop(shopResv);
+	}
+
+	@Override
+	public shopResvDto getShopResv(int shop_resv_seq) {
+		return shopDao.getShopResv(shop_resv_seq);
+	}
+
+	@Override
+	public List<shopShowResvParam> showShopResv(int mem_seq) {
+		return shopDao.showShopResv(mem_seq);
+	}
+
+
+	
+	
 	
 }

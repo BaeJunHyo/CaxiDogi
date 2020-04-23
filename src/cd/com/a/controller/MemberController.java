@@ -250,7 +250,12 @@ public class MemberController {
 		}
 	}
 	
+   
 	
+	@RequestMapping(value="/sellerMyPage.do", method= {RequestMethod.GET,RequestMethod.POST})
+   public String sellerMyPage() {
+      return "/mypage/mypage_seller";
+   }
 	
 	
 	

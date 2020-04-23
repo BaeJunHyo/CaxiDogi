@@ -21,17 +21,18 @@
 				 AND product_del=0 
 				 AND s_product_group = #{product_group} 
 				 AND s_product_sub_group = #{product_sub_group}
-				 AND soldState = #{soldState}
+				 <!-- AND soldState = #{soldState} -->
 				 
-				 <if test="soldState == 0">
+				 <!-- <if test="soldState == 0">
 					AND soldState=#{soldState}
-				</if>
+				</if> -->
+				<!-- 
 				<if test="soldState == 1">
 					AND soldState=#{soldState}
 				</if>
 				<if test="soldState == 2">
 					AND soldState=#{soldState}
-				</if>
+				</if> -->
 				 
 				<if test="s_category == 'product_name'">
 					AND product_name LIKE '%'||#{s_keyword}||'%'
@@ -93,6 +94,19 @@
 		)
 </insert>
 
+
+<!-- 상품수정(관리자) -->
+<update id="prdUpdate" parameterType="cd.com.a.model.productDto">
+	UPDATE product SET
+			product_name=#{product_name}, product_img=#{product_img}, product_price=#{product_price}, 
+			product_group=#{product_group}, product_sub_group=#{product_sub_group}, product_code=#{product_code}, 
+			product_content=#{product_content}, product_regi_date=CURRENT_TIMESTAMP(),
+			product_brand=#{product_brand}, product_sale=#{product_sale}, product_hidden=#{product_hidden}, 
+			product_stock=#{product_stock}, product_delivery_auth=#{product_delivery_auth}
+	WHERE 	product_num=#{product_num}
+</update>
+
+
 <!-- ========= 상품리스트(client)  ======== -->
 <select id="getPrdList" resultType="cd.com.a.model.productDto">
 	SELECT 
@@ -102,10 +116,11 @@
 	FROM product
 </select>
 
-<!-- ========= 상품구매(client) 상품상세 ======== -->
+<!-- ========= 상품구매(client & 관리자) 상품상세 ======== -->
 <select id="getPrd" parameterType="java.lang.Integer" resultType="cd.com.a.model.productDto">
-	SELECT product_num, product_code, product_img, product_name, product_price, 
-		   product_brand, product_hidden, product_sale, product_stock, 
+	SELECT 
+		   product_num, product_code, product_img, product_name, product_price, 
+		   product_brand, product_hidden, product_sale, product_stock, product_content
 		   product_regi_date, product_del
 	FROM product
 	WHERE product_num = #{product_num}

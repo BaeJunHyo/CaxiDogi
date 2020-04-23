@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
+<!-- 코어태그 -->
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix = "fn"  uri = "http://java.sun.com/jsp/jstl/functions" %>
+<fmt:requestEncoding value="utf-8"/>
 
 <%@ include file="./../../../include/bo_header.jsp" %>
 
@@ -228,7 +233,7 @@ $(document).ready(function () {
 							<th>품절 상태</th>
 							<td>
 								<span class="select_wrap">
-									<input type="radio" name="soldState" value="0">
+									<input type="radio" name="soldState" value="0" checked="checked">
 									<label>전체</label>
 								</span>
 								<span class="select_wrap">
@@ -308,7 +313,7 @@ $(document).ready(function () {
 				
 				<thead>
 					<tr>
-						<th><input type="checkbox"></th>
+						<th><input type="checkbox" name="chk" onclick="deletechecks(this.checked)"></th>
 						<th>번호</th>
 						<th>상품코드</th>
 						<th>이미지</th>
@@ -321,23 +326,34 @@ $(document).ready(function () {
 						<th>등록일</th>
 						<th>수정</th>
 					</tr>
-					
-					<tr>
-						<td><input type="checkbox"></td>
-						<td>1</td>
-						<td>1000007</td>
-						<td><img src="./images/bo/img_replace.gif"></td>
-						<td>클럽모나코 모던 블라우스</td>
-						<td>9,999,999</td>
-						<td>파나소니코리아</td>
-						<td>노출함</td>
-						<td>판매함</td>
-						<td>999,999</td>
-						<td>2020-10-10<br/>2020-10-21</td>
-						<td><a href="#n" class="btn_r_navy">수정</a></td>
-					</tr>
 				</thead>
+				
+				<tbody>
+					<c:if test="${empty prdlist }">
+						<tr>
+							<td colspan="12">상품등록이 되지 않았습니다.</td>
+						</tr>
+					</c:if>
+					
+					<c:forEach items="${prdlist }" var="pr" varStatus="vs">
+					<tr>
+						<td><input type="checkbox" name="chk"></td>
+						<td>${pr.product_num }</td>
+						<td>${pr.product_code }</td>
+						<td><img src="<%=request.getContextPath() %>/images/goodsImg/${pr.product_img }" width="40" height="40"></td>
+						<td>${pr.product_name }</td>
+						<td><fmt:formatNumber value="${pr.product_price}" pattern="###,###,###"/>원</td>
+						<td>${pr.product_brand }</td>
+						<td>${pr.product_hidden }</td>
+						<td>${pr.product_sale }</td>
+						<td>${pr.product_stock }</td>
+						<td>${fn:split(pr.product_regi_date, ' ')[0] }</td>
+						<td><a href="productUpdate.do?product_num=${pr.product_num }" class="btn_r_navy">수정</a></td>
+					</tr>
+					</c:forEach>
+				</tbody>
 			</table>
+			
 			<p class="table_optionBtn clearfix">
 				<a href="#n" class="btn_r_navy">상품 품절처리</a>
 				<a href="#n" class="btn_r_navy">선택 복사</a>
@@ -362,6 +378,18 @@ $(document).ready(function () {
 </div><!--// containerWrap -->
 
 <script>
+//-- 다중 선택 삭제
+function deletechecks( ch ){
+// alert(ch);
+	var arrCheck = document.getElementsByName("chk");  
+	  
+	// -- true로 들어왔을 때 (체크되었을 때)
+	for(i = 0; i < arrCheck.length; i++){
+	    // -- 클릭하면 전체 선택되게 해줌
+	    arrCheck[i].checked = ch; 
+	}
+}
+
 /* 
 function goPage( pageNumber ){
 	$("#_pageNumber").val(pageNumber);

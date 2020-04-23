@@ -47,13 +47,8 @@ public class ShopController {
 	MemberService memService;
 	
 	@RequestMapping(value="shopRegi.do",  method= {RequestMethod.GET,RequestMethod.POST})
-	public String shopRegi(HttpSession session) {
-		
-		memberDto mem = new memberDto(5);
-		session.setAttribute("login", mem);
-		session.setMaxInactiveInterval(60*60*365);
-		
-		return "/shop/regi_shop";
+	public String shopRegi() {
+		return "/smypage/shop/regi_shop";
 	}
 	
 	@RequestMapping(value="imageUpload.do", method=RequestMethod.POST)
@@ -110,7 +105,7 @@ public class ShopController {
 	
 	@ResponseBody
 	@RequestMapping(value = "shopRegiAf.do",method=RequestMethod.POST)
-	   public String multipartUpload(@ModelAttribute shopDto shop, @RequestParam(value="fileload")MultipartFile fileload, HttpServletRequest req){
+	   public String shopRegiAf(@ModelAttribute shopDto shop, @RequestParam(value="fileload")MultipartFile fileload, HttpServletRequest req){
 		String str = "";
 		if(!fileload.isEmpty()) {
 			String fileUpload = req.getServletContext().getRealPath("/images/shopImg"); 
@@ -155,28 +150,97 @@ public class ShopController {
 		}
 		
 		return str;
+	}	
+	
+	@ResponseBody
+	@RequestMapping(value = "shopModifyAf.do",method=RequestMethod.POST)
+	   public String shopModifyAf(@ModelAttribute shopDto shop, @RequestParam(value="fileload")MultipartFile fileload, HttpServletRequest req){
+		String str = "";
+		if(shop.getShop_auth() == 2) {
+			shop.setShop_auth(4);
+		}
+		if(!fileload.isEmpty()) {
+			String fileUpload = req.getServletContext().getRealPath("/images/shopImg"); 
+			System.out.println("fileUpload" + fileUpload); // 업로드 위치
+			//System.out.println(fileUpload);
+			String fileName = fileload.getOriginalFilename();
+			String saveFileName = "";
+			String filepost = "";
+			if(fileName.indexOf('.') >= 0) { // 확장자 명이 있을때
+				filepost = fileName.substring(fileName.indexOf('.'));
+				saveFileName = new Date().getTime() + filepost;
+			} 
+			shop.setShop_photo(saveFileName);
+			
+			File file = new File(fileUpload + "/" + saveFileName);
+
+			//실제 파일 업로드 되는 부분
+			try {
+				FileUtils.writeByteArrayToFile(file, fileload.getBytes());
+				System.out.println(shop.toString());
+				//db저장
+				boolean	status = shopService.shopModifyAf(shop);
+			
+				if(status == true) {
+					str = "ok";
+				} else {
+					str = "no";
+				}
+			
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			boolean	status = shopService.shopModifyAf(shop);
+			
+			if(status == true) {
+				str = "ok";
+			} else {
+				str = "no";
+			}
+		}
+		
+		return str;
+	}	
+
+	@ResponseBody
+	@RequestMapping(value="shopStop.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String shopStop(int shop_seq) {
+		String str = "";
+		boolean	status = shopService.shopStopAf(shop_seq);
+		
+		if(status == true) {
+			str = "ok";
+		} else {
+			str = "no";
+		}
+		
+		return str;
 	}
+
 	
 	@RequestMapping(value="sellerShopList.do",  method= {RequestMethod.GET,RequestMethod.POST})
-	public String sellerShopList(int mem_seq, Model model) {
-		List<shopDto> list = shopService.getSellerShopList(mem_seq);
+	public String sellerShopList(HttpSession session, Model model) {
+		memberDto mem = (memberDto)session.getAttribute("loginUser");
+		System.out.println(mem.toString());
+		List<shopDto> list = shopService.getSellerShopList(mem.getMem_seq());
 		model.addAttribute("shopList", list);
 		
-		return "/shop/sellerShopList";
+		return "/smypage/shop/sellerShopList";
 	}
 	
 
 	@RequestMapping(value="shopDesignAdd.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public String shopDesignAdd(int shop_seq, Model model) {
-		System.out.println(shop_seq);
-		model.addAttribute("shop_seq", shop_seq);
+		shopDto shop = shopService.getShopDetail(shop_seq);
+		model.addAttribute("shop", shop);
 		
-		return "/shop/regi_design";
+		return "/smypage/shop/regi_design";
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="shopDesignAdAf.do",  method= {RequestMethod.GET,RequestMethod.POST})
-	public String shopDesignAdAf(shopDesignerDto designer) {
+	@RequestMapping(value="shopDesignAddAf.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String shopDesignAddAf(shopDesignerDto designer) {
 		String str = "";
 		System.out.println(designer.toString());
 		boolean	status = shopService.addDesigner(designer);
@@ -190,8 +254,122 @@ public class ShopController {
 		return str;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="stopDesignAf.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String stopDesignAf(shopDesignerDto designer) {
+		String str = "";
+		System.out.println(designer.toString());
+		boolean	status = shopService.stopDesignAf(designer);
+		
+		if(status == true) {
+			str = "ok";
+		} else {
+			str = "no";
+		}
+		
+		return str;
+	}
 	
 	
+	@ResponseBody
+	@RequestMapping(value="playDesignAf.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String playDesignAf(shopDesignerDto designer) {
+		String str = "";
+		System.out.println(designer.toString());
+		boolean	status = shopService.playDesignAf(designer);
+		
+		if(status == true) {
+			str = "ok";
+		} else {
+			str = "no";
+		}
+		
+		return str;
+	}
+	
+	@RequestMapping(value="shopDesignList.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String shopDesignList(int shop_seq, Model model) {
+		List<shopDesignerDto> designerList = shopService.getDesignerAll(shop_seq);
+		model.addAttribute("designerList", designerList);
+		model.addAttribute("shop_seq", shop_seq);
+		return "/smypage/shop/shopDesignList";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="checkDesign.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String checkDesign(shopDesignerDto shopDesign) {
+		String str = "";
+		System.out.println("design_seq : "+shopDesign.getDesign_seq());
+		int count = shopService.checkDesign(shopDesign);
+		
+		if(count == 0) {
+			str = "ok";
+		} else {
+			str = "no";
+		}
+		
+		return str;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="shopDesignModifyAf.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String shopDesignModifyAf(shopDesignerDto shopDesign) {
+		String str = "";
+		boolean status = shopService.designModify(shopDesign);
+		
+		if(status == true) {
+			str = "ok";
+		} else {
+			str = "no";
+		}
+		
+		return str;
+	}
+
+	@ResponseBody
+	@RequestMapping(value="deleteDesignAf.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String deleteDesign(shopDesignerDto shopDesign) {
+		String str = "";
+		int count = shopService.checkDesign(shopDesign);
+		
+		if(count == 0) {
+			boolean status = shopService.delDesignAf(shopDesign);
+			if(status == true) {
+				str = "ok";
+			} else {
+				str = "no";
+			}
+		} else {
+			str = "no";
+		}
+		
+		return str;
+	}
+	
+	@RequestMapping(value="designModify.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String designModify(shopDesignerDto shopDesign, Model model) {
+		shopDto shop = shopService.getShopDetail(shopDesign.getShop_seq());
+		shopDesignerDto designer = shopService.getDesignerInfo(shopDesign);
+		model.addAttribute("shop", shop);
+		model.addAttribute("designer", designer);
+		return "/smypage/shop/modify_design";
+	}
+	
+	@RequestMapping(value="modifyShop.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String modifyShop(int shop_seq, Model model) {
+		shopDto shop = shopService.getShopDetail(shop_seq);
+		model.addAttribute("shop", shop);
+		
+		return "/smypage/shop/modify_shop";
+	}
+	
+	@RequestMapping(value="reModifyShop.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String reModifyShop(int shop_seq, Model model) {
+		shopDto shop = shopService.getShopDetail(shop_seq);
+		model.addAttribute("shop", shop);
+		
+		return "/smypage/shop/re_modify_shop";
+	}
 //--------------------------------------------------------------MJ--------------------------------------------------	
 	
 	@RequestMapping(value="getShopList.do",  method= {RequestMethod.GET,RequestMethod.POST})

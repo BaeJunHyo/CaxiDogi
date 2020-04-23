@@ -87,11 +87,18 @@
 						</dd>
 					</dl>
 				</li>
-
+				<li>
+					<dl>
+						<dt>코멘트</dt>
+						<dd>
+						${pool_resv.pool_resv_comment }
+						</dd>
+					</dl>
+				</li>
 			</ul>
 			<p class="poolBtns clearfix" align="center">
 				<a href="#" class="btn_dark_l" onclick="location.href='main.do'">메인으로</a>
-				<a href="#" class="btn_dark_l" id = "mypageBtn">마이페이지</a>
+				<a href="#" class="btn_dark_l" onclick="location.href='myPageMove.do'">마이페이지</a>
 			</p>
 		</div>
 </div>

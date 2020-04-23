@@ -1,13 +1,24 @@
+<%@page import="cd.com.a.model.shopDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@ include file="./../../../include/header.jsp" %>
-<!-- container S : -->
-<div class="container" >
-	<div class ="container_subWrap">
-		<h1>디자이너 등록</h1>
+<%@ include file="./../../../../include/header.jsp" %>
+<%@ include file="./../../../../include/left_frm_seller.jsp" %>
+
+<%
+	shopDto shop = (shopDto)request.getAttribute("shop");
+	String time[] = shop.getShop_time().split("~");
+	String startTime[] = time[0].trim().split(":");
+	String endTime[] = time[1].trim().split(":");
+%>
+	<div class="cusSec_right">
+
+		<div class="cusSec_tableWrap tw_wFull">
+			<h3>
+				<span class="t_sbj">디자이너등록</span>
+			</h3>
 		<div class ="company_regi"  style = "margin-top : 10px;">
-			<input type ="hidden" id = "shop_seq" name="shop_seq" value="${shop_seq }">
+			<input type ="hidden" id = "shop_seq" name="shop_seq" value="${shop.shop_seq }">
 			<label style = "width:100px;">디자이너명</label>
 			<input  type="text" id = "design_name" name = "design_name" placeholder="디자이너명을 입력해주세요" size = "500">
 		</div>
@@ -21,7 +32,7 @@
 			<ul id = "timetable">
 				<li>
 					<select name="hour">
-						<% for (int i =7; i<=24; i++){ %>
+						<% for (int i =Integer.parseInt(startTime[0]); i<=Integer.parseInt(endTime[0])-2; i++){ %>
 						<option><%=(i<10)? "0"+i: i %></option>
 						<%} %>
 					</select>시 
@@ -38,19 +49,22 @@
 		<div style ="margin-top:10px; " align ="center">
 			<input class = "btn_line_m" type ="button" id = "designAddBtn" value = "등록">		
 			
-			<input class ="btn_line_m" type ="button" value = "취소">		
+			<input class ="btn_line_m" type ="button" onclick = "location.href='sellerShopList.do'" value = "취소">		
 			
 		</div>
 	</div>
 </div>
+</div>
 
 <script type="text/javascript">
 	$(document).on("click",".plus", function(){
-		
+			var sTime = <%=Integer.parseInt(startTime[0])%>;
+			var eTime = <%=Integer.parseInt(endTime[0])-2%>;
+			
 			var appendHtml ="<li style='margin-top:5px;'>";
 				appendHtml += "<select name='hour'>";
 				
-				for(i = 7; i <= 24; i++){
+				for(i = sTime; i <= eTime; i++){
 					if(i<10){
 						appendHtml += "<option>0" + i + "</option>";
 					}else{
@@ -103,7 +117,7 @@
 					"design_time" : timetable
 			}
 			  $.ajax({
-		          url:"./shopDesignAdAf.do",
+		          url:"./shopDesignAddAf.do",
 		          type:'post',
 		          data: formData,
 		          success: function (data){
@@ -118,4 +132,4 @@
 	}); 
 	
 </script>
-<%@ include file="./../../../include/footer.jsp" %>
+<%@ include file="./../../../../include/footer.jsp" %>

@@ -19,10 +19,22 @@ if(loginUser != null){
 <link href="<%=request.getContextPath() %>/css/prd_detail.css" rel="stylesheet">
 <link href="<%=request.getContextPath() %>/css/style.css" rel="stylesheet">
 <!-- <link href="css/setting.css" rel="stylesheet"> -->
+<<<<<<< HEAD
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
 <script src="<%=request.getContextPath() %>/js/jquery.bxslider.js"></script>
 <script src="<%=request.getContextPath() %>/js/common.js"></script>
 
+=======
+<<<<<<< HEAD
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+=======
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+	
+>>>>>>> origin/sujin2
+<script src="./js/jquery.bxslider.js"></script>
+<script src="./js/common.js"></script>
+>>>>>>> origin/NewKyeongRyul
 
 <link href="<%=request.getContextPath() %>/css/order.css" rel="stylesheet">
 <!--   <script type="text/javascript">
@@ -77,6 +89,7 @@ if(loginUser != null){
 			<%
 			if(loginUser == null){
 			%>
+				<li><a href="productList.do">관리자</a></li>
 				<li><a href="loginView.do">로그인</a></li>
 				<li><a href="newAccount.do">회원가입</a></li>
 				<li><a href="test.do">고객센터</a></li>	
@@ -88,16 +101,15 @@ if(loginUser != null){
 				<li><Strong><%=loginUser.getId() %></Strong> 님 환영합니다</li>
 			<%
 				// 세션 닉네임 존재시
-				}else{
+			}else{
 			%>
 				<li><Strong><%=loginUser.getUser_name() %></Strong> 님 환영합니다</li>
 			<%		
 				}
 				if(loginUser.getAuth() == 3){
 			%>
-			
 			  
-				<li><a href="#n">셀러페이지</a></li>
+				<li><a href="sellerMyPage.do">셀러페이지</a></li>
 				<li><a href="#none" onclick="mypage()">마이페이지</a></li>
 			<%		
 				}else if(loginUser.getAuth() == 4 || loginUser.getAuth() == 5){

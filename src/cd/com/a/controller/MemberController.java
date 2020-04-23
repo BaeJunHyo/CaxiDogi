@@ -121,6 +121,7 @@ public class MemberController {
 	public String myPage() {
 		return "/mypage/mypage_main";
 	}
+	
 	@RequestMapping(value="/snsFirstLogin.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public String snsFirstLogin(HttpServletRequest req,Model model) {
 		memberDto loginUser = (memberDto)req.getSession().getAttribute("loginUser");
@@ -254,5 +255,8 @@ public class MemberController {
 	
 	
 	
-	
+	@RequestMapping(value="/sellerMyPage.do", method= {RequestMethod.GET,RequestMethod.POST})
+	public String sellerMyPage() {
+		return "/mypage/mypage_seller";
+	}
 }

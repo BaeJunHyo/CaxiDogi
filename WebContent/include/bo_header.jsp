@@ -25,7 +25,7 @@
 <body>
 
 <div class="header">
-	<h1><a href="#n" class="logo"><img src="./images/img_logo_bo.png"></a></h1>
+	<h1><a href="main.do" class="logo"><img src="./images/img_logo_bo.png"></a></h1>
 	<a href="#n" class="btn_menu"><img src="./images/ico_hamburger.png"></a>
 	<div class="m_right">
 		<a href="#n" class="btn_user">로그인</a>

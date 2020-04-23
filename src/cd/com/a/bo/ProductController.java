@@ -31,6 +31,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import cd.com.a.goods.DetailDao;
 import cd.com.a.model.ProductParam;
 import cd.com.a.model.productDto;
 import cd.com.a.util.FileUploadUtil;
@@ -39,7 +40,7 @@ import cd.com.a.util.FileUploadUtil;
 public class ProductController {
 
 	@Autowired
-	ProductService service;
+	ProductService prdService;
 	SqlSession sqlSession;
 	
 	
@@ -53,8 +54,8 @@ public class ProductController {
 	public String productlist(Model model, ProductParam prdparam) {
 //		Gson gson = new Gson();
 //		List<productDto> prdlist = new ArrayList<productDto>();
-//		System.out.println("productList : " + prdlist);
-		List<productDto> prdlist = service.prdSearchList(prdparam);
+		List<productDto> prdlist = prdService.prdSearchList(prdparam);
+		//System.out.println("productList : " + prdlist);
 		
 		model.addAttribute("prdlist", prdlist);
 		
@@ -81,31 +82,14 @@ public class ProductController {
 //			filename = dto.getProduct_img().get
 //		}
 		
-
-				
-//		System.out.println("상품명(product_name) : " + product_name + " " +
-//				"상품코드(product_code) : " + product_code + " " +
-//				"상품가격(product_price) : " + product_price + " " +
-//				"상품구분(product_group) : " + product_group + " " +
-//				"상품종류(product_sub_group) : " + product_sub_group);
-		
-		//productDto dto = new productDto();
-		
-		
 		String filename = fileUpload.getOriginalFilename();
 		System.out.println(filename);
-//		product.setProduct_group(sproduct_group);
-//		product.setProduct_sub_group(sproduct_sub_group);
-//		product.setProduct_price(sproduct_price);
-//		product.setProduct_code(product_code);
-//		product.setProduct_content(product_content);
-//		product.setProduct_name(product_name);
 		
 		System.out.println(product.toString());
 		
 		
 		// upload경로 설정
-		String fupload = req.getServletContext().getRealPath("upload/boUpload");
+		String fupload = req.getServletContext().getRealPath("/images/goodsImg");
 		
 		System.out.println("controller fupload : " + fupload);
 		
@@ -127,7 +111,7 @@ public class ProductController {
 		}
 		
 	
-		boolean b = service.productInsert(product);
+		boolean b = prdService.productInsert(product);
 		
 		if(b) {
 			System.out.println("상품등록 성공");
@@ -140,9 +124,7 @@ public class ProductController {
 		
 	}
 	
-	@RequestMapping(value="boimageUpload.do", method=RequestMethod.POST)
-	   @ResponseBody
-	   public String imageUpload(HttpServletRequest req, HttpServletResponse resp, 
+	public String imageUpload(HttpServletRequest req, HttpServletResponse resp, 
 	                 MultipartHttpServletRequest multiFile) throws Exception {
 		
 	      JsonObject json = new JsonObject();
@@ -159,7 +141,7 @@ public class ProductController {
 	               try{
 		                String fileName = file.getName();
 		                byte[] bytes = file.getBytes();
-		                String uploadPath = req.getServletContext().getRealPath("/upload/boUpload");
+		                String uploadPath = req.getServletContext().getRealPath("/images/goodsImg");
 		                File uploadFile = new File(uploadPath);
 	                  
 		                if(!uploadFile.exists()){
@@ -173,7 +155,7 @@ public class ProductController {
 	                        
 						printWriter = resp.getWriter();
 						resp.setContentType("text/html");
-						String fileUrl = req.getContextPath() + "/upload/boUpload/" + fileName;
+						String fileUrl = req.getContextPath() + "/images/goodsImg/" + fileName;
                         
                         // json 데이터로 등록
                         // {"uploaded" : 1, "fileName" : "test.jpg", "url" : "/img/test.jpg"}
@@ -202,6 +184,29 @@ public class ProductController {
 	      }
 	      return null;
 	}
+	
+	
+	@RequestMapping(value="productUpdate.do", method= {RequestMethod.GET,RequestMethod.POST})
+	public String productUpdate(int product_num, Model model) {
+		productDto prddto = prdService.getPrd(product_num);
+		System.out.println("업데이트페이지 들어오면서 갖고온 dto : " + prddto);
+		
+		model.addAttribute("prddto", prddto);
+		return "/bo/bo_02product_3_update";
+	}
+	
+	
+	
+	@RequestMapping(value="productUpdateAf.do", method= RequestMethod.POST)
+	public String productUpdateAf(productDto product, Model model) throws Exception {
+		System.out.println("pro : " + product.toString());
+		prdService.prdUpdate(product);
+		
+		model.addAttribute("product", product);
+		
+		return "redirect:/productList.do";
+	}
+	
 	
 	
 	

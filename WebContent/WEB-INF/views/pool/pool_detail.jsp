@@ -174,7 +174,7 @@
 							</dl>
 						</li>
 					</ul>
-					<input type = "hidden" name = "mem_seq" value="${login.mem_seq}">
+					<input type = "hidden" name = "mem_seq" value="${loginUser.mem_seq}">
 					<p class="total_price clearfix pt20 pb15">
 						<span class="fl pt5">예상 총 금액</span>
 						<span class="fr"><strong id="totalPrice"></strong> 원</span>
@@ -237,10 +237,10 @@
    });
 
   $("#poolResv").click(function(){
-	if('<%=request.getSession().getAttribute("login")%>'=='null'){
+	if('<%=request.getSession().getAttribute("loginUser")%>'=='null'){
 		alert("로그인해주세요");
 		location.href="loginView.do";
-	} else if ('<%=request.getSession().getAttribute("login")%>'!='null'){
+	} else if ('<%=request.getSession().getAttribute("loginUser")%>'!='null'){
 		if($("#pool_resv_sdate").val()==''){
 			alert("예약 날짜를 선택해 주세요");
 		} else {

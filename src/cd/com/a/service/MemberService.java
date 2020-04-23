@@ -16,6 +16,10 @@ public interface MemberService {
 	memberDto loginId(int seq);
 	boolean pwdCheck(memberDto dto);
 	public memberDto resvMem(int mem_seq);
+	boolean userUpdate(memberDto dto);
+	boolean sellerAccess(int mem_seq);
+	void memberEscape(int mem_seq);
+	boolean recoveryId(memberDto dto);
 	
 	//SNS Login
 	public String getAccessToken(String authorize_code,String loginApi);

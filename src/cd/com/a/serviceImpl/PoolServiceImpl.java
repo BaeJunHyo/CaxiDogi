@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import cd.com.a.dao.PoolDao;
 import cd.com.a.model.poolDto;
 import cd.com.a.model.poolResvDto;
+import cd.com.a.model.poolResvParam;
 import cd.com.a.service.PoolService;
 
 @Service
@@ -38,6 +39,21 @@ public class PoolServiceImpl implements PoolService {
 	@Override
 	public poolResvDto getResvPool(int pool_resv_seq) {
 		return poolDao.getResvPool(pool_resv_seq);
+	}
+
+	@Override
+	public List<poolDto> getSellerPoolList(int mem_seq) {
+		return poolDao.getSellerPoolList(mem_seq);
+	}
+
+	@Override
+	public boolean modifyPool(poolDto pool) {
+		return poolDao.modifyPool(pool);
+	}
+
+	@Override
+	public List<poolResvParam> getSellerResvList(int mem_seq) {
+		return poolDao.getSellerResvList(mem_seq);
 	}
 
 }

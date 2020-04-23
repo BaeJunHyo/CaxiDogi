@@ -10,4 +10,8 @@ public interface ProductDao {
 	public List<productDto> prdSearchList(ProductParam prdParam);
 	public boolean productInsert(productDto dto);
 	
+	public productDto getPrd(int product_num);
+	
+	public boolean prdUpdate(productDto dto);
+	
 }

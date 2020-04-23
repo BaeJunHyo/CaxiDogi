@@ -6,9 +6,19 @@
    	insert into pool (pool_owner, pool_number, pool_addr, pool_tel, mem_seq, pool_auth, pool_name, pool_time, pool_price, pool_shower, pool_large, pool_parking, pool_content, pool_photo)
    	values(#{pool_owner}, #{pool_number}, #{pool_addr}, #{pool_tel}, #{mem_seq}, 0, #{pool_name}, #{pool_time},#{pool_price}, #{pool_shower}, #{pool_large}, #{pool_parking}, #{pool_content}, #{pool_photo})
    </insert>
+   
+   <update id="modifyPool" parameterType="cd.com.a.model.poolDto">
+   	update pool
+   	set pool_owner=#{pool_owner}, pool_number=#{pool_number}, pool_addr=#{pool_addr}, pool_tel=#{pool_tel},
+		pool_auth=#{pool_auth}, pool_name=#{pool_name}, pool_time=#{pool_time}, pool_price=#{pool_price}, pool_shower=#{pool_shower},
+		pool_large=#{pool_large}, pool_parking=#{pool_parking},pool_content=#{pool_content}, pool_photo=#{pool_photo}
+	where pool_seq=#{pool_seq}
+   	</update>
+   	
    <select id="getPoolList" resultType="cd.com.a.model.poolDto">
    	select pool_seq, pool_owner, pool_number, pool_addr, pool_tel, mem_seq, pool_auth, pool_name, pool_time, pool_price, pool_shower, pool_large, 
    	pool_parking,pool_content, pool_photo from pool
+   	where pool_auth=1
    </select>
    
    <select id ="getPoolDetail" parameterType="java.lang.Integer" resultType="cd.com.a.model.poolDto">
@@ -18,12 +28,29 @@
    
    <insert id ="resvPool" parameterType="cd.com.a.model.poolResvDto" useGeneratedKeys="true" keyProperty="pool_resv_seq">
    	insert into pool_reservation (pool_seq, pool_resv_user, pool_resv_pet, pool_resv_time, pool_resv_ydate, pool_resv_sdate,
-								pool_resv_tel, pool_resv_name, pool_resv_payment, pool_resv_price, mem_seq)
+								pool_resv_tel, pool_resv_name, pool_resv_payment, pool_resv_price, mem_seq, pool_resv_comment, pool_resv_auth)
 						values(#{pool_seq}, #{pool_resv_user}, #{pool_resv_pet}, #{pool_resv_time}, now(), #{pool_resv_sdate},
-								#{pool_resv_tel}, #{pool_resv_name}, 0, #{pool_resv_price}, #{mem_seq})
+								#{pool_resv_tel}, #{pool_resv_name}, 0, #{pool_resv_price}, #{mem_seq}, #{pool_resv_comment}, 0)
    </insert>
    <select id="getResvPool" parameterType ="java.lang.Integer" resultType="cd.com.a.model.poolResvDto">
    	select * from pool_reservation
    	where pool_resv_seq = #{pool_resv_seq}
    </select>
+   
+    <select id="getSellerPoolList" parameterType="java.lang.Integer" resultType="cd.com.a.model.poolDto">
+   	select pool_seq, pool_owner, pool_number, pool_addr, pool_tel, mem_seq, pool_auth, pool_name, pool_time, pool_price, pool_shower, pool_large, 
+   	pool_parking,pool_content, pool_photo from pool
+   	where mem_seq = #{mem_seq}
+   </select>
+   
+   <select id="getSellerResvList" parameterType="java.lang.Integer" resultType="cd.com.a.model.poolResvParam">
+   	select resv.pool_resv_seq, resv.pool_seq, resv.pool_resv_user, resv.pool_resv_pet, resv.pool_resv_time,
+		resv.pool_resv_ydate, resv.pool_resv_sdate, resv.pool_resv_tel, resv.pool_resv_name, resv.pool_resv_payment,
+		resv.pool_resv_total_price, resv.mem_seq, resv.pool_resv_comment, resv.pool_resv_auth, pool.pool_name, pool.mem_seq as seller_seq
+	from pool_reservation as resv join pool
+		on resv.pool_seq = pool.pool_seq
+		and pool.mem_seq = #{mem_seq}
+	order by pool_resv_ydate asc
+   </select>
+
    </mapper>

@@ -319,11 +319,11 @@ table tr td .btn_date.current {color: #fff; background: #232a32;}
 .loginWrap .login_inputWrap li.user_pw input {background: url(../images/ico_login_pw.gif) no-repeat 5% center;}
 .loginWrap .login_inputWrap li .btn_red_l {display: block; position: absolute; width: 101px; height: 101px; top: 0; right: 0; line-height: 101px; padding: 0; font-size: 17px;}
 
+
 .loginWrap .joinRecomm_wrap {width: 540px; margin: 0 auto;}
 .loginWrap .joinRecomm_wrap p {float: left;}
 .loginWrap .joinRecomm_wrap p .btn {display: block; width: 140px; padding: 5px 0;}
 
-/*占싸살뺍�닌됰빍 占쎈떯由� 占쎈뜆�좑옙�꾨솚占쏙옙/
 .pop_bg {position:fixed;width: 100%;height: 100%;top: 0;left: 0;z-index: 1500;background: rgba(0,0,0,0.4);}
 .cart_layerPopup{box-sizing:border-box;position:fixed; width:510px; top:50%; left: 50%; padding:10px 28px 30px; margin: -136px 0 0 -255px; z-index: 2000; text-align: center; background:#fff;font-size:15px; /*display:none;*/}
 .cart_layerPopup dt{line-height:59px; text-align: left;}

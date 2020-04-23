@@ -173,10 +173,10 @@ $('button.sBtn').click(function(){
 		alert("생년월일을 확인해주세요");
 		$('.select-month').focus();
 		return false;
-	} else if($('input[name=memberYear]').val().length < 4){
+/*	} else if($('input[name=memberYear]').val().length < 4){
 		alert("생년월일을 확인해주세요");
 		$('input[name=memberYear]').focus();
-		return false;
+		return false;*/
 	} else if($('.dayComentColor span').hasClass('alert-red') || $('.memberDay').val().trim() == "") {
 		alert("생년월일(날짜)를 확인해주세요");
 		$('.memberDay').focus();
@@ -212,8 +212,13 @@ $('button.sBtn').click(function(){
 });
 
 $('button.sBtn2').on("click",function(){
-location.href="main.do";
+location.href="memberUpdateMove.do";
 });
+
+$('button.sBtn3').on("click",function(){
+	//탈퇴
+	location.href="#none";
+	});
 
 
 

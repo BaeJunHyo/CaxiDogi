@@ -29,6 +29,20 @@ public class ProductDaoImpl implements ProductDao {
 		return result > 0 ? true:false;
 	}
 
+
+	@Override
+	public boolean prdUpdate(productDto dto) {
+		int n = sqlSession.update(ns + "prdUpdate", dto);
+		return n > 0?true:false;
+	}
+
+
+	@Override
+	public productDto getPrd(int product_num) {
+		productDto prddto = sqlSession.selectOne(ns + "getPrd", product_num);
+		return prddto;
+	}
+
 	
 	
 

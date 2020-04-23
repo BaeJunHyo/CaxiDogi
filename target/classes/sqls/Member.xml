@@ -22,7 +22,7 @@ VALUES(#{id},#{password},${user_api},#{nick_name},#{user_name},#{birthday},#{add
 </insert>
 
 <select id="login" parameterType="cd.com.a.model.memberDto" resultType="cd.com.a.model.memberDto">
-SELECT mem_seq,id,user_api,nick_name,user_name,birthday,address,phone,pass_question,pass_hint,point,auth
+SELECT mem_seq, id, user_api, nick_name, user_name, birthday, address, phone, pass_question, point, auth
 FROM member
 WHERE id=#{id} AND password=#{password}
 </select>
@@ -63,4 +63,17 @@ FROM member
 WHERE mem_seq=${mem_seq} AND password=#{password}
 </select>
 
+<select id ="resvMem" parameterType="java.lang.Integer" resultType="cd.com.a.model.memberDto">
+<<<<<<< HEAD
+   select user_name, phone
+   from member
+   where mem_seq = #{mem_seq}
+</select>
+
+=======
+	select user_name, phone
+	from member
+	where mem_seq = #{mem_seq}
+</select>
+>>>>>>> origin/NewKyeongRyul
 </mapper>

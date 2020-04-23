@@ -25,6 +25,19 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	
+	@Override
+	public productDto getPrd(int product_num) {
+		return productDao.getPrd(product_num);
+	}
+	
+	@Override
+	public boolean prdUpdate(productDto dto) {
+		return productDao.prdUpdate(dto);
+	}
+
+	
+
+	
 	
 
 	

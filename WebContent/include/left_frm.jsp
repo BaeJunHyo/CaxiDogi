@@ -1,32 +1,11 @@
+<%@page import="cd.com.a.model.memberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-
-<%-- 
-<%
-memberDto sessionUser = (memberDto)request.getSession().getAttribute("loginUser");
-if(sessionUser == null){
-%>
-<script>
-	if(confirm("세션이 만료되었습니다.\n 다시 로그인 하시겠습니까?")){
-		location.href="login.do";
-	}else{
-		location.href="main.do";
-	}
-</script>
-<%
-}
-String memberAuth ="";
-if(loginUser.getAuth()==1 || loginUser.getAuth()==2){
-	memberAuth = "일반회원";
-}else if(loginUser.getAuth()==3){
-	memberAuth = "업체회원";
-}else if(loginUser.getAuth()==4 || loginUser.getAuth()==5){
-	memberAuth = "관리자";
-}else{
-	memberAuth = "탈퇴회원";
-}
-%> --%>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix = "fn"  uri = "http://java.sun.com/jsp/jstl/functions" %>
+<fmt:requestEncoding value="utf-8"/>    
 
 <div class="category_dept">
 	<ul>
@@ -51,18 +30,38 @@ if(loginUser.getAuth()==1 || loginUser.getAuth()==2){
 					</ul>
 				</li>
 				<li>
-					<a href="#n">회원정보관리</a>
+					<a href="#n">미용 예약정보</a>
 					<ul>
-						<li><a href="memberDetail.do">회원 정보</a></li>
-						<li><a href="memberAddress.do">배송지 정보</a></li>
-						<li><a href="sellerAccess.do">판매자 등록하기</a>
+						<li><a href="showShopResv.do">미용 예약 내역보기</a></li>
+						<li><a href="#n">취소 내역보기</a></li>
 					</ul>
 				</li>
 				<li>
-					<a href="#n">혜택정보</a>
+					<a href="#n">수영장 예약정보</a>
 					<ul>
-						<li><a href="#n">포인트 조회</a></li>
-						<li><a href="#n">쿠폰 조회</a></li>
+						<li><a href="#">수영장 예약 내역보기</a></li>
+						<li><a href="#n">취소 내역보기</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#n">운동장 예약정보</a>
+					<ul>
+						<li><a href="#">운동장 예약 내역보기</a></li>
+						<li><a href="#n">취소 내역보기</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#n">회원정보관리</a>
+					<ul>
+						<li><a href="memberDetail.do">회원 정보</a></li>
+						<li><a href="#none" >배송지 정보</a></li>
+						<c:set var="auth" value="${loginUser.auth }"/>
+						<c:if test="${auth == 1 }">
+						<li><a href="#"onclick="sellerAccess()">판매자 등록하기</a></li>
+						</c:if>
+						<c:if test="${auth == 2 }">
+						<li><a href="#"onclick="sellerAccess()">판매자 등록하기</a></li>
+						</c:if>
 					</ul>
 				</li>
 				<li>
@@ -92,3 +91,53 @@ if(loginUser.getAuth()==1 || loginUser.getAuth()==2){
 		</div>
 	</div>
 <!--</div>  //end wrap -->
+<%
+memberDto check = (memberDto)request.getSession().getAttribute("loginUser");
+
+String user_name="null";
+String nick_name="null";
+if(check.getUser_name()!=null){
+	user_name=check.getUser_name();
+}
+if(check.getNick_name()!=null){
+	nick_name=check.getNick_name();
+}
+System.out.println("check="+check.toString());
+System.out.println("user_name="+user_name);
+System.out.println("nick_name="+nick_name);
+%>
+<script>
+function sellerAccess(){
+	const userAuth = ${loginUser.auth};
+	const mem_seq = ${loginUser.mem_seq};
+	const user_api = ${loginUser.user_api};
+	var username = "<%=user_name %>";
+	var nickname = "<%=nick_name %>";
+
+ 	if(userAuth == 1 ){
+		if(username == "null" || nickname == "null"){
+			location.href="myPageMove.do";
+		}else{
+			if(confirm("판매자 등록 요청을 원하시나요?")){
+				$.ajax({
+					url:"sellerAccess.do",
+					type: "post",
+					dataType:"text",
+					data: {"mem_seq":mem_seq},
+					success:function(data){
+						if(data === "success"){
+							alert("판매자 등록 요청이 완료 되었습니다");
+							location.reload();
+						}
+					},
+					error:function(request,status,error){
+					}
+				});
+			}
+		}
+	}else if(userAuth==2){
+		alert("관리자 승인 대기 중입니다.");
+	} 
+}
+
+</script>

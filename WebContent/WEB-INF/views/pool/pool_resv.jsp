@@ -97,6 +97,14 @@
 						</dd>
 					</dl>
 				</li>
+				<li>
+					<dl>
+						<dt>코멘트</dt>
+						<dd>
+							<input type ="text" id="pool_resv_comment" name ="pool_resv_comment" style="width:800px;" placeholder="코멘트란">
+						</dd>
+					</dl>
+				</li>
 
 			</ul>
 			<p class="poolBtns clearfix" align="center">
@@ -139,8 +147,13 @@
 		        data: formData,
 		        success: function (data){
 		            if(data.status == "ok"){
-		           alert("수영장 예약에 성공하셨습니다.");
-		           location.href="pool_reservation.do?pool_resv_seq="+data.rnum;
+
+		           Swal.fire({
+		            	  icon: 'success',
+		            	  title: '수영장 예약에 성공하셨습니다.',
+		            	  showConfirmButton: true
+		            	}).then(function(){
+		        	  window.location="pool_reservation.do?pool_resv_seq="+data.rnum;});
 		            }
 		        },
 		        error: function (e){

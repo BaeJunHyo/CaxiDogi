@@ -39,13 +39,14 @@ public class shopResvDto implements Serializable {
 	private int design_seq;					// 디자이너 번호
 	private int mem_seq;						// 예약 아이디
 	private String shop_resv_time;			// 예약 시간
-	private String shop_resv_rday;			// 예약일
+	private String shop_resv_rday;			// 예약일  사용자가 이용할 날짜
 	private String shop_resv_day;			// 예약날짜
 	private int shop_resv_size;				// 미용할 견종(소중대)	0:소  1:중 2:대
 	private String shop_resv_name;			// 예약자명
 	private String shop_resv_tel;			// 예약자 연락처
 	private int shop_resv_price;			// 가금액
 	private int shop_resv_auth;				// 취소여부
+	private String shop_resv_comment; 
 	
 	public shopResvDto() {
 		super();
@@ -54,7 +55,7 @@ public class shopResvDto implements Serializable {
 
 	public shopResvDto(int shop_resv_seq, int shop_seq, int design_seq, int mem_seq, String shop_resv_time,
 			String shop_resv_rday, String shop_resv_day, int shop_resv_size, String shop_resv_name,
-			String shop_resv_tel, int shop_resv_price, int shop_resv_auth) {
+			String shop_resv_tel, int shop_resv_price, int shop_resv_auth, String shop_resv_comment) {
 		super();
 		this.shop_resv_seq = shop_resv_seq;
 		this.shop_seq = shop_seq;
@@ -68,6 +69,7 @@ public class shopResvDto implements Serializable {
 		this.shop_resv_tel = shop_resv_tel;
 		this.shop_resv_price = shop_resv_price;
 		this.shop_resv_auth = shop_resv_auth;
+		this.shop_resv_comment = shop_resv_comment;
 	}
 
 	public int getShop_resv_seq() {
@@ -166,14 +168,24 @@ public class shopResvDto implements Serializable {
 		this.shop_resv_auth = shop_resv_auth;
 	}
 
+	public String getShop_resv_comment() {
+		return shop_resv_comment;
+	}
+
+	public void setShop_resv_comment(String shop_resv_comment) {
+		this.shop_resv_comment = shop_resv_comment;
+	}
+
 	@Override
 	public String toString() {
 		return "shopResvDto [shop_resv_seq=" + shop_resv_seq + ", shop_seq=" + shop_seq + ", design_seq=" + design_seq
 				+ ", mem_seq=" + mem_seq + ", shop_resv_time=" + shop_resv_time + ", shop_resv_rday=" + shop_resv_rday
 				+ ", shop_resv_day=" + shop_resv_day + ", shop_resv_size=" + shop_resv_size + ", shop_resv_name="
 				+ shop_resv_name + ", shop_resv_tel=" + shop_resv_tel + ", shop_resv_price=" + shop_resv_price
-				+ ", shop_resv_auth=" + shop_resv_auth + "]";
+				+ ", shop_resv_auth=" + shop_resv_auth + ", shop_resv_comment=" + shop_resv_comment + "]";
 	}
+
+	
 
 	
 }

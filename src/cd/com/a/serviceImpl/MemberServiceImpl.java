@@ -79,6 +79,35 @@ public class MemberServiceImpl implements MemberService {
 	public boolean pwdCheck(memberDto dto) {
 		return memberDao.pwdCheck(dto);
 	}
+	
+	@Override
+	public boolean userUpdate(memberDto dto) {
+		if(dto.getUser_api()==0) {
+			return memberDao.userUpdate(dto);
+		}else {
+			return memberDao.snsUserUpdate(dto);
+		}
+	}
+	@Override
+	public boolean sellerAccess(int mem_seq) {
+		return memberDao.sellerAccess(mem_seq);
+	}
+	@Override
+	public void memberEscape(int mem_seq) {
+		memberDao.memberEscape(mem_seq);
+	}
+	
+	@Override
+	public boolean recoveryId(memberDto dto) {
+		if(memberDao.recoveryCheck(dto)) {
+			int mem_seq = memberDao.findSeq(dto);
+			memberDao.recoveryId(mem_seq);
+			return true;
+		}else {
+			return false;
+		}
+		
+	}
 
 	@Override
 	public String getAccessToken(String authorize_code,String loginApi) {
@@ -148,7 +177,7 @@ public class MemberServiceImpl implements MemberService {
             while ((line = br.readLine()) != null) {
                 result += line;
             }
-            System.out.println("response body : " + result);
+            System.out.println("responsebody : " + result);
             
             //    Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
             

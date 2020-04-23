@@ -11,6 +11,20 @@
 	#{shop_small_price}, #{shop_medium_price}, #{shop_large_price}, #{shop_content})
 </insert>
 
+<update id="shopModifyAf" parameterType="cd.com.a.model.shopDto">
+	update shop 
+	set shop_owner=#{shop_owner}, shop_number=#{shop_number}, shop_name=#{shop_name}, shop_addr=#{shop_addr}, shop_tel=#{shop_tel}, shop_time=#{shop_time}, shop_photo=#{shop_photo}, shop_etc=#{shop_etc}, 
+	shop_small_price=#{shop_small_price}, shop_medium_price=#{shop_medium_price}, shop_large_price=#{shop_large_price}, shop_content=#{shop_content}, shop_auth=#{shop_auth}
+	where shop_seq=#{shop_seq}
+</update>
+
+<update id="shopStopAf" parameterType="java.lang.Integer">
+	update shop 
+	set shop_auth=3
+	where shop_seq=#{shop_seq}
+</update>
+
+
 <select id="getShopList" resultType="cd.com.a.model.shopDto">
 	select shop_seq, shop_owner, shop_number, shop_name, shop_addr, shop_tel, shop_auth,
 	mem_seq, shop_time, shop_photo, shop_etc, shop_small_price, shop_medium_price, 
@@ -26,10 +40,16 @@
 	where mem_seq = #{mem_seq}
 </select>
 
-<select id="getDesigner" parameterType="java.lang.Integer" resultType="cd.com.a.model.shopDesignerDto">
-	 select shop_seq, design_seq, design_price, design_name, design_time
+<select id="getDesignerAll" parameterType="java.lang.Integer" resultType="cd.com.a.model.shopDesignerDto">
+	 select shop_seq, design_seq, design_price, design_name, design_time, design_auth
 	 from shop_designer
 	 where shop_seq = #{shop_seq}
+ </select>
+ 
+ <select id="getDesigner" parameterType="java.lang.Integer" resultType="cd.com.a.model.shopDesignerDto">
+    select shop_seq, design_seq, design_price, design_name, design_time, design_auth
+    from shop_designer
+    where shop_seq = #{shop_seq} and design_auth=0
  </select>
  
  <select id="getShopResv" parameterType="cd.com.a.model.shopResvDto" resultType="java.lang.String">
@@ -40,11 +60,15 @@
  
  <!-- designer -->
 <insert id = "addDesigner" parameterType = "cd.com.a.model.shopDesignerDto">
-	insert into shop_designer (shop_seq, design_price, design_name, design_time)
-	values(#{shop_seq}, #{design_price}, #{design_name}, #{design_time})
+	insert into shop_designer (shop_seq, design_price, design_name, design_time, design_auth)
+	values(#{shop_seq}, #{design_price}, #{design_name}, #{design_time}, 0)
 </insert>
-
-
+ <select id="getDesignerInfo" parameterType="cd.com.a.model.shopDesignerDto" resultType="cd.com.a.model.shopDesignerDto">
+    select shop_seq, design_seq, design_price, design_name, design_time, design_auth
+    from shop_designer
+    where shop_seq = #{shop_seq} and design_seq=#{design_seq}
+ </select>
+ 
  <select id="getShopDetail" resultType="cd.com.a.model.shopDto">
  	select shop_seq, shop_owner, shop_number, shop_name, shop_addr, shop_tel, shop_auth,
  	mem_seq, shop_time, shop_photo, shop_etc, shop_small_price, shop_medium_price, 
@@ -52,4 +76,40 @@
  	from shop
  	where shop_seq = #{shop_seq}
 </select>
+
+<<<<<<< HEAD
+<select id="getDesignerInfo" parameterType="java.lang.Integer" resultType="cd.com.a.model.shopDesignerDto">
+select * from shop_designer where design_seq = #{design_seq}
+</select>
+=======
+<select id="checkDesign" parameterType ="cd.com.a.model.shopDesignerDto" resultType="java.lang.Integer">
+select count(shop_resv_rday) from shop_reservation 
+where shop_seq=#{shop_seq} and design_seq=#{design_seq} and shop_resv_auth=0
+<![CDATA[and shop_resv_rday >= curdate()]]>
+</select>
+
+<update id ="designModify" parameterType ="cd.com.a.model.shopDesignerDto">
+update shop_designer
+set design_price=#{design_price}, design_name=#{design_name}, design_time=#{design_time}
+where shop_seq=#{shop_seq} and design_seq=#{design_seq}
+</update>
+
+<update id="stopDesignAf" parameterType = "cd.com.a.model.shopDesignerDto">
+update shop_designer
+set design_auth = 2
+where shop_seq=#{shop_seq} and design_seq=#{design_seq}
+</update>
+
+<update id="playDesignAf" parameterType = "cd.com.a.model.shopDesignerDto">
+update shop_designer
+set design_auth = 0
+where shop_seq=#{shop_seq} and design_seq=#{design_seq}
+</update>
+
+<update id="delDesignAf" parameterType = "cd.com.a.model.shopDesignerDto">
+update shop_designer
+set design_auth = 1
+where shop_seq=#{shop_seq} and design_seq=#{design_seq}
+</update>
+>>>>>>> origin/NewKyeongRyul
   </mapper>

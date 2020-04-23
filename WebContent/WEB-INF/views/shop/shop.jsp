@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
 
 <%@ include file="./../../../include/header.jsp"%>
 <link href="./css/layout.css" rel="stylesheet">
@@ -37,7 +37,7 @@
 		<c:forEach items="${shoplist }" var="shop" varStatus="sp">
 		<c:if test="${shop.shop_auth == 1 }">
 				<li><a
-					href="shopResv.do?shop_seq=${shop.shop_seq }"
+					href="shopDetail.do?shop_seq=${shop.shop_seq }"
 					class="box">
 						<div class="img">
 						<c:if test="${shop.shop_photo == 'default' }">
@@ -51,7 +51,7 @@
 						</div>
 						<dl>
 							<dt>${shop.shop_name }</dt>
-							<dd class="txt">${shop.shop_addr }</dd>
+							<dd class="txt">${fn:split(shop.shop_addr, '/')[1] }</dd>
 							<dd class="price_box">
 								<p>
 									<span class="price">${shop.shop_small_price }</span>

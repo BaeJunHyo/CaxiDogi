@@ -67,13 +67,15 @@
 											src="<%=request.getContextPath() %>/images/shopImg/${prd.shop_photo }"
 											alt="">
 									</c:if> --%>
-									<img src="${path}/boUpload/${prd.product_img}" alt="" class="MS_prod_img_m"/>
+									<img src="<%=request.getContextPath() %>/images/goodsImg/${prd.product_img }" alt="" class="MS_prod_img_m"/>
+									<%-- <img src="${path}/boUpload/${prd.product_img}" alt="" class="MS_prod_img_m"/> --%>
 								</div>
 								<dl>
 									<dt>${prd.product_name }</dt>
+									<!-- <dd class="txt"># 아침7시 당일주문 마감</dd> -->
 									<dd class="price_box">
 										<p>
-											<span class="price">${prd.product_price }</span>
+											<span class="price"><fmt:formatNumber value="${prd.product_price}" pattern="###,###,###"/>원</span>
 										</p>
 										<span class="rev">Review</span>
 									</dd>

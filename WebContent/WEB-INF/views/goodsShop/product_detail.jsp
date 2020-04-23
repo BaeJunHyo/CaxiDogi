@@ -4,6 +4,14 @@
 
 <%@ include file="/include/header.jsp"%>
 
+<!-- 코어태그 -->
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix = "fn"  uri = "http://java.sun.com/jsp/jstl/functions" %>
+<fmt:requestEncoding value="utf-8"/>
+
+<form action=".do" id="_prdDetailForm" name="prdDetailForm" method="post">
+
 <div class="category_dept">
 	<ul>
 		<li>HOME</li>
@@ -11,6 +19,7 @@
 		<li>사료</li>
 	</ul>
 </div>
+
 
 <!-- container S : -->
 <div class="container_subWrap sub_detail">
@@ -27,98 +36,412 @@
 			</div>
 		</div><!--// prdName_section -->
 		
-		
-		<div class="prdInfo_section clearfix" style="width: 100%;">
-			<div style="width: 50%; height:50%; float:left; background-color: #4BAF4B;">사진 들어갈 공간</div>
-			<div class="right div" style="width: 50%; float:left;">
-				<div class="col2">
-					<div class="info">
-						<h3>${prddetail.product_name }</h3>
-						<ul>
-							<li>
-								<dl>
-									<dt>판매가</dt>
-									<dd class="c_green">
-										<strong class="fs20">
-											<fmt:formatNumber value="${prddetail.product_price}" pattern="###,###,###"/>
-											<%--  ${prddetail.product_price}--%>
-										</strong>
-									</dd>
-								</dl>
-							</li>
-						</ul>
-	
-						<table class="select_prd_wrap">
-							<colgroup>
-								<col width="20%">
-								<col width="10%">
-								<col width="35%">
-								<col width="35%">
-							</colgroup>
-							
-							<thead style="background-color:	#c8c8c8;">
+		<div class="prdInfo_section clearfix">
+			<div class="col1">
+				<div class="thumb">
+					<!-- <div class="prdImg easyzoom easyzoom--adjacent easyzoom--with-thumbnails">
+						<a href="images/img_prdBigThumb_zoom_1.jpg">
+							<img src="images/img_prdBigThumb_1.jpg">
+						</a>
+					</div> -->
+					
+					<div class="easyzoom easyzoom--adjacent easyzoom--with-thumbnails">
+						<a href="<%=request.getContextPath() %>/images/goodsImg/${prddetail.product_img }"> 
+							<img src="<%=request.getContextPath() %>/images/goodsImg/${prddetail.product_img }" alt="" class="detailPrdSize"/>
+						</a>
+					</div>
+						
+
+					<!-- <ul class="prdThumb thumbnails">
+						<li class="current">
+							<a href="./images/img_prdBigThumb_zoom_1.jpg" data-standard="./images/img_prdBigThumb_1.jpg">
+								<img src="./images/img_prdBigThumb_1.jpg">
+							</a>
+						</li>
+						<li>
+							<a href="./images/img_prdBigThumb_zoom_2.jpg" data-standard="./images/img_prdBigThumb_2.jpg">
+								<img src="./images/img_prdBigThumb_2.jpg">
+							</a>
+						</li>
+						<li>
+							<a href="./images/img_prdBigThumb_zoom_3.jpg" data-standard="./images/img_prdBigThumb_3.jpg">
+								<img src="./images/img_prdBigThumb_3.jpg">
+							</a>
+						</li>
+					</ul> -->
+				</div>
+			</div>
+			<!--// col1 -->
+
+			<div class="col2">
+				<!-- <div class="info"> -->
+					<ul>
+						<li>
+							<dl>
+								<dt>상품명</dt>
+								<dd><strong>${prddetail.product_name }</strong></dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt>판매가</dt>
+								<dd class="c_green">
+									<strong class="fs20">
+										<fmt:formatNumber value="${prddetail.product_price}" pattern="###,###,###"/>
+									</strong>
+									원
+								</dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt>할인가</dt>
+								<dd class="price-red">
+									<strong>0</strong>원
+								</dd>
+							</dl>
+						</li>
+						<!-- 
+						<li>
+							<dl>
+								<dt>회원가</dt>
+								<dd>
+									<strong>138,000</strong>원
+								</dd>
+							</dl>
+						</li> -->
+						<!-- <li class="bg_gray"><span>구매 전에 적용 가능한 할인쿠폰 확인하세요.</span>
+						<a href="#n" class="btn_line_s click_lp_coup"
+							style="margin-left: 236px;">쿠폰 확인</a>
+							<div class="coup_lp prd_lp click_lp_cn">
+								<a href="#n" class="btn_close_lp"><img
+									src="./images/btn_close_m.png"></a>
+								<h3 class="mb15">적용가능쿠폰 안내</h3>
+								<table class="basic_tableStyle">
+									<colgroup>
+										<col width="50%">
+										<col width="25%">
+										<col width="25%">
+									</colgroup>
+									<thead>
+										<tr>
+											<th class="tc">쿠폰명</th>
+											<th class="tc">할인액</th>
+											<th class="tc">유효기간</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>다운로드 가능 쿠폰명</td>
+											<td>-50,000원</td>
+											<td><a href="#n" class="btn_dark_s">쿠폰받기</a></td>
+										</tr>
+										<tr>
+											<td>즉석쿠폰</td>
+											<td>-50,000원</td>
+											<td>2015-03-31</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							</li> -->
+
+						<!-- <li>
+							<dl>
+								<dt>일시불할인</dt>
+								<dd>
+									<strong>99,980,000</strong>원 <a href="#n"
+										class="btn_line_s ml5 click_lp_ins">무이자할부</a> <a href="#n"
+										class="btn_line_s click_lp_ins">제휴카드</a> <a href="#n"
+										class="btn_line_s click_lp_ins">캐쉬백</a>
+
+									<div class="prd_lp ins_lp click_lp_cn"
+										style="width: 260px; height: 270px;">
+										<a href="#n" class="btn_close_lp"><img
+											src="./images/btn_close_m.png"></a>
+										<h3>카드혜택안내</h3>
+										<ul class="tabMenu mt20 clearfix">
+											<li class="current">무이자할부</li>
+											<li>제휴카드</li>
+											<li>캐쉬백</li>
+										</ul>
+										<div class="tabCn tabCn_1">
+											<p class="tc_title">
+												<img src="./images/ico_dot_square.gif" class="mr5">무이자할부
+											</p>
+											<table class="basic_tableStyle">
+												<colgroup>
+													<col width="45%">
+													<col width="55%">
+												</colgroup>
+												<thead>
+													<tr>
+														<th class="tc">구분</th>
+														<th class="tc">혜택</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>롯데제휴카드</td>
+														<td>최대 10개월</td>
+													</tr>
+													<tr>
+														<td>롯데제휴카드</td>
+														<td>최대 10개월</td>
+													</tr>
+													<tr>
+														<td>롯데제휴카드</td>
+														<td>최대 10개월</td>
+													</tr>
+													<tr>
+														<td>롯데제휴카드</td>
+														<td>최대 10개월</td>
+													</tr>
+													<tr>
+														<td>롯데제휴카드</td>
+														<td>최대 10개월</td>
+													</tr>
+
+												</tbody>
+											</table>
+
+											<p class="tc_title pt20">
+												<img src="./images/ico_dot_square.gif" class="mr5">부분
+												무이자할부
+											</p>
+											<table class="basic_tableStyle">
+												<colgroup>
+													<col width="45%">
+													<col width="55%">
+												</colgroup>
+												<thead>
+													<tr>
+														<th class="tc">구분</th>
+														<th class="tc">혜택</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>롯데제휴카드</td>
+														<td>최대 10개월</td>
+													</tr>
+													<tr>
+														<td>롯데제휴카드</td>
+														<td>최대 10개월</td>
+													</tr>
+													<tr>
+														<td>롯데제휴카드</td>
+														<td>최대 10개월</td>
+													</tr>
+													<tr>
+														<td>롯데제휴카드</td>
+														<td>최대 10개월</td>
+													</tr>
+													<tr>
+														<td>롯데제휴카드</td>
+														<td>최대 10개월</td>
+													</tr>
+
+												</tbody>
+											</table>
+										</div>
+										<div class="tabCn tabCn_2">
+											<p class="tc_title">
+												<img src="./images/ico_dot_square.gif" class="mr5">제휴카드란
+											</p>
+											SWATCH 제휴 신용카드로 상시 청구할인, 무이자 등 다양한 혜택을 누릴 수 있습니다.
+
+											<p class="tc_title mt15">
+												<img src="./images/ico_dot_square.gif" class="mr5">SWATCH
+												프리미엄 DC카드
+											</p>
+											SWATCH 제휴 신용카드로 상시 청구할인, 무이자 등 다양한 혜택을 누릴 수 있습니다.
+										</div>
+										<div class="tabCn tabCn_3">
+											<p class="tc_title">
+												<img src="./images/ico_dot_square.gif" class="mr5">무이자할부
+											</p>
+											<table class="basic_tableStyle">
+												<colgroup>
+													<col width="45%">
+													<col width="55%">
+												</colgroup>
+												<thead>
+													<tr>
+														<th class="tc">구분</th>
+														<th class="tc">혜택</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>롯데제휴카드</td>
+														<td>최대 10개월</td>
+													</tr>
+													<tr>
+														<td>롯데제휴카드</td>
+														<td>최대 10개월</td>
+													</tr>
+													<tr>
+														<td>롯데제휴카드</td>
+														<td>최대 10개월</td>
+													</tr>
+													<tr>
+														<td>롯데제휴카드</td>
+														<td>최대 10개월</td>
+													</tr>
+													<tr>
+														<td>롯데제휴카드</td>
+														<td>최대 10개월</td>
+													</tr>
+
+												</tbody>
+											</table>
+
+											<p class="tc_title pt20">
+												<img src="./images/ico_dot_square.gif" class="mr5">부분
+												무이자할부
+											</p>
+											<table class="basic_tableStyle">
+												<colgroup>
+													<col width="45%">
+													<col width="55%">
+												</colgroup>
+												<thead>
+													<tr>
+														<th class="tc">구분</th>
+														<th class="tc">혜택</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>롯데제휴카드</td>
+														<td>최대 10개월</td>
+													</tr>
+													<tr>
+														<td>롯데제휴카드</td>
+														<td>최대 10개월</td>
+													</tr>
+													<tr>
+														<td>롯데제휴카드</td>
+														<td>최대 10개월</td>
+													</tr>
+													<tr>
+														<td>롯데제휴카드</td>
+														<td>최대 10개월</td>
+													</tr>
+													<tr>
+														<td>롯데제휴카드</td>
+														<td>최대 10개월</td>
+													</tr>
+
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</dd>
+							</dl>
+						</li> -->
+						<!-- <li>
+							<dl>
+								<dt>point</dt>
+								<dd>
+									<strong>2000</strong>point
+									<div class="link_lp">
+										<img src="./images/ico_question.png" class="btn_info_lp ml5">
+										<div class="info_lp_wrap prd_lp hover_lp">
+											<h3>적립안내</h3>
+											<ul class="dot_list">
+												<li><strong>적립기간</strong> 2020년 5월 1일 ~ 2020년 6월 1일</li>
+												<li><strong>조건</strong> 100,000원 이상
+													<hr class="mt10"></li>
+												<li class="c_gray">본 행사는 당사 사정에 의해 변경 및 조기 종료될 수 있습니다.</li>
+											</ul>
+											<img src="./images/ico_tri_lp.png" class="lp_deco">
+										</div>
+									</div>
+								</dd>
+							</dl>
+							<hr class="mt15">
+
+						</li>
+						<li>
+							<dl>
+								<dt>배송비</dt>
+								<dd>무료배송</dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt>배송방법</dt>
+								<dd>택배</dd>
+							</dl>
+							<hr class="mt15">
+						</li> -->
+
+					</ul>
+
+					
+					<div class="prdCounter_wrap mt30">
+					<table>
+						<colgroup>
+							<col width="*">
+							<col width="20%">
+							<col width="20%">
+							<col width="5%">
+						</colgroup>
+						<tr>
+						<tbody>
 							<tr>
-								<td>상품선택</td>
-								<td colspan="3">
-									<select id="prdSelect">
-										<option value="0" selected="selected" disabled>상품 상세 선택</option>
-										<option value="${prddetail.product_num }">${prddetail.product_name}</option>
-										<%-- 조건('/' 자른 문자열이 포함된 이름을 가진 )에 맞는 자기 자신을 제외한 값이 있으면 --%>
-										<c:if test="${OptionProduct.size() > 1 }">
-											<option disabled>------------------------ 옵션 상품  -------------------------</option>
-											<%-- for문을 통해 option 생성  --%>
-											<c:forEach var="OptionDto" items="${OptionProduct }">
-											<%-- 디테일 뷰의 DTO의 이름과 가져온 값의 이름이 다르면 생성  --%>
-											<c:if test="${prddetail.product_name ne OptionDto.product_name }">
-												<option value="${OptionDto.product_num }">${OptionDto.product_name }</option>
-											</c:if>
-											</c:forEach>
-										</c:if>
-									</select>
+								<td class="counter_prdname">${prddetail.product_name }</td>
+								<td colspan="2">
+									<span class="counter">
+										<input type="text" value="1" id="count" class="tCount" readonly="readonly">
+										<span class="counterBtn">
+											<a href="#n" class="btnPlus" onclick="plus()"></a>
+											<a href="#n" class="btnMinus" onclick="minus()"></a>
+										</span> 
+									</span>
 								</td>
+								<!-- <td>
+									<a href="#n" class="delete_prdSelected"><img src="./images/ico_close_m_square.png"></a>
+								</td> -->
 							</tr>
-							</thead>
-							<tbody id="select_product">
-								
-							</tbody>
-						</table>
-	
-						<p class="total_price clearfix pt20 pb15">
-							<span class="fl pt5">총 합계금액</span>
-							<span class="fr"><strong class="c_red totalPrice">1,000,000</strong>원</span>
-						</p>
-						<input type="hidden" name="totalPrice">
-						
-						
-						<p class="prdBtns clearfix">
-							<a href="#n" class="btn_green_l p0" id="orderBtn">바로구매</a>
-							<a href="#n" class="btn_dark_l p0">장바구니</a>
-							<!-- <span class="sign_soldout">일시품절인 상품입니다.</span> -->
-							<a href="#n" class="btn_line_l p0 btn_wishlist" alt="위시리스트"></a>
-						</p>	
-						
-					</div><!-- info -->
-				</div><!-- col2 -->
-			</div><!-- right div -->
-		</div><!--// prdInfo_section -->
-	</div><!--// prd_infoWrap -->	
-	
+						</tbody>
+					</table>
+				</div>
+					
+					
+
+					<p class="total_price clearfix pt20 pb15">
+						<span class="fl pt5">총 합계금액</span>
+						<span class="fr">
+							<input type="text" value="${prddetail.product_price }" id="total_count" class="ex_price_hidden" hidden=hidden />
+							<span class="c_red">
+								<strong class="totalPrice">${prddetail.product_price }</strong>원
+							</span>
+						</span>
+					</p>
+
+					<p class="prdBtns clearfix">
+						<a href="#n" class="btn_green_l p0">바로구매</a>
+						<a href="#n" class="btn_dark_l p0">장바구니</a>
+						<!-- <span class="sign_soldout">일시품절인 상품입니다.</span> -->
+						<a href="#n" class="btn_line_l p0 btn_wishlist" alt="위시리스트"></a>
+					</p>
+				<!-- </div> -->
+			</div>
+			<!--// col2 -->
+		</div>
+		<!--// prdInfo_section -->
+	</div>
+	<!--// prd_infoWrap -->
 	<div class="prd_detail_infoWrap">
 		<ul class="detailTab">
-			<li>
-				<a href=".move01" class="current">
-					상품설명
-					<img src="./images/ico_arrow_prdDetail.gif">
-				</a>
-			</li>
-			<li><a href=".move02">상품정보<img
-					src="./images/ico_arrow_prdDetail.gif"></a></li>
-			<li><a href=".move03">상품평(0)<img
-					src="./images/ico_arrow_prdDetail.gif"></a></li>
-			<li><a href=".move04">상품Q&amp;A<img
-					src="./images/ico_arrow_prdDetail.gif"></a></li>
-			<li><a href=".move05">배송/교환/반품<img
-					src="./images/ico_arrow_prdDetail.gif"></a></li>
+			<li><a href=".move01" class="current">상품설명<img src="./images/ico_arrow_prdDetail.gif"></a></li>
+			<li><a href=".move02">상품정보<img src="./images/ico_arrow_prdDetail.gif"></a></li>
+			<li><a href=".move03">상품평(0)<img src="./images/ico_arrow_prdDetail.gif"></a></li>
+			<li><a href=".move04">상품Q&amp;A<img src="./images/ico_arrow_prdDetail.gif"></a></li>
+			<li><a href=".move05">배송/교환/반품<img src="./images/ico_arrow_prdDetail.gif"></a></li>
 		</ul>
 		
 		<div class="detailView move01">
@@ -126,6 +449,7 @@
 			<!-- <img src="./images/img_prdInfo.jpg"> -->
 		</div>
 		
+		<!-- 상품정보 -->
 		<div class="detailView move02">
 			<h3>상품정보</h3>
 			<table class="basic_tableStyle basic_tableStyle_vert">
@@ -164,7 +488,9 @@
 					</tr>
 				</tbody>
 			</table>
-		</div><!-- detailView move02 -->
+		</div>
+		
+		<!-- 상품평 -->
 		<div class="detailView move03">
 			<h3>
 				상품평
@@ -186,6 +512,7 @@
 						class="ml5 mr5">(4.4)</li>
 				</ul>
 			</div>
+			
 			<div class="table_menu clearfix">
 				<ul class="clearfix">
 					<li><a href="#n" class="current"><img
@@ -197,6 +524,7 @@
 				<a href="#n" class="btn_line_s fr mr5">최신 등록순<img
 					src="./images/ico_arrow_s.gif" class="ml5 p0"></a>
 			</div>
+			
 			<table class="basic_tableStyle">
 				<colgroup>
 					<col width="128px">
@@ -307,14 +635,17 @@
 					</tr>
 				</tbody>
 			</table>
+			
+			<!-- 페이징 -->
 			<p class="pagination">
-				<a href="#n" class="btn_table_prev">
-				</a><a href="#n" class="current">
-				1</a><a href="#n">
-				2</a><a href="#n" class="btn_table_next">
-				</a>
+				<a href="#n" class="btn_table_prev"></a>
+				<a href="#n" class="current">1</a>
+				<a href="#n">2</a>
+				<a href="#n" class="btn_table_next"></a>
 			</p>
 		</div>
+		
+		<!-- 상품 Q&A -->
 		<div class="detailView move04">
 			<h3>
 				상품Q&amp;A
@@ -431,6 +762,8 @@
 				</a>
 			</p>
 		</div>
+		
+		<!-- 배송/반품/교환안내 -->
 		<div class="detailView move05">
 			<h3>배송/반품/교환안내</h3>
 			<p class="table_menu">
@@ -464,6 +797,7 @@
 			<p class="table_menu mt30">
 				<img src="./images/ico_box.gif">반품/교환안내
 			</p>
+			
 			<table class="basic_tableStyle">
 				<colgroup>
 					<col width="190px">
@@ -488,6 +822,8 @@
 				</tbody>
 			</table>
 		</div>
+		
+		
 		<!-- 상품 옵션 선택 하단 레이어 S : -->
 		<div class="bttm_optionLayer">
 			<div class="optionBox clearfix">
@@ -501,98 +837,42 @@
 					<a href="#n" class="btn_dark_m">장바구니</a>
 				</p>
 			</div>
+			
 			<div class="optionView">
-				<p class="prd_name">힐링 관절용사료</p>
-				<a href="#n" class="btn_close_optionView"><img
-					src="./images/btn_close_m.png"></a>
+				<p class="prd_name"></p>
+				<a href="#n" class="btn_close_optionView">
+					<img src="./images/btn_close_m.png">
+				</a>
+				
 				<!-- 일반상품 선택시 -->
 				<div class="prdCounter_wrap normalPrd_option">
 					<table class="border_none">
 						<tbody>
 							<tr>
+								<td><p class="prd_name">${prddetail.product_name }</p></td>
 								<td>
 									<span class="counter">
-										<input type="text" value="1">
+										<input type="text" value="1" id="count" class="tCount" readonly="readonly">
 										<span class="counterBtn">
-											<a href="#n" class="btnPlus"></a>
-											<a href="#n" class="btnMinus"></a>
-										</span>
+											<a href="#n" class="btnPlus" onclick="plus()"></a>
+											<a href="#n" class="btnMinus" onclick="minus()"></a>
+										</span> 
 									</span>
 								</td>
-								<td></td>
-								<td class="total_price">1,000,000원</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 
-				<!-- 옵션상품 선택시 -->
-				<!-- <select class="optionSelector">
-					<option>옵션선택</option>
-					<option>옵션선택</option>
-				</select>
-				<div class="prdCounter_wrap">
-					<table>
-						<colgroup>
-							<col width="65%">
-							<col width="20%">
-							<col width="15%">
-						</colgroup>
-						<tbody>
-							<tr>
-								<td class="counter_prdname">[세이코시계 SEIKO] SKS515P1 / 크로노그래프 남성 메탈시계 44mm</td>
-								<td>
-									<span class="counter">
-										<input type="text" value="1">
-										<span class="counterBtn">
-											<a href="#n" class="btnPlus"></a>
-											<a href="#n" class="btnMinus"></a>
-										</span>
-									</span>
-								</td>
-								<td class="total_price">1,000,000원</td>
-								<td><a href="#n" class="btn_prdDelete"><img src="./images/btn_del.gif"></a></td>
-							</tr>
-							<tr>
-								<td class="counter_prdname">[세이코시계 SEIKO] SKS515P1 / 크로노그래프 남성 메탈시계 44mm</td>
-								<td>
-									<span class="counter">
-										<input type="text" value="1">
-										<span class="counterBtn">
-											<a href="#n" class="btnPlus"></a>
-											<a href="#n" class="btnMinus"></a>
-										</span>
-									</span>
-								</td>
-								<td class="total_price">1,000,000원</td>
-								<td><a href="#n" class="btn_prdDelete"><img src="./images/btn_del.gif"></a></td>
-							</tr>
-							<tr>
-								<td class="counter_prdname">[세이코시계 SEIKO] SKS515P1 / 크로노그래프 남성 메탈시계 44mm</td>
-								<td>
-									<span class="counter">
-										<input type="text" value="1">
-										<span class="counterBtn">
-											<a href="#n" class="btnPlus"></a>
-											<a href="#n" class="btnMinus"></a>
-										</span>
-									</span>
-								</td>
-								<td class="total_price">1,000,000원</td>
-								<td><a href="#n" class="btn_prdDelete"><img src="./images/btn_del.gif"></a></td>
-							</tr>
-						</tbody>
-					</table>
-				</div> -->
-
 				<p class="total_price tr">
-					총 합계금액 <span class="c_red"><strong>1,000,000</strong>원</span>
+					총 합계금액 <span class="c_red"><strong class="totalPrice">${prddetail.product_price }</strong>원</span>
 				</p>
 			</div>
 		</div>
 		<!-- 상품 옵션 선택 하단 레이어 E : -->
 	</div>
 	<!--// prd_detail_infoWrap -->
+	
 
 </div>
 <!-- container E : -->
@@ -611,100 +891,55 @@
 		<a href="#" class="btn_dark_m">닫기</a>
 	</p>
 </div> -->
+</form>
+<input type="text" id="qty" vlaue="0">
+
+<script type="text/javascript">
 
 
-<script>
-	alert(${OptionProduct.size()});
-	var selectComfirm = new Array(${OptionProduct.size()});
-		//선택한 상품 테이블 동적 생성
-		$('#prdSelect').on("change", function (){
-			//alert($(this).val());
-			//동적 생성을 위한 변수
-			var selectPrdSeq;
-			var createProduct = "<tr>";	 
-			//생성조건 판단을 위한 for문 
-			for(i = 0; i < selectComfirm.length; i++) {
-				if(!selectComfirm[i]){
-					//alert(i + "번째에는 값이 없습니다");
-					selectComfirm[i] = $(this).children("option:selected").text();
-					break;
-				}else{
-					//배열 내에 값이 있으면 
-					//선택된 option 값과 배열내의 값이 같으면 리턴 
-					if(selectComfirm[i] == $(this).children("option:selected").text()){
-						alert("선택하신 제품은 목록에 이미 있습니다");
-						return;
-					}		
-				}
-				
-				//모두 돌았는데 다 값이 있으면 
-				if(i == selectComfirm.length - 1){
-					alert("선택하신 제품은 목록에 이미 있습니다");
-					return;
-				}
-			}
-			createProduct += "<td colspan='2'>" + $(this).children("option:selected").text() + "<input class='selectPrdSeq' type='hidden' value='" +  + "'></td>"; //선택 상품 이름
-			
-			createProduct += "<td colspan='1' style='padding-top: 10px;'>"; // 갯수
-			createProduct += "<input class='selectPrdBtn' type='button' value='ㅡ'>";
-			createProduct += "<input class='productAcount' type='text' value='1' style='width: 30px; border: 1px solid #eee; border-left: none; border-right: none; text-indent: 0; text-align: center; font-weight: bolder; font-size: 20px;margin-right: 5px; margin-left: 5px; vertical-align: middle; display:inline-block; -webkit-box-sizing: border-box; padding: 0 0px;'>";	
-			createProduct += "<input class='selectPrdBtn' type='button' value='+'>";	
-			createProduct += "</td>";	
-			
-			createProduct += "<td colspan='1' style='padding-top: 10px;'>";
-			createProduct += "<span>";
-			createProduct += "<strong class='c_block totalPrice' style='font-size: 15px;'><fmt:formatNumber value='10000000' pattern='###,###,###'/>  원</strong>";	
-			createProduct += "<input class='selectDelBtn' type='button' value='X'>";		
-			createProduct += "</span>";		
-			createProduct += "</td></tr>";	
+// 수량 + / - 하기
+function minus(){
+   var qty = $("input#count").val();
+   var price = ${prddetail.product_price };   
+   qty = (Number(qty)-1); // 수량 -1
+   	  
+   if(qty>=1){ // 0 이하는 적용 안됨
+	   $("input#count").val(qty);
+	   var totalPrice = qty * price;
+	   //alert(total); 
+	   
+	   $(".totalPrice").text(totalPrice);
+	   
+   }   
+};
 
-			//생성
-			$("#select_product").append(createProduct);
-		});
+function plus() {
+   var qty = $("input#count").val();
+   var price = ${prddetail.product_price };    
+   qty = (Number(qty)+1); // 수량 +1
+   
+   if($("input#count").val()<50){ // 50 이상은 적용 안됨
+	   $("input#count").val(qty);
+	   $(".totalPrice").text(qty * Number(price));
+   }
+  
+};   
 
-		//수량을 + , - 시켜주는 처리 
-		$(document).on('click', '.selectPrdBtn', function () {
-			//alert($(this).val());
-			//alert($(this).siblings('input[type=text]').val());
-			if($(this).val() == '+'){
-				//alert("+ 클릭");
-				var inputValue = Number($(this).siblings('input[type=text]').val());//형변환
-				inputValue++;
-				if(inputValue === 1000){inputValue = 999}
-				
-				$(this).siblings('input[type=text]').val(inputValue);
-				
-			}else{
-				//alert("ㅡ 클릭");
-				var inputValue = Number($(this).siblings('input[type=text]').val());
-				inputValue--;
-				if(inputValue == 0){inputValue = 1}
-					
-				$(this).siblings('input[type=text]').val(inputValue);
-							
-			}
-			
-		});
 
-		//값을 에외처리 해주는 로직
-		$(document).on('change', '.productAcount', function (){
-			var inputValue = Number($(this).val());
+// 총 상품 금액 계산하기
+function calc(){
+   /*var ex_price = $('.totalPrice input').text().replace(",","");*/
+   /* var ex_price = $('input.ex_price_hidden').val(); */
+   var qty = $("input#count").val(); // 수량
+   var total;   
+   total = ${prddetail.product_price }*qty;   
+   $(".totalPrice").text(total);
+   
+	
+   /* $(".totalPrice").text(totalPrice); */
+}
 
-			if(inputValue < 0 ){
-				inputValue = 1;
-			}else if(inputValue > 999){
-				inputValue= String(inputValue).substr(0,3);//뒷자리 날리기
-			}
-			
-			$(this).val(inputValue);
-		});
-		
-		$('#orderBtn').on('click', function (){
-			//데이터를 가지고 구매페이지로 이동 
-			location.href="productOrder.do";
-		});
-			
-		
+
 
 
 </script>

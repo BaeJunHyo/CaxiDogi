@@ -4,7 +4,9 @@
 	
 <%
 memberDto loginUser = (memberDto)request.getSession().getAttribute("loginUser");
-
+if(loginUser != null){
+	System.out.println("LoginSessionChecking="+loginUser.toString());
+}
 
 %>	
 <html>
@@ -21,7 +23,7 @@ memberDto loginUser = (memberDto)request.getSession().getAttribute("loginUser");
 <script src="<%=request.getContextPath() %>/js/jquery.bxslider.js"></script>
 <script src="<%=request.getContextPath() %>/js/common.js"></script>
 
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <link href="<%=request.getContextPath() %>/css/order.css" rel="stylesheet">
 <!--   <script type="text/javascript">
    $(document).ready(function (){
@@ -75,27 +77,27 @@ memberDto loginUser = (memberDto)request.getSession().getAttribute("loginUser");
 			<%
 			if(loginUser == null){
 			%>
+				<li><a href="productList.do">관리자</a></li>
 				<li><a href="loginView.do">로그인</a></li>
 				<li><a href="newAccount.do">회원가입</a></li>
 				<li><a href="test.do">고객센터</a></li>	
 			<%
 			}else{
 				// 세션 닉네임 없을시
-				if(loginUser.getNick_name() == null){
+				if(loginUser.getUser_name() == null){
 			%>
 				<li><Strong><%=loginUser.getId() %></Strong> 님 환영합니다</li>
 			<%
 				// 세션 닉네임 존재시
-				}else{
+			}else{
 			%>
-				<li><Strong><%=loginUser.getNick_name() %></Strong> 님 환영합니다</li>
+				<li><Strong><%=loginUser.getUser_name() %></Strong> 님 환영합니다</li>
 			<%		
 				}
 				if(loginUser.getAuth() == 3){
 			%>
-			
 			  
-				<li><a href="#n">셀러페이지</a></li>
+				<li><a href="sellerMyPage.do">셀러페이지</a></li>
 				<li><a href="#none" onclick="mypage()">마이페이지</a></li>
 			<%		
 				}else if(loginUser.getAuth() == 4 || loginUser.getAuth() == 5){
@@ -185,6 +187,11 @@ memberDto loginUser = (memberDto)request.getSession().getAttribute("loginUser");
          <div class="container">
             <div class="row">
                <div class="nav">
+               	  <ul class="clearfix">
+                     <li><a href="#">[Product]</a></li>
+                     <li><a href="#">[Location]</a></li>
+                     <li><a href="searchHospital.do">24시 동물병원 찾기</a></li>
+                  </ul>
                   <ul class="clearfix">
                      <li><a href="#">강아지</a></li>
                      <li><a href="#">고양이</a></li>

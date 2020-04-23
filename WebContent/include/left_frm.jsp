@@ -103,7 +103,7 @@ function sellerAccess(){
 
  	if(userAuth == 1 ){
 		if(username == "null" || nickname == "null"){
-			location.href="mypageMove.do";
+			location.href="myPageMove.do";
 		}else{
 			if(confirm("판매자 등록 요청을 원하시나요?")){
 				$.ajax({

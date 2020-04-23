@@ -159,8 +159,13 @@
 		          timeout: 600000,
 		          //datatype:'text',
 		          success: function (data){
-		             alert("샵 등록에 성공하셨습니다.");
-		             location.href="sellerShopList.do";
+
+		             Swal.fire({
+		            	  icon: 'success',
+		            	  title: '샵 등록에 성공하셨습니다.',
+		            	  showConfirmButton: true
+		            	}).then(function(){
+		        	  window.location="sellerShopList.do";});
 		          },
 		          error: function (e){
 		             alert("통신실패");

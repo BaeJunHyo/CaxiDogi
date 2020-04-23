@@ -171,8 +171,12 @@
 		          timeout: 600000,
 		          //datatype:'text',
 		          success: function (data){
-		             alert("수영장 등록에 성공하셨습니다.");
-		             location.href="sellerPoolList.do";
+		             Swal.fire({
+		            	  icon: 'success',
+		            	  title: '수영장 등록에 성공하셨습니다.',
+		            	  showConfirmButton: true
+		            	}).then(function(){
+		        	  window.location="sellerPoolList.do";});
 		          },
 		          error: function (e){
 		             alert("통신실패");

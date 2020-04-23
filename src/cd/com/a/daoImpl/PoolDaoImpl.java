@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import cd.com.a.dao.PoolDao;
 import cd.com.a.model.poolDto;
 import cd.com.a.model.poolResvDto;
+import cd.com.a.model.poolResvParam;
 
 @Repository
 public class PoolDaoImpl implements PoolDao{
@@ -59,6 +60,11 @@ public class PoolDaoImpl implements PoolDao{
 	public boolean modifyPool(poolDto pool) {
 		int n = sqlSession.update(namespace+"modifyPool", pool);
 		return n>0?true:false; 
+	}
+
+	@Override
+	public List<poolResvParam> getSellerResvList(int mem_seq) {
+		return sqlSession.selectList(namespace+"getSellerResvList", mem_seq);
 	}
 
 }

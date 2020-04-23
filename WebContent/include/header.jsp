@@ -19,23 +19,11 @@ if(loginUser != null){
 <link href="<%=request.getContextPath() %>/css/prd_detail.css" rel="stylesheet">
 <link href="<%=request.getContextPath() %>/css/style.css" rel="stylesheet">
 <!-- <link href="css/setting.css" rel="stylesheet"> -->
-<<<<<<< HEAD
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
 <script src="<%=request.getContextPath() %>/js/jquery.bxslider.js"></script>
 <script src="<%=request.getContextPath() %>/js/common.js"></script>
 
-=======
-<<<<<<< HEAD
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
-=======
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
-	
->>>>>>> origin/sujin2
-<script src="./js/jquery.bxslider.js"></script>
-<script src="./js/common.js"></script>
->>>>>>> origin/NewKyeongRyul
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <link href="<%=request.getContextPath() %>/css/order.css" rel="stylesheet">
 <!--   <script type="text/javascript">
    $(document).ready(function (){

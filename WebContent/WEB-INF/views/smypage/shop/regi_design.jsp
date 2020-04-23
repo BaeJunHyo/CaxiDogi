@@ -121,8 +121,12 @@
 		          type:'post',
 		          data: formData,
 		          success: function (data){
-		             alert("디자이너 등록에 성공하셨습니다.");
-		             location.href="sellerShopList.do?mem_seq="+$("#shop_seq").val();
+		             Swal.fire({
+		            	  icon: 'success',
+		            	  title: '디자이너 등록에 성공하셨습니다.',
+		            	  showConfirmButton: true
+		            	}).then(function(){
+		        	  window.location="sellerShopList.do?mem_seq="+$("#shop_seq").val();});
 		          },
 		          error: function (e){
 		             alert("통신실패");

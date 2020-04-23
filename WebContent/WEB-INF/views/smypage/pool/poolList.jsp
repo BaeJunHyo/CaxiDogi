@@ -22,7 +22,7 @@ if(sessionUser == null){
 	<div class="cusSec_right">
 		<div class="cusSec_tableWrap tw_wFull">
 			<h3>
-				<span class="t_sbj">수영장 리스트</span>
+				<span class="t_sbj">수영장 예약 리스트</span>
 			</h3>
 		</div>
 		
@@ -31,29 +31,53 @@ if(sessionUser == null){
 		<tr>
 			<th>업체 번호</th>
 			<th>수영장이름</th>
-			<th>수영장주소</th>
-			<th>수영장영업시간</th>
-			<th>작업</th>
+			<th>예약일</th>
+			<th>시간</th>
+			<th>이름</th>
+			<th>인원</th>
+			<th>마리</th>
+			<th>상태</th>
+			<th>결제여부</th>
 		</tr>
-		<c:if test = "${fn:length(poolList) == 0 }">
+		<c:if test = "${fn:length(poolSellerResvList) == 0 }">
 		<tr align="center">
-			<td colspan="5" >등록된 수영장이 없습니다</td>
+			<td colspan="9" >예약내역이 없습니다</td>
 		</tr>
 		</c:if>
-		<c:if test="${fn:length(poolList) !=0 }">
-			<c:forEach items="${poolList }" var="pool" varStatus="sp">
-				<c:if test="${pool.pool_auth == 1 }">
-			<tr>
-				<th>${pool.pool_seq }</th>
-				<td>${pool.pool_name }</td>
-				<td>${pool.pool_addr }</td>
-				<td>${pool.pool_time }</td>
-				<td >
-					<input type = "button" pool_seq = "${pool.pool_seq }" class="btn_line_s resvCheckBtn" value ="예약 내역 확인">
-					
+		<c:if test="${fn:length(poolSellerResvList) !=0 }">
+			<c:forEach items="${poolSellerResvList }" var="resv" varStatus="sp">
+			<tr pool_resv_seq = "${resv.pool_resv_seq  }" class = "poolResv">
+				<th>${resv.pool_seq }</th>
+				<td>${resv.pool_name }</td>
+				<td>${resv.pool_resv_sdate }</td>
+				<td>${resv.pool_resv_time }</td>
+				<td>${resv.pool_resv_name }</td>
+				<td>${resv.pool_resv_user }</td>
+				<td>${resv.pool_resv_pet }</td>
+				<td>
+				
+				<c:if test = "${resv.pool_resv_auth == 0}">
+						<span style="color : red;">예약신청</span>
+					</c:if>
+					<c:if test = "${resv.pool_resv_auth == 1 }">
+						<span style="color : blue;">결제대기</span>
+					</c:if>
+					<c:if test = "${resv.pool_resv_auth == 2 }">
+						<span>예약완료</span>
+					</c:if>
+					<c:if test = "${resv.pool_resv_auth == 3 }">
+						<span style="color : red;">취소</span>
+					</c:if>
+				</td>
+				<td>
+					<c:if test = "${resv.pool_resv_payment == 0}">
+						<span style="color : red;">X</span>
+					</c:if>
+					<c:if test = "${resv.pool_resv_payment == 1 }">
+						<span >O</span>
+					</c:if>
 				</td>
 			</tr>
-			</c:if>
 			</c:forEach>
 		</c:if>
 	</table>
@@ -64,35 +88,11 @@ if(sessionUser == null){
 
 </div><!--container E : -->
 <script type="text/javascript">
-$(".modifyPoolBtn").click(function(){
-	var pool_seq = $(this).attr("pool_seq");
-	location.href = "modifyPool.do?pool_seq="+pool_seq;
-});
-$(".reModifyPoolBtn").click(function(){
-	var pool_seq = $(this).attr("pool_seq");
-	location.href = "reModifyPool.do?pool_seq="+pool_seq;
-});
-$(".stopPoolBtn").click(function(){
-	var pool_seq = $(this).attr("pool_seq");
-	$.ajax({
-          url:"./poolStop.do",
-          type:'post',
-          data: {"pool_seq" : pool_seq},
-          success: function (data){
-             //alert("성공");
-			 if(data == "ok"){
-				 alert("해당 pool의 상태를 정지로 변경하였습니다.")
-				 location.href="sellerPoolList.do";
-			 } else {
-				 alert("해당 pool의 상태를 변경하지 못하였습니다.");
-			}
-          },
-          error: function (e){
-             alert("통신실패");
-     	}
-	});
-});
+$(document).on("click",".poolResv", function(){
 
+	alert($(this).attr("pool_resv_seq"));
+	
+});
 </script>
 
 <%@ include file="./../../../../include/footer.jsp" %>

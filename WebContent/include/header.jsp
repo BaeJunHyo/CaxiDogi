@@ -187,6 +187,11 @@ if(loginUser != null){
          <div class="container">
             <div class="row">
                <div class="nav">
+               	  <ul class="clearfix">
+                     <li><a href="#">[Product]</a></li>
+                     <li><a href="#">[Location]</a></li>
+                     <li><a href="searchHospital.do">24시 동물병원 찾기</a></li>
+                  </ul>
                   <ul class="clearfix">
                      <li><a href="#">강아지</a></li>
                      <li><a href="#">고양이</a></li>

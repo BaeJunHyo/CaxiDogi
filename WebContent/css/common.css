@@ -230,17 +230,18 @@ li.ssub{color: #333;}
    height: 13px;
 }
 
-#nav ul{width: 25%;
+#nav ul{width: 20%;
     /* height: 288px; */
+    margin-left: 46px !important;
     margin: 0 auto;
     float: left;
    
 }
 #nav ul:first-child{
-   margin-left: 273px;
+    margin-left: 29px !important;
    
 }
-#nav li {    /* width: 102%; */
+#nav li {    width: 100%;
     text-align: center; 
    padding: 0 0 6px 0;
    

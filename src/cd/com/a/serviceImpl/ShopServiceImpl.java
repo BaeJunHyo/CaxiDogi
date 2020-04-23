@@ -58,6 +58,8 @@ public class ShopServiceImpl implements ShopService {
 	@Override
 	public shopDesignerDto getDesignerInfo(int design_seq) {
 		return shopDao.getDesignerInfo(design_seq);
+	}
+	@Override
 	public boolean shopModifyAf(shopDto shop) {
 		return shopDao.shopModifyAf(shop);
 	}

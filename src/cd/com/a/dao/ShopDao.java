@@ -23,5 +23,6 @@ public interface ShopDao {
 	public boolean playDesignAf(shopDesignerDto designer);
 	public boolean delDesignAf(shopDesignerDto designer);
 	public int checkDesign(shopDesignerDto designer);
+	public shopDesignerDto getDesignerInfo(int design_seq);
 
 }

@@ -22,15 +22,15 @@ VALUES(#{id},#{password},${user_api},#{nick_name},#{user_name},#{birthday},#{add
 </insert>
 
 <select id="login" parameterType="cd.com.a.model.memberDto" resultType="cd.com.a.model.memberDto">
-SELECT mem_seq, id, user_api, nick_name, user_name, birthday, address, phone, pass_question, point, auth
+SELECT mem_seq,id,user_api,nick_name,user_name,auth
 FROM member
-WHERE id=#{id} AND password=#{password}
+WHERE id=#{id} AND password=#{password} AND user_api=0
 </select>
 
 <select id="findId" parameterType="cd.com.a.model.memberDto" resultType="java.lang.String">
 SELECT id
 FROM member
-WHERE user_name=#{user_name} AND phone=${phone}
+WHERE user_name=#{user_name} AND phone=${phone} AND user_api=0
 </select>
 
 <select id="findPwd" parameterType="cd.com.a.model.memberDto" resultType="java.lang.String">
@@ -40,16 +40,16 @@ WHERE id=#{id} AND user_name=#{user_name} AND phone=#{phone} AND pass_question=$
 </select>
 
 <select id="snsLogin" parameterType="cd.com.a.model.memberDto" resultType="cd.com.a.model.memberDto">
-SELECT *
+SELECT mem_seq,id,user_api,nick_name,user_name,auth
 FROM member
 WHERE id=#{id} AND user_api=${user_api}
 </select>
 
-<select id="snsFirstUpdate" parameterType="cd.com.a.model.memberDto" resultType="java.lang.Integer">
+<update id="snsFirstUpdate" parameterType="cd.com.a.model.memberDto">
 UPDATE member
 SET nick_name=#{nick_name},user_name=#{user_name},birthday=#{birthday},address=#{address},phone=#{phone}
 WHERE mem_seq=${mem_seq}
-</select>
+</update>
 
 <select id="loginId" parameterType="java.lang.Integer" resultType="cd.com.a.model.memberDto">
 SELECT *
@@ -64,9 +64,51 @@ WHERE mem_seq=${mem_seq} AND password=#{password}
 </select>
 
 <select id ="resvMem" parameterType="java.lang.Integer" resultType="cd.com.a.model.memberDto">
-   select user_name, phone
-   from member
-   where mem_seq = #{mem_seq}
+select user_name, phone
+from member
+where mem_seq = #{mem_seq}
+</select>
+
+<update id="userUpdate" parameterType="cd.com.a.model.memberDto">
+UPDATE member
+SET password=#{password},nick_name=#{nick_name},address=#{address},phone=#{phone},pass_question=${pass_question},pass_hint=#{pass_hint}
+WHERE mem_seq=${mem_seq}
+</update>
+
+<update id="snsUserUpdate" parameterType="cd.com.a.model.memberDto">
+UPDATE member
+SET nick_name=#{nick_name},address=#{address},phone=#{phone}
+WHERE mem_seq=${mem_seq}
+</update>
+
+<update id="sellerAccess" parameterType="java.lang.Integer">
+UPDATE member
+SET auth=2
+WHERE mem_seq=${mem_seq}
+</update>
+
+<update id="memberEscape" parameterType="java.lang.Integer">
+UPDATE member
+SET auth=0
+WHERE mem_seq=${mem_seq}
+</update>
+
+<update id="recoveryId" parameterType="java.lang.Integer">
+UPDATE member
+SET auth=1
+WHERE mem_seq=${mem_seq}
+</update>
+
+<select id="findSeq" parameterType="cd.com.a.model.memberDto" resultType="java.lang.Integer">
+SELECT mem_seq
+FROM member
+WHERE id=#{id} AND password=#{password} AND user_name=#{user_name} AND user_api=0
+</select>
+
+<select id="recoveryCheck" parameterType="cd.com.a.model.memberDto" resultType="java.lang.Integer">
+SELECT IFNULL(COUNT(*),0)
+FROM member
+WHERE id=#{id} AND password=#{password} AND user_name=#{user_name} AND user_api=0
 </select>
 
 </mapper>

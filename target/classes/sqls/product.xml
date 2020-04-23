@@ -111,4 +111,11 @@
 	WHERE product_num = #{product_num}
 </select>
 
+
+<!-- ========= 상품구매(client) 상품상세 (옵션상품들) ======== --> 
+<select id="getOptionProduct" parameterType="java.lang.String" resultType="cd.com.a.model.productDto">
+	select * from product 
+	where product_name like concat(#{product_name},'%')
+</select>
+
 </mapper>

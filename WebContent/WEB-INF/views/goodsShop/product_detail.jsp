@@ -62,11 +62,18 @@
 								<td colspan="3">
 									<select id="prdSelect">
 										<option value="0" selected="selected" disabled>상품 상세 선택</option>
-										<option value="101">건강사료 100g</option>
-										<option disabled>------------------------ 옵션 상품  -------------------------</option>
-										<option value="202">건강사료 250g</option>
-										<option value="303">건강사료 500g</option>
-										<option value="404">건강사료 1Kg</option>
+										<option value="${prddetail.product_num }">${prddetail.product_name}</option>
+										<%-- 조건('/' 자른 문자열이 포함된 이름을 가진 )에 맞는 자기 자신을 제외한 값이 있으면 --%>
+										<c:if test="${OptionProduct.size() > 1 }">
+											<option disabled>------------------------ 옵션 상품  -------------------------</option>
+											<%-- for문을 통해 option 생성  --%>
+											<c:forEach var="OptionDto" items="${OptionProduct }">
+											<%-- 디테일 뷰의 DTO의 이름과 가져온 값의 이름이 다르면 생성  --%>
+											<c:if test="${prddetail.product_name ne OptionDto.product_name }">
+												<option value="${OptionDto.product_num }">${OptionDto.product_name }</option>
+											</c:if>
+											</c:forEach>
+										</c:if>
 									</select>
 								</td>
 							</tr>
@@ -607,21 +614,43 @@
 
 
 <script>
-	$(document).ready(function ( ){
-		//alert("ready");
+	alert(${OptionProduct.size()});
+	var selectComfirm = new Array(${OptionProduct.size()});
+		//선택한 상품 테이블 동적 생성
 		$('#prdSelect').on("change", function (){
-			
 			//alert($(this).val());
 			//동적 생성을 위한 변수
-			var createProduct = "<tr>";
-			createProduct += "<td colspan='2'>선택 상품 1</td>"; //선택 상품 이름 
-
+			var selectPrdSeq;
+			var createProduct = "<tr>";	 
+			//생성조건 판단을 위한 for문 
+			for(i = 0; i < selectComfirm.length; i++) {
+				if(!selectComfirm[i]){
+					//alert(i + "번째에는 값이 없습니다");
+					selectComfirm[i] = $(this).children("option:selected").text();
+					break;
+				}else{
+					//배열 내에 값이 있으면 
+					//선택된 option 값과 배열내의 값이 같으면 리턴 
+					if(selectComfirm[i] == $(this).children("option:selected").text()){
+						alert("선택하신 제품은 목록에 이미 있습니다");
+						return;
+					}		
+				}
+				
+				//모두 돌았는데 다 값이 있으면 
+				if(i == selectComfirm.length - 1){
+					alert("선택하신 제품은 목록에 이미 있습니다");
+					return;
+				}
+			}
+			createProduct += "<td colspan='2'>" + $(this).children("option:selected").text() + "<input class='selectPrdSeq' type='hidden' value='" +  + "'></td>"; //선택 상품 이름
+			
 			createProduct += "<td colspan='1' style='padding-top: 10px;'>"; // 갯수
-			createProduct += "<input class='selectPrdBtn' type='button' value='ㅡ' >"
-			createProduct += "<input type='text' value='1' style='width: 30px; border: 1px solid #eee; border-left: none; border-right: none; text-indent: 0; text-align: center; font-weight: bolder; font-size: 20px;margin-right: 5px; margin-left: 5px; vertical-align: middle; display:inline-block; -webkit-box-sizing: border-box; padding: 0 0px;'>";	
+			createProduct += "<input class='selectPrdBtn' type='button' value='ㅡ'>";
+			createProduct += "<input class='productAcount' type='text' value='1' style='width: 30px; border: 1px solid #eee; border-left: none; border-right: none; text-indent: 0; text-align: center; font-weight: bolder; font-size: 20px;margin-right: 5px; margin-left: 5px; vertical-align: middle; display:inline-block; -webkit-box-sizing: border-box; padding: 0 0px;'>";	
 			createProduct += "<input class='selectPrdBtn' type='button' value='+'>";	
 			createProduct += "</td>";	
-
+			
 			createProduct += "<td colspan='1' style='padding-top: 10px;'>";
 			createProduct += "<span>";
 			createProduct += "<strong class='c_block totalPrice' style='font-size: 15px;'><fmt:formatNumber value='10000000' pattern='###,###,###'/>  원</strong>";	
@@ -631,16 +660,53 @@
 
 			//생성
 			$("#select_product").append(createProduct);
-		})
+		});
+
+		//수량을 + , - 시켜주는 처리 
+		$(document).on('click', '.selectPrdBtn', function () {
+			//alert($(this).val());
+			//alert($(this).siblings('input[type=text]').val());
+			if($(this).val() == '+'){
+				//alert("+ 클릭");
+				var inputValue = Number($(this).siblings('input[type=text]').val());//형변환
+				inputValue++;
+				if(inputValue === 1000){inputValue = 999}
+				
+				$(this).siblings('input[type=text]').val(inputValue);
+				
+			}else{
+				//alert("ㅡ 클릭");
+				var inputValue = Number($(this).siblings('input[type=text]').val());
+				inputValue--;
+				if(inputValue == 0){inputValue = 1}
+					
+				$(this).siblings('input[type=text]').val(inputValue);
+							
+			}
 			
+		});
 
+		//값을 에외처리 해주는 로직
+		$(document).on('change', '.productAcount', function (){
+			var inputValue = Number($(this).val());
+
+			if(inputValue < 0 ){
+				inputValue = 1;
+			}else if(inputValue > 999){
+				inputValue= String(inputValue).substr(0,3);//뒷자리 날리기
+			}
+			
+			$(this).val(inputValue);
+		});
+		
 		$('#orderBtn').on('click', function (){
-
-
-		})
+			//데이터를 가지고 구매페이지로 이동 
+			location.href="productOrder.do";
+		});
 			
 		
-	})
+
+
 </script>
 
 <%@ include file="./../../../include/footer.jsp"%>

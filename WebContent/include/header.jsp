@@ -13,7 +13,7 @@ memberDto loginUser = (memberDto)request.getSession().getAttribute("loginUser");
 <meta charset="utf-8">
 <link href="<%=request.getContextPath() %>/css/reset.css" rel="stylesheet">
 <link href="<%=request.getContextPath() %>/css/common.css" rel="stylesheet">
-<link href="<%=request.getContextPath() %>/css/main.css" rel="stylesheet">
+<%-- <link href="<%=request.getContextPath() %>/css/main.css" rel="stylesheet">--%>
 <link href="<%=request.getContextPath() %>/css/prd_detail.css" rel="stylesheet">
 <link href="<%=request.getContextPath() %>/css/style.css" rel="stylesheet">
 <!-- <link href="css/setting.css" rel="stylesheet"> -->
@@ -21,6 +21,8 @@ memberDto loginUser = (memberDto)request.getSession().getAttribute("loginUser");
 <script src="<%=request.getContextPath() %>/js/jquery.bxslider.js"></script>
 <script src="<%=request.getContextPath() %>/js/common.js"></script>
 
+
+<link href="<%=request.getContextPath() %>/css/order.css" rel="stylesheet">
 <!--   <script type="text/javascript">
    $(document).ready(function (){
 	   var jbOffset = $( '.nav' ).offset();

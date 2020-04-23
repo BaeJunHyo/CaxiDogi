@@ -40,7 +40,7 @@ local.properties
 
 # sbteclipse plugin
 .target
-/target/*
+
 
 # Tern plugin
 .tern-project
@@ -152,6 +152,13 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# CaxiDogi ignore
+classes/
+target/
+properties/
+
+
 
 # End of https://www.gitignore.io/api/java,macos,windows,eclipse
 

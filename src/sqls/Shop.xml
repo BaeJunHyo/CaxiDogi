@@ -129,7 +129,7 @@ from shop_reservation r
 inner join shop s on r.shop_seq = s.shop_seq
 inner join shop_designer d on r.design_seq = d.design_seq
 where shop_resv_auth=0 and r.mem_seq=#{mem_seq}
-order by shop_resv_rday desc;
+order by shop_resv_rday asc;
 </select>
 
 <update id="cancelShopResv" parameterType="cd.com.a.model.shopResvDto">

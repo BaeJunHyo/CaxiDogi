@@ -46,7 +46,7 @@
 						</tr>
 					</thead>
 					
-					<tbody>
+					<tbody id="prd_list">
 						<tr style="border: 1px solid #c8c8c8;">
 							<td><%-- 상품 이미지와 이름 정보 --%>
 								<div style="padding: 10px 10px 10px 10px;">
@@ -110,7 +110,7 @@
 							<td>
 								<input type="radio" value="1" name="sale_address">기본 배송지 정보
 								&nbsp;&nbsp;
-								<input type="radio" value="0" name="sale_address">직접 작성
+								<input type="radio" value="0" name="sale_address" checked>직접 작성
 							</td>
 						</tr>
 						<tr><%-- 수령인/배송지명 --%>
@@ -193,7 +193,7 @@
 						<tr>
 							<td>결제 수단</td>
 							<td>
-								<input type="radio" name="sel_payment">카카오페이 &nbsp; <input type="radio" name="sel_payment">무통장입금    
+								<input type="radio" name="sel_payment" value="kakaopay" checked>카카오페이 &nbsp; <input type="radio" name="sel_payment" value="moo">무통장입금    
 							</td>
 						</tr>
 						<tr>
@@ -210,17 +210,17 @@
 								<p>
 									<input type="checkbox" id="Agreement_01"> <strong>개인정보 제 3 자 제공 동의  </strong><strong style="color: red;">(필수)</strong>
 								</p><br>
-								<p style="color: #c8c8c8;">배송 등 거래를 위해 판매자에게 개인정보가 공유됩니다. <a href="javascript:void(0)" id="btn_tt"><span><b>자세히</b></span></a></p>
-								<p id="p_tt" style="display:none;">
-									무신사의 회원계정으로 상품 및 서비스를 구매하고자 할 경우, (주)무신사는 거래 당사자간 원활한 의사소통 및 배송, 상담 등 거래이행을 위하여 필요한 최소한의 개인정보만을 무신사 입점업체 판매자 및 배송업체에 아래와 같이 공유하고 있습니다.
-									1. (주)무신사는 귀하께서 무신사 입점업체 판매자로부터 상품 및 서비스를 구매하고자 할 경우, 정보통신망 이용촉진 및 정보보호 등에 관한 법률 제 24조의 2(개인정보 공유동의 등)에 따라 아래와 같은 사항은 안내하고 동의를 받아 귀하의 개인정보를 판매자에게 공유합니다. "개인정보 제3자 공유 동의"를 체크하시면 개인정보 공유에 대해 동의한 것으로 간주합니다.
-									2. 개인정보를 공유받는자 : (주)부림상사
-									3. 공유하는 개인정보 항목
-									- 구매자 정보: 성명, 전화번호, ID, 휴대전화 번호, 메일주소, 상품 구매정보
-									- 수령자 정보: 성명, 전화번호, 휴대전화 번호, 배송지 주소
-									4. 개인정보를 공유받는 자의 이용 목적 : 판매자와 구매자의 거래의 원활한 진행, 본인의사의 확인, 고객 상담 및 불만처리, 상품과 경품 배송을 위한 배송지 확인 등
-									5. 개인정보를 공유받는 자의 개인정보 보유 및 이용 기간 : 개인정보 수집 및 이용 목적 달성 시까지 보관합니다.
-									6. 동의 거부 시 불이익 : 본 개인정보 공유에 동의하지 않으시는 경우, 동의를 거부할 수 있으며, 이 경우 거래가 제한됩니다.
+								<p style="border: 1px solid #ddd; background-color: #f3f3f3; padding: 10px;font-family: '굴림', 'Gulim';font-size: 12px;color: #b2b2b2;">배송 등 거래를 위해 판매자에게 개인정보가 공유됩니다. <a href="javascript:void(0)" id="btn_tt"><span><b>자세히</b></span></a></p>
+								<p id="p_tt" style="display:none;border: 1px solid #ddd; border-top: none; background-color: #f3f3f3; padding: 10px;font-family: '굴림', 'Gulim';font-size: 12px;color: #b2b2b2;">
+									CaxiDogi 의 회원계정으로 상품 및 서비스를 구매하고자 할 경우, (주)CaxiDogi 는 거래 당사자간 원활한 의사소통 및 배송, 상담 등 거래이행을 위하여 필요한 최소한의 개인정보만을 CaxiDogi 입점업체 판매자 및 배송업체에 아래와 같이 공유하고 있습니다.<br><br>
+									1. (주)CaxiDogi 는 귀하께서 CaxiDogi 입점업체 판매자로부터 상품 및 서비스를 구매하고자 할 경우, 정보통신망 이용촉진 및 정보보호 등에 관한 법률 제 24조의 2(개인정보 공유동의 등)에 따라 아래와 같은 사항은 안내하고 동의를 받아 귀하의 개인정보를 판매자에게 공유합니다.<br> "개인정보 제3자 공유 동의"를 체크하시면 개인정보 공유에 대해 동의한 것으로 간주합니다.<br><br>
+									2. 개인정보를 공유받는자 : (주)비트캠프<br><br>
+									3. 공유하는 개인정보 항목<br>
+									- 구매자 정보: 성명, 전화번호, ID, 휴대전화 번호, 메일주소, 상품 구매정보<br>
+									- 수령자 정보: 성명, 전화번호, 휴대전화 번호, 배송지 주소<br><br>
+									4. 개인정보를 공유받는 자의 이용 목적 : 판매자와 구매자의 거래의 원활한 진행, 본인의사의 확인, 고객 상담 및 불만처리, 상품과 경품 배송을 위한 배송지 확인 등<br><br>
+									5. 개인정보를 공유받는 자의 개인정보 보유 및 이용 기간 : 개인정보 수집 및 이용 목적 달성 시까지 보관합니다.<br><br>
+									6. 동의 거부 시 불이익 : 본 개인정보 공유에 동의하지 않으시는 경우, 동의를 거부할 수 있으며, 이 경우 거래가 제한됩니다.<br><br>
 								</p><br>
 								<p>
 									<input type="checkbox" id="Agreement_02"><strong>위 상품 정보 및 거래 조건을 확인하였으며, 구매 진행에 동의합니다.  </strong><strong style="color: red;">(필수)</strong>
@@ -232,13 +232,13 @@
 			</div>
 			
 			<div class="button_Wrap" style="text-align: center;">
-				<a class="button_Wrap_a" onclick="">Product <span class="button_span">결제 하기</span></a>
+				<a class="button_Wrap_a" id="btn_payment">Product <span class="button_span">결제 하기</span></a>
 			</div>
 		</div>
 	</div>
 	
-	<div class="kakao_pop_Wrap">
-		<iframe id="" src=""></iframe>
+	<div class="kakao_pop_Wrap" style="display:none;">ㅁㄴㅇㅁㄴㅇ
+		<iframe id="kakaopay_iframe" src="" width="400" height="400"></iframe>
 	</div>
 </div>
 
@@ -389,6 +389,8 @@
 
 		var R_phone = "";
 		var findIndex = -1;
+
+		console.log("들어온값 = " + phone);
 		
 		for(i =0; i < addNumber.length; i++){
 			if(phone.includes(addNumber[i])){
@@ -396,14 +398,27 @@
 				break;
 			}	
 		}
-
+		
 		R_phone += addNumber[findIndex];
-		R_phone += "-"
+		R_phone += "-";
 		var strlength = addNumber[findIndex].length;
 		//작업지 
-		 += phone.substr(strlength-1); 
+		phone = phone.substr(strlength); 
+		console.log("잘라낸 값 = " + phone);
+		if(phone.length == 7){
+
+			R_phone += phone.substr(0, 3);
+			R_phone += "-";
+			
+			R_phone += phone.substr(3);
+		}else{
+			R_phone += phone.substr(0, 4);
+			R_phone += "-";
+			
+			R_phone += phone.substr(4);
+		}
 		
-		return R_phone
+		return R_phone;
 	}	
 
 	//배송지 동작 처리 
@@ -427,20 +442,19 @@
 					$('#sale_name').val(data.user_name);
 					
 					//번호
-					var phone = data.phone;
-					if(phone.length == 11){
-						alert("정상");
-						$('#phone_top').val('010').attr('selected','selected');
-						$('#phone_middle').val('2224');
-						$('#phone_bottom').val('7191');	
-					}else if(phone.length == 10){
-						alert("비정상");
-					}
-
+					var phone = phone_util(data.phone);
 					
+					console.log("반환값 = " + phone);
+					phone = phone.split("-");
+
+					$('#phone_top').val(phone[0]).attr('selected','selected');
+					$('#phone_middle').val(phone[1]);
+					$('#phone_bottom').val(phone[2]);
+
 					//주소
 					var address = data.address;
 					address = address.split("/");
+					
 					// address[0] 우편번호
 					$('#address_number').val(address[0]);
 					$('#address_string').val(address[1]);
@@ -476,12 +490,59 @@
 	
 		if($('#p_tt').is(":visible")){
 			$('#p_tt').css("display","none");
+			alert($(this).children().children().text("자세히"));
 		}else{
 			$('#p_tt').css("display","block");
+			alert($(this).children().children().text("닫기"));
 		}
 	});
 
 	
+	$("input[name='sel_payment']").on("change", function (){
+		
+		//alert("ㄱ");
+		if($(this).val() == 'kakaopay'){
+			alert("카카오 클릭");
+		}else{
+			alert("무통장 클릭");
+		}
+	});
+
+	/*  Agreement 전체 동의 처리  */
+	$('#all_Agreement').click(function (){
+		
+		if($(this).is(":checked")){
+			$("#Agreement_01").prop('checked',true);
+			$("#Agreement_02").prop('checked',true);
+		}else{
+			$("#Agreement_01").prop('checked',false);
+			$("#Agreement_02").prop('checked',false);
+		}
+	});
+
+	$('#btn_payment').click(function () {
+		var middle = /^[0-9]{3,4}$/gm;
+		var bottom = /^[0-9]{4}$/gm;	
+		//예외처리 
+		
+		//이름
+		if($('#sale_name').val() == ""){alert("수령지/배송지명이 공백입니다");}
+		else if($('#phone_top').val() == 0){alert("연락처를 확인하세요");}
+		else if(!middle.test($('#phone_middle').val()) || $('#phone_middle').val() == ""){alert("연락처를 확인하세요");}	
+		else if(!bottom.test($('#phone_bottom').val()) || $('#phone_bottom').val() == ""){alert("연락처를 확인하세요");}
+		//주소
+		else if($('#address_number').val()==""){alert("주소를 확인하세요");}
+		else if($('#address_string').val()==""){alert("주소를 확인하세요");}
+		else if($('#address_detail').val()==""){alert("주소를 확인하세요");}
+		//동의 
+		else if($("#Agreement_01").is(":checked") == false){alert("개인정보 동의 체크가 안되어있습니다.");}
+		else if($("#Agreement_02").is(":checked") == false){alert("상품정보/거래조건 확인 체크가 안되어있습니다.");}
+		else{
+			alert("통과");
+			//이제 ajax로 카카오페이 결제준비를 한다.
+			
+		}
+	});
 	
 </script>
 

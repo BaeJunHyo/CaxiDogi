@@ -25,7 +25,7 @@ public class orderController {
 		memberDto mem = orderservice.getDefultAddress(mem_seq);
 		System.out.println(mem.toString());
 		
-		mem.setPhone("0102227191");
+		mem.setPhone("0222247191");
 		
 		return mem;
 	}

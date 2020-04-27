@@ -32,9 +32,9 @@ import com.google.gson.JsonObject;
 
 import cd.com.a.model.memberDto;
 import cd.com.a.model.poolDto;
+import cd.com.a.model.poolParam;
 import cd.com.a.model.poolResvDto;
 import cd.com.a.model.poolResvParam;
-import cd.com.a.model.shopDto;
 import cd.com.a.service.MemberService;
 import cd.com.a.service.PoolService;
 
@@ -100,6 +100,31 @@ public class PoolController {
 		model.addAttribute("pool_resv", resv);
 		model.addAttribute("pool", pool);
 		return "/pool/pool_resv_detail";
+	}
+		
+	@RequestMapping(value="poolResvList.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String poolResvList(Model model, HttpSession session, poolParam param) {
+		memberDto mem = (memberDto)session.getAttribute("loginUser");
+		param.setMemSeq(mem.getMem_seq());
+		// paging 처리
+		int sn = param.getPageNumber();	// 0 1 2	현재 페이지
+		int start = sn * param.getRecordCountPerPage(); // 1, 11, 21
+		int end = (sn + 1) * param.getRecordCountPerPage();	// 10, 20, 30
+		
+		param.setStart(start);
+		param.setEnd(end);
+		
+		int totalRecordCount = poolService.getPoolResvUserCount(param);
+		
+		List<poolResvParam> poolResvList = poolService.poolResvList(param);
+		model.addAttribute("poolResvList", poolResvList);
+		model.addAttribute("pageNumber", sn);
+		model.addAttribute("pageCountPerScreen", 10);
+		model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
+		model.addAttribute("totalRecordCount", totalRecordCount);
+		model.addAttribute("poolResvList", poolResvList);
+	
+		return "/pool/poolResvList";
 	}
 
 }

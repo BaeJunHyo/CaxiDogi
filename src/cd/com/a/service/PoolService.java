@@ -20,6 +20,8 @@ public interface PoolService {
 	public boolean setPayment(poolResvParam poolResv);
 	
 	public List<poolDto> getPoolList();
+	public List<poolResvParam> poolResvList(poolParam param);
+	public int getPoolResvUserCount(poolParam param);
 	public int resvPool(poolResvDto poolResv);
 	public poolResvDto getResvPool(int pool_resv_seq);
 }

@@ -90,4 +90,14 @@ public class PoolDaoImpl implements PoolDao{
 		return sqlSession.selectOne(namespace+"getPoolResvCount", param);
 	}
 
+	@Override
+	public List<poolResvParam> poolResvList(poolParam param) {
+		return sqlSession.selectList(namespace+"poolResvList",param);
+	}
+
+	@Override
+	public int getPoolResvUserCount(poolParam param) {
+		return sqlSession.selectOne(namespace+"getPoolResvUserCount", param);
+	}
+
 }

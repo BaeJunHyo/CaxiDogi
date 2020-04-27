@@ -39,7 +39,7 @@
 				<li>
 					<a href="#n">수영장 예약정보</a>
 					<ul>
-						<li><a href="#">수영장 예약 내역보기</a></li>
+						<li><a href="poolResvList.do">수영장 예약 내역보기</a></li>
 						<li><a href="#n">취소 내역보기</a></li>
 					</ul>
 				</li>

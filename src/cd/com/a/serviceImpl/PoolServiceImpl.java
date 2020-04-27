@@ -77,4 +77,14 @@ public class PoolServiceImpl implements PoolService {
 		return poolDao.getPoolResvCount(param);
 	}
 
+	@Override
+	public List<poolResvParam> poolResvList(poolParam param) {
+		return poolDao.poolResvList(param);
+	}
+
+	@Override
+	public int getPoolResvUserCount(poolParam param) {
+		return poolDao.getPoolResvUserCount(param);
+	}
+
 }

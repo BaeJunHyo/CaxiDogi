@@ -78,7 +78,7 @@ from (select @finalnum:=@finalnum+1 as finalnum, sub.* from
     
      <select id="getPoolResvCount" parameterType="cd.com.a.model.poolParam" resultType="java.lang.Integer">
    select count(*)
-from (select @finalnum:=@finalnum+1 as finalnum, sub.* from
+	from (select @finalnum:=@finalnum+1 as finalnum, sub.* from
 	(select @rownum:=@rownum+1 as rownum, resv.pool_resv_seq, resv.pool_seq, resv.pool_resv_user, resv.pool_resv_pet, resv.pool_resv_time,
 		resv.pool_resv_ydate, resv.pool_resv_sdate, resv.pool_resv_tel, resv.pool_resv_name, resv.pool_resv_payment,
 		resv.pool_resv_total_price, resv.mem_seq, resv.pool_resv_comment, resv.pool_resv_auth, pool.pool_name, pool.mem_seq as seller_seq
@@ -117,5 +117,37 @@ from (select @finalnum:=@finalnum+1 as finalnum, sub.* from
    	set pool_resv_payment=1 , pool_resv_auth=2
    	where pool_resv_seq = #{pool_resv_seq}
    </update>
+
+	<select id="getPoolResvUserCount" parameterType="cd.com.a.model.poolParam" resultType="java.lang.Integer">
+	select count(*)
+from (select @finalnum:=@finalnum+1 as finalnum, sub.* from
+	(select @rownum:=@rownum+1 as rownum, resv.pool_resv_seq, resv.pool_seq, resv.pool_resv_user, resv.pool_resv_pet, resv.pool_resv_time,
+		resv.pool_resv_ydate, resv.pool_resv_sdate, resv.pool_resv_tel, resv.pool_resv_name, resv.pool_resv_payment,
+		resv.pool_resv_total_price, resv.mem_seq, resv.pool_resv_comment, resv.pool_resv_auth, pool.pool_name, pool.mem_seq as seller_seq
+	from pool_reservation as resv join pool
+		on resv.pool_seq = pool.pool_seq
+        and (@rownum:=0)=0
+		and resv.mem_seq = #{memSeq}
+	order by  resv.pool_resv_ydate desc) sub, (select @finalnum:=0) ftmp
+    order by sub.rownum desc) fsub
+    order by fsub.finalnum desc
+	
+	</select>
+	
+	 <select id="poolResvList" parameterType="cd.com.a.model.poolParam" resultType="cd.com.a.model.poolResvParam">
+   select * 
+from (select @finalnum:=@finalnum+1 as finalnum, sub.* from
+	(select @rownum:=@rownum+1 as rownum, resv.pool_resv_seq, resv.pool_seq, resv.pool_resv_user, resv.pool_resv_pet, resv.pool_resv_time,
+		resv.pool_resv_ydate, resv.pool_resv_sdate, resv.pool_resv_tel, resv.pool_resv_name, resv.pool_resv_payment,
+		resv.pool_resv_total_price, resv.mem_seq, resv.pool_resv_comment, resv.pool_resv_auth, pool.pool_name, pool.mem_seq as seller_seq, pool.pool_photo
+	from pool_reservation as resv join pool
+		on resv.pool_seq = pool.pool_seq
+        and (@rownum:=0)=0
+		and resv.mem_seq = #{memSeq}
+	order by  resv.pool_resv_payment asc, resv.pool_resv_sdate asc,resv.pool_resv_ydate desc) sub, (select @finalnum:=0) ftmp
+    order by sub.rownum desc) fsub
+    order by fsub.finalnum desc
+    limit #{start}, #{end}
+    </select>
 
    </mapper>

@@ -20,6 +20,8 @@ public interface PoolDao {
 	public boolean setPayment(poolResvParam poolResv);
 	
 	public List<poolDto> getPoolList();
+	public List<poolResvParam> poolResvList(poolParam param);
+	public int getPoolResvUserCount(poolParam param);
 	public poolResvDto getResvPool(int pool_resv_seq);
 	public int resvPool(poolResvDto poolResv);
 }

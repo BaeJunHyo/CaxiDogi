@@ -46,11 +46,9 @@ public class SellerPoolController {
 	
 	@RequestMapping(value="poolList.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public String poolList(HttpSession session, Model model, poolParam param) {
-		System.out.println("오나요");
 		memberDto mem = (memberDto)session.getAttribute("loginUser");
 		param.setMemSeq(mem.getMem_seq());
 		// paging 처리
-		System.out.println(param.toString());
 		int sn = param.getPageNumber();	// 0 1 2	현재 페이지
 		int start = sn * param.getRecordCountPerPage(); // 1, 11, 21
 		int end = (sn + 1) * param.getRecordCountPerPage();	// 10, 20, 30
@@ -61,7 +59,6 @@ public class SellerPoolController {
 		System.out.println("totalRecordCount" + totalRecordCount);
 		List<poolResvParam> list = poolService.getSellerResvList(param);
 		List<poolDto> poolList = poolService.getSellerPoolList(mem.getMem_seq());
-		System.out.println(param.toString());
 		model.addAttribute("poolSellerResvList", list);
 		model.addAttribute("poolList", poolList);
 		model.addAttribute("pageNumber", sn);

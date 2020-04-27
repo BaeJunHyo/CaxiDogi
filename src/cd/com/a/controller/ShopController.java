@@ -533,7 +533,27 @@ public class ShopController {
 		return "/shop/showShopResv";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="cancelShopResv.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String cancelShopResv(shopResvDto shopresv) {
+		String str = "";
+		int count = shopService.shopCalcelTimeCheck(shopresv);
+		
+		if(count == 1 ) {
+			boolean b = shopService.cancelShopResv(shopresv);
+			if(b) {
+				str = "ok";
+			}else {
+				str = "no";
+			}
+		} else if(count == 0) {
+			str = "no";
+		}
+		
+		return str;
+	}
 	
+
 	
 	
 }

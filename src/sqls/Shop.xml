@@ -124,7 +124,7 @@ where shop_resv_seq=#{shop_resv_seq}
 
 
 <select id="showShopResv" parameterType="java.lang.Integer" resultType="cd.com.a.model.shopShowResvParam">
-select r.*,s.shop_name, s.shop_addr, s.shop_tel, s.shop_time, d.design_name
+select r.*,s.shop_name, s.shop_addr, s.shop_tel, s.shop_time,s.shop_photo, d.design_name
 from shop_reservation r
 inner join shop s on r.shop_seq = s.shop_seq
 inner join shop_designer d on r.design_seq = d.design_seq
@@ -132,6 +132,21 @@ where shop_resv_auth=0 and r.mem_seq=#{mem_seq}
 order by shop_resv_rday desc;
 </select>
 
+<update id="cancelShopResv" parameterType="cd.com.a.model.shopResvDto">
+update shop_reservation
+set shop_resv_auth=1
+where shop_resv_seq=#{shop_resv_seq}
+</update>
+
+<select id="shopCalcelTimeCheck" parameterType="cd.com.a.model.shopResvDto" resultType="java.lang.Integer">
+select count(shop_resv_rday) from shop_reservation
+where shop_seq=#{shop_seq} and shop_resv_auth=0 and shop_resv_seq=#{shop_resv_seq}
+<![CDATA[and shop_resv_rday > curdate()+ INTERVAL 2 day]]>
+
+</select>
+  
+
+  
   
   </mapper>
   

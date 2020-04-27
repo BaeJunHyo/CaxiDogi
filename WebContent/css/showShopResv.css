@@ -1,0 +1,177 @@
+@font-face {
+	font-family: Nanum Barun Gothic;
+	src: url(../fonts/NanumBarunGothic.eot);
+	src: local("�섎닎諛붾Ⅸ怨좊뵓"), url(../fonts/NanumBarunGothic.woff) format("woff");
+}
+
+.mind_wrap {
+  padding: 15px;
+}
+.mind_wrap ul.mind_menu {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  padding: 0;
+  border-bottom: 1px solid #000;
+  padding-bottom: 40px;
+}
+.mind_wrap ul.mind_menu li {
+  color: #8DC46A;
+  padding: 0px 40px;
+  border-right: 1px solid #8DC46A;
+  cursor: pointer;
+}
+
+.mind_wrap ul.mind_menu li:last-child {
+  border-right: none;
+}
+.mind_wrap ul.mind_menu li.active_mind {
+  color: #00C0C8;
+}
+.mind_wrap ul.mind_booking_listings {
+  list-style: none;
+  display: flex;
+  padding: 0;
+  width: 100%;
+  flex-direction: column;
+}
+.mind_wrap ul.mind_booking_listings li {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid #d3d3d5;
+  width: 100%;
+}
+.mind_wrap ul.mind_booking_listings li .booking_list1 {
+  width: 20%;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.mind_wrap ul.mind_booking_listings li .booking_list2 {
+  width: 60%;
+  display: flex;
+  align-items: center;
+}
+.mind_wrap ul.mind_booking_listings li .booking_list2 .child1 {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mind_wrap ul.mind_booking_listings li .booking_list2 .child1 i {
+     position: relative;
+    /* top: 2px; */
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+.mind_wrap ul.mind_booking_listings li .booking_list2 .child2 {
+  text-align: justify;
+}
+.mind_wrap ul.mind_booking_listings li .booking_list3 {
+  width: 20%;
+  display: flex;
+  padding: 15px;
+  justify-content: center;
+  align-items: center;
+}
+.mind_wrap ul.mind_booking_listings li .booking_list3 button {
+  background: #000;
+  color: #fff;
+  border: 0;
+  padding: 6px 20px;
+  font-size: 16px;
+  transition: background 0.5s linear;
+  cursor: pointer;
+}
+.mind_wrap ul.mind_booking_listings li .booking_list3 button:hover {
+  background: #8ca15a;
+}
+
+/*내가 더 넣은 css  */
+.mind_wrap ul.mind_booking_listings li .booking_list2 .child1 h2{
+	font-family: 'Nanum Barun Gothic', 'nanumgothic', sans-serif;
+	padding-top: 10px;
+}
+.mind_wrap ul.mind_booking_listings li .booking_list2 .child2 p{
+	padding-top: 28px;
+}
+.mind_wrap ul.mind_booking_listings li .booking_list1 img{
+	width: 105px;
+	height: 105px;
+	
+}
+
+.mind_wrap ul.mind_booking_listings li .booking_list2 .child2 .child_ul_1{
+	width: 50%;
+    display: inline-block;
+    float: left;
+}
+.mind_wrap ul.mind_booking_listings li .booking_list2 .child2 .child_ul_2{
+	width: 50%;
+    float: left;
+}
+.child2{
+	width: 100%
+}
+.mind_wrap ul.mind_booking_listings li .booking_list2 .child2 .child_ul_1 li{
+    border: none;
+    padding-bottom: 7px;
+    /* font-family: 'Nanum Myeongjo', serif; */
+    font-family: 'Nanum Barun Gothic', 'nanumgothic', sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+}
+.mind_wrap ul.mind_booking_listings li .booking_list2 .child2 .child_ul_2 li{
+    border: none;
+    padding-bottom: 7px;
+    /* font-family: 'Nanum Myeongjo', serif; */
+    font-family: 'Nanum Barun Gothic', 'nanumgothic', sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+}
+
+h2{
+
+    display: block;
+    font-size: 17px;
+    /* margin-block-start: 0.83em; */
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+.btn_line_s {
+    display: inline-block;
+    height: 22px;
+    padding: 0 7px;
+    line-height: 22px;
+    text-align: center;
+    font-size: 11px;
+    font-weight: normal;
+    color: #232a32;
+    border: 1px solid #232a32;
+    background: #fff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

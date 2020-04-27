@@ -143,5 +143,17 @@ public class ShopDaoImpl implements ShopDao {
 		return n>0?true:false;
 	}
 
+	@Override
+	public boolean cancelShopResv(shopResvDto shopresv) {
+		int n = sqlSession.update(ns+"cancelShopResv", shopresv);
+		return n>0?true:false;
+	}
+
+	@Override
+	public int shopCalcelTimeCheck(shopResvDto shopresv) {
+		return sqlSession.selectOne(ns+"shopCalcelTimeCheck", shopresv);
+	}
+
+	
 
 }

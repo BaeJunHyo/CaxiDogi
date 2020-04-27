@@ -280,6 +280,7 @@ public class MemberController {
 	   public String sellerMyPage() {
 	      return "/mypage/mypage_seller";
 	   }
+	   
 	   // [관리자] 승인대기 -> 승인  처리
 	   @ResponseBody
 	   @RequestMapping(value="/sellerAccessPass.do", method= {RequestMethod.GET,RequestMethod.POST})
@@ -313,14 +314,7 @@ public class MemberController {
 	      return "/mypage/testBJH";
 	   }
 	   
-	   
-	
-   
-	
-	@RequestMapping(value="/sellerMyPage.do", method= {RequestMethod.GET,RequestMethod.POST})
-   public String sellerMyPage() {
-      return "/mypage/mypage_seller";
-   }
+
 	
 	
 	

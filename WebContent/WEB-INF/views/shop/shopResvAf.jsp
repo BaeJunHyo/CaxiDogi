@@ -106,7 +106,7 @@
 			</ul>
 			<p class="poolBtns clearfix" align="center">
 				<a href="#" class="btn_dark_l" onclick="location.href='main.do'">메인으로</a>
-				<a href="#" class="btn_dark_l" id = "mypageBtn">마이페이지</a>
+				<a href="showShopResv.do" class="btn_dark_l" id = "mypageBtn">마이페이지</a>
 			</p>
 		</div>
 </div>

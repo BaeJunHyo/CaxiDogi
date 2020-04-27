@@ -77,12 +77,19 @@ public class DetailController {
 	@PostMapping(value="productOrder.do")
 	public String productOrder(HttpServletRequest request, Model model) {
 		System.out.println("DetailController   productOrder()");
-		
-		
+		//넘어온 파라미터 확인 
 		System.out.println(request.getParameter("acount"));
-		System.out.println(request.getParameter("prd_seq"));
+		System.out.println(request.getParameter("product_num"));
+		
+		productDto produc = detailService.getPrd(Integer.parseInt(request.getParameter("product_num")));
+		
+		List<productDto> list = new ArrayList<productDto>();
+		
+		list.add(produc);
+		
 		model.addAttribute("acount", request.getParameter("acount"));
-		model.addAttribute("prd_seq", request.getParameter("prd_seq"));
+		model.addAttribute("prd_list", list);
+		
 		
 		return "goodsShop/product_order";
 	}

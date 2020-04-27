@@ -892,11 +892,11 @@
 	</p>
 </div> -->
 </form>
-<input type="text" id="qty" vlaue="0">
+<input type="text" id="qty" vlaue="0" style="display: none;">
 
 <form id="frm" name="frm" method="post" action="productOrder.do">
-	<input type="hidden" id="prd_seq" name="prd_seq" value="${prddetail.product_num }">
-	<input type="hidden" id="acount" name="acount">
+	<input type="hidden" id="prd_seq" name="product_num" value="${prddetail.product_num }">
+	<input type="hidden" id="acount" name="acount" value="1">
 </form>
 
 <script type="text/javascript">

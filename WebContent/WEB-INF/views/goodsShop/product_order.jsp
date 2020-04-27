@@ -3,6 +3,9 @@
 
 <%@ include file="/include/header.jsp"%>
 
+
+
+
 <div class="container_subWrap">
 	<div class="prd_infoWrap">
 		<div class="prdName_section clearfix">
@@ -21,7 +24,7 @@
 			
 			<div style="padding: 20px 20px 20px 20px">
 				
-				<table class="product_info">
+				<table class="basic_tableStyle">
 					<colgroup>
 						<!-- 1100 -->
 						<col width="400px">
@@ -58,18 +61,28 @@
 								</div>
 							</td>
 							<td>
-								<span class="counter">
-                              <input type="text" value="${acount }" id="count" class="tCount" readonly="readonly">
-                              <span class="counterBtn">
-                                 <a href="#n" class="btnPlus" onclick="plus()"></a>
-                                 <a href="#n" class="btnMinus" onclick="minus()"></a>
-                             	 </span> 
+								<span class="counter" id="counter">
+                              		<input type="text" value="${acount }" id="count" class="tCount" readonly="readonly">
+                              		<span class="counterBtn">
+                                 		<a href="javascript:void(0)" class="btnPlus"></a>
+                                 		<a href="javascript:void(0)" class="btnMinus"></a>
+                             	 	</span>
                            		</span>
 							</td>
-							<td><strong>${prdPrice}  원</strong></td>
+							<td>
+								<strong class="prd_Price">
+									${prd_list.get(0).getProduct_price()}
+								</strong>
+								<strong>원</strong>
+							</td>
 							<td>5%</td>
 							<td><strong>지역에 맞게</strong></td>
-							<td><strong>${prdPrice * 5 } 원</strong></td>
+							<td>
+								<strong class="total_Price">
+									${prd_list.get(0).getProduct_price() * acount  }
+								</strong>
+								<strong>원</strong>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -95,67 +108,49 @@
 						<tr><%-- 배송지 선택 --%>
 							<td>배송지 선택</td>
 							<td>
-								<input type="radio" value="기본 배송지">기본 배송지 정보
+								<input type="radio" value="1" name="sale_address">기본 배송지 정보
 								&nbsp;&nbsp;
-								<input type="radio">직접 작성
+								<input type="radio" value="0" name="sale_address">직접 작성
 							</td>
 						</tr>
 						<tr><%-- 수령인/배송지명 --%>
 							<td>수령인/배송지명</td>
 							<td>
-								<input type="text">
-							</td>
-						</tr>
-						<tr><%-- 휴대전화  --%>
-							<td>휴대전화</td>
-							<td>
-								<select>
-									<option>선택하세요</option>
-									<option>010</option>
-									<option>011</option>
-									<option>016</option>
-									<option>017</option>
-									<option>018</option>
-									<option>019</option>
-								</select>
-								<font> -</font>&nbsp; 
-								<input type="text">
-								<font> -</font>&nbsp;
-								<input type="text">
+								<input type="text" id="sale_name">
 							</td>
 						</tr>
 						<tr><%-- 전화번호 --%>
-							<td>전화번호</td>
+							<td>연락가능번호</td>
 							<td>
-								<select>
-									<option>선택하세요</option>
-									<option>02</option>
-									<option>031</option>
-									<option>032</option>
-									<option>033</option>
-									<option>041</option>
-									<option>042</option>
-									<option>043</option>
-									<option>051</option>
-									<option>052</option>
-									<option>053</option>
-									<option>054</option>
-									<option>055</option>
-									<option>061</option>
-									<option>062</option>
-									<option>063</option>
-									<option>064</option>
-									<option>010</option>
-									<option>011</option>
-									<option>016</option>
-									<option>017</option>
-									<option>018</option>
-									<option>019</option>
+								<select id="phone_top">
+									<option value="0">선택하세요</option>
+									<option value="010">010</option>
+									<option value="011">011</option>
+									<option value="016">016</option>
+									<option value="017">017</option>
+									<option value="018">018</option>
+									<option value="019">019</option>
+									<option value="02">02</option>
+									<option value="031">031</option>
+									<option value="032">032</option>
+									<option value="033">033</option>
+									<option value="041">041</option>
+									<option value="042">042</option>
+									<option value="043">043</option>
+									<option value="051">051</option>
+									<option value="052">052</option>
+									<option value="053">053</option>
+									<option value="054">054</option>
+									<option value="055">055</option>
+									<option value="061">061</option>
+									<option value="062">062</option>
+									<option value="063">063</option>
+									<option value="064">064</option>
 								</select>
 								<font> -</font>&nbsp; 
-								<input type="text">
+								<input type="text" id="phone_middle">
 								<font> -</font>&nbsp;
-								<input type="text">
+								<input type="text" id="phone_bottom">
 							</td>
 						</tr>
 						<tr><%-- 배송지 주소 --%>
@@ -198,7 +193,7 @@
 						<tr>
 							<td>결제 수단</td>
 							<td>
-								<input type="radio">카카오페이 &nbsp; <input type="radio">무통장입금    
+								<input type="radio" name="sel_payment">카카오페이 &nbsp; <input type="radio" name="sel_payment">무통장입금    
 							</td>
 						</tr>
 						<tr>
@@ -209,14 +204,14 @@
 						</tr>
 						<tr>
 							<td>주문자 동의 <br><br>
-								<input type="checkbox"><span>전체 동의</span>
+								<input type="checkbox" id="all_Agreement"><span>전체 동의</span>
 							</td>
 							<td>
 								<p>
-									<input type="checkbox"> <strong>개인정보 제 3 자 제공 동의  </strong><strong style="color: red;">(필수)</strong>
+									<input type="checkbox" id="Agreement_01"> <strong>개인정보 제 3 자 제공 동의  </strong><strong style="color: red;">(필수)</strong>
 								</p><br>
-								<p style="color: #c8c8c8;">배송 등 거래를 위해 판매자에게 개인정보가 공유됩니다. <a><span><b>자세히</b></span></a></p>
-								<p style="display:none;">
+								<p style="color: #c8c8c8;">배송 등 거래를 위해 판매자에게 개인정보가 공유됩니다. <a href="javascript:void(0)" id="btn_tt"><span><b>자세히</b></span></a></p>
+								<p id="p_tt" style="display:none;">
 									무신사의 회원계정으로 상품 및 서비스를 구매하고자 할 경우, (주)무신사는 거래 당사자간 원활한 의사소통 및 배송, 상담 등 거래이행을 위하여 필요한 최소한의 개인정보만을 무신사 입점업체 판매자 및 배송업체에 아래와 같이 공유하고 있습니다.
 									1. (주)무신사는 귀하께서 무신사 입점업체 판매자로부터 상품 및 서비스를 구매하고자 할 경우, 정보통신망 이용촉진 및 정보보호 등에 관한 법률 제 24조의 2(개인정보 공유동의 등)에 따라 아래와 같은 사항은 안내하고 동의를 받아 귀하의 개인정보를 판매자에게 공유합니다. "개인정보 제3자 공유 동의"를 체크하시면 개인정보 공유에 대해 동의한 것으로 간주합니다.
 									2. 개인정보를 공유받는자 : (주)부림상사
@@ -228,7 +223,7 @@
 									6. 동의 거부 시 불이익 : 본 개인정보 공유에 동의하지 않으시는 경우, 동의를 거부할 수 있으며, 이 경우 거래가 제한됩니다.
 								</p><br>
 								<p>
-									<input type="checkbox"><strong>위 상품 정보 및 거래 조건을 확인하였으며, 구매 진행에 동의합니다.  </strong><strong style="color: red;">(필수)</strong>
+									<input type="checkbox" id="Agreement_02"><strong>위 상품 정보 및 거래 조건을 확인하였으며, 구매 진행에 동의합니다.  </strong><strong style="color: red;">(필수)</strong>
 								</p>
 							</td>
 						</tr>
@@ -306,6 +301,188 @@
         }).open();
     }
 </script>
+
+<script>
+	/* 수량&총가격 의 동적 변환 처리  */
+	$(document).on("click",".btnPlus", function (){
+
+		//alert("플러스 클릭");
+		var tr = $(this).parent().parent().parent().parent();
+		var acountTag = $(this).parent().prev();
+		
+		//console.log(tr);
+		//console.log($(acountTag).val()); //input Tag (수량)
+
+		//수량 ++
+		var acount = Number($(acountTag).val());
+		acount++;
+		$(acountTag).val(acount);
+
+		//이 제품의 가격 찾기 
+		var td = $(this).parent().parent().parent();
+		//console.log($(td).next().children('.prd_Price').text());//제품 가격
+		//현재 a태그 위치에서 td까지 올라간 후  다음 형재 td로 이동한 다음 
+		//그 자식노드인  strong.prd_Price 를 찾는다.
+		
+		//price 구분해서 가져오기 
+		var price =$(td).next().children('.prd_Price').text();
+		//console.log($(td).next().children('.prd_Price').text());
 	
+		price = price.replace(",","");
+		price = Number(price);
+		//console.log(price);
+
+		var total_price = (acount * price);
+		
+		//총가격 처리 
+		$(tr).children().last().children('.total_Price').text(total_price);
+		
+		console.log($(tr).children().last().children('.total_Price').html()); //총가격 
+	});
+	
+	$(document).on("click",".btnMinus", function (){
+
+		//alert("마이너스 클릭");
+		var tr = $(this).parent().parent().parent().parent();
+		var acountTag = $(this).parent().prev();
+		
+		//console.log(tr);
+		//console.log($(acountTag).val()); //input Tag (수량)
+
+		//수량 ++
+		var acount = Number($(acountTag).val());
+		acount--;
+		$(acountTag).val(acount);
+
+		//이 제품의 가격 찾기 
+		var td = $(this).parent().parent().parent();
+		//console.log($(td).next().children('.prd_Price').text());//제품 가격
+		//현재 a태그 위치에서 td까지 올라간 후  다음 형재 td로 이동한 다음 
+		//그 자식노드인  strong.prd_Price 를 찾는다.
+		
+		//price 구분해서 가져오기 
+		var price =$(td).next().children('.prd_Price').text();
+		//console.log($(td).next().children('.prd_Price').text());
+	
+		price = price.replace(",","");
+		price = Number(price);
+		//console.log(price);
+
+		var total_price = (acount * price);
+		
+		//총가격 처리 
+		$(tr).children().last().children('.total_Price').text(total_price);
+		
+		console.log($(tr).children().last().children('.total_Price').html()); //총가격 
+		
+	});
+
+</script>
+
+<%-- 버튼 동작 --%>
+<script>
+
+
+	function phone_util( phone ){
+		var addNumber = [ "010", "011", "016", "017", "018", "019", "02", "031", "032", "033",
+			 "041", "042", "043", "051", "052", "053", "054", "055", "061", "062", "063", "064" ];
+
+		var R_phone = "";
+		var findIndex = -1;
+		
+		for(i =0; i < addNumber.length; i++){
+			if(phone.includes(addNumber[i])){
+				findIndex = i;
+				break;
+			}	
+		}
+
+		R_phone += addNumber[findIndex];
+		R_phone += "-"
+		var strlength = addNumber[findIndex].length;
+		//작업지 
+		 += phone.substr(strlength-1); 
+		
+		return R_phone
+	}	
+
+	//배송지 동작 처리 
+	$("input[name='sale_address']").on("change", function(){
+		//alert("g");
+		//alert($(this).val());
+
+		if($(this).val() == 1){
+
+			$.ajax({
+
+				url:"getDefultAddress.do",
+				type:"post",
+				data:{
+						mem_seq:${loginUser.getMem_seq()}
+				},
+				success: function (data){
+					alert("통신성공");
+
+					//이름
+					$('#sale_name').val(data.user_name);
+					
+					//번호
+					var phone = data.phone;
+					if(phone.length == 11){
+						alert("정상");
+						$('#phone_top').val('010').attr('selected','selected');
+						$('#phone_middle').val('2224');
+						$('#phone_bottom').val('7191');	
+					}else if(phone.length == 10){
+						alert("비정상");
+					}
+
+					
+					//주소
+					var address = data.address;
+					address = address.split("/");
+					// address[0] 우편번호
+					$('#address_number').val(address[0]);
+					$('#address_string').val(address[1]);
+					$('#address_detail').val(address[2]);
+					
+				},
+				errer: function (){
+					alert("통신 실패");
+				}
+
+			});	
+
+		}else{
+			//초기화
+			//이름
+			$('#sale_name').val("");
+			//번호
+			$('#phone_top').val('0').attr('selected','selected');
+			$('#phone_middle').val("");
+			$('#phone_bottom').val("");
+			//주소
+			$('#address_number').val("");
+			$('#address_string').val("");
+			$('#address_detail').val("");
+		}							
+	})
+	
+	//Payment info / Agreement 자세히 클릭 동작
+	$("#btn_tt").click(function (){
+		
+		//alert($('#p_tt').is(":visible"));
+
+	
+		if($('#p_tt').is(":visible")){
+			$('#p_tt').css("display","none");
+		}else{
+			$('#p_tt').css("display","block");
+		}
+	});
+
+	
+	
+</script>
 
 <%@ include file="./../../../include/footer.jsp"%>

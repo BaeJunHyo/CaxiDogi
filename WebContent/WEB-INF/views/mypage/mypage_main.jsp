@@ -40,9 +40,10 @@ if(loginUser.getAuth()==1 || loginUser.getAuth()==2){
 			</div>
 		</div>
 	
-		
-	
-		
+<%@ include file="./myBuyList.jsp" %>
+<%@ include file="./myShopResvList.jsp" %>
+<%@ include file="./myPoolResvList.jsp" %>
+<%@ include file="./myGroundResvList.jsp" %>
 	
 	</div><!--// contents -->
 

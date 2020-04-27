@@ -8,6 +8,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -108,7 +109,20 @@ public class MemberServiceImpl implements MemberService {
 		}
 		
 	}
-
+	@Override
+	public List<memberDto> getSellerAccessList() {
+		return memberDao.getSellerAccessList();
+	}
+	@Override
+	public boolean sellerAccessPass(int[] mem_seq) {
+		return memberDao.sellerAccessPass(mem_seq);
+	}
+	@Override
+	public boolean sellerAccessFail(int[] mem_seq) {
+		return memberDao.sellerAccessFail(mem_seq);
+	}
+	
+	// SNS Login
 	@Override
 	public String getAccessToken(String authorize_code,String loginApi) {
 		String access_Token = "";
@@ -121,7 +135,6 @@ public class MemberServiceImpl implements MemberService {
 			requestURL = "https://nid.naver.com/oauth2.0/token";
 		}else if(loginApi.equals("google")) {
 			requestURL="https://accounts.google.com/o/oauth2/token";
-
 		}
 		try {
             URL url = new URL(requestURL);
@@ -130,7 +143,6 @@ public class MemberServiceImpl implements MemberService {
             //    POST 요청을 위해 기본값이 false인 setDoOutput을 true로
             conn.setRequestMethod("POST");
             conn.setDoOutput(true);
-            
             //    POST 요청에 필요로 요구하는 파라미터 스트림을 통해 전송
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
             StringBuilder sb = new StringBuilder();
@@ -138,7 +150,6 @@ public class MemberServiceImpl implements MemberService {
 	            if(loginApi.equals("kakao")) {
 	            	sb.append("&client_id=954754c02265363c5d9a6b60519b14d3");
 	            	sb.append("&redirect_uri=http://192.168.2.85:8080/CaxiDogi/kakaoLogin.do");
-	            	
 		   		}else if(loginApi.equals("naver")) {
 		   			sb.append("&client_id=i11QdJzq8f_afJodIjCw");
 		   			sb.append("&client_secret=QRK9UbfQ8z");
@@ -148,19 +159,6 @@ public class MemberServiceImpl implements MemberService {
 		   			sb.append("&client_secret=PEiSHOoKNHyUJyEel5J-eJwI");
 		   			sb.append("&redirect_uri=http://localhost:8080/CaxiDogi/googleLogin.do");
 		   		}
-//	            if(loginApi.equals("kakao")) {
-//	            	sb.append("&client_id=954754c02265363c5d9a6b60519b14d3");
-//	            	sb.append("&redirect_uri=http://caxidogi.coo.kr/kakaoLogin.do");
-//	            	
-//		   		}else if(loginApi.equals("naver")) {
-//		   			sb.append("&client_id=i11QdJzq8f_afJodIjCw");
-//		   			sb.append("&client_secret=QRK9UbfQ8z");
-//		   			sb.append("&redirect_uri=http://caxidogi.coo.kr/naverLogin.do");
-//		   		}else if(loginApi.equals("google")) {
-//		   			sb.append("&client_id=957946411907-ufnltniu55q10le4b4io0tmrqgsbk8v1.apps.googleusercontent.com");
-//		   			sb.append("&client_secret=PEiSHOoKNHyUJyEel5J-eJwI");
-//		   			sb.append("&redirect_uri=http://caxidogi.coo.kr/googleLogin.do");
-//		   		}
             sb.append("&code=" + authorize_code);
             bw.write(sb.toString());
             bw.flush();
@@ -168,44 +166,28 @@ public class MemberServiceImpl implements MemberService {
             //    결과 코드가 200이라면 성공
             int responseCode = conn.getResponseCode();
             System.out.println("responseCode : " + responseCode);
- 
             //    요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String line = "";
             String result = "";
-            
             while ((line = br.readLine()) != null) {
                 result += line;
             }
             System.out.println("responsebody : " + result);
             
             //    Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
-            
             JsonParser parser = new JsonParser();
             JsonElement element = parser.parse(result);
-            
-//            if(loginApi.equals("google")) {
-//            	access_Token= element.getAsJsonObject().get("id_token").getAsString();
-//            	System.out.println("id_token : " + access_Token);
-//            }else {
-//            	access_Token = element.getAsJsonObject().get("access_token").getAsString();
-//            	refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
-//            	System.out.println("access_token : " + access_Token);
-//            	System.out.println("refresh_token : " + refresh_Token);
-//            }
             access_Token = element.getAsJsonObject().get("access_token").getAsString();
         	refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
         	System.out.println("access_token : " + access_Token);
         	System.out.println("refresh_token : " + refresh_Token);
-            		
-            
             br.close();
             bw.close();
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         } 
-        
         return access_Token;
 	}
 	@Override
@@ -226,36 +208,26 @@ public class MemberServiceImpl implements MemberService {
 		        //    요청에 필요한 Header에 포함될 내용
 		        if(loginApi.equals("google")) {
 		        	System.out.println("conn="+conn);
-		        	
-		        	//conn.setRequestProperty("access_token", access_Token);
 		        }else {
 		        	conn.setRequestMethod("POST");
 		        	conn.setRequestProperty("Authorization", "Bearer " + access_Token);
-		        	
 		        }
-				
-		        
 		        int responseCode = conn.getResponseCode();
 		        System.out.println("responseCode : " + responseCode);
-		        
 		        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 		        String line = "";
 		        String result = "";
-		        
 		        while ((line = br.readLine()) != null) {
 		            result += line;
 		        }
 		        System.out.println("response body : " + result);
-		        
 		        JsonParser parser = new JsonParser();
 		        JsonElement element = parser.parse(result);
 		        JsonObject account = null;
-		        
 		        String email="";
 		        String nickName = "";
 		        String name="";
 		        String birthday="";
-		        
 		        if(loginApi.equals("kakao")) {
 		        	JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
 		        	account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
@@ -287,14 +259,8 @@ public class MemberServiceImpl implements MemberService {
 		        // TODO Auto-generated catch block
 		        e.printStackTrace();
 		    }
-		    
 		    return userInfo;
 	}
 
-	
-	
-	
-	
-	
-	
+
 }

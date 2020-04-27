@@ -1,0 +1,39 @@
+<!DOCTYPE mapper
+  PUBLIC "-//www.mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MyPage">
+
+
+<select id="getPoolResvList" parameterType="java.lang.Integer" resultType="cd.com.a.model.poolResvParam">
+SELECT resv.pool_resv_seq, resv.pool_seq, resv.pool_resv_user, resv.pool_resv_pet, resv.pool_resv_time,
+	resv.pool_resv_ydate, resv.pool_resv_sdate, resv.pool_resv_tel, resv.pool_resv_name, resv.pool_resv_payment,
+	resv.pool_resv_total_price, resv.mem_seq, resv.pool_resv_comment, resv.pool_resv_auth, pool.pool_name, pool.mem_seq as seller_seq, pool.pool_photo
+FROM pool_reservation as resv join pool
+	on resv.pool_seq = pool.pool_seq
+	and resv.mem_seq = ${mem_seq}
+ORDER BY pool_resv_ydate desc
+LIMIT 5
+</select>
+ 
+<select id="getGroundResvList" parameterType="java.lang.Integer" resultType="cd.com.a.model.groundResvParam">
+SELECT resv.ground_resv_seq, resv.ground_seq, resv.ground_resv_user, resv.ground_resv_pet, resv.ground_resv_time,
+	resv.ground_resv_ydate, resv.ground_resv_sdate, resv.ground_resv_tel, resv.ground_resv_name, resv.ground_resv_payment,
+	resv.ground_resv_total_price, resv.mem_seq, resv.ground_resv_comment, resv.ground_resv_auth, ground.ground_name, ground.mem_seq as seller_seq, ground.ground_photo
+FROM ground_reservation as resv join ground
+	on resv.ground_seq = ground.ground_seq
+	and resv.mem_seq = ${mem_seq}
+ORDER BY ground_resv_ydate desc
+LIMIT 5
+</select>
+
+<select id="getShopResvList" parameterType="java.lang.Integer" resultType="cd.com.a.model.shopShowResvParam">
+SELECT resv.shop_resv_seq, resv.shop_seq, resv.design_seq,resv.mem_seq, design_name,shop_name,
+	shop_resv_time,shop_resv_rday,shop_resv_day,shop_resv_name,shop_resv_tel,shop_resv_size,shop_resv_price,shop_resv_auth,shop_photo
+FROM shop_reservation as resv join shop_designer as designer join shop
+	on shop.shop_seq = resv.shop_seq and resv.design_seq = designer.design_seq
+	and resv.mem_seq = ${mem_seq}
+ORDER BY shop_resv_day desc
+LIMIT 5;
+</select>
+
+</mapper>

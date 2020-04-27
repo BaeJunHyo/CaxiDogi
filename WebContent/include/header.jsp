@@ -227,7 +227,7 @@ if(loginUser != null){
       <li><a href="#n">마이페이지</a></li>
     </ul>
   </div> -->
-  
+<script>
 <!-- Session logout  -->
 function logout(){
 	if(confirm("로그아웃하시겠습니까?")){

@@ -312,18 +312,4 @@ public class MemberController {
 		   model.addAttribute("sellerAccessList",sellerAccessList);
 	      return "/mypage/testBJH";
 	   }
-	   
-	   
-	
-   
-	
-	@RequestMapping(value="/sellerMyPage.do", method= {RequestMethod.GET,RequestMethod.POST})
-   public String sellerMyPage() {
-      return "/mypage/mypage_seller";
-   }
-	
-	
-	
-	
-	
 }

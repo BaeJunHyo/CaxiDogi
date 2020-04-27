@@ -34,11 +34,27 @@ case 5:
 if(sessionUser == null){
 %>
 <script>
-	if(confirm("세션이 만료되었습니다.\n 다시 로그인 하시겠습니까?")){
+	/* if(confirm("세션이 만료되었습니다.\n 다시 로그인 하시겠습니까?")){
 		location.href="loginView.do";
 	}else{
 		location.href="main.do";
-	}
+	} */
+	Swal.fire({
+		  title: '세션이 만료되었습니다.',
+		  text: "다시 로그인 하시겠습니까?",
+		  icon: 'question',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  cancelButtonText:'아니요',
+		  confirmButtonText: '예'
+		}).then((result) => {
+		  if (result.value) {
+			  location.href="loginView.do";
+		  }else{
+			  location.href="main.do";
+		  }
+		})
 </script>
 <%
 }
@@ -124,8 +140,16 @@ if(sessionUser == null){
 
 function memberUpdate(){
 	if($('input[name=pwdCheck]').val().trim() == ""){
-		alert("회원정보 재 확인을 위해 \n 패스워드를 입력해주세요");
-		$("input[name=pwdCheck]").focus();
+		/* alert("회원정보 재 확인을 위해 \n 패스워드를 입력해주세요");
+		$("input[name=pwdCheck]").focus(); */
+		Swal.fire({
+        	  icon: 'warning',
+        	  title: '회원정보 확인을 위해.',
+        	  text:'패스워드를 입력해주세요',
+        	  showConfirmButton: true
+        	}).then(function(){
+        		$("input[name=pwdCheck]").focus();
+        	});
 	}else{
 		$.ajax({
 			url:"pwdCheck.do",
@@ -137,8 +161,16 @@ function memberUpdate(){
 				},
 			success:function(data){
 				if(data == null || data === "" || data =="false"){
-					alert("비밀번호 정보가 다릅니다.\n다시 입력해주세요");
-					return;
+					/* alert("비밀번호 정보가 다릅니다.\n다시 입력해주세요");
+					return; */
+					Swal.fire({
+			        	  icon: 'warning',
+			        	  title: '비밀번호 정보가 다릅니다.',
+			        	  text:'다시 입력해주세요',
+			        	  showConfirmButton: true
+			        	}).then(function(){
+			        		return;
+			        	});
 				}else{
 					location.href="memberUpdateMove.do";
 				};
@@ -153,8 +185,16 @@ function memberUpdate(){
 // 탈퇴처리
 function memberEscape(){
 	if($('input[name=pwdCheck]').val().trim() == ""){
-		alert("회원정보 재 확인을 위해 \n 패스워드를 입력해주세요");
-		$("input[name=pwdCheck]").focus();
+		/* alert("회원정보 재 확인을 위해 \n 패스워드를 입력해주세요");
+		$("input[name=pwdCheck]").focus(); */
+		Swal.fire({
+      	  icon: 'warning',
+      	  title: '회원정보 확인을 위해.',
+      	  text:'패스워드를 입력해주세요',
+      	  showConfirmButton: true
+      	}).then(function(){
+      		$("input[name=pwdCheck]").focus();
+      	});
 	}else{
 		$.ajax({
 			url:"pwdCheck.do",
@@ -166,14 +206,37 @@ function memberEscape(){
 				},
 			success:function(data){
 				if(data == null || data === "" || data =="false"){
-					alert("비밀번호 정보가 다릅니다.\n다시 입력해주세요");
-					return;
+					/* alert("비밀번호 정보가 다릅니다.\n다시 입력해주세요");
+					return; */
+					Swal.fire({
+			        	  icon: 'warning',
+			        	  title: '비밀번호 정보가 다릅니다.',
+			        	  text:'다시 입력해주세요',
+			        	  showConfirmButton: true
+			        	}).then(function(){
+			        		return;
+			        	});
 				}else{
-					if(confirm("정말 탈퇴 하시겠습니까?")){
+					/* if(confirm("정말 탈퇴 하시겠습니까?")){
 						location.href="memberEscape.do";
 					}else{
 						return;
-					}
+					} */
+					Swal.fire({
+						  title: '정말 탈퇴 하시겠습니까?',
+						  icon: 'question',
+						  showCancelButton: true,
+						  confirmButtonColor: '#3085d6',
+						  cancelButtonColor: '#d33',
+						  cancelButtonText:'아니요',
+						  confirmButtonText: '예'
+						}).then((result) => {
+						  if (result.value) {
+							  location.href="memberEscape.do";
+						  }else{
+							  return;
+						  }
+						})
 				};
 			},
 			error:function(request,status,error){

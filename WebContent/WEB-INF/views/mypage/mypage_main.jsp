@@ -7,11 +7,29 @@ memberDto sessionUser = (memberDto)request.getSession().getAttribute("loginUser"
 if(sessionUser == null){
 %>
 <script>
-	if(confirm("세션이 만료되었습니다.\n 다시 로그인 하시겠습니까?")){
+$(document).ready(function(){
+	/* if(confirm("세션이 만료되었습니다.\n 다시 로그인 하시겠습니까?")){
 		location.href="login.do";
 	}else{
 		location.href="main.do";
-	}
+	} */
+	Swal.fire({
+		  title: '세션이 만료되었습니다.',
+		  text: "다시 로그인 하시겠습니까?",
+		  icon: 'question',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  cancelButtonText:'아니요',
+		  confirmButtonText: '예'
+		}).then((result) => {
+		  if (result.value) {
+			  location.href="loginView.do";
+		  }else{
+			  location.href="main.do";
+		  }
+		})
+})
 </script>
 <%
 }

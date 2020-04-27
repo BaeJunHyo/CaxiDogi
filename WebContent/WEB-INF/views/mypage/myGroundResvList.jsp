@@ -47,33 +47,34 @@ List<groundResvParam> myGroundResvList = (List<groundResvParam>)request.getAttri
 			for(int i=0 ;i<size;i++){
 				groundResv = myGroundResvList.get(i);
 				
+				
 			
 		%>
 			<tr>
 				<td>
 				<a href="#n" class="prdNum">
-				<P><%=groundResv.getground_resv_ydate() %><p>
-				<p><%=groundResv.getground_resv_seq() %><p>
+				<P><%=groundResv.getGround_resv_ydate() %><p>
+				<p><%=groundResv.getGround_resv_seq() %><p>
 				</a></td>
 				<td class="tl">
 					<!-- <a href="#n" class="tableThumb_small"><img src="./images/mypage/img_prdBigThumb.jpg"></a> -->
 					<a href="#n" class="tableThumb_small"><img src="<%=request.getContextPath()%>/upload/#"></a>
 					<div class="prdInfo">
 						<a href="#n">
-							<p class="c_gray">[<%=groundResv.getground_name() %>]</p>
-							<p class="pt5">고객명 : <Strong><%=groundResv.getground_resv_name()%></Strong>  ( <%=groundResv.getground_resv_tel() %> ) </p>
-							<p class="pt5">예약일 : <%=groundResv.getground_resv_sdate() %></p>
-							<p class="pt5">예약시간 : <%=groundResv.getground_resv_time() %></p>
+							<p class="c_gray">[<%=groundResv.getGround_name() %>]</p>
+							<p class="pt5">고객명 : <Strong><%=groundResv.getGround_resv_name()%></Strong>  ( <%=groundResv.getGround_resv_tel() %> ) </p>
+							<p class="pt5">예약일 : <%=groundResv.getGround_resv_sdate() %></p>
+							<p class="pt5">예약시간 : <%=groundResv.getGround_resv_time() %></p>
 						</a>
 					</div>
 				</td>
-				<td><%=groundResv.getground_resv_user() %></td>
-				<td><%=groundResv.getground_resv_pet() %></td>
-				<td><%=groundResv.getground_resv_total_price() %>원</td>
+				<td><%=groundResv.getGround_resv_user() %></td>
+				<td><%=groundResv.getGround_resv_pet() %></td>
+				<td><%=groundResv.getGround_resv_total_price() %>원</td>
 				<td>
 				<%
 				String resvStatus ="";
-				switch(groundResv.getground_resv_auth()){
+				switch(groundResv.getGround_resv_auth()){
 				case 0: resvStatus="[예약대기]";
 						break;
 				case 1: resvStatus="[결재대기]";

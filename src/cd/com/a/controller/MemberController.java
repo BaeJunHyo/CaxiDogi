@@ -306,11 +306,11 @@ public class MemberController {
 			  }
 	   }
 	   
-	   @RequestMapping(value="/testBJH.do", method= {RequestMethod.GET,RequestMethod.POST})
-	   public String testBJH(Model model) {
+	   @RequestMapping(value="/sellerAccessMgmt.do", method= {RequestMethod.GET,RequestMethod.POST})
+	   public String sellerAccessMgmt(Model model) {
 		   List<memberDto> sellerAccessList = memberService.getSellerAccessList();
 		   model.addAttribute("sellerAccessList",sellerAccessList);
-	      return "/mypage/testBJH";
+	      return "/mypage/sellerAccessMgmt";
 	   }
 	   
 	   

@@ -56,11 +56,19 @@ pw.addEventListener("change", function(e){
 			if($('span.pwdEqualCheck').hasClass('alert-green')) {
 	    		$('.pwdReCheckComentColor span').removeClass('alert-green');
 	    	}
-			alert("비밀번호 불일치");
+			/*alert("비밀번호 불일치");
 			$('.memberPwdReCheck').val("");
-			$('.memberPwdReCheck').focus();
+			$('.memberPwdReCheck').focus();*/
 	    	/*$('.pwdReCheckComentColor span').addClass('alert-red');
 			document.querySelector(".pwdEqualCheck").innerHTML = "비밀번호를 다시 확인해 주세요";*/
+			Swal.fire({
+	        	  icon: 'warning',
+	        	  title: '비밀번호 불일치',
+	        	  showConfirmButton: true
+	        	}).then(function(){
+	        		$('.memberPwdReCheck').val("");
+	    			$('.memberPwdReCheck').focus();
+	        	});
 		}
 	}
 });
@@ -85,8 +93,16 @@ var mNick = /^[가-힣a-zA-Z0-9]+$/g;
 	    		$('.nickComentColor span').removeClass('alert-green');
 	    	}
 	    	$('.nickComentColor span').addClass('alert-red');
-	    	alert("닉네임에 특수문자가 포함되어있습니다.\n 닉네임을 확인해주세요")
-	    	document.querySelector(".nickCheck").innerHTML = "특수문자 제외하고 입력해주세요";
+	    	/*alert("닉네임에 특수문자가 포함되어있습니다.\n 닉네임을 확인해주세요")
+	    	document.querySelector(".nickCheck").innerHTML = "특수문자 제외하고 입력해주세요";*/
+	    	Swal.fire({
+	        	  icon: 'warning',
+	        	  title: '닉네임을 확인해주세요.',
+	        	  text:'닉네임에 특수문자가 포함되어있습니다.',
+	        	  showConfirmButton: true
+	        	}).then(function(){
+	        		document.querySelector(".nickCheck").innerHTML = "특수문자 제외하고 입력해주세요";
+	        	});
 		}else{
 			if($('span.nickCheck').hasClass('alert-green')) { 
 				$('.nickComentColor span').removeClass('alert-green');
@@ -147,8 +163,16 @@ phone.addEventListener("blur", function(e){
         	$('.phoneComentColor span').addClass('alert-red');
         	document.querySelector(".phoneCheck").innerHTML = "형식 불일치";
         	
-        	alert("연락처 형식 불일치 !!! \n 글자수가 다르거나 특수문자가 들어가있습니다. \n ex)01x-xxxx-xxxx");
-            return;
+        	/*alert("연락처 형식 불일치 !!! \n 글자수가 다르거나 특수문자가 들어가있습니다. \n ex)01x-xxxx-xxxx");
+            return;*/
+        	Swal.fire({
+            	  icon: 'warning',
+            	  title: '숫자가 아니거나 특수문자존재.',
+            	  text:'ex)01x-xxxx-xxxx',
+            	  showConfirmButton: true
+            	}).then(function(){
+            		return;
+            	});
 		} else {
 			if($('span.phoneCheck').hasClass('alert-red')) {
         		$('.phoneComentColor span').removeClass('alert-red');
@@ -162,37 +186,93 @@ phone.addEventListener("blur", function(e){
 
 $('button.sBtn').click(function(){
 	if($('.pwdComentColor span').hasClass('alert-red') || $('.memberPwd').val().trim() == "") {
-		alert("비밀번호를 확인해주세요");
+		/*alert("비밀번호를 확인해주세요");
 		$('.memberPwd').focus();
-		return false;
+		return false;*/
+		Swal.fire({
+      	  icon: 'warning',
+      	  title: '비밀번호를 확인해주세요',
+      	  showConfirmButton: true
+      	}).then(function(){
+      		$('.memberPwd').focus();
+    		return false
+      	});
 	} else if($('.pwdReCheckComentColor span').hasClass('alert-red') || $('.memberPwdReCheck').val().trim() == "") {
-		alert("비밀번호 재확인을 확인해주세요");
+		/*alert("비밀번호 재확인을 확인해주세요");
 		$('.memberPwdReCheck').focus();
-		return false;
-
+		return false;*/
+		Swal.fire({
+      	  icon: 'warning',
+      	  title: '비밀번호 재확인을 확인해주세요',
+      	  showConfirmButton: true
+      	}).then(function(){
+      		$('.memberPwdReCheck').focus();
+    		return false;
+      	});
 	} else if($('input[name=nick_name]').val().trim() == "" || $(".nickComentColor span").hasClass('alert-red')) {
-		alert("닉네임를 확인해주세요");
+		/*alert("닉네임를 확인해주세요");
 		$('input[name=nick_name]').focus();
-		return false;
+		return false;*/
+		Swal.fire({
+      	  icon: 'warning',
+      	  title: '닉네임를 확인해주세요',
+      	  showConfirmButton: true
+      	}).then(function(){
+      		$('input[name=nick_name]').focus();
+    		return false;
+      	});
 	} else if($('.phoneComentColor span').hasClass('alert-red') || $('.memberPhone').val().trim() == "") {
-		alert("연락처를 확인해주세요");
+		/*alert("연락처를 확인해주세요");
 		$('.memberPhone').val("");
 		$('.memberPhone').focus();
-		return false;
+		return false;*/
+		Swal.fire({
+      	  icon: 'warning',
+      	  title: '연락처를 확인해주세요',
+      	  showConfirmButton: true
+      	}).then(function(){
+      		$('.memberPhone').val("");
+    		$('.memberPhone').focus();
+    		return false;
+      	});
 	} else if($('input[name=memberPostCode]').val().trim() == ""){
-		alert("주소를 확인해주세요");
+		/*alert("주소를 확인해주세요");
 		$('input[name=memberPostCode]').focus();
-		return false;
+		return false;*/
+		Swal.fire({
+      	  icon: 'warning',
+      	  title: '주소를 확인해주세요',
+      	  showConfirmButton: true
+      	}).then(function(){
+      		$('input[name=memberPostCode]').focus();
+    		return false;
+      	});
 	} else if($('input[name=memberDetailStreetName]').val().trim() == ""){
-		alert("상세주소를 확인해주세요");
+		/*alert("상세주소를 확인해주세요");
 		$('input[name=memberDetailStreetName]').focus();
-		return false;
+		return false;*/
+		Swal.fire({
+      	  icon: 'warning',
+      	  title: '상세주소를 확인해주세요',
+      	  showConfirmButton: true
+      	}).then(function(){
+      		$('input[name=memberDetailStreetName]').focus();
+    		return false;
+      	});
 	} else if($('input[name=pass_hint]').val().trim() == ""){
-		alert("비밀번호 찾기 질문을 확인해주세요");
+		/*alert("비밀번호 찾기 질문을 확인해주세요");
 		$('input[name=pass_hint]').focus();
-		return false;
+		return false;*/
+		Swal.fire({
+      	  icon: 'warning',
+      	  title: '비밀번호 찾기 질문을 확인해주세요',
+      	  showConfirmButton: true
+      	}).then(function(){
+      		$('input[name=pass_hint]').focus();
+    		return false;
+      	});
 	} else {
-		if(confirm("입력하신 정보로 변경 하시겠습니까?")){
+		/*if(confirm("입력하신 정보로 변경 하시겠습니까?")){
 			var postCode = document.getElementById('kakao_postcode').value.trim();
 			var roadAddr = document.getElementById('kakao_roadAddress').value;
 			var detail = document.getElementById('kakao_detailAddress').value;
@@ -201,7 +281,27 @@ $('button.sBtn').click(function(){
 			$("form").attr("action", "userUpdate.do").submit();
 		}else{
 			return false;
-		}
+		}*/
+		Swal.fire({
+			  title: '입력하신 정보로 변경 하시겠습니까?',
+			  icon: 'question',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  cancelButtonText:'아니요',
+			  confirmButtonText: '예'
+			}).then((result) => {
+			  if (result.value) {
+				    var postCode = document.getElementById('kakao_postcode').value.trim();
+					var roadAddr = document.getElementById('kakao_roadAddress').value;
+					var detail = document.getElementById('kakao_detailAddress').value;
+					var addr = postCode+"/"+roadAddr+"/"+detail;
+					$("#address").val(addr);
+					$("form").attr("action", "userUpdate.do").submit();
+			  }else{
+				  return false;
+			  }
+			})
 	}
 });
 

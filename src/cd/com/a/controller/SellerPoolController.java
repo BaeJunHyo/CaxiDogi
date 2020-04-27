@@ -58,9 +58,10 @@ public class SellerPoolController {
 		param.setStart(start);
 		param.setEnd(end);
 		int totalRecordCount = poolService.getPoolResvCount(param);
-		System.out.println(param.toString());
+		System.out.println("totalRecordCount" + totalRecordCount);
 		List<poolResvParam> list = poolService.getSellerResvList(param);
 		List<poolDto> poolList = poolService.getSellerPoolList(mem.getMem_seq());
+		System.out.println(param.toString());
 		model.addAttribute("poolSellerResvList", list);
 		model.addAttribute("poolList", poolList);
 		model.addAttribute("pageNumber", sn);

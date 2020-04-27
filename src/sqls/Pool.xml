@@ -95,7 +95,6 @@ from (select @finalnum:=@finalnum+1 as finalnum, sub.* from
 	order by  resv.pool_resv_payment asc, resv.pool_resv_sdate asc,resv.pool_resv_ydate desc) sub, (select @finalnum:=0) ftmp
     order by sub.rownum desc) fsub
     order by fsub.finalnum desc
-    limit #{start}, #{end}
     </select>
    
    <select id ="getSellerResvDetail" parameterType="java.lang.Integer" resultType="cd.com.a.model.poolResvParam">

@@ -1,0 +1,71 @@
+<!DOCTYPE mapper
+  PUBLIC "-//www.mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Member">
+
+<select id="idCheck" parameterType="cd.com.a.model.memberDto" resultType="java.lang.Integer">
+SELECT IFNULL(COUNT(*),0)
+FROM member
+WHERE id=#{id} AND user_api=${user_api}
+</select>
+
+<select id="nickCheck" parameterType="java.lang.String" resultType="java.lang.Integer">
+SELECT IFNULL(COUNT(*),0)
+FROM member
+WHERE nick_name=#{nick_name}
+</select>
+
+<insert id="newRegi" parameterType="cd.com.a.model.memberDto">
+INSERT INTO member(id,password,user_api,nick_name,user_name,birthday,address,phone,pass_question,pass_hint,point,auth)
+VALUES(#{id},#{password},${user_api},#{nick_name},#{user_name},#{birthday},#{address},#{phone},${pass_question},#{pass_hint},5000,1)
+</insert>
+
+<select id="login" parameterType="cd.com.a.model.memberDto" resultType="cd.com.a.model.memberDto">
+SELECT mem_seq, id, user_api, nick_name, user_name, birthday, address, phone, pass_question, point, auth
+FROM member
+WHERE id=#{id} AND password=#{password}
+</select>
+
+<select id="findId" parameterType="cd.com.a.model.memberDto" resultType="java.lang.String">
+SELECT id
+FROM member
+WHERE user_name=#{user_name} AND phone=${phone}
+</select>
+
+<select id="findPwd" parameterType="cd.com.a.model.memberDto" resultType="java.lang.String">
+SELECT password
+FROM member
+WHERE id=#{id} AND user_name=#{user_name} AND phone=#{phone} AND pass_question=${pass_question} AND pass_hint=#{pass_hint}
+</select>
+
+<select id="snsLogin" parameterType="cd.com.a.model.memberDto" resultType="cd.com.a.model.memberDto">
+SELECT *
+FROM member
+WHERE id=#{id} AND user_api=${user_api}
+</select>
+
+<select id="snsFirstUpdate" parameterType="cd.com.a.model.memberDto" resultType="java.lang.Integer">
+UPDATE member
+SET nick_name=#{nick_name},user_name=#{user_name},birthday=#{birthday},address=#{address},phone=#{phone}
+WHERE mem_seq=${mem_seq}
+</select>
+
+<select id="loginId" parameterType="java.lang.Integer" resultType="cd.com.a.model.memberDto">
+SELECT *
+FROM member
+WHERE mem_seq=${mem_seq}
+</select>
+
+<select id="pwdCheck" parameterType="cd.com.a.model.memberDto" resultType="java.lang.Integer">
+SELECT IFNULL(COUNT(*),0)
+FROM member
+WHERE mem_seq=${mem_seq} AND password=#{password}
+</select>
+
+<select id ="resvMem" parameterType="java.lang.Integer" resultType="cd.com.a.model.memberDto">
+	select user_name, phone
+	from member
+	where mem_seq = #{mem_seq}
+</select>
+</mapper>

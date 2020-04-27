@@ -1,5 +1,7 @@
 package cd.com.a.dao;
 
+import java.util.List;
+
 import cd.com.a.model.memberDto;
 
 public interface MemberDao {
@@ -39,5 +41,11 @@ public interface MemberDao {
 	int findSeq(memberDto dto);
 
 	boolean recoveryCheck(memberDto dto);
+	
+	List<memberDto> getSellerAccessList();
+
+	boolean sellerAccessPass(int[] mem_seq);
+
+	boolean sellerAccessFail(int[] mem_seq);
 
 }

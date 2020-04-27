@@ -1,5 +1,7 @@
 package cd.com.a.daoImpl;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -97,6 +99,16 @@ public class MemberDaoImpl implements MemberDao {
 		int result = sqlSession.update(ns+"sellerAccess",mem_seq);
 		return result>0?true:false;
 	}
+	@Override
+	public boolean sellerAccessPass(int[] mem_seq) {
+		int result = sqlSession.update(ns+"sellerAccessPass",mem_seq);
+		return result>0?true:false;
+	}
+	@Override
+	public boolean sellerAccessFail(int[] mem_seq) {
+		int result = sqlSession.update(ns+"sellerAccessFail",mem_seq);
+		return result>0?true:false;
+	}
 	
 	@Override
 	public void memberEscape(int mem_seq) {
@@ -117,16 +129,11 @@ public class MemberDaoImpl implements MemberDao {
 		int result = sqlSession.selectOne(ns+"recoveryCheck",dto);
 		return result>0?true:false;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	@Override
+	public List<memberDto> getSellerAccessList() {
+		return sqlSession.selectList(ns+"sellerAccessList");
+	}
 	
 	
 }

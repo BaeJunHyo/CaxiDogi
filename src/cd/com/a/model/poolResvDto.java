@@ -171,6 +171,7 @@ public class poolResvDto implements Serializable {
 		this.pool_resv_auth = pool_resv_auth;
 	}
 
+
 	public poolResvDto(int pool_resv_seq, int pool_seq, int pool_resv_user, int pool_resv_pet, String pool_resv_time,
 			String pool_resv_ydate, String pool_resv_sdate, String pool_resv_tel, String pool_resv_name,
 			int pool_resv_payment, int pool_resv_total_price, int pool_resv_price, int mem_seq,
@@ -204,5 +205,8 @@ public class poolResvDto implements Serializable {
 				+ pool_resv_auth + "]";
 	}
 
+	
+
+	
 	
 }

@@ -31,6 +31,7 @@ public class poolResvParam implements Serializable {
 	
 	private int seller_seq;
 	private String pool_name;
+	private String pool_photo;
 	
 	
 	
@@ -40,7 +41,7 @@ public class poolResvParam implements Serializable {
 	public poolResvParam(int pool_resv_seq, int pool_seq, int pool_resv_user, int pool_resv_pet, String pool_resv_time,
 			String pool_resv_ydate, String pool_resv_sdate, String pool_resv_tel, String pool_resv_name,
 			int pool_resv_payment, int pool_resv_total_price, int mem_seq, String pool_resv_comment, int pool_resv_auth,
-			int seller_seq, String pool_name) {
+			int seller_seq, String pool_name,String pool_photo) {
 		super();
 		this.pool_resv_seq = pool_resv_seq;
 		this.pool_seq = pool_seq;
@@ -58,6 +59,7 @@ public class poolResvParam implements Serializable {
 		this.pool_resv_auth = pool_resv_auth;
 		this.seller_seq = seller_seq;
 		this.pool_name = pool_name;
+		this.pool_photo = pool_photo;
 	}
 	public int getPool_resv_seq() {
 		return pool_resv_seq;
@@ -155,6 +157,13 @@ public class poolResvParam implements Serializable {
 	public void setPool_name(String pool_name) {
 		this.pool_name = pool_name;
 	}
+	
+	public String getPool_photo() {
+		return pool_photo;
+	}
+	public void setPool_photo(String pool_photo) {
+		this.pool_photo = pool_photo;
+	}
 	@Override
 	public String toString() {
 		return "poolResvParam [pool_resv_seq=" + pool_resv_seq + ", pool_seq=" + pool_seq + ", pool_resv_user="
@@ -163,8 +172,7 @@ public class poolResvParam implements Serializable {
 				+ pool_resv_tel + ", pool_resv_name=" + pool_resv_name + ", pool_resv_payment=" + pool_resv_payment
 				+ ", pool_resv_total_price=" + pool_resv_total_price + ", mem_seq=" + mem_seq + ", pool_resv_comment="
 				+ pool_resv_comment + ", pool_resv_auth=" + pool_resv_auth + ", seller_seq=" + seller_seq
-				+ ", pool_name=" + pool_name + "]";
+				+ ", pool_name=" + pool_name + ", pool_photo=" + pool_photo + "]";
 	}
-	
 	
 }

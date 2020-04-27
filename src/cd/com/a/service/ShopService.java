@@ -31,5 +31,7 @@ public interface ShopService {
 	public shopResvDto getShopResv(int shop_resv_seq);
 	//public List<shopResvDto> showShopResv(int mem_seq);
 	public List<shopShowResvParam> showShopResv(int mem_seq);
+	public boolean cancelShopResv(shopResvDto shopresv);
+	public int shopCalcelTimeCheck(shopResvDto shopresv);
 
 }

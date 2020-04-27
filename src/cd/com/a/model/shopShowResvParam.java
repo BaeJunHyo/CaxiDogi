@@ -22,6 +22,7 @@ public class shopShowResvParam implements Serializable {
 	private String shop_addr;				// 주소
 	private String shop_tel;
 	private String shop_time;
+	private String shop_photo;	
 	
 	private String design_name;	
 	
@@ -32,7 +33,7 @@ public class shopShowResvParam implements Serializable {
 	public shopShowResvParam(int shop_resv_seq, int shop_seq, int design_seq, int mem_seq, String shop_resv_time,
 			String shop_resv_rday, String shop_resv_day, int shop_resv_size, String shop_resv_name,
 			String shop_resv_tel, int shop_resv_price, int shop_resv_auth, String shop_resv_comment, String shop_name,
-			String shop_addr, String shop_tel, String shop_time, String design_name) {
+			String shop_addr, String shop_tel, String shop_time, String shop_photo, String design_name) {
 		super();
 		this.shop_resv_seq = shop_resv_seq;
 		this.shop_seq = shop_seq;
@@ -51,6 +52,7 @@ public class shopShowResvParam implements Serializable {
 		this.shop_addr = shop_addr;
 		this.shop_tel = shop_tel;
 		this.shop_time = shop_time;
+		this.shop_photo = shop_photo;
 		this.design_name = design_name;
 	}
 
@@ -190,6 +192,14 @@ public class shopShowResvParam implements Serializable {
 		this.shop_time = shop_time;
 	}
 
+	public String getShop_photo() {
+		return shop_photo;
+	}
+
+	public void setShop_photo(String shop_photo) {
+		this.shop_photo = shop_photo;
+	}
+
 	public String getDesign_name() {
 		return design_name;
 	}
@@ -206,8 +216,9 @@ public class shopShowResvParam implements Serializable {
 				+ ", shop_resv_name=" + shop_resv_name + ", shop_resv_tel=" + shop_resv_tel + ", shop_resv_price="
 				+ shop_resv_price + ", shop_resv_auth=" + shop_resv_auth + ", shop_resv_comment=" + shop_resv_comment
 				+ ", shop_name=" + shop_name + ", shop_addr=" + shop_addr + ", shop_tel=" + shop_tel + ", shop_time="
-				+ shop_time + ", design_name=" + design_name + "]";
+				+ shop_time + ", shop_photo=" + shop_photo + ", design_name=" + design_name + "]";
 	}
+
 	
 	
 	

@@ -116,4 +116,15 @@ public class ShopServiceImpl implements ShopService {
 		return shopDao.shopStopAf(shop_seq);
 	}
 
+	@Override
+	public boolean cancelShopResv(shopResvDto shopresv) {
+		return shopDao.cancelShopResv(shopresv);
+	}
+
+	@Override
+	public int shopCalcelTimeCheck(shopResvDto shopresv) {
+		return shopDao.shopCalcelTimeCheck(shopresv);
+	}
+	
+
 }

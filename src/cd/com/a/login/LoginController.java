@@ -19,6 +19,7 @@ public class LoginController {
 	@Autowired
 	MemberService memberService;
 	
+	// 로그인 
 	@RequestMapping(value="/login.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public String login(memberDto dto,HttpServletRequest req, Model model) {
 		memberDto login = memberService.login(dto);
@@ -43,6 +44,7 @@ public class LoginController {
 		return "/member/alertPage";
 	}
 	
+	// 로그아웃 
 	@RequestMapping(value="/logout.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public String logout(HttpServletRequest req, Model model) {
 		req.getSession().removeAttribute("loginUser");
@@ -50,6 +52,7 @@ public class LoginController {
 		return "/member/alertPage";
 	}
 	
+	// 카카오 로그인
 	@RequestMapping(value="/kakaoLogin.do",method= {RequestMethod.GET,RequestMethod.POST})
 	public String kakaoLogin(@RequestParam("code") String code,HttpServletRequest req,Model model) {
 		System.out.println("code = " + code);
@@ -95,6 +98,7 @@ public class LoginController {
 		model.addAttribute("login", "fail");
 		return "/member/alertPage";
 	}
+	//네이버 로그인
 	@RequestMapping(value="/naverLogin.do",method= {RequestMethod.GET,RequestMethod.POST})
 	public String naverLogin(@RequestParam("code") String code,HttpServletRequest req,Model model) {
 		System.out.println("naver Code="+code);
@@ -122,7 +126,6 @@ public class LoginController {
 				snsDto.setUser_name((String)userInfo.get("name"));
 				snsDto.setBirthday((String)userInfo.get("birthday"));
 				snsDto.setUser_api(2);
-				
 				System.out.println("snsDto="+snsDto.toString());
 				boolean result = memberService.newRegi(snsDto);
 				if(result) {
@@ -138,6 +141,7 @@ public class LoginController {
 		model.addAttribute("login", "fail");
 		return "/member/alertPage";
 	}
+	// 구글 로그인
 	@RequestMapping(value="/googleLogin.do",method= {RequestMethod.GET,RequestMethod.POST})
 	public String googleLogin(@RequestParam("code") String code,HttpServletRequest req,Model model) {
 		System.out.println("google Code="+code);

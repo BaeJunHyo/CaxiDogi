@@ -3,6 +3,7 @@ package cd.com.a.dao;
 import java.util.List;
 
 import cd.com.a.model.poolDto;
+import cd.com.a.model.poolParam;
 import cd.com.a.model.poolResvDto;
 import cd.com.a.model.poolResvParam;
 
@@ -10,12 +11,15 @@ public interface PoolDao {
 	
 	public boolean addPool(poolDto pool);
 	public boolean modifyPool(poolDto pool);
-	public List<poolDto> getPoolList();
 	public poolDto getPoolDetail(int pool_seq);
 	public List<poolDto> getSellerPoolList(int mem_seq);
+	public List<poolResvParam> getSellerResvList(poolParam param);
+	public int getPoolResvCount(poolParam param);
+	public poolResvParam getSellerResvDetail(int pool_resv_seq);
+	public boolean setTotalPrice(poolResvParam poolResv);
+	public boolean setPayment(poolResvParam poolResv);
 	
-	
+	public List<poolDto> getPoolList();
 	public poolResvDto getResvPool(int pool_resv_seq);
 	public int resvPool(poolResvDto poolResv);
-	public List<poolResvParam> getSellerResvList(int mem_seq);
 }

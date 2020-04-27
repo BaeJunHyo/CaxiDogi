@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import cd.com.a.dao.PoolDao;
 import cd.com.a.model.poolDto;
+import cd.com.a.model.poolParam;
 import cd.com.a.model.poolResvDto;
 import cd.com.a.model.poolResvParam;
 
@@ -63,8 +64,30 @@ public class PoolDaoImpl implements PoolDao{
 	}
 
 	@Override
-	public List<poolResvParam> getSellerResvList(int mem_seq) {
-		return sqlSession.selectList(namespace+"getSellerResvList", mem_seq);
+	public List<poolResvParam> getSellerResvList(poolParam param) {
+		return sqlSession.selectList(namespace+"getSellerResvList", param);
+	}
+
+	@Override
+	public poolResvParam getSellerResvDetail(int pool_resv_seq) {
+		return sqlSession.selectOne(namespace+"getSellerResvDetail", pool_resv_seq);
+	}
+
+	@Override
+	public boolean setTotalPrice(poolResvParam poolResv) {
+		 int n = sqlSession.update(namespace+"setTotalPrice", poolResv);
+		 return n>0?true:false; 
+	}
+
+	@Override
+	public boolean setPayment(poolResvParam poolResv) {
+		int n = sqlSession.update(namespace+"setPayment", poolResv);
+		return n>0?true:false;
+	}
+
+	@Override
+	public int getPoolResvCount(poolParam param) {
+		return sqlSession.selectOne(namespace+"getPoolResvCount", param);
 	}
 
 }

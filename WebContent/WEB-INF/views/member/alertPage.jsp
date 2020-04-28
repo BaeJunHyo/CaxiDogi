@@ -64,7 +64,7 @@ if(login != null){
 		      	  window.location="snsFirstLogin.do";});
 			});
 				/* alert("원활한 이용을 위해 \n 미입력된 정보를 기입해주세요^^"); */
-				location.href="snsFirstLogin.do";
+				/* location.href="snsFirstLogin.do"; */
 			</script>
 			<%
 			}else{

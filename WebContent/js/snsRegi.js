@@ -306,12 +306,19 @@ $('button.sBtn').click(function(){
 			  confirmButtonText: '예'
 			}).then((result) => {
 			  if (result.value) {
-				  if($("#birthday").val()==""){
+				  /*if($("#birthday").val()==""){
 						var month = document.getElementById('month').value.trim();
 						var day = document.getElementById('day').value.trim();
 						var birth = month +""+ day;
 						$("#birthday").val(birth);
-					}
+					}else{
+						
+					}*/
+				  	var month = document.getElementById('month').value.trim();
+					var day = document.getElementById('day').value.trim();
+					var birth = month +""+ day;
+					$("#birthday").val(birth);
+					
 					if($("#address").val()==""){
 						var postCode = document.getElementById('kakao_postcode').value.trim();
 						var roadAddr = document.getElementById('kakao_roadAddress').value;

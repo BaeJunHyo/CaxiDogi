@@ -233,12 +233,20 @@ function logout(){
 	/* if(confirm("로그아웃하시겠습니까?")){
 		location.href="logout.do";
 	} */
+	
 	Swal.fire({
-    	  icon: 'success',
-    	  title: '로그아웃하시겠습니까?',
-    	  showConfirmButton: true
-    	}).then(function(){
-	  window.location="logout.do";});
+		  title: '로그아웃하시겠습니까?',
+		  icon: 'question',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  cancelButtonText:'아니요',
+		  confirmButtonText: '예'
+		}).then((result) => {
+		  if (result.value) {
+	  		location.href="logout.do";
+	  	  }
+		});
 }
 
 </script>

@@ -158,8 +158,10 @@ memberDto memberDetail = (memberDto)request.getAttribute("memberDetail");
 				String birth = month + "-"+day;
 			%>
 				<div>
-					<input type="text" name="birthday" value="<%=birth %>" readonly="readonly">
-					<input type="hidden" class="memberDay" value=<%=day %>>
+					<input type="text" id="birth" value="<%=birth %>" readonly="readonly">
+					<input type="hidden" id="day"class="memberDay" value=<%=day %>>
+					<input type="hidden" id="month"class="memberMonth" value=<%=month %>>
+					<input type="hidden" id="birthday" name="birthday" value=<%=memberDetail.getBirthday() %>>
 					<input type="hidden" class="memberYear" name="memberYear" value="00000">
 					<span class="dayCheck">
 						<input type="hidden" class="alert-green">

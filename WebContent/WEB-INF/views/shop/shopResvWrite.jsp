@@ -75,7 +75,7 @@
 								<option size ='1' value="${shopdto.shop_medium_price }">중형견  <fmt:formatNumber value="${shopdto.shop_medium_price }" pattern="###,###,###"/>원</option>
 								<option size ='2' value="${shopdto.shop_large_price }">대형견  <fmt:formatNumber value="${shopdto.shop_large_price }" pattern="###,###,###"/>원</option>
 							</select>
-							<input type="hidden" name="size" id='size'>
+							<input type="hidden" name="shop_resv_size" id='size'>
 						</dd>
 					
 					</dl>
@@ -143,8 +143,18 @@ $(document).ready(function(){
 
 		$("#shop_resv_price").val(pulsPrice);
 
-		var size = $('option:selected', true).attr('size');
-		$("#size").val(size);
+		if($('#dogPrice > option:selected').val()== ${shopdto.shop_small_price }){
+			$("#size").val(0);
+			//alert("size: " + $("#size").val())
+			
+		}else if($('#dogPrice > option:selected').val() ==${shopdto.shop_medium_price }){
+			$("#size").val(1);
+			//alert("size1111111111: " + $("#size").val())
+			
+		}else if($('#dogPrice > option:selected').val() ==${shopdto.shop_large_price }){
+			$("#size").val(2);
+			//alert("size2: " + $("#size").val())
+		}
 		
 	})
 

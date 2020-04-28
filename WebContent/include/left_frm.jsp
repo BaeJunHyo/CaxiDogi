@@ -39,7 +39,7 @@
 				<li>
 					<a href="#n">수영장 예약정보</a>
 					<ul>
-						<li><a href="#">수영장 예약 내역보기</a></li>
+						<li><a href="poolResvList.do">수영장 예약 내역보기</a></li>
 						<li><a href="#n">취소 내역보기</a></li>
 					</ul>
 				</li>
@@ -54,7 +54,7 @@
 					<a href="#n">회원정보관리</a>
 					<ul>
 						<li><a href="memberDetail.do">회원 정보</a></li>
-						<li><a href="#none" >배송지 정보</a></li>
+						<li><a href="testBJH.do" >배송지 정보</a></li>
 						<c:set var="auth" value="${loginUser.auth }"/>
 						<c:if test="${auth == 1 }">
 						<li><a href="#"onclick="sellerAccess()">판매자 등록하기</a></li>

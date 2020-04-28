@@ -99,6 +99,8 @@
 			<p class="poolBtns clearfix" align="center">
 				<a href="#" class="btn_dark_l" onclick="location.href='main.do'">메인으로</a>
 				<a href="#" class="btn_dark_l" onclick="location.href='myPageMove.do'">마이페이지</a>
+				<a href="#" class="btn_dark_l" id = "cancleBtn">예약취소</a>
+				<a href="#" class="btn_dark_l" id = "noCancleBtn">취소불가</a>
 			</p>
 		</div>
 </div>
@@ -114,12 +116,79 @@
 
 
 	var tel = "${pool.pool_tel}";
-	var userTel = "${pool_resv.pool_resv_tel}"
+	var userTel = "${pool_resv.pool_resv_tel}";
 	tel = tel.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3");
 	userTel = userTel.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3");
 	document.querySelector("#tel").innerText = tel;
 	document.querySelector("#userTel").innerText = userTel;
 
+	$(document).ready(function(){
+		var today = new Date();
+		var dateString = "${pool_resv.pool_resv_sdate}";
+		var dateArray = dateString.split("-");
+		var dateObj = new Date(dateArray[0], Number(dateArray[1])-1, dateArray[2]);
+		var betweenDay =(dateObj.getTime()-today.getTime())/1000/60/60/24;
 
+		if(betweenDay < 2){
+			$("#cancleBtn").hide();
+			$("#noCancleBtn").show();
+		} else {
+			$("#cancleBtn").show();			
+			$("#noCancleBtn").hide();			
+		}
+	});
+	
+	$("#cancleBtn").click(function(){
+		Swal.fire({
+	        title: '정말 취소하시겠습니까?',
+	        text: "재예약시 다시 신청하셔야합니다.",
+	        icon: 'warning',
+	        showCancelButton: true,
+	        confirmButtonColor: '#3085d6',
+	        cancelButtonColor: '#d33',
+	        confirmButtonText: 'Yes'
+	      }).then((result) => {
+	        if (result.value) {
+	           $.ajax({
+	               url:"./poolCancleAf.do",
+	               type:'post',
+	               data:{"pool_resv_seq" : "${pool_resv.pool_resv_seq}" },
+	               success: function(data){
+	                  if(data == 'ok'){
+	                     Swal.fire(
+	                    		 title: '예약 취소 되었습니다.',
+	                              icon: 'success', 
+	                              showConfirmButton: true
+	                           ).then(function(){
+	                                  window.location="myPageMove.do"});
+	                  }else if(data == 'no'){
+	                	  Swal.fire({
+	                          icon: 'error',
+	                          title: '업체에 문의해주세요.',
+	                          showConfirmButton: true
+	                        });
+	                  }
+	               },
+	               error: function(e){
+	            	   Swal.fire({
+	                          icon: 'error',
+	                          title: '업체에 문의해주세요.',
+	                          showConfirmButton: true
+	                        });
+	               }
+	            });
+	        }
+	      });
+
+	});
+	
+	$("#noCancleBtn").click(function(){
+		Swal.fire({
+            icon: 'error',
+            title: '업체에 문의해주세요.',
+            showConfirmButton: true
+          });
+		
+	});
   </script>
 <%@ include file="./../../../include/footer.jsp"%>

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import cd.com.a.dao.PoolDao;
 import cd.com.a.model.poolDto;
+import cd.com.a.model.poolParam;
 import cd.com.a.model.poolResvDto;
 import cd.com.a.model.poolResvParam;
 import cd.com.a.service.PoolService;
@@ -52,8 +53,43 @@ public class PoolServiceImpl implements PoolService {
 	}
 
 	@Override
-	public List<poolResvParam> getSellerResvList(int mem_seq) {
-		return poolDao.getSellerResvList(mem_seq);
+	public List<poolResvParam> getSellerResvList(poolParam param) {
+		return poolDao.getSellerResvList(param);
+	}
+
+	@Override
+	public poolResvParam getSellerResvDetail(int pool_resv_seq) {
+		return poolDao.getSellerResvDetail(pool_resv_seq);
+	}
+
+	@Override
+	public boolean setTotalPrice(poolResvParam poolResv) {
+		return poolDao.setTotalPrice(poolResv);
+	}
+
+	@Override
+	public boolean setPayment(poolResvParam poolResv) {
+		return poolDao.setPayment(poolResv);
+	}
+
+	@Override
+	public int getPoolResvCount(poolParam param) {
+		return poolDao.getPoolResvCount(param);
+	}
+
+	@Override
+	public List<poolResvParam> poolResvList(poolParam param) {
+		return poolDao.poolResvList(param);
+	}
+
+	@Override
+	public int getPoolResvUserCount(poolParam param) {
+		return poolDao.getPoolResvUserCount(param);
+	}
+
+	@Override
+	public boolean poolCancleAf(int pool_resv_seq) {
+		return poolDao.poolCancleAf(pool_resv_seq);
 	}
 
 }

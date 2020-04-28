@@ -97,7 +97,7 @@ if(loginUser != null){
 			%>
 			  
 				<li><a href="sellerMyPage.do">셀러페이지</a></li>
-				<li><a href="#none" onclick="mypage()">마이페이지</a></li>
+				<li><a href="#none" onclick="location.href='myPageMove.do'">마이페이지</a></li>
 			<%		
 				}else if(loginUser.getAuth() == 4 || loginUser.getAuth() == 5){
 			%>
@@ -106,7 +106,7 @@ if(loginUser != null){
 			<%
 				}else{
 			%>
-				<li><a href="#none" onclick="mypage()">마이페이지</a></li>
+				<li><a href="#none" onclick="location.href='myPageMove.do'">마이페이지</a></li>
 			<%
 				}
 			%>
@@ -226,15 +226,12 @@ if(loginUser != null){
       <li><a href="#n">마이페이지</a></li>
     </ul>
   </div> -->
-  
+<script>
 <!-- Session logout  -->
-<script type="text/javascript">
 function logout(){
 	if(confirm("로그아웃하시겠습니까?")){
 		location.href="logout.do";
 	}
 }
-function mypage(){
-	location.href="myPageMove.do";
-}
+
 </script>

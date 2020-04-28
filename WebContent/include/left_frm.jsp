@@ -118,7 +118,37 @@ function sellerAccess(){
 		if(username == "null" || nickname == "null"){
 			location.href="myPageMove.do";
 		}else{
-			if(confirm("판매자 등록 요청을 원하시나요?")){
+			Swal.fire({
+				  title: '판매자 등록 요청을 원하시나요?',
+				  icon: 'question',
+				  showCancelButton: true,
+				  confirmButtonColor: '#3085d6',
+				  cancelButtonColor: '#d33',
+				  confirmButtonText: '예, 아니요'
+				}).then((result) => {
+				  if (result.value) {
+					  $.ajax({
+							url:"sellerAccess.do",
+							type: "post",
+							dataType:"text",
+							data: {"mem_seq":mem_seq},
+							success:function(data){
+								if(data === "success"){
+									Swal.fire({
+								    	  icon: 'success',
+								    	  title: '판매자 등록 요청이 완료 되었습니다',
+								    	  showConfirmButton: true
+								    	}).then(function(){
+									  location.reload();
+									  });
+								}
+							},
+							error:function(request,status,error){
+							}
+						});
+				  }
+				})
+			/* if(confirm("판매자 등록 요청을 원하시나요?")){
 				$.ajax({
 					url:"sellerAccess.do",
 					type: "post",
@@ -133,11 +163,17 @@ function sellerAccess(){
 					error:function(request,status,error){
 					}
 				});
-			}
+			} */
 		}
 	}else if(userAuth==2){
-		alert("관리자 승인 대기 중입니다.");
+		/* alert("관리자 승인 대기 중입니다."); */
+		Swal.fire({
+	    	  icon: 'info',
+	    	  title: '관리자 승인 대기 중입니다.',
+	    	  showConfirmButton: true
+	    	}).then(function(){
+		  return;
+		  });
 	} 
 }
-
 </script>

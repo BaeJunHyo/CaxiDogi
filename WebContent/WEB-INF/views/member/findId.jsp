@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>아이디찾기</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <style>
 .findId{width:300px;margin:0 auto;}
 .findId ul{list-style: none;margin:0 auto;}
@@ -42,26 +43,60 @@ var userName= document.querySelector(".user_name");
 userName.addEventListener("change",function(e){
 var nameReg= /^[가-힣]+$/g;
 	if(!nameReg.test($("#name").val())){
-		alert("이름은 한글만 입력하세요!!");
+		/* alert("이름은 한글만 입력하세요!!");
 		$("#name").val("");
 		$("#name").focus();
-		return;
+		return; */
+		Swal.fire({
+      	  icon: 'warning',
+      	  title: '이름은 한글만 입력하세요!!',
+      	  showConfirmButton: true
+      	}).then(function(){
+      		$("#name").val("");
+    		$("#name").focus();
+    		return;
+      	});
 	}
 })
 var userPhone = document.querySelector(".user_phone");
 userPhone.addEventListener("change",function(e){
 var phReg = /^01([0|1|6|7|8|9])([1-9]{1}[0-9]{2,3})([0-9]{4})$/g;
 	if(!phReg.test($("#phone").val())){
-		alert("연락처 형식이 다릅니다 \n 특수문자를 제외한 숫자만 기입해주세요  \n 01x xxxx xxxx");
+		/* alert("연락처 형식이 다릅니다 \n 특수문자를 제외한 숫자만 기입해주세요  \n 01x xxxx xxxx");
 		$("#phone").val("");
-		return;
+		return; */
+		Swal.fire({
+        	  icon: 'warning',
+        	  title: '숫자가 아니거나 특수문자존재.',
+        	  text:'ex)01x-xxxx-xxxx',
+        	  showConfirmButton: true
+        	}).then(function(){
+        		$("#phone").val("");
+        		return;
+        	});
 	}
 })
 function findId(){
 	if($("#name").val().trim() == ""){
-		alert("이름을 입력하세요");
+		/* alert("이름을 입력하세요"); */
+		Swal.fire({
+      	  icon: 'warning',
+      	  title: '이름을 입력하세요',
+      	  showConfirmButton: true
+      	}).then(function(){
+      		$("#name").focus();
+      		return;
+      	});
 	}else if($("#phone").val().trim() == ""){
-		alert("연락처를 입력하세요");
+		/* alert("연락처를 입력하세요"); */
+		Swal.fire({
+	      	  icon: 'warning',
+	      	  title: '연락처를 입력하세요',
+	      	  showConfirmButton: true
+	      	}).then(function(){
+	      		$("#phone").focus();
+	      		return;
+	      	});
 	}else{
 		$.ajax({
 			url:"findIdAf.do",
@@ -73,11 +108,27 @@ function findId(){
 				},
 			success:function(data){
 				if(data == null || data === ""){
-					alert("가입된 이력이 없습니다.");
-					return;
+					/* alert("가입된 이력이 없습니다.");
+					return; */
+					Swal.fire({
+			        	  icon: 'info',
+			        	  title: '가입된 이력이 없습니다.',
+			        	  showConfirmButton: true
+			        	}).then(function(){
+			        		return;
+			        	});
 				}else{
-					alert("ID = "+data+"\n 확인버튼을 누르시면 창이 종료됩니다.");
-					window.close();
+					/* alert("ID = "+data+"\n 확인버튼을 누르시면 창이 종료됩니다.");
+					window.close(); */
+					Swal.fire({
+			        	  icon: 'info',
+			        	  title:'버튼을 누르시면 창이 종료됩니다.',
+			        	  text: "ID = "+data,
+			        	  confirmButtonText:'확인',
+			        	  showConfirmButton: true
+			        	}).then(function(){
+			        		window.close();
+			        	});
 				};
 			},
 			error:function(request,status,error){

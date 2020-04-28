@@ -9,11 +9,22 @@ memberDto sessionUser = (memberDto)request.getSession().getAttribute("loginUser"
 if(sessionUser == null){
 %>
 <script>
-	if(confirm("세션이 만료되었습니다.\n 다시 로그인 하시겠습니까?")){
-		location.href="loginView.do";
-	}else{
-		location.href="main.do";
-	}
+Swal.fire({
+	  title: '세션이 만료되었습니다.',
+	  text: "다시 로그인 하시겠습니까?",
+	  icon: 'question',
+	  showCancelButton: true,
+	  confirmButtonColor: '#3085d6',
+	  cancelButtonColor: '#d33',
+	  cancelButtonText:'아니요',
+	  confirmButtonText: '예'
+	}).then((result) => {
+	  if (result.value) {
+		  location.href="loginView.do";
+	  }else{
+		  location.href="main.do";
+	  }
+	})
 </script>
 <%
 }
@@ -147,8 +158,10 @@ memberDto memberDetail = (memberDto)request.getAttribute("memberDetail");
 				String birth = month + "-"+day;
 			%>
 				<div>
-					<input type="text" name="birthday" value="<%=birth %>" readonly="readonly">
-					<input type="hidden" class="memberDay" value=<%=day %>>
+					<input type="text" id="birth" value="<%=birth %>" readonly="readonly">
+					<input type="hidden" id="day"class="memberDay" value=<%=day %>>
+					<input type="hidden" id="month"class="memberMonth" value=<%=month %>>
+					<input type="hidden" id="birthday" name="birthday" value=<%=memberDetail.getBirthday() %>>
 					<input type="hidden" class="memberYear" name="memberYear" value="00000">
 					<span class="dayCheck">
 						<input type="hidden" class="alert-green">
@@ -200,7 +213,13 @@ memberDto memberDetail = (memberDto)request.getAttribute("memberDetail");
  	         		<button type="button" class="reserv_btn sBtn" style="width:80px;height:40px; background: #f2f2f2; margin-top: 10px;" >적용</button> 
 	         	</div>
 	         	<script>
-					alert("원활한 이용을 위해 \n 미입력된 정보를 기입해주세요^^");
+	         	Swal.fire({
+		        	  icon: 'info',
+		        	  title: '원활한 이용을 위해',
+		        	  text:'미입력된 회원정보를 입력해주세요.',
+		        	  showConfirmButton: true
+		        	}).then(function(){
+		        	});
 				</script>
 			<%
 			}else{

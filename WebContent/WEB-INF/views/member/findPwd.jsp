@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>패스워드찾기</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <style>
 .findPwd{width:300px;margin:0 auto;}
 .findPwd ul{list-style: none;margin:0 auto;}
@@ -58,49 +59,108 @@
 var userId= document.querySelector(".user_id");
 userId.addEventListener("change",function(e){
 var idReg= /^[0-9a-z][0-9a-z\_\-\.\+]+[0-9a-z]@[0-9a-z][0-9a-z\_\-]*[0-9a-z](\.[a-z]{2,6}){1,2}$/g;
-	if(!idReg.test($("#id").val())){
-		alert("이메일 형식이 아닙니다 !!");
+	 if(!idReg.test($("#id").val())){
+		/* alert("이메일 형식이 아닙니다 !!");
 		$("#id").val("");
 		$("#id").focus();
-		return;
-	}
+		return; */
+		Swal.fire({
+			  icon: 'warning',
+			  title: '이메일 형식이 아닙니다 !!',
+			  showConfirmButton: true
+			}).then(function(){
+				$("#id").val("");
+				$("#id").focus();
+				return;
+			});
+	} 
 })
 var userName= document.querySelector(".user_name");
 userName.addEventListener("change",function(e){
 var nameReg= /^[가-힣]+$/g;
-	if(!nameReg.test($("#name").val())){
-		alert("이름은 한글만 입력하세요!!");
+	 if(!nameReg.test($("#name").val())){
+		/* alert("이름은 한글만 입력하세요!!");
 		$("#name").val("");
 		$("#name").focus();
-		return;
-	}
+		return; */
+		Swal.fire({
+	    	  icon: 'warning',
+	    	  title: '이름은 한글만 입력하세요!!',
+	    	  showConfirmButton: true
+	    	}).then(function(){
+	    		$("#name").val("");
+	    		$("#name").focus();
+	    		return;
+	    	});
+	} 
 })
 var userPhone = document.querySelector(".user_phone");
 userPhone.addEventListener("change",function(e){
 var phReg = /^01([0|1|6|7|8|9])([1-9]{1}[0-9]{2,3})([0-9]{4})$/g;
-	if(!phReg.test($("#phone").val())){
-		alert("연락처 형식이 다릅니다 \n 특수문자를 제외한 숫자만 기입해주세요  \n 01x xxxx xxxx");
+	 if(!phReg.test($("#phone").val())){
+		/* alert("연락처 형식이 다릅니다 \n 특수문자를 제외한 숫자만 기입해주세요  \n 01x xxxx xxxx");
 		$("#phone").val("");
-		return;
-	}
+		return; */
+		Swal.fire({
+			  icon: 'warning',
+			  title: '숫자가 아니거나 특수문자존재.',
+			  text:'ex)01x-xxxx-xxxx',
+			  showConfirmButton: true
+			}).then(function(){
+				$("#phone").val("");
+				return;
+			});
+	} 
 })
 function findPwd(){
 	if($("#id").val().trim() == ""){
-		alert("id를 입력하세요");
+		/* alert("id를 입력하세요");
 		$("#id").focus();
-		return;
+		return; */
+		Swal.fire({
+	      	  icon: 'warning',
+	      	  title: 'id를 입력하세요',
+	      	  showConfirmButton: true
+	      	}).then(function(){
+	      		$("#id").focus();
+	    		return;
+	      	});
 	}else if($("#name").val().trim() == ""){
-		alert("이름을 입력하세요");
+		/* alert("이름을 입력하세요");
 		$("name").focus();
-		return;
+		return; */
+		Swal.fire({
+	      	  icon: 'warning',
+	      	  title: '이름을 입력하세요',
+	      	  showConfirmButton: true
+	      	}).then(function(){
+	      		$("#name").focus();
+	      		return;
+	      	});
 	}else if($("#phone").val().trim()==""){
-		alert("연락처를 입력하세요");
+		/* alert("연락처를 입력하세요");
 		$("#phone").focus();
-		return;
+		return; */
+		Swal.fire({
+	      	  icon: 'warning',
+	      	  title: '연락처를 입력하세요',
+	      	  showConfirmButton: true
+	      	}).then(function(){
+	      		$("#phone").focus();
+	      		return;
+	      	});
 	}else if($("#pass_hint").val().trim()==""){
-		alert("패스워드찾기 질문의 답을 입력하세요");
+		/* alert("패스워드찾기 질문의 답을 입력하세요");
 		$("#pass_hint").focus();
-		return;
+		return; */
+		Swal.fire({
+	      	  icon: 'warning',
+	      	  title: '패스워드찾기 질문의 답을 입력하세요',
+	      	  showConfirmButton: true
+	      	}).then(function(){
+	      		$("#pass_hint").focus();
+	    		return;
+	      	});
 		
 	}else{
 		$.ajax({
@@ -116,11 +176,27 @@ function findPwd(){
 				},
 			success:function(data){
 				if(data == null || data === ""){
-					alert("가입된 이력이 없습니다.");
-					return;
+					/* alert("가입된 이력이 없습니다.");
+					return; */
+					Swal.fire({
+			        	  icon: 'info',
+			        	  title: '가입된 이력이 없습니다.',
+			        	  showConfirmButton: true
+			        	}).then(function(){
+			        		return;
+			        	});
 				}else{
-					alert("pwd = "+data+"\n 확인버튼을 누르시면 창이 종료됩니다.");
-					window.close();
+					/* alert("pwd = "+data+"\n 확인버튼을 누르시면 창이 종료됩니다.");
+					window.close(); */
+					Swal.fire({
+			        	  icon: 'info',
+			        	  title:'버튼을 누르시면 창이 종료됩니다.',
+			        	  text: "PW = "+data,
+			        	  confirmButtonText:'확인',
+			        	  showConfirmButton: true
+			        	}).then(function(){
+			        		window.close();
+			        	});
 				};
 			},
 			error:function(request,status,error){

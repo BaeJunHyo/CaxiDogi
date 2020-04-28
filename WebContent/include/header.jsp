@@ -102,7 +102,7 @@ if(loginUser != null){
 			<%		
 				}else if(loginUser.getAuth() == 4 || loginUser.getAuth() == 5){
 			%>
-				<li><a href="#n">관리자페이지</a></li>
+				<li><a href="productList.do">관리자페이지</a></li>
 				
 			<%
 				}else{
@@ -230,9 +230,23 @@ if(loginUser != null){
 <script>
 <!-- Session logout  -->
 function logout(){
-	if(confirm("로그아웃하시겠습니까?")){
+	/* if(confirm("로그아웃하시겠습니까?")){
 		location.href="logout.do";
-	}
+	} */
+	
+	Swal.fire({
+		  title: '로그아웃하시겠습니까?',
+		  icon: 'question',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  cancelButtonText:'아니요',
+		  confirmButtonText: '예'
+		}).then((result) => {
+		  if (result.value) {
+	  		location.href="logout.do";
+	  	  }
+		});
 }
 
 </script>

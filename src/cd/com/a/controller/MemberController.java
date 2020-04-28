@@ -180,16 +180,17 @@ public class MemberController {
 		if(loginUser.getUser_api()==0) {
 			return "/mypage/memberDetail";
 		}else {
-			return "/mypage/snsMemberDetail";
+			return "redirect:snsFirstLogin.do";
 		}
 	}
 	
 	// SNS회원정보 기입 후 정보 업데이트 
 	@RequestMapping(value="/snsFirstUpdate.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public String snsFirstUpdate(memberDto dto, Model model, HttpServletRequest req) {
+		System.out.println("snsUP="+dto.toString());
 		if(memberService.snsFirstUpdate(dto)) {
 			//변동된 회원정보로 세션 초기화
-			memberDto login = memberService.login(dto);
+			memberDto login = memberService.snsLogin(dto);
 			req.getSession().removeAttribute("loginUser");
 			req.getSession().setAttribute("loginUser", login);
 			req.getSession().setMaxInactiveInterval(60*60*365);
@@ -307,10 +308,10 @@ public class MemberController {
 			  }
 	   }
 	   
-	   @RequestMapping(value="/testBJH.do", method= {RequestMethod.GET,RequestMethod.POST})
-	   public String testBJH(Model model) {
+	   @RequestMapping(value="/sellerAccessMgmt.do", method= {RequestMethod.GET,RequestMethod.POST})
+	   public String sellerAccessMgmt(Model model) {
 		   List<memberDto> sellerAccessList = memberService.getSellerAccessList();
 		   model.addAttribute("sellerAccessList",sellerAccessList);
-	      return "/mypage/testBJH";
+	      return "/mypage/sellerAccessMgmt";
 	   }
 }

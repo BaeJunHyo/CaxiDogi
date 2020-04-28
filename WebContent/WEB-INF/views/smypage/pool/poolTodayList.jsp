@@ -24,7 +24,7 @@ if(sessionUser == null){
 	<div class="cusSec_right">
 		<div class="cusSec_tableWrap tw_wFull">
 			<h3>
-				<span class="t_sbj">수영장 예약 리스트</span>
+				<span class="t_sbj">수영장 오늘의 예약 리스트</span>
 			</h3>
 		</div>
 		<div style ="margin-bottom : 10px;">
@@ -40,14 +40,6 @@ if(sessionUser == null){
 					</c:if>
 				</c:forEach>
 			</select>
-			<select id ="pool_resv_auth">
-				<option value ="100">전체</option>
-				<option value ="0">예약신청</option>
-				<option value ="1">입금대기</option>
-				<option value ="2">예약완료</option>
-				<option value ="3">취소</option>
-				<option value ="7">사용완료</option>
-			</select>
 			</c:if>
 		</div>
 		<div class="clearfix">
@@ -58,52 +50,31 @@ if(sessionUser == null){
 			<th>예약일</th>
 			<th>시간</th>
 			<th>이름</th>
+			<th>전화번호</th>
 			<th>인원</th>
 			<th>마리</th>
-			<th>상태</th>
-			<th>결제여부</th>
+			<th>확인</th>
 		</tr>
 		<c:if test = "${fn:length(poolSellerResvList) == 0 }">
 		<tr align="center">
-			<td colspan="9" >예약내역이 없습니다</td>
+			<td colspan="8" >예약내역이 없습니다</td>
 		</tr>
 		</c:if>
 		<c:if test="${fn:length(poolSellerResvList) !=0 }">
 			<c:forEach items="${poolSellerResvList }" var="resv" varStatus="sp">
-			<tr pool_resv_seq = "${resv.pool_resv_seq  }" class = "poolResv" pool_resv_auth ="${resv.pool_resv_auth  }">
+			<tr>
 				<th>${resv.pool_seq }</th>
 				<td>${resv.pool_name }</td>
 				<td>${resv.pool_resv_sdate }</td>
 				<td>${resv.pool_resv_time }</td>
 				<td>${resv.pool_resv_name }</td>
+				<td>${resv.pool_resv_tel }</td>
 				<td>${resv.pool_resv_user }</td>
 				<td>${resv.pool_resv_pet }</td>
 				<td>
-				
-				<c:if test = "${resv.pool_resv_auth == 0}">
-						<span style="color : red;">예약신청</span>
-					</c:if>
-					<c:if test = "${resv.pool_resv_auth == 1 }">
-						<span style="color : blue;">결제대기</span>
-					</c:if>
-					<c:if test = "${resv.pool_resv_auth == 2 }">
-						<span>예약완료</span>
-					</c:if>
-					<c:if test = "${resv.pool_resv_auth == 3 }">
-						<span style="color : red;">취소</span>
-					</c:if>
-					<c:if test = "${resv.pool_resv_auth == 7 }">
-						<span style="color : blue;">사용완료</span>
-					</c:if>
+					<input type = "button" pool_resv_seq = "${resv.pool_resv_seq }" class="btn_line_s useBtn" value ="사용">
 				</td>
-				<td>
-					<c:if test = "${resv.pool_resv_payment == 0}">
-						<span style="color : red;">X</span>
-					</c:if>
-					<c:if test = "${resv.pool_resv_payment == 1 }">
-						<span >O</span>
-					</c:if>
-				</td>
+		
 			</tr>
 			</c:forEach>
 		</c:if>
@@ -120,38 +91,71 @@ if(sessionUser == null){
 
 </div><!--container E : -->
 <script type="text/javascript">
-$(document).on("click",".poolResv", function(){
+$(document).on("click",".useBtn", function(){
 	var pool_resv_seq = $(this).attr("pool_resv_seq");
-	var pool_resv_auth = $(this).attr("pool_resv_auth");
-	if(pool_resv_auth!=7){
-		location.href="SellerResvDetail.do?pool_resv_seq="+pool_resv_seq;
-	}
+	Swal.fire({
+        title: pool_resv_seq+' 예약건 사용',
+        text: "예약자정보 확인하셨나요?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+      }).then((result) => {
+        if (result.value) {
+           $.ajax({
+               url:"./poolUse.do",
+               type:'post',
+               data:{"pool_resv_seq" : pool_resv_seq },
+               success: function(data){
+                  if(data == 'ok'){
+                     Swal.fire({
+                    		 title: '사용 완료 되었습니다.',
+                              icon: 'success', 
+                              showConfirmButton: true
+                     } ).then(function(){
+                                  window.location="poolTodayList.do"});
+                  }else if(data == 'no'){
+                	  Swal.fire({
+                          icon: 'error',
+                          title: '캐시도기에 문의해주세요.',
+                          showConfirmButton: true
+                        });
+                  }
+               },
+               error: function(e){
+            	   Swal.fire({
+                          icon: 'error',
+                          title: '캐시도기에 문의해주세요.',
+                          showConfirmButton: true
+                        });
+               }
+            });
+        }
+      });
+	
 });
 
 $("#pool_seq").change(function(){
 	var poolSeq = $("#pool_seq option:selected").val();
 	var poolResvAuth = $("#pool_resv_auth option:selected").val();
 
-	location.href = "poolList.do?poolSeq="+poolSeq+"&poolResvAuth="+poolResvAuth;
+	location.href = "poolTodayList.do?poolSeq="+poolSeq;
 		
 });
 
 $("#pool_resv_auth").change(function(){
 	var poolSeq = $("#pool_seq option:selected").val();
-	var poolResvAuth = $("#pool_resv_auth option:selected").val();
 
-	location.href = "poolList.do?poolSeq="+poolSeq+"&poolResvAuth="+poolResvAuth;
-		
+	location.href = "poolTodayList.do?poolSeq="+poolSeq;
 });
 
 $("#pool_seq").val("<%=param.getPoolSeq()%>").prop("selected", true);
-$("#pool_resv_auth").val("<%=param.getPoolResvAuth()%>").prop("selected", true);
 
 function goPage( pageNumber ){
 	//alert(pageNumber);
 	var poolSeq = $("#pool_seq option:selected").val();
-	var poolResvAuth = $("#pool_resv_auth option:selected").val();
-	location.href = "poolList.do?poolSeq="+poolSeq+"&poolResvAuth="+poolResvAuth+"&pageNumber="+pageNumber;
+	location.href = "poolTodayList.do?poolSeq="+poolSeq+"&pageNumber="+pageNumber;
 }
 
 </script>

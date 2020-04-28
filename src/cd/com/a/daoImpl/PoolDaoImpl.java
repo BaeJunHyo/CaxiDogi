@@ -106,4 +106,20 @@ public class PoolDaoImpl implements PoolDao{
 		return n>0?true:false;
 	}
 
+	@Override
+	public List<poolResvParam> getTodayResvList(poolParam param) {
+		return sqlSession.selectList(namespace+"getTodayResvList", param);
+	}
+
+	@Override
+	public int getTodayResvCount(poolParam param) {
+		return sqlSession.selectOne(namespace+"getTodayResvCount",param);
+	}
+
+	@Override
+	public boolean poolUse(int pool_resv_seq) {
+		int n = sqlSession.update(namespace+"poolUse", pool_resv_seq);
+		return n>0?true:false;
+	}
+
 }

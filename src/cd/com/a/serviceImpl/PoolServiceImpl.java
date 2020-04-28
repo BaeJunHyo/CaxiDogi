@@ -92,4 +92,19 @@ public class PoolServiceImpl implements PoolService {
 		return poolDao.poolCancleAf(pool_resv_seq);
 	}
 
+	@Override
+	public List<poolResvParam> getTodayResvList(poolParam param) {
+		return poolDao.getTodayResvList(param);
+	}
+
+	@Override
+	public int getTodayResvCount(poolParam param) {
+		return poolDao.getPoolResvUserCount(param);
+	}
+
+	@Override
+	public boolean poolUse(int pool_resv_seq) {
+		return poolDao.poolUse(pool_resv_seq);
+	}
+
 }

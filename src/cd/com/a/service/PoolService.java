@@ -15,6 +15,9 @@ public interface PoolService {
 	public List<poolDto> getSellerPoolList(int mem_seq);
 	public List<poolResvParam> getSellerResvList(poolParam param);
 	public int getPoolResvCount(poolParam param);
+	public List<poolResvParam> getTodayResvList(poolParam param);
+	public int getTodayResvCount(poolParam param);
+	public boolean poolUse(int pool_resv_seq);
 	public poolResvParam getSellerResvDetail(int pool_resv_seq);
 	public boolean setTotalPrice(poolResvParam poolResv);
 	public boolean setPayment(poolResvParam poolResv);

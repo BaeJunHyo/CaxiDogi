@@ -155,11 +155,11 @@
 	               data:{"pool_resv_seq" : "${pool_resv.pool_resv_seq}" },
 	               success: function(data){
 	                  if(data == 'ok'){
-	                     Swal.fire(
+	                     Swal.fire({
 	                    		 title: '예약 취소 되었습니다.',
 	                              icon: 'success', 
 	                              showConfirmButton: true
-	                           ).then(function(){
+	                     }).then(function(){
 	                                  window.location="myPageMove.do"});
 	                  }else if(data == 'no'){
 	                	  Swal.fire({

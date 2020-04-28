@@ -46,7 +46,6 @@ if(loginUser.getAuth()==1 || loginUser.getAuth()==2){
 					<ul>
 						<li><a href="sellerShopList.do">Shop</a></li>
 						<li><a href="sellerPoolList.do">Pool</a></li>
-						<li><a href="#n">Ground</a></li>
 					</ul>
 				</li>
 				<li>
@@ -54,14 +53,13 @@ if(loginUser.getAuth()==1 || loginUser.getAuth()==2){
 					<ul>
 						<li><a href="">Shop 예약</a></li>
 						<li><a href="poolList.do">Pool 예약</a></li>
-						<li><a href="">Ground 예약</a>
 					</ul>
 				</li>
 				<li>
-					<a href="#n">혜택정보</a>
+					<a href="#n">오늘 예약 현황</a>
 					<ul>
-						<li><a href="#n">포인트 조회</a></li>
-						<li><a href="#n">쿠폰 조회</a></li>
+						<li><a href="#n">Shop</a></li>
+						<li><a href="poolTodayList.do">Pool</a></li>
 					</ul>
 				</li>
 				<li>

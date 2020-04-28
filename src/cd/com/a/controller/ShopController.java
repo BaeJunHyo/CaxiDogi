@@ -49,6 +49,7 @@ public class ShopController {
 	
 	@RequestMapping(value="shopRegi.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public String shopRegi() {
+		
 		return "/smypage/shop/regi_shop";
 	}
 	
@@ -60,6 +61,7 @@ public class ShopController {
 		PrintWriter printWriter = null;
 		OutputStream out = null;
 		MultipartFile file = multiFile.getFile("upload");
+		
 		if(file != null){
 			if(file.getSize() > 0){
 				if(file.getContentType().toLowerCase().startsWith("image/")){
@@ -91,9 +93,11 @@ public class ShopController {
                     }catch(IOException e){
                         e.printStackTrace();
                     }finally{
+                    	
                         if(out != null){
                             out.close();
                         }
+                        
                         if(printWriter != null){
                             printWriter.close();
                         }		
@@ -110,8 +114,6 @@ public class ShopController {
 		String str = "";
 		if(!fileload.isEmpty()) {
 			String fileUpload = req.getServletContext().getRealPath("/images/shopImg"); 
-			System.out.println("fileUpload" + fileUpload); // 업로드 위치
-			//System.out.println(fileUpload);
 			String fileName = fileload.getOriginalFilename();
 			String saveFileName = "";
 			String filepost = "";
@@ -119,6 +121,7 @@ public class ShopController {
 				filepost = fileName.substring(fileName.indexOf('.'));
 				saveFileName = new Date().getTime() + filepost;
 			} 
+			
 			shop.setShop_photo(saveFileName);
 			
 			File file = new File(fileUpload + "/" + saveFileName);
@@ -161,9 +164,7 @@ public class ShopController {
 			shop.setShop_auth(4);
 		}
 		if(!fileload.isEmpty()) {
-			String fileUpload = req.getServletContext().getRealPath("/images/shopImg"); 
-			System.out.println("fileUpload" + fileUpload); // 업로드 위치
-			//System.out.println(fileUpload);
+			String fileUpload = req.getServletContext().getRealPath("/images/shopImg");
 			String fileName = fileload.getOriginalFilename();
 			String saveFileName = "";
 			String filepost = "";
@@ -171,6 +172,7 @@ public class ShopController {
 				filepost = fileName.substring(fileName.indexOf('.'));
 				saveFileName = new Date().getTime() + filepost;
 			} 
+			
 			shop.setShop_photo(saveFileName);
 			
 			File file = new File(fileUpload + "/" + saveFileName);
@@ -293,6 +295,7 @@ public class ShopController {
 		List<shopDesignerDto> designerList = shopService.getDesignerAll(shop_seq);
 		model.addAttribute("designerList", designerList);
 		model.addAttribute("shop_seq", shop_seq);
+		
 		return "/smypage/shop/shopDesignList";
 	}
 	
@@ -300,7 +303,7 @@ public class ShopController {
 	@RequestMapping(value="checkDesign.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public String checkDesign(shopDesignerDto shopDesign) {
 		String str = "";
-		System.out.println("design_seq : "+shopDesign.getDesign_seq());
+		
 		int count = shopService.checkDesign(shopDesign);
 		
 		if(count == 0) {
@@ -351,14 +354,17 @@ public class ShopController {
 	public String designModify(shopDesignerDto shopDesign, Model model) {
 		shopDto shop = shopService.getShopDetail(shopDesign.getShop_seq());
 		shopDesignerDto designer = shopService.getDesignerInfo(shopDesign);
+		
 		model.addAttribute("shop", shop);
 		model.addAttribute("designer", designer);
+		
 		return "/smypage/shop/modify_design";
 	}
 	
 	@RequestMapping(value="modifyShop.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public String modifyShop(int shop_seq, Model model) {
 		shopDto shop = shopService.getShopDetail(shop_seq);
+		
 		model.addAttribute("shop", shop);
 		
 		return "/smypage/shop/modify_shop";
@@ -367,6 +373,7 @@ public class ShopController {
 	@RequestMapping(value="reModifyShop.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public String reModifyShop(int shop_seq, Model model) {
 		shopDto shop = shopService.getShopDetail(shop_seq);
+		
 		model.addAttribute("shop", shop);
 		
 		return "/smypage/shop/re_modify_shop";

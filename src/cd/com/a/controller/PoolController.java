@@ -49,7 +49,6 @@ public class PoolController {
 	
 	@RequestMapping(value="getPoolList.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public String getPoolList(Model model) {
-		
 		List<poolDto> poolList = poolService.getPoolList();
 		model.addAttribute("poolList", poolList);
 		return "/pool/pool_list";
@@ -65,8 +64,6 @@ public class PoolController {
 	
 	@RequestMapping(value="poolResvView.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public String poolResvView(Model model, poolResvDto poolResv) {
-		System.out.println("pool_seq : " + poolResv.toString());
-		
 		  poolDto pool = poolService.getPoolDetail(poolResv.getPool_seq()); 
 		  memberDto mem = memService.resvMem(poolResv.getMem_seq());
 		  poolResv.setPool_resv_name(mem.getUser_name());
@@ -81,7 +78,6 @@ public class PoolController {
 	@RequestMapping(value = "poolResvAf.do", method= {RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
 	public Map<String, Object> poolResvAf(@ModelAttribute poolResvDto poolResv) {
-		System.out.println("이거나옴" + poolResv.toString());
 		int	result = poolService.resvPool(poolResv);
 		Map<String, Object> rmap = new HashMap<String, Object>();
 		if(result != 0) {
@@ -95,7 +91,6 @@ public class PoolController {
 	
 	@RequestMapping(value = "pool_reservation.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public String poolReservation(int pool_resv_seq, Model model) {
-		System.out.println("예약번호" + pool_resv_seq);
 		poolResvDto resv = poolService.getResvPool(pool_resv_seq);
 		poolDto pool = poolService.getPoolDetail(resv.getPool_seq()); 
 		model.addAttribute("pool_resv", resv);
@@ -121,6 +116,7 @@ public class PoolController {
 	public String poolResvList(Model model, HttpSession session, poolParam param) {
 		memberDto mem = (memberDto)session.getAttribute("loginUser");
 		param.setMemSeq(mem.getMem_seq());
+		
 		// paging 처리
 		int sn = param.getPageNumber();	// 0 1 2	현재 페이지
 		int start = sn * param.getRecordCountPerPage(); // 1, 11, 21

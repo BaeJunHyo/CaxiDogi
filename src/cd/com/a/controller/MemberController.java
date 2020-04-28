@@ -313,11 +313,4 @@ public class MemberController {
 		   model.addAttribute("sellerAccessList",sellerAccessList);
 	      return "/mypage/testBJH";
 	   }
-	   
-
-	
-	
-	
-	
-	
 }

@@ -11,35 +11,8 @@
 <script src="<%=request.getContextPath()%>/js/ckeditor/ckeditor.js"></script>
 
 <%@ include file="./../../../include/bo_header.jsp"%>
-<div class="lnbWrap">
-	<h2>상품관리</h2>
-	<ul class="lnb">
-		<li class="lnb_sbj"><a href="#n">상품관리</a>
-			<ul class="sub_lnbmenu">
-				<li><a href="#n">상품리스트</a></li>
-				<li><a href="#n">상품 등록</a></li>
-				<li><a href="#n">상품 일괄 등록</a></li>
-				<li><a href="#n">상품 이미지 일괄 처리</a></li>
-				<li><a href="#n">삭제 상품 관리</a></li>
-			</ul></li>
-		<li class="lnb_sbj"><a href="#n">상품 설정 관리</a>
-			<ul class="sub_lnbmenu">
-				<li><a href="#n">옵션 관리</a></li>
-				<li><a href="#n">상품 아이콘 관리</a></li>
-				<li><a href="#n">상품 필수정보 관리</a></li>
-				<li><a href="#n">상품 가격 관리</a></li>
-				<li><a href="#n">상품 품절/노출/재고 관리</a></li>
-				<li><a href="#n">상품 이동/복사/삭제 관리</a></li>
-				<li><a href="#n">상품 배송비 관리</a></li>
-			</ul></li>
-		<li class="lnb_sbj"><a href="#n">카테고리 관리</a>
-			<ul class="sub_lnbmenu">
-				<li><a href="#n">카테고리 관리</a></li>
-				<li><a href="#n">브랜드 관리</a></li>
-			</ul></li>
-	</ul>
-</div>
-<!--// lnbWrap -->
+
+<%@ include file="./../../../include/bo_leftNav.jsp"%>
 
 <div class="containerWrap productRegi">
 	<ul class="gnb">
@@ -90,56 +63,56 @@
 						<tr>
 							<th>상품구분</th>
 							<td>
-								<select id="_prdDivision" name="product_group">
-									<option value="" selected="selected">----- 상품 구분 -----</option>
-									<option value="1">강아지 용품</option>
-									<option value="2">고양이 용품</option>
-									<option value="3">공용</option>
+                                <select id="_prdDivision" name="product_group" class="prd_group">
+                                    <option value="" <c:if test="${prddto.product_group == null }"></c:if>>----- 상품 구분 -----</option>
+                                    <option value="1" <c:if test="${prddto.product_group == 1 }">selected</c:if>>강아지 용품</option>
+                                    <option value="2" <c:if test="${prddto.product_group == 2 }">selected</c:if>>고양이 용품</option>
+                                    <option value="3" <c:if test="${prddto.product_group == 3 }">selected</c:if>>공용</option>
 								</select>
 							</td>
 							<th>상품종류</th>
 							<td>
-								<select id="_prdKinds" name="product_sub_group">
+								<select id="_prdKinds" name="product_sub_group" class="prd_sub_group">
 									<option value="" selected="selected">----- 상품 종류 -----</option>
-									<option value="1">사료</option>
-									<option value="2">간식</option>
-									<option value="3">배변용품</option>
-									<option value="4">놀이</option>
-									<option value="5">미용용품</option>
+                                    <option value="1" <c:if test="${prddto.product_sub_group == 1 }">selected</c:if>>사료</option>
+                                    <option value="2" <c:if test="${prddto.product_sub_group == 2 }">selected</c:if>>간식</option>
+                                    <option value="3" <c:if test="${prddto.product_sub_group == 3 }">selected</c:if>>배변용품</option>
+                                    <option value="4" <c:if test="${prddto.product_sub_group == 4 }">selected</c:if>>놀이</option>
+                                    <option value="5" <c:if test="${prddto.product_sub_group == 5 }">selected</c:if>>미용용품</option>
 								</select>
 							</td>
 						</tr>
 						<tr>
 							<th>상호명</th>
 							<td>
-								<input type="text" id="_prdBrand" name="product_brand" placeholder="상호명을 입력해주세요" size="500">
+                                <input type="text" id="_prdBrand" name="product_brand" placeholder="상호명을 입력해주세요" size="500" value="${prddto.product_brand }">
 							</td>
 							
 							<th>상품코드</th>
 							<td>
-								<input type="text" id="_prdCode" name="product_code" placeholder="상품 코드를 입력해주세요" size="500">
+                                <input type="text" id="_prdCode" name="product_code" placeholder="상품 코드를 입력해주세요" size="500" value="${prddto.product_code }">
 							</td>
 						</tr>
 						<tr>
 							<th>상품가격</th>
 							<td>
-								<input type="text" id="_prdPrice" name="product_price" placeholder="가격을 입력해주세요" size="150">
+                                <input type="text" id="_prdPrice" name="product_price" placeholder="가격을 입력해주세요" size="150" value="${prddto.product_price }">
 							</td>
 							
 							<th>상품 재고</th>
 							<td>
-								<input type="text" id="_prdStock" name="product_stock" placeholder="상품 수량을 입력해주세요" size="500">
+                                <input type="text" id="_prdStock" name="product_stock" placeholder="상품 수량을 입력해주세요" size="500" value="${prddto.product_stock }">
 							</td>
 						</tr>
 						<tr>
 							<th>상품노출 상태</th>
 							<td>
 								<span class="select_wrap"> 
-									<input type="radio" name="product_hidden" value="0" checked="checked"> 
+                                    <input type="radio" name="product_hidden" value="0" <c:if test="${prddto.product_hidden == 0 }">checked</c:if>> 
 									<label>노출</label>
 								</span> 
 								<span class="select_wrap"> 
-									<input type="radio" name="product_hidden" value="1"> 
+                                    <input type="radio" name="product_hidden" value="1" <c:if test="${prddto.product_hidden == 1 }">checked</c:if>> 
 									<label>미노출</label>
 								</span>
 							</td>
@@ -147,14 +120,14 @@
 							
 							<th>배송비 조건</th>
 							<td colspan="3">
-								<input type="text" id="_prdDeliveryAuth" name="product_delivery_auth" placeholder="배송비 조건을 입력해주세요" size="500">
+                                <input type="text" id="_prdDeliveryAuth" name="product_delivery_auth" placeholder="배송비 조건을 입력해주세요" size="500" value="${prddto.product_delivery_auth }">
 								<label class="info_lavel">ex) 50,000원 입력 시 50,000원 부터 무료배송 적용</label>
 							</td>
 						</tr>
 						<tr>
 							<th>상품명</th>
 							<td>
-								<input type="text" id="_prdName" name="product_name" placeholder="상품명을 입력해주세요" size="500">
+                                <input type="text" id="_prdName" name="product_name" placeholder="상품명을 입력해주세요" size="500" value="${prddto.product_name }">
 							</td>
 						
 							<th>상품 대표 사진</th>
@@ -167,22 +140,23 @@
 
 
 				<div class="company_regi" style="margin-top: 10px;">
-					<textarea id="content" name="content"></textarea>
+                    <textarea id="content" name="content">${prddto.product_content }</textarea>
 					<script>
 						CKEDITOR.replace('content', {
 							filebrowserUploadUrl : 'boimageUpload.do'
 						});
-						config.height = '350px'; //Editor 높이
+						//config.height = '350px'; //Editor 높이
 					</script>
 					<input type="hidden" name="product_content" id="product_content">
-
-
+					
+                    <input type="hidden" name="product_img" value="${prddto.product_img }">
+                    <input type="hidden" name="product_num" value="${prddto.product_num }">
 				</div>
 
 				<div style="margin-top: 10px;" align="center">
 					<input name="updateHidden" type="hidden" value="">
 					<input class="btn_line_m" type="submit" id="prdUpdate" value="등록">
-					<input class="btn_line_m" type="button" id="prdUpdateCancle" value="취소">
+                    <input class="btn_line_m" type="button" id="prdUpdateCancle" value="취소" onclick="location.href='productList.do'">
 				</div>
 			</form>
 		</div>
@@ -193,7 +167,7 @@
 <!-- containerWrap E : -->
 
 
-	<script type="text/javascript">
+<script type="text/javascript">
 	$(document).ready(function() {
 			$("#prdRegi").click(
 					function() {
@@ -256,25 +230,54 @@
 
 					});
 
-			$("#prdUpdateCancle").click(function() {
-				location.href = "productList.do";
-			});
+            // select 그룹
+            $(.prd_group option).each(function(){
+                if($(this).val()=="${prddto.product_group }"){
+                  $(this).attr("selected","selected"); // attr & prop
+                }
+            }); 
 
 
 			$("#prdUpdate").click(function(){
 				
 				$.ajax({
-					url: "productUpdateAf.do",
+                    url: "./productUpdateAf.do",
 					type: "post",
 					data:
 					success: function(){}
+	                data: formData,
+	                enctype:'multipart/form-data',
+	                processData: false,
+	                contentType: false,
+	                cache: false,
+	                timeout: 600000,
+	                success: function(data){
+	                    Swal.fire({
+	                         icon: 'success',
+	                         title: '상품 수정 성공!',
+	                         showConfirmButton: true
+	                        }).then(function(){
+	                      window.location="productList.do";});
+	                },
+	                error: function(e){
+	                    alert("통신실패");
+	                }
 				})
 				
 			});
+
+
+		    //var opt = document.querySelectorAll("select.prd_group option");
+		    //for (var i = 0; i < c_opt.length; i++) {
+		    //    if (opt[i].value == '${prddto.product_group}') {
+		    //        $(".prd_group option:eq("+i+")").attr("selected","selected");    
+		    //        break;
+		    //    }
+		    //}
 			
 		});
-	</script>
+</script>
 
 
-	</body>
-	</html>
+</body>
+</html>

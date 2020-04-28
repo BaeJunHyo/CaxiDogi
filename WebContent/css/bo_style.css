@@ -927,6 +927,16 @@ body{overflow-x: hidden;}
 
 
 
+/* 상품관리 - 상품리스트 페이지 */
+.prdSearch td {background: #fff; transition: 1s;}
+.prdSearch td:hover {background: #efefef;}
+.prdSearch td a{
+    width: 100%;
+    text-align: center;
+    display: block;
+    font-weight: bold;
+}
+
 
 
 

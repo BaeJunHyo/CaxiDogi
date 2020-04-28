@@ -100,4 +100,10 @@ public class PoolDaoImpl implements PoolDao{
 		return sqlSession.selectOne(namespace+"getPoolResvUserCount", param);
 	}
 
+	@Override
+	public boolean poolCancleAf(int pool_resv_seq) {
+		int n = sqlSession.update(namespace+"poolCancleAf", pool_resv_seq);
+		return n>0?true:false;
+	}
+
 }

@@ -72,7 +72,8 @@ public class PoolController {
 		  poolResv.setPool_resv_name(mem.getUser_name());
 		  poolResv.setPool_resv_tel(mem.getPhone());
 
-		  model.addAttribute("pool", pool); model.addAttribute("poolResv", poolResv);
+		  model.addAttribute("pool", pool); 
+		  model.addAttribute("poolResv", poolResv);
 		 
 		return "/pool/pool_resv";
 	}
@@ -101,7 +102,21 @@ public class PoolController {
 		model.addAttribute("pool", pool);
 		return "/pool/pool_resv_detail";
 	}
+	
+	@RequestMapping(value = "poolCancleAf.do", method= {RequestMethod.GET,RequestMethod.POST})
+	@ResponseBody
+	public String poolCancleAf(int pool_resv_seq) {
+		String str = "";
+		boolean	status = poolService.poolCancleAf(pool_resv_seq);
 		
+		if(status == true) {
+			str = "ok";
+		} else {
+			str = "no";
+		}
+		return str;
+	}
+	
 	@RequestMapping(value="poolResvList.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public String poolResvList(Model model, HttpSession session, poolParam param) {
 		memberDto mem = (memberDto)session.getAttribute("loginUser");
@@ -115,14 +130,13 @@ public class PoolController {
 		param.setEnd(end);
 		
 		int totalRecordCount = poolService.getPoolResvUserCount(param);
-		
+		System.out.println("totalRecordCount" + totalRecordCount);
 		List<poolResvParam> poolResvList = poolService.poolResvList(param);
 		model.addAttribute("poolResvList", poolResvList);
 		model.addAttribute("pageNumber", sn);
 		model.addAttribute("pageCountPerScreen", 10);
 		model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
 		model.addAttribute("totalRecordCount", totalRecordCount);
-		model.addAttribute("poolResvList", poolResvList);
 	
 		return "/pool/poolResvList";
 	}

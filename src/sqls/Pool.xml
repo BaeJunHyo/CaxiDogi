@@ -32,6 +32,14 @@
 						values(#{pool_seq}, #{pool_resv_user}, #{pool_resv_pet}, #{pool_resv_time}, now(), #{pool_resv_sdate},
 								#{pool_resv_tel}, #{pool_resv_name}, 0, #{pool_resv_price}, #{mem_seq}, #{pool_resv_comment}, 0)
    </insert>
+   
+   <update id ="poolCancleAf" parameterType="java.lang.Integer">
+   	update pool_reservation
+   	set pool_resv_auth =3
+   	where pool_resv_seq=#{pool_resv_seq}
+   </update>
+   
+   
    <select id="getResvPool" parameterType ="java.lang.Integer" resultType="cd.com.a.model.poolResvDto">
    	select * from pool_reservation
    	where pool_resv_seq = #{pool_resv_seq}
@@ -128,6 +136,7 @@ from (select @finalnum:=@finalnum+1 as finalnum, sub.* from
 		on resv.pool_seq = pool.pool_seq
         and (@rownum:=0)=0
 		and resv.mem_seq = #{memSeq}
+		and resv.pool_resv_auth not in(3)
 	order by  resv.pool_resv_ydate desc) sub, (select @finalnum:=0) ftmp
     order by sub.rownum desc) fsub
     order by fsub.finalnum desc
@@ -144,6 +153,7 @@ from (select @finalnum:=@finalnum+1 as finalnum, sub.* from
 		on resv.pool_seq = pool.pool_seq
         and (@rownum:=0)=0
 		and resv.mem_seq = #{memSeq}
+		and resv.pool_resv_auth not in(3)
 	order by  resv.pool_resv_payment asc, resv.pool_resv_sdate asc,resv.pool_resv_ydate desc) sub, (select @finalnum:=0) ftmp
     order by sub.rownum desc) fsub
     order by fsub.finalnum desc

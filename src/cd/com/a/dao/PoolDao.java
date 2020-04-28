@@ -21,6 +21,7 @@ public interface PoolDao {
 	
 	public List<poolDto> getPoolList();
 	public List<poolResvParam> poolResvList(poolParam param);
+	public boolean poolCancleAf(int pool_resv_seq);
 	public int getPoolResvUserCount(poolParam param);
 	public poolResvDto getResvPool(int pool_resv_seq);
 	public int resvPool(poolResvDto poolResv);

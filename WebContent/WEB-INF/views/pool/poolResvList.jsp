@@ -9,7 +9,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
 
 <div class="cusSec_right">
-
+		<div class="cusSec_tableWrap tw_wFull">
+			<h3>
+				<span class="t_sbj">수영장 예약 리스트</span>
+			</h3>
+		</div>
 <div class="cusSec_tableWrap">
 	<table class="basic_tableStyle">
 		<colgroup>
@@ -33,7 +37,7 @@
 		<tbody>
 		<c:if test = "${fn:length(poolResvList) != 0 }">
 		<c:forEach items="${poolResvList }" var="showList">
-			<tr>
+			<tr class ="poolResv" pool_resv_seq = "${showList.pool_resv_seq }">
 				<td>
 				<p>${showList.pool_resv_ydate }/</p>
 				<p>${showList.pool_resv_seq }</p>
@@ -100,7 +104,14 @@
 </div>
 
 <script>
+function goPage( pageNumber ){
+	location.href = "poolResvList.do?pageNumber="+pageNumber;
+}
 
+$(document).on("click", ".poolResv", function(){
+	var pool_resv_seq = $(this).attr("pool_resv_seq");
+	location.href ="pool_reservation.do?pool_resv_seq="+pool_resv_seq;
+});
 
 </script>
 

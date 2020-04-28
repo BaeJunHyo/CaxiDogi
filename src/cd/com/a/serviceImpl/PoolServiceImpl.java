@@ -87,4 +87,9 @@ public class PoolServiceImpl implements PoolService {
 		return poolDao.getPoolResvUserCount(param);
 	}
 
+	@Override
+	public boolean poolCancleAf(int pool_resv_seq) {
+		return poolDao.poolCancleAf(pool_resv_seq);
+	}
+
 }

@@ -10,5 +10,24 @@
 		from member
 		where mem_seq = #{mem_seq}
 	</select>
-
+	
+	<insert id="crete_productOrder" parameterType="cd.com.a.model.productSaleDto">
+		insert into product_saleing(mem_seq, product_num, saleing_amount, saleing_addr, saleing_tel, saleing_date, saleing_option,
+				saleing_option_state, saleing_group, product_delivery, delivery_message, saleing_name)
+		
+		values(#{mem_seq}, #{product_num}, #{saleing_amount}, #{saleing_addr}, #{saleing_tel}, sysdate(), 0, 0, #{saleing_group},
+			#{product_delivery}, #{delivery_message}, #{saleing_name})
+	</insert>
+	
+	<insert id="create_SaleGroup" parameterType="java.lang.Integer">
+		insert into saleing_groupseq(mem_seq)
+		values(#{mem_seq})
+	</insert>
+	
+	<select id="getSaleGroup" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select MAX(saleing_group) from saleing_groupseq
+		where mem_seq = #{mem_seq}
+	</select>
+	
+	
 </mapper>

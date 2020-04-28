@@ -10,10 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import cd.com.a.model.order_PrdParam;
+import cd.com.a.model.order_PrdParamList;
 import cd.com.a.model.productDto;
 
 @Controller
@@ -75,21 +78,27 @@ public class DetailController {
 	
 	
 	@PostMapping(value="productOrder.do")
-	public String productOrder(HttpServletRequest request, Model model) {
+	public String productOrder(HttpServletRequest request, Model model, @ModelAttribute order_PrdParamList orderList) {
 		System.out.println("DetailController   productOrder()");
 		//넘어온 파라미터 확인 
-		System.out.println(request.getParameter("acount"));
-		System.out.println(request.getParameter("product_num"));
-		
-		productDto produc = detailService.getPrd(Integer.parseInt(request.getParameter("product_num")));
+		if(orderList.getOrderList() == null) {
+			System.out.println("param == NULL");
+		}else {
+			System.out.println("param == NOT NULL");
+			for(int i = 0; i < orderList.getOrderList().size(); i++) {
+				System.out.println(orderList.getOrderList().get(i).toString());
+			}
+		}
 		
 		List<productDto> list = new ArrayList<productDto>();
 		
-		list.add(produc);
+		for(int i = 0; i < orderList.getOrderList().size(); i++) {
+			productDto dto = detailService.getPrd(orderList.getOrderList().get(i).getProduct_num()); 
+			list.add(dto);
+		}
 		
-		model.addAttribute("acount", request.getParameter("acount"));
+		model.addAttribute("PrdParamList", orderList);
 		model.addAttribute("prd_list", list);
-		
 		
 		return "goodsShop/product_order";
 	}

@@ -29,12 +29,7 @@ public class kakaoPayController {
 		
 		
 		//db 주문테이블 생성
-		
-		
-		
-		
-		
-		
+
 		//서버와 통신할 객체 생성
 		RestTemplate restTemplate = new RestTemplate();
 		

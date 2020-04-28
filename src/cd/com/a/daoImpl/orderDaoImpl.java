@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import cd.com.a.dao.orderDao;
 import cd.com.a.model.memberDto;
+import cd.com.a.model.productSaleDto;
 
 @Repository
 public class orderDaoImpl implements orderDao {
@@ -19,6 +20,21 @@ public class orderDaoImpl implements orderDao {
 	public memberDto getDefultAddress(int mem_seq) {
 		
 		return sqlSession.selectOne(ns + "getDefultAddress", mem_seq);
+	}
+
+	@Override
+	public boolean crete_productOrder(productSaleDto saleDto) {
+		return sqlSession.insert(ns + "crete_productOrder", saleDto) > 0? true:false;
+	}
+
+	@Override
+	public void create_SaleGroup(int mem_seq) {
+		sqlSession.insert(ns + "create_SaleGroup", mem_seq);
+	}
+
+	@Override
+	public int getSaleGroup(int mem_seq) {
+		return sqlSession.selectOne(ns + "getSaleGroup", mem_seq);
 	}
 	
 	

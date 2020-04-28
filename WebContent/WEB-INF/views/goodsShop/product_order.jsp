@@ -5,7 +5,7 @@
 
 
 
-
+<c:set var="total_Price_Sum" value="0"></c:set>
 <div class="container_subWrap">
 	<div class="prd_infoWrap">
 		<div class="prdName_section clearfix">
@@ -47,39 +47,51 @@
 					</thead>
 					
 					<tbody id="prd_list">
-						<tr style="border: 1px solid #c8c8c8;">
-							<td><%-- 상품 이미지와 이름 정보 --%>
-								<div style="padding: 10px 10px 10px 10px;">
-									<div class="이미지" style="width:30%; height:100%; float:left; margin-bottom: 10px;">
-										<a>
-											<img alt="" src="<%=request.getContextPath() %>/images/사막사막01.jpg" width="70" height="50">
-										</a>
+						<c:forEach var="productDto" items="${prd_list }" varStatus="status">
+							<tr style="border: 1px solid #c8c8c8;">
+								<td><%-- 상품 이미지와 이름 정보 --%>
+									<div style="padding: 10px 10px 10px 10px;">
+										<div class="이미지" style="width:30%; height:100%; float:left; margin-bottom: 10px;">
+											<a>
+												<img alt="" src="${productDto.product_img }" width="70" height="50">
+											</a>
+										</div>
+										<div style="width:70%; float:left; text-align: left; align-content: center; padding-top: 12px;">
+											${productDto.product_name }
+										</div>
 									</div>
-									<div style="width:70%; float:left; text-align: left; align-content: center; padding-top: 12px;">
-										<strong>[hit]</strong>사막사막
-									</div>
-								</div>
-							</td>
+								</td>
+								<td>
+									<span class="counter" id="counter">
+	                              		<input type="text" value="${PrdParamList.getOrderList().get(status.index).acount }" class="tCount" readonly="readonly">
+	                              		<span class="counterBtn">
+	                                 		<a href="javascript:void(0)" class="btnPlus"></a>
+	                                 		<a href="javascript:void(0)" class="btnMinus"></a>
+	                             	 	</span>
+	                           		</span>
+								</td>
+								<td>
+									<strong class="prd_Price">
+										${productDto.product_price}
+									</strong>
+									<strong>원</strong>
+								</td>
+								<td>5%</td>
+								<td><strong>지역에 맞게</strong></td>
+								<td>
+									<strong class="total_Price">
+										${productDto.product_price * PrdParamList.getOrderList().get(status.index).acount  }
+									</strong>
+									<strong>원</strong>
+								</td>
+							</tr>
+							<c:set var="total_Price_Sum" value="${total_Price_Sum + productDto.product_price * PrdParamList.getOrderList().get(status.index).acount }"/>
+						</c:forEach>
+						<tr>
+							<th colspan="5" style="background-color: #FAFAFA"><p id="test">합계 금액</p></th>
 							<td>
-								<span class="counter" id="counter">
-                              		<input type="text" value="${acount }" id="count" class="tCount" readonly="readonly">
-                              		<span class="counterBtn">
-                                 		<a href="javascript:void(0)" class="btnPlus"></a>
-                                 		<a href="javascript:void(0)" class="btnMinus"></a>
-                             	 	</span>
-                           		</span>
-							</td>
-							<td>
-								<strong class="prd_Price">
-									${prd_list.get(0).getProduct_price()}
-								</strong>
-								<strong>원</strong>
-							</td>
-							<td>5%</td>
-							<td><strong>지역에 맞게</strong></td>
-							<td>
-								<strong class="total_Price">
-									${prd_list.get(0).getProduct_price() * acount  }
+								<strong class="total_Price_Sum">
+										${total_Price_Sum }
 								</strong>
 								<strong>원</strong>
 							</td>
@@ -236,12 +248,11 @@
 			</div>
 		</div>
 	</div>
-	
-	<div class="kakao_pop_Wrap" style="display:none;">ㅁㄴㅇㅁㄴㅇ
-		<iframe id="kakaopay_iframe" src="" width="400" height="400"></iframe>
-	</div>
 </div>
 
+<div class="kakao_pop_Wrap" style="display:none;">
+	<iframe id="kakaopay_iframe" src="" width="400" height="400"></iframe>
+</div>
 <%-- 주소 api 연결 --%>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -303,6 +314,7 @@
 </script>
 
 <script>
+	document.cookie = "SameSite=None;";
 	/* 수량&총가격 의 동적 변환 처리  */
 	$(document).on("click",".btnPlus", function (){
 
@@ -316,6 +328,14 @@
 		//수량 ++
 		var acount = Number($(acountTag).val());
 		acount++;
+
+		//예외처리
+		if(acount > 99){
+			acount = 99;
+			alert("최대 수량입니다. 대량구매는 관리자에게 문의 부탁드립니다.");
+			return;
+		}
+		
 		$(acountTag).val(acount);
 
 		//이 제품의 가격 찾기 
@@ -338,6 +358,13 @@
 		$(tr).children().last().children('.total_Price').text(total_price);
 		
 		console.log($(tr).children().last().children('.total_Price').html()); //총가격 
+
+		//합계 금액 처리 
+		var total_price_sum = $('#prd_list').children().last().children('td').children('.total_Price_Sum').text();
+		total_price_sum = Number(total_price_sum) + price;
+
+		$('#prd_list').children().last().children('td').children('.total_Price_Sum').text(total_price_sum);
+		
 	});
 	
 	$(document).on("click",".btnMinus", function (){
@@ -349,9 +376,16 @@
 		//console.log(tr);
 		//console.log($(acountTag).val()); //input Tag (수량)
 
-		//수량 ++
+		//수량 --
 		var acount = Number($(acountTag).val());
 		acount--;
+
+		//예외처리
+		if(acount < 1){
+			acount = 1;
+			return;
+		}
+		
 		$(acountTag).val(acount);
 
 		//이 제품의 가격 찾기 
@@ -374,6 +408,12 @@
 		$(tr).children().last().children('.total_Price').text(total_price);
 		
 		console.log($(tr).children().last().children('.total_Price').html()); //총가격 
+
+		//합계 금액 처리 
+		var total_price_sum = $('#prd_list').children().last().children('td').children('.total_Price_Sum').text();
+		total_price_sum = Number(total_price_sum) - price;
+
+		$('#prd_list').children().last().children('td').children('.total_Price_Sum').text(total_price_sum);
 		
 	});
 
@@ -431,7 +471,7 @@
 			$.ajax({
 
 				url:"getDefultAddress.do",
-				type:"post",
+				type:"GET",
 				data:{
 						mem_seq:${loginUser.getMem_seq()}
 				},
@@ -527,19 +567,67 @@
 		
 		//이름
 		if($('#sale_name').val() == ""){alert("수령지/배송지명이 공백입니다");}
+
+		//연락처
 		else if($('#phone_top').val() == 0){alert("연락처를 확인하세요");}
 		else if(!middle.test($('#phone_middle').val()) || $('#phone_middle').val() == ""){alert("연락처를 확인하세요");}	
 		else if(!bottom.test($('#phone_bottom').val()) || $('#phone_bottom').val() == ""){alert("연락처를 확인하세요");}
+
 		//주소
 		else if($('#address_number').val()==""){alert("주소를 확인하세요");}
 		else if($('#address_string').val()==""){alert("주소를 확인하세요");}
 		else if($('#address_detail').val()==""){alert("주소를 확인하세요");}
+
 		//동의 
 		else if($("#Agreement_01").is(":checked") == false){alert("개인정보 동의 체크가 안되어있습니다.");}
 		else if($("#Agreement_02").is(":checked") == false){alert("상품정보/거래조건 확인 체크가 안되어있습니다.");}
 		else{
 			alert("통과");
+
+			var acount = $("#prd_list input[type='text']");
+			var acountArr = new Array();
+			var prdArr = new Array();
+			for(i=0; i < acount.length; i++){
+				acountArr[i] = $(acount[i]).val();
+				prdArr[i] = ${prd_list.get(i).product_num};
+			}
+
+			var phoneNum = "" + $('#phone_top').val() +"-"+ $('#phone_middle').val() +"-"+ $('#phone_bottom').val();
+			var addr = "" + $('#address_number').val() + "/"+ $('#address_string').val() + "/" + $('#address_detail').val();
+			var totalPrice = $('#prd_list').children().last().children('td').children('.total_Price_Sum').text();
+					 
 			//이제 ajax로 카카오페이 결제준비를 한다.
+			$.ajax({
+				url:"kakaoReady.do",
+				type:"post",
+				traditional : true,
+				data: {
+					acount:acountArr,
+					productSeq:prdArr,
+					saleing_name:$('#sale_name').val(),
+					saleing_tel:phoneNum,
+					saleing_addr:addr,
+					totalPrice:totalPrice,	
+				},
+				success: function ( result ){
+					//alert("통신성공");
+					alert(result);
+					var popupWidth = 450;
+					var popupHeight = 500;
+
+					var popupX = (window.screen.width / 2) - (popupWidth / 2);
+					// 만들 팝업창 width 크기의 1/2 만큼 보정값으로 빼주었음
+
+					var popupY= (window.screen.height / 2) - (popupHeight / 2);
+					// 만들 팝업창 height 크기의 1/2 만큼 보정값으로 빼주었음
+					window.open(result,"카카오페이 결제","width="+popupWidth+",height="+popupHeight+",top="+popupY+",left="+popupX);
+
+				},
+				error: function (){
+					alert("통신실패");
+				}
+			})
+
 			
 		}
 	});

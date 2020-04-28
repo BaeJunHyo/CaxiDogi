@@ -43,6 +43,13 @@ public class ProductDaoImpl implements ProductDao {
 		return prddto;
 	}
 
+
+	@Override
+	public boolean prdDelete(int[] product_num) throws Exception {
+		int result = sqlSession.update(ns + "prdDelete", product_num);
+		return result > 0 ? true:false;
+	}
+
 	
 	
 

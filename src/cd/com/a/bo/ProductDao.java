@@ -14,4 +14,5 @@ public interface ProductDao {
 	
 	public boolean prdUpdate(productDto dto);
 	
+	public boolean prdDelete(int[] product_num) throws Exception;
 }

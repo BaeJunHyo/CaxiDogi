@@ -13,4 +13,6 @@ public interface ProductService {
 	public productDto getPrd(int product_num);
 	
 	public boolean prdUpdate(productDto dto);
+	
+	public boolean prdDelete(int[] product_num) throws Exception;
 }

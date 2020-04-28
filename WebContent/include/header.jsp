@@ -77,7 +77,6 @@ if(loginUser != null){
 			<%
 			if(loginUser == null){
 			%>
-				<li><a href="productList.do">관리자</a></li>
 				<li><a href="loginView.do">로그인</a></li>
 				<li><a href="newAccount.do">회원가입</a></li>
 				<li><a href="test.do">고객센터</a></li>	

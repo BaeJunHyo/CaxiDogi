@@ -284,3 +284,28 @@
 .total-page { zoom: 1; overflow: hidden; }
 .total-page .total { float: left; width: auto; }
 .total-page .page { float: right; width: auto;}
+
+
+
+/*검색  */
+.shop_section .main_menu {
+    clear: both;
+    /* float: right; */
+    text-align: center;
+}
+.shop_section .main_menu .searchArea input {
+    width: 229px;
+    height: 25px;
+    line-height: 25px;
+    padding: 0 20px;
+    font-size: 12px;
+    border: 1px solid #f0efef;
+    border-radius: 20px;
+    background: #f6f6f6;
+}
+.shop_section .main_menu .searchArea a {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+

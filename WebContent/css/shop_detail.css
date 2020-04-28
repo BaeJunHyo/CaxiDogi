@@ -209,3 +209,9 @@
    width: 60%;
    
 }
+
+/* 이미지 사이즈 */
+img.MS_prod_img_m{
+	width: 500px;
+	height: 500px;
+}

@@ -33,6 +33,7 @@ import com.google.gson.JsonObject;
 import cd.com.a.model.memberDto;
 import cd.com.a.model.shopDesignerDto;
 import cd.com.a.model.shopDto;
+import cd.com.a.model.shopPagingParam;
 import cd.com.a.model.shopResvDto;
 import cd.com.a.model.shopShowResvParam;
 import cd.com.a.service.MemberService;
@@ -512,10 +513,30 @@ public class ShopController {
 	}
 	
 	@RequestMapping(value="showShopResv.do",  method= {RequestMethod.GET,RequestMethod.POST})
-	public String showShopResv(Model model, HttpSession session) {
+	public String showShopResv(Model model, HttpSession session, shopPagingParam param) {
 		memberDto loginUser = (memberDto)session.getAttribute("loginUser");
 		System.out.println("=============showResv: " + loginUser.getMem_seq() );
-		List<shopShowResvParam> showShopList = shopService.showShopResv(loginUser.getMem_seq());
+		// paging 처리
+		int pageNumber = param.getPageNumber();	// 0 1 2	현재 페이지
+		int start = pageNumber * param.getRecordCountPerPage(); // 1, 11, 21
+		int end = (pageNumber + 1) * param.getRecordCountPerPage();	// 10, 20, 30
+		
+		param.setStart(start);
+		param.setEnd(end);
+		param.setMem_seq(loginUser.getMem_seq());
+		System.out.println("param=====" + param.toString());
+		
+		List<shopShowResvParam> showShopList = shopService.showShopResv(param);
+		
+		for(int i =0; i<showShopList.size(); i++) {
+			shopShowResvParam dto = showShopList.get(i);
+			System.out.println("=====dto.to.:" +dto.toString());
+		}
+		
+		// 글의 총수
+		int totalRecordCount = shopService.getShopResvCount(loginUser.getMem_seq());
+		
+		
 		//List<shopResvDto> showShopList = shopService.showShopResv(loginUser.getMem_seq());
 		//shopResvDto shopResv = (shopResvDto) shopService.showShopResv(loginUser.getMem_seq());
 		
@@ -529,6 +550,12 @@ public class ShopController {
 		 */
 		//shopResvDto dto = shopService.getShopResv(shop_resv_seq)
 		model.addAttribute("showShopList", showShopList);
+		System.out.println("size=====" + showShopList.size());
+		
+		model.addAttribute("pageNumber", pageNumber);
+		model.addAttribute("pageCountPerScreen", 10);
+		model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
+		model.addAttribute("totalRecordCount", totalRecordCount);
 	
 		return "/shop/showShopResv";
 	}

@@ -4,6 +4,7 @@ import java.util.List;
 
 import cd.com.a.model.shopDesignerDto;
 import cd.com.a.model.shopDto;
+import cd.com.a.model.shopPagingParam;
 import cd.com.a.model.shopResvDto;
 import cd.com.a.model.shopShowResvParam;
 
@@ -27,8 +28,10 @@ public interface ShopDao {
 	public shopDesignerDto getDesignerInfo(int design_seq);
 	public int resvShop(shopResvDto shopResv);
 	public shopResvDto getShopResv(int shop_resv_seq);
-	//public List<shopResvDto> showShopResv(int mem_seq);
-	public List<shopShowResvParam> showShopResv(int mem_seq);
+	// paging
+	public List<shopShowResvParam> showShopResv(shopPagingParam param);
+	public int getShopResvCount(int mem_seq);
+	
 	public boolean cancelShopResv(shopResvDto shopresv);
 	public int shopCalcelTimeCheck(shopResvDto shopresv);
 

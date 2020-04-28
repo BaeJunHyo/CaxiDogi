@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import cd.com.a.dao.ShopDao;
 import cd.com.a.model.shopDesignerDto;
 import cd.com.a.model.shopDto;
+import cd.com.a.model.shopPagingParam;
 import cd.com.a.model.shopResvDto;
 import cd.com.a.model.shopShowResvParam;
 import cd.com.a.service.ShopService;
@@ -86,8 +87,8 @@ public class ShopServiceImpl implements ShopService {
 	}
 
 	@Override
-	public List<shopShowResvParam> showShopResv(int mem_seq) {
-		return shopDao.showShopResv(mem_seq);
+	public List<shopShowResvParam> showShopResv(shopPagingParam param) {
+		return shopDao.showShopResv(param);
 	}
 
 	
@@ -125,6 +126,12 @@ public class ShopServiceImpl implements ShopService {
 	public int shopCalcelTimeCheck(shopResvDto shopresv) {
 		return shopDao.shopCalcelTimeCheck(shopresv);
 	}
+
+	@Override
+	public int getShopResvCount(int mem_seq) {
+		return shopDao.getShopResvCount(mem_seq);
+	}
+	
 	
 
 }

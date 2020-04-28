@@ -97,16 +97,16 @@ if(loginUser != null){
 			%>
 			  
 				<li><a href="sellerMyPage.do">셀러페이지</a></li>
-				<li><a href="#none" onclick="mypage()">마이페이지</a></li>
+				<li><a href="#none" onclick="location.href='myPageMove.do'">마이페이지</a></li>
 			<%		
 				}else if(loginUser.getAuth() == 4 || loginUser.getAuth() == 5){
 			%>
-				<li><a href="#n">관리자페이지</a></li>
+				<li><a href="productList.do">관리자페이지</a></li>
 				
 			<%
 				}else{
 			%>
-				<li><a href="#none" onclick="mypage()">마이페이지</a></li>
+				<li><a href="#none" onclick="location.href='myPageMove.do'">마이페이지</a></li>
 			<%
 				}
 			%>
@@ -226,15 +226,26 @@ if(loginUser != null){
       <li><a href="#n">마이페이지</a></li>
     </ul>
   </div> -->
-  
+<script>
 <!-- Session logout  -->
-<script type="text/javascript">
 function logout(){
-	if(confirm("로그아웃하시겠습니까?")){
+	/* if(confirm("로그아웃하시겠습니까?")){
 		location.href="logout.do";
-	}
+	} */
+	
+	Swal.fire({
+		  title: '로그아웃하시겠습니까?',
+		  icon: 'question',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  cancelButtonText:'아니요',
+		  confirmButtonText: '예'
+		}).then((result) => {
+		  if (result.value) {
+	  		location.href="logout.do";
+	  	  }
+		});
 }
-function mypage(){
-	location.href="myPageMove.do";
-}
+
 </script>

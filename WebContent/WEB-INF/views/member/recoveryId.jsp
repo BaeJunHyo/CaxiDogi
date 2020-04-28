@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>계정복구</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <style>
 .recoveryId{width:300px;margin:0 auto;}
 .recoveryId ul{list-style: none;margin:0 auto;}
@@ -49,22 +50,47 @@ var userName= document.querySelector(".user_name");
 userName.addEventListener("change",function(e){
 var nameReg= /^[가-힣]+$/g;
 	if(!nameReg.test($("#name").val())){
-		alert("이름은 한글만 입력하세요!!");
+		/* alert("이름은 한글만 입력하세요!!");
 		$("#name").val("");
 		$("#name").focus();
-		return;
+		return; */
+		Swal.fire({
+	      	  icon: 'warning',
+	      	  title: '이름은 한글만 입력하세요!!',
+	      	  showConfirmButton: true
+	      	}).then(function(){
+	      		$("#name").val("");
+	    		$("#name").focus();
+	    		return;
+	      	});
 	}
 })
 
 function recoveryId(){
 	if($("#name").val().trim() == ""){
-		alert("이름을 입력하세요");
+		/* alert("이름을 입력하세요");
 		$("name").focus();
-		return;
+		return; */
+		Swal.fire({
+	      	  icon: 'warning',
+	      	  title: '이름을 입력하세요',
+	      	  showConfirmButton: true
+	      	}).then(function(){
+	      		$("#name").focus();
+	      		return;
+	      	});
 	}else if($("#password").val().trim()==""){
-		alert("패스워드를 입력하세요");
+		/* alert("패스워드를 입력하세요");
 		$("#password").focus();
-		return;
+		return; */
+		Swal.fire({
+	      	  icon: 'warning',
+	      	  title: '패스워드를 입력하세요',
+	      	  showConfirmButton: true
+	      	}).then(function(){
+	      		$("#password").focus();
+	      		return;
+	      	});
 	}else{
 		$.ajax({
 			url:"recoveryIdAf.do",
@@ -76,13 +102,28 @@ function recoveryId(){
 				"password":$("#password").val(),
 				},
 			success:function(data){
-				if(data == "success"){
-					alert("계정 복구 완료 되었습니다.");
-					window.close();
+				 if(data == "success"){
+					/* alert("계정 복구 완료 되었습니다.");
+					window.close(); */
+					Swal.fire({
+			        	  icon: 'success',
+			        	  title: '계정 복구 완료 되었습니다.',
+			        	  showConfirmButton: true
+			        	}).then(function(){
+			        		window.close()
+			        	});
 				}else{
-					alert("잘못된 입력입니다.");
-					return;
-				}
+					/* alert("잘못된 입력입니다.");
+					return; */
+					Swal.fire({
+			        	  icon: 'success',
+			        	  title: '잘못된 입력 입니다.',
+			        	  showConfirmButton: true
+			        	}).then(function(){
+			        		return;
+			        	});
+				} 
+				
 			},
 			error:function(request,status,error){
 				alert(error);

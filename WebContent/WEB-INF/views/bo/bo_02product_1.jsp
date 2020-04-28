@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+
 <!-- 코어태그 -->
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
@@ -12,7 +12,7 @@
 <%
 String category = (String)request.getAttribute("s_category");
 if(category == null) category = "";
-	
+
 String keyword = (String)request.getAttribute("s_keyword");
 if(keyword == null) keyword = "";
 %>
@@ -22,7 +22,7 @@ var category = "<%=category %>";
 var keyword = "<%=keyword %>";
 $(document).ready(function () {
 	$("#_s_category").val( category );
-	
+
 	document.prdSrchFrm.s_keyword.value = keyword;
 });
 </script>
@@ -56,14 +56,14 @@ $(document).ready(function () {
                     <li><img src="./images/bo/img_colorInfo_05.gif">삭제</li>
                 </ul>
             </div><!--// top -->
-    
-        
+
+
             <div class="cn_wrap">
                 <div class="table_top">
                     <span class="table_sbj">상품검색</span>
                     <a href="productInsert.do" class="btn_r_red">+ 상품등록</a>
                 </div><!--// table_top -->
-                
+
                 <!-- 검색 -->
                     <table class="product_srchTable">
                         <colgroup>
@@ -85,7 +85,7 @@ $(document).ready(function () {
                                     <input type="text" id="_s_keyword" name="s_keyword">
                                 </td>
                             </tr>
-                            
+
                             <tr>
                                 <th>카테고리</th>
                                 <td colspan="3">
@@ -95,7 +95,7 @@ $(document).ready(function () {
                                         <option value="2">고양이 용품</option>
                                         <option value="3">공용</option>
                                     </select>
-                                    
+
                                     <select id="_s_product_sub_group" name="s_product_sub_group">
                                         <option value="">카테고리 선택</option>
                                         <option value="1">사료</option>
@@ -106,20 +106,20 @@ $(document).ready(function () {
                                     </select>
                                 </td>
                             </tr>
-                            <!-- 
+                            <!--
                             <tr>
                                 <th>상품 재고</th>
                                 <td>
-                                    <input type="number" class="input_w02" name="minStorage" value="minStorage"> 개 이상 ~ 
+                                    <input type="number" class="input_w02" name="minStorage" value="minStorage"> 개 이상 ~
                                     <input type="number" class="input_w02" name="maxStorage" value="maxStorage"> 개 이하
                                 </td>
-                                
+
                                 <th>판매가</th>
                                 <td>
-                                    <input type="number" class="input_w02" name="minPrice" value="minPrice"> 이상 ~ 
+                                    <input type="number" class="input_w02" name="minPrice" value="minPrice"> 이상 ~
                                     <input type="number" class="input_w02" name="maxPrice" value="maxPrice"> 이하
                                 </td>
-                            </tr> 
+                            </tr>
                             <tr>
                                 <th>상품노출 상태</th>
                                 <td>
@@ -136,7 +136,7 @@ $(document).ready(function () {
                                         <label>미노출</label>
                                     </span>
                                 </td>
-                                
+
                                 <th>상품판매 상태</th>
                                 <td>
                                     <span class="select_wrap">
@@ -152,7 +152,7 @@ $(document).ready(function () {
                                         <label>판매안함</label>
                                     </span>
                                 </td>
-                            </tr> 
+                            </tr>
                             -->
                             <tr>
                                 <th>품절 상태</th>
@@ -195,8 +195,8 @@ $(document).ready(function () {
                             </tr>
                         </tbody>
                     </table>
-                    
-                    <!-- 
+
+                    <!--
                     <p class="table_optionBtn">
                         <a href="#n" id="_btnSearch" class="btn_c dis_b">검 색</a>
                     </p>
@@ -204,10 +204,10 @@ $(document).ready(function () {
                     <!-- <p class="table_optionBtn">
                         <a href="#n" class="btn_r_navy btn_detailsrch">상세검색 닫기</a>
                     </p> -->
-                    
+
             </div>
             <!-- //cn_wrap -->
-    
+
             <div class="cn_wrap srch_result">
                 <div class="table_top clearfix">
                     <p class="count">
@@ -227,7 +227,7 @@ $(document).ready(function () {
                         </select>
                     </p>
                 </div><!--// table_top -->
-                
+
 			<table class="prdlist">
 				<colgroup>
 					<col width="55px">
@@ -243,7 +243,7 @@ $(document).ready(function () {
 					<col width="107px">
 					<col width="107px">
 				</colgroup>
-				
+
 				<thead>
 					<tr>
 						<th><input type="checkbox" name="chk" onclick="deletechecks(this.checked)"></th>
@@ -260,14 +260,14 @@ $(document).ready(function () {
 						<th>수정</th>
 					</tr>
 				</thead>
-				
+
 				<tbody>
 					<c:if test="${empty prdlist }">
 						<tr>
 							<td colspan="12">상품등록이 되지 않았습니다.</td>
 						</tr>
 					</c:if>
-					
+
 					<c:forEach items="${prdlist }" var="pr" varStatus="vs">
 					<tr>
 						<td><input type="checkbox" name="chBox" class="chBox" data-prdNum="${pr.product_num }"></td>
@@ -286,7 +286,7 @@ $(document).ready(function () {
 					</c:forEach>
 				</tbody>
 			</table>
-			
+
 			<p class="table_optionBtn clearfix">
 				<a href="#n" class="btn_r_navy">상품 품절처리</a>
 				<a href="#n" class="btn_r_navy">선택 복사</a>
@@ -315,19 +315,19 @@ $(document).ready(function () {
 //-- 다중 선택 삭제
 function deletechecks( ch ){
 // alert(ch);
-	var arrCheck = document.getElementsByName("chk");  
-	  
+	var arrCheck = document.getElementsByName("chk");
+
 	// -- true로 들어왔을 때 (체크되었을 때)
 	for(i = 0; i < arrCheck.length; i++){
 	    // -- 클릭하면 전체 선택되게 해줌
-	    arrCheck[i].checked = ch; 
+	    arrCheck[i].checked = ch;
 	}
 }
 
-/* 
+/*
 function goPage( pageNumber ){
 	$("#_pageNumber").val(pageNumber);
-	$("#_frmFormSearch").attr("action", "bbslist.do").submit();	
+	$("#_frmFormSearch").attr("action", "bbslist.do").submit();
 }
  */
 $("#_btnSearch").click(function(){
@@ -337,17 +337,17 @@ $("#_btnSearch").click(function(){
 
 // 선택삭제 버튼
  $("#btnlistDel").click(function(){
-		
+
 	 var confirm_val = confirm("정말 삭제하시겠습니까?");
-	  
+
 	  if(confirm_val) {
 	   var checkArr = new Array();
-	   
+
 	   $("input[class='chBox']:checked").each(function(){
 	    checkArr.push($(this).attr("data-prdNum"));
 	   });
 
-	    
+
 		$.ajax({
 			url : "deletePrd.do",
 			type : "post",
@@ -360,7 +360,7 @@ $("#_btnSearch").click(function(){
 		       alert("상품 삭제처리 실패");
 			}
 		});
-	  } 
+	  }
 });
 
 </script>

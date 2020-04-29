@@ -9,7 +9,7 @@
 
 <%@ include file="./../../../../include/bo/bo_header.jsp" %>
 
-<%-- <%
+<%
 String category = (String)request.getAttribute("s_category");
 if(category == null) category = "";
 	
@@ -22,10 +22,11 @@ var category = "<%=category %>";
 var keyword = "<%=keyword %>";
 $(document).ready(function () {
 	$("#_s_category").val( category );
+	$("#_s_keyword").val( keyword );
 	
 	document.prdSrchFrm.s_keyword.value = keyword;
 });
-</script> --%>
+</script>
 
 <%@ include file="./../../../../../../include/bo/bo_leftNav_product.jsp"%>
 
@@ -82,18 +83,18 @@ $(document).ready(function () {
 							<td colspan="3">
 								<select id="_s_product_group" name="product_group">
 									<option value="0">카테고리 선택</option>
-									<option value="1">강아지 용품</option>
-									<option value="2">고양이 용품</option>
-									<option value="3">공용</option>
+									<option value="1"<c:if test="${product_group == 1 }">selected</c:if>>강아지 용품</option>
+									<option value="2"<c:if test="${product_group == 2 }">selected</c:if>>고양이 용품</option>
+									<option value="3"<c:if test="${product_group == 3 }">selected</c:if>>공용</option>
 								</select>
 								
 								<select id="_s_product_sub_group" name="product_sub_group">
 									<option value="0">카테고리 선택</option>
-									<option value="1">사료</option>
-									<option value="2">간식</option>
-									<option value="3">배변용품</option>
-									<option value="4">놀이용품</option>
-									<option value="5">미용용품</option>
+									<option value="1"<c:if test="${product_sub_group == 1 }">selected</c:if>>사료</option>
+									<option value="2"<c:if test="${product_sub_group == 2 }">selected</c:if>>간식</option>
+									<option value="3"<c:if test="${product_sub_group == 3 }">selected</c:if>>배변용품</option>
+									<option value="4"<c:if test="${product_sub_group == 4 }">selected</c:if>>놀이용품</option>
+									<option value="5"<c:if test="${product_sub_group == 5 }">selected</c:if>>미용용품</option>
 									<%-- <option value="5" <c:if test="${prdlist.product_sub_group == 5 }">selected></c:if>>미용용품</option> --%>
 								</select>
 							</td>
@@ -105,10 +106,10 @@ $(document).ready(function () {
 						            <input type="radio" name="s_soldState" value="0" checked="checked">
 						            <label>전체</label>
 						            
-						            <input type="radio" name="s_soldState" value="1">
+						            <input type="radio" name="s_soldState" value="1"<c:if test="${s_soldState == 1 }">checked</c:if>>
 						            <label>품절</label>
 						            
-						            <input type="radio" name="s_soldState" value="2">
+						            <input type="radio" name="s_soldState" value="2"<c:if test="${s_soldState == 2 }">checked</c:if>>
 						            <label>정상</label>
 						        </span>
 						        <!-- <span class="select_wrap">
@@ -128,25 +129,27 @@ $(document).ready(function () {
 				</table>
 			</div>
 			<!-- //cn_wrap -->
+	</form>
 	
 			<div class="cn_wrap srch_result">
 				<div class="table_top clearfix">
 					<p class="count">
-						검색
-						<span class="c_red">10</span>개
-						<img src="./images/bo/ico_bar02.gif" class="bar">
-						전체
-						<span class="c_red">10</span>개
+						총&nbsp;<span class="c_red">${totalRecordCount }</span>개
+						<!-- <img src="./images/bo/ico_bar02.gif" class="bar">
+						전체<span class="c_red">10</span>개 -->
 					</p>
+					<!-- 
 					<p class="pageUnit">
-						<select name="">
-							<option value="" selected="selected">등록일 (오름차순)</option>
+						<select id="s_sorting" name="sorting">
+							<option value="0" selected="selected">등록일 (오름차순)</option>
+							<option value="1">등록일 (내림차순)</option>
 						</select>
-						<select name="">
+						<select id="s_countList" name="countList">
 							<option value="10" selected="selected">10개 보기</option>
-							<option value="5">5개 보기</option>
+							<option value="20">20개 보기</option>
 						</select>
-					</p>
+					</p> 
+					-->
 				</div><!--// table_top -->
 				
 				<table class="prdlist">
@@ -209,10 +212,7 @@ $(document).ready(function () {
 				</table>
 				
 				<p class="table_optionBtn clearfix">
-					<a href="#n" class="btn_r_navy">상품 품절처리</a>
-					<a href="#n" class="btn_r_navy">선택 복사</a>
 					<a href="" class="btn_r_navy selectDelete_btn">선택 삭제</a>
-					<a href="" class="btn_r02_green">엑셀 다운로드</a>
 				</p>
 	
 				<!-- <div class="pagingWrap">
@@ -239,34 +239,30 @@ $(document).ready(function () {
 		<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?0:recordCountPerPage }">
  		<input type="hidden" name="pageNumber" id="_pageNumber" value="${(empty pageNumber)?0:pageNumber }">	
 		
-	</form>
-	
-	 
-	
 </div><!--// containerWrap -->
 
 <script>
-$("input[name=product_sub_group]").val(${prdparam.soldStateArr}).prop("checked", true);
-
 
 $("#_s_product_group").change(function() {
-	var product_group = "${product_group}";
-	$("#_s_product_group option:selected").val(product_group);
+	//var product_group = "${product_group}";
+	/* $("#_s_product_group option:selected").val(product_group); */
 });
 
 $("#_s_product_sub_group").change(function() {
 	var product_sub_group = $("#_s_product_sub_group option:selected").val();
 });
 
-//radio change 이벤트
-$("input[name=s_soldState]").change(function() {
 
-	var soldStateArr = $(this).val();
-	
-	//alert("품절상태 : " + radioValue);
-	
+
+$("#s_sorting").change(function() {
+	var sorting = $("#s_sorting option:selected").val();
+	location.href = "productList.do?sorting=" + sorting;
 });
 
+
+$("#s_countList").change(function() {
+	var countList = $("#s_countList option:selected").val();
+});
 
 //-- 다중 선택 삭제
 function deletechecks( ch ){
@@ -289,8 +285,9 @@ function goPage( pageNumber ){
 $("#_btnSearch").click(function(){
 //alert("_btnSearch");
 	$("#_prdSrchFrm").attr("action", "productList.do").submit();
-	//alert("s_product_group : " + $("select[name=s_product_group] option:selected").val());
-	//alert("s_product_sub_group : " + $("select[name=s_product_sub_group] option:selected").val());
+	//alert("product_group : " + $("select[name=product_group] option:selected").val() );
+	//alert("radio : " + $("input[name=s_soldState]:checked").val() );
+	//alert("product_sub_group : " + $("select[name=product_sub_group] option:selected").val());
 });
 
 

@@ -27,22 +27,51 @@
 		<if test="s_category == 'product_brand'">
 			AND product_brand LIKE CONCAT ('%',#{s_keyword},'%')
 		</if>
-		<if test="soldStateArr == 1">
+		<if test="s_soldState == 1">
 			AND product_stock = 0 
 		</if>
-		<if test="soldStateArr == 2">
+		<if test="s_soldState == 2">
 			<![CDATA[ AND product_stock > 0 ]]>
 		</if>
+		
 	</where>
 	
 	<!-- WHERE RNUM BETWEEN ${start} AND ${end} -->
 	ORDER BY product_num
-	LIMIT #{start} , #{recordCountPerPage}
+	
 		   
 </select>
 
 <select id="getPrdCount" resultType="java.lang.Integer">
-SELECT IFNULL(COUNT(*), 0) FROM product;
+<!-- SELECT IFNULL(COUNT(*), 0) FROM product; -->
+SELECT IFNULL(COUNT(*), 0) FROM product
+	<where>
+		<if test="product_group != null and product_group != '' ">
+			AND product_group = #{product_group} 
+		</if>
+		<if test="product_sub_group != null and product_sub_group != '' ">
+			AND product_sub_group = #{product_sub_group}
+		</if>	 	
+		<if test="s_category == 'product_name'">
+			AND product_name LIKE CONCAT ('%',#{s_keyword},'%')
+		</if>
+		<if test="s_category == 'product_code'">
+			AND product_code LIKE CONCAT ('%',#{s_keyword},'%')
+		</if>
+		<if test="s_category == 'product_brand'">
+			AND product_brand LIKE CONCAT ('%',#{s_keyword},'%')
+		</if>
+		<if test="s_soldState == 1">
+			AND product_stock = 0 
+		</if>
+		<if test="s_soldState == 2">
+			<![CDATA[ AND product_stock > 0 ]]>
+		</if>
+	</where>
+	
+	ORDER BY product_num
+	LIMIT #{start} , #{recordCountPerPage}
+	
 </select>
 
 <!-- 상품리스트(페이징 - 관리자) -->

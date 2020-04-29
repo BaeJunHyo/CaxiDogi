@@ -6,13 +6,15 @@
 	<h2>상품관리</h2>
 	<ul class="lnb">
 		<li class="lnb_sbj"><a href="#n">상품관리</a>
-			<ul class="sub_lnbmenu">
+			<ul class="sub_lnbmenu" style="display: block;">
 				<li><a href="productList.do">상품리스트</a></li>
 				<li><a href="productInsert.do">상품 등록</a></li>
 				<!-- <li><a href="#n">상품 일괄 등록</a></li>
 				<li><a href="#n">상품 이미지 일괄 처리</a></li> -->
 				<li><a href="#n">삭제 상품 관리</a></li>
-			</ul></li>
+			</ul>
+		</li>
+		<!-- 
 		<li class="lnb_sbj"><a href="#n">상품 설정 관리</a>
 			<ul class="sub_lnbmenu">
 				<li><a href="#n">옵션 관리</a></li>
@@ -27,7 +29,9 @@
 			<ul class="sub_lnbmenu">
 				<li><a href="#n">카테고리 관리</a></li>
 				<li><a href="#n">브랜드 관리</a></li>
-			</ul></li>
+			</ul>
+		</li> 
+		-->
 	</ul>
 </div>
 <!--// lnbWrap -->

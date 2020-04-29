@@ -11,12 +11,14 @@ public class ProductParam implements Serializable {
 	private int product_group;	// 그룹
 	private int product_sub_group;	// 서브그룹
 	
-	private int soldStateArr = 0;
 	private int s_soldState;	// 품절상태
 
 	//-- paging
 	private int pageNumber = 0;	// 현재 페이지
 	private int recordCountPerPage = 10;	// 페이지의 글수
+	
+	private int sorting = 0;
+	private int countList = 10;
 	
 	//-- DB
 	private int start = 1;
@@ -26,17 +28,18 @@ public class ProductParam implements Serializable {
 		
 	}
 
-	public ProductParam(String s_category, String s_keyword, int product_group, int product_sub_group, int soldStateArr,
-			int s_soldState, int pageNumber, int recordCountPerPage, int start, int end) {
+	public ProductParam(String s_category, String s_keyword, int product_group, int product_sub_group, int s_soldState,
+			int pageNumber, int recordCountPerPage, int sorting, int countList, int start, int end) {
 		super();
 		this.s_category = s_category;
 		this.s_keyword = s_keyword;
 		this.product_group = product_group;
 		this.product_sub_group = product_sub_group;
-		this.soldStateArr = soldStateArr;
 		this.s_soldState = s_soldState;
 		this.pageNumber = pageNumber;
 		this.recordCountPerPage = recordCountPerPage;
+		this.sorting = sorting;
+		this.countList = countList;
 		this.start = start;
 		this.end = end;
 	}
@@ -73,14 +76,6 @@ public class ProductParam implements Serializable {
 		this.product_sub_group = product_sub_group;
 	}
 
-	public int getSoldStateArr() {
-		return soldStateArr;
-	}
-
-	public void setSoldStateArr(int soldStateArr) {
-		this.soldStateArr = soldStateArr;
-	}
-
 	public int getS_soldState() {
 		return s_soldState;
 	}
@@ -105,6 +100,22 @@ public class ProductParam implements Serializable {
 		this.recordCountPerPage = recordCountPerPage;
 	}
 
+	public int getSorting() {
+		return sorting;
+	}
+
+	public void setSorting(int sorting) {
+		this.sorting = sorting;
+	}
+
+	public int getCountList() {
+		return countList;
+	}
+
+	public void setCountList(int countList) {
+		this.countList = countList;
+	}
+
 	public int getStart() {
 		return start;
 	}
@@ -124,13 +135,11 @@ public class ProductParam implements Serializable {
 	@Override
 	public String toString() {
 		return "ProductParam [s_category=" + s_category + ", s_keyword=" + s_keyword + ", product_group="
-				+ product_group + ", product_sub_group=" + product_sub_group + ", soldStateArr=" + soldStateArr
-				+ ", s_soldState=" + s_soldState + ", pageNumber=" + pageNumber + ", recordCountPerPage="
-				+ recordCountPerPage + ", start=" + start + ", end=" + end + "]";
+				+ product_group + ", product_sub_group=" + product_sub_group + ", s_soldState=" + s_soldState
+				+ ", pageNumber=" + pageNumber + ", recordCountPerPage=" + recordCountPerPage + ", sorting=" + sorting
+				+ ", countList=" + countList + ", start=" + start + ", end=" + end + "]";
 	}
 
-	
-	
 	
 	
 	

@@ -123,19 +123,26 @@
 	document.querySelector("#userTel").innerText = userTel;
 
 	$(document).ready(function(){
+		$("#cancleBtn").hide();
+		$("#noCancleBtn").hide();
 		var today = new Date();
 		var dateString = "${pool_resv.pool_resv_sdate}";
 		var dateArray = dateString.split("-");
 		var dateObj = new Date(dateArray[0], Number(dateArray[1])-1, dateArray[2]);
 		var betweenDay =(dateObj.getTime()-today.getTime())/1000/60/60/24;
+			if(betweenDay < 2){
+				if(${pool_resv.pool_resv_auth} != 7){
+					$("#cancleBtn").hide();
+					$("#noCancleBtn").show();
+				}
+			} else {
 
-		if(betweenDay < 2){
-			$("#cancleBtn").hide();
-			$("#noCancleBtn").show();
-		} else {
-			$("#cancleBtn").show();			
-			$("#noCancleBtn").hide();			
-		}
+				if(${pool_resv.pool_resv_auth} != 7){
+				$("#cancleBtn").show();			
+				$("#noCancleBtn").hide();
+				}
+			}
+		
 	});
 	
 	$("#cancleBtn").click(function(){
@@ -155,11 +162,11 @@
 	               data:{"pool_resv_seq" : "${pool_resv.pool_resv_seq}" },
 	               success: function(data){
 	                  if(data == 'ok'){
-	                     Swal.fire(
+	                     Swal.fire({
 	                    		 title: '예약 취소 되었습니다.',
 	                              icon: 'success', 
 	                              showConfirmButton: true
-	                           ).then(function(){
+	                     }).then(function(){
 	                                  window.location="myPageMove.do"});
 	                  }else if(data == 'no'){
 	                	  Swal.fire({

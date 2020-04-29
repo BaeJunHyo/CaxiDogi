@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import cd.com.a.dao.PoolDao;
+import cd.com.a.model.AdminPoolParam;
 import cd.com.a.model.poolDto;
 import cd.com.a.model.poolParam;
 import cd.com.a.model.poolResvDto;
@@ -104,6 +105,45 @@ public class PoolDaoImpl implements PoolDao{
 	public boolean poolCancleAf(int pool_resv_seq) {
 		int n = sqlSession.update(namespace+"poolCancleAf", pool_resv_seq);
 		return n>0?true:false;
+	}
+
+	@Override
+	public List<poolResvParam> getTodayResvList(poolParam param) {
+		return sqlSession.selectList(namespace+"getTodayResvList", param);
+	}
+
+	@Override
+	public int getTodayResvCount(poolParam param) {
+		return sqlSession.selectOne(namespace+"getTodayResvCount",param);
+	}
+
+	@Override
+	public boolean poolUse(int pool_resv_seq) {
+		int n = sqlSession.update(namespace+"poolUse", pool_resv_seq);
+		return n>0?true:false;
+	}
+
+	@Override
+	public boolean adminPoolOk(int pool_seq) {
+		int n = sqlSession.update(namespace+"adminPoolOk", pool_seq);
+		 return n>0?true:false; 
+	}
+
+	@Override
+	public boolean adminPoolNo(int pool_seq) {
+		int n = sqlSession.update(namespace+"adminPoolNo", pool_seq);
+		 return n>0?true:false; 
+	}
+
+	@Override
+	public List<poolDto> adminPoolList(AdminPoolParam param) {
+		return sqlSession.selectList(namespace+"adminPoolList", param);
+	}
+
+	@Override
+	public int adminPoolListCount(AdminPoolParam param) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+"adminPoolListCount", param);
 	}
 
 }

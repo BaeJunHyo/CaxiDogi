@@ -4,6 +4,8 @@ package cd.com.a.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -278,8 +280,16 @@ public class MemberController {
 	}
 		// 판매자 페이지 이동
 	   @RequestMapping(value="/sellerMyPage.do", method= {RequestMethod.GET,RequestMethod.POST})
-	   public String sellerMyPage() {
-	      return "/mypage/mypage_seller";
+	   public String sellerMyPage(Model model, HttpSession session) {
+		   memberDto mem = (memberDto) session.getAttribute("loginUser");
+			List<poolResvParam> myPoolResvList = mypageService.sellerPoolResvList(mem.getMem_seq());
+			List<shopShowResvParam> myShopResvList = mypageService.sellerShopResvList(mem.getMem_seq());
+
+			//최근 나의 구매,예약 리스트
+			//model.addAttribute("myBuyList",myBuyList);
+			model.addAttribute("myPoolResvList",myPoolResvList);
+			model.addAttribute("myShopResvList",myShopResvList);
+	      return "/smypage/mypage_seller";
 	   }
 
 	   // [관리자] 승인대기 -> 승인  처리

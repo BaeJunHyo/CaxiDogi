@@ -64,29 +64,6 @@
 						</c:if>
 					</ul>
 				</li>
-				<li>
-					<a href="#n">서비스정보</a>
-					<ul>
-						<li><a href="#n">나의 상품평</a></li>
-						<li><a href="#n">나의 상품 Q&amp;A</a></li>
-						<li><a href="#n">1:1답변확인</a></li>
-						<li><a href="#n">이벤트참여내역</a></li>
-					</ul>
-				</li>
-			</ul>
-		</div>
-		<div class="customerMenu">
-			<h4>온라인 고객센터</h4>
-			<p class="csNumber">123-4567<img src="./images/mypage/ico_phone.gif" class="pl5"></p>
-			<ul class="csTime">
-				<li>
-					평일
-					<span class="c_gray">09:00 ~ 19:00</span>
-				</li>
-				<li>
-					토/일요일 및 공휴일
-					<span class="c_gray">09:00 ~ 17 :00</span>
-				</li>
 			</ul>
 		</div>
 	</div>

@@ -45,7 +45,7 @@
 				<td class="tl">
 					<div class="tableThumb_small">
 					<c:if test="${pool.pool_photo != 'default' }">
-						<img src="<%=request.getContextPath() %>/images/poolImg/${pool.pool_photo }" >
+						<img src="<%=request.getContextPath() %>/images/poolImg/${showList.pool_photo }" >
 					</c:if>
 					<c:if test="${pool.pool_photo == 'default' }">
 						<img  src="<%=request.getContextPath()%>/images/poolImg/pool.png" >
@@ -80,6 +80,9 @@
 							<c:when test="${showList.pool_resv_auth == 3 }">
 								<span>취소</span>
 							</c:when>
+							<c:when test="${showList.pool_resv_auth == 7 }">
+								<span>사용완료</span>
+							</c:when>
 						</c:choose><!-- 
 					<a href="#n" class="btn_line_s">상품평작성</a> -->
 				</td>
@@ -105,7 +108,7 @@
 
 <script>
 function goPage( pageNumber ){
-	location.href = "poolResvList.do?pageNumber="+pageNumber;
+	location.href = "adminShopList.do?pageNumber="+pageNumber;
 }
 
 $(document).on("click", ".poolResv", function(){

@@ -2,6 +2,7 @@ package cd.com.a.service;
 
 import java.util.List;
 
+import cd.com.a.model.adminShopParam;
 import cd.com.a.model.shopDesignerDto;
 import cd.com.a.model.shopDto;
 import cd.com.a.model.shopListParam;
@@ -49,5 +50,10 @@ public interface ShopService {
 	public int shopCalcelTimeCheck(shopResvDto shopresv);
 	
 	public boolean shopResvUpdate(shopResvDto resv);
+	//admin
+	public List<shopDto> adminShopList(adminShopParam param);
+	public int adminShopListCount(adminShopParam param);
+	public boolean adminShopOk(int shop_seq);
+	public boolean adminShopNo(int shop_seq);
 
 }

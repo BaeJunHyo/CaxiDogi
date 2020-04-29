@@ -30,6 +30,14 @@ public class MyPageDaoImpl implements MyPageDao {
 	public List<shopShowResvParam> getShopResvList(int mem_seq) {
 		return sqlSession.selectList(ns+"getShopResvList", mem_seq);
 	}
+	@Override
+	public List<poolResvParam> sellerPoolResvList(int mem_seq) {
+		return sqlSession.selectList(ns+"sellerPoolResvList", mem_seq);
+	}
+	@Override
+	public List<shopShowResvParam> sellerShopResvList(int mem_seq) {
+		return sqlSession.selectList(ns+"sellerShopResvList", mem_seq);
+	}
 	
 	
 }

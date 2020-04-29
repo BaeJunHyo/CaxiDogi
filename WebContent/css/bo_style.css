@@ -86,6 +86,21 @@ select::-ms-expand {display: none;}/* for IE 11 */
 .container .cn_wrap table tr td textarea {width: 100%; height: 300px;}
 .container .cn_wrap table tr td .attach_file img {display: inline-block; vertical-align: middle; margin: 0 5px 0 0;}
 
+
+
+
+.container .cn_wrap .prdInfo_section  > ul {margin-top: 30px;}
+.container .cn_wrap .prdInfo_section  > ul li {clear: both; position: relative; padding-bottom: 12px;}
+.container .cn_wrap .prdInfo_section  > ul li.bg_gray {box-sizing: border-box; padding: 10px 15px; font-size: 12px;}
+.container .cn_wrap .prdInfo_section  > ul li:last-child {padding-bottom: 20px;}
+.container .cn_wrap .prdInfo_section  > ul li dl {font-size: 14px;}
+.container .cn_wrap .prdInfo_section  > ul li dt {display: inline-block; vertical-align: top; width: 150px; color: #858586;}
+.container .cn_wrap .prdInfo_section  > ul li dd {display: inline-block;}
+.container .cn_wrap .prdInfo_section  > ul li dd img {display: inline-block; vertical-align: middle;}
+.container .cn_wrap .prdInfo_section  > ul li dd .btn_info_lp {cursor: pointer;}
+.container .cn_wrap .prdInfo_section  > ul li dd .link_lp {display: inline-block; position: relative;}
+
+
 .container .cn_wrap .viewReply {padding: 15px 20px 20px; margin: 20px 0 0 0; line-height: 20px; font-size: 13px; border: 1px solid #e1e1e1; border-radius: 8px; background: #efefef;}
 .container .cn_wrap .viewReply .wrtDate{line-height: normal; text-align: right; font-size: 12px;}
 
@@ -293,7 +308,7 @@ USE : DASHBOARD CSS
 */
 .btn_lp {position: relative;}
 .btn_lp .lp_box {position:absolute; display:block; padding:10px; width:200px; margin: 0; top: 30px; left: 0; z-index:1; line-height: 17px; font-size: 12px;}
-.btn_lp.btn_lp_r .lp_box {left: inherit; right: 0;}
+.btn_lp .btn_lp_r .lp_box {left: inherit; right: 0;}
 
 
 .container .cn_wrap table tr td.tbl_link a {text-decoration: none; color: #fff;}

@@ -33,6 +33,14 @@ public class MyPageServiceImpl implements MyPageService {
 		// TODO Auto-generated method stub
 		return myPageDao.getShopResvList(mem_seq);
 	}
+	@Override
+	public List<poolResvParam> sellerPoolResvList(int mem_seq) {
+		return myPageDao.sellerPoolResvList(mem_seq);
+	}
+	@Override
+	public List<shopShowResvParam> sellerShopResvList(int mem_seq) {
+		return myPageDao.sellerShopResvList(mem_seq);
+	}
 
 	
 

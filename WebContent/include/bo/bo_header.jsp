@@ -13,7 +13,7 @@
 <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
 <script src="./js/bo_common.js" type="text/javascript"></script>
 
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <!-- favicon 16, 24, 32, 64, 152 -->
 <link rel="shortcut icon" href="./images/ico/favicon.ico">
 <link rel="apple-touch-icon" href="./images/ico/icon_57.png">

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import cd.com.a.dao.ShopDao;
+import cd.com.a.model.adminShopParam;
 import cd.com.a.model.shopDesignerDto;
 import cd.com.a.model.shopDto;
 import cd.com.a.model.shopListParam;
@@ -97,9 +98,6 @@ public class ShopDaoImpl implements ShopDao {
 		List<shopShowResvParam> list = sqlSession.selectList(ns+"showShopResv", param);
 		return list;
 	}
-
-	
-	
 	
 	@Override
 	public boolean shopModifyAf(shopDto shop) {
@@ -193,5 +191,24 @@ public class ShopDaoImpl implements ShopDao {
 	
 
 	
+	public List<shopDto> adminShopList(adminShopParam param) {
+		return sqlSession.selectList(ns+"adminShopList", param);
+	}
 
+	@Override
+	public int adminShopListCount(adminShopParam param) {
+		return sqlSession.selectOne(ns+"adminShopListCount", param);
+	}
+
+	@Override
+	public boolean adminShopOk(int shop_seq) {
+		int n = sqlSession.update(ns+"adminShopOk", shop_seq);
+		return n>0?true:false;
+	}
+
+	@Override
+	public boolean adminShopNo(int shop_seq) {
+		int n = sqlSession.update(ns+"adminShopNo", shop_seq);
+		return n>0?true:false;
+	}
 }

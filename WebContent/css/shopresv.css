@@ -1,0 +1,211 @@
+.prd_infoWrap {width: 1100px; margin: 0 auto 57px;}
+
+.prd_infoWrap .prdName_section {padding: 40px 0 5px 0; margin: 0 0 9px 0; border-bottom: 1px solid #0b0c0e;}
+.prd_infoWrap .prdName_section .prd_flag {padding: 0 0 14px 0;}
+.prd_infoWrap .prdName_section .prd_flag img {display: block; float: left; margin: 0 6px 0 0;}
+.prd_infoWrap .prdName_section .prd_name {float: left; font-size: 21px; font-weight: 600;}
+.prd_infoWrap .prdName_section .prd_star {float: right; margin: 28px 0 0 0;}
+.prd_infoWrap .prdName_section .prd_star .totalCount {float: left; font-size: 38px;}
+.prd_infoWrap .prdName_section .prd_star .totalStar {float: right; padding: 0 0 0 10px;}
+.prd_infoWrap .prdName_section .prd_star .totalStar img {display: block;}
+.prd_infoWrap .prdName_section .prd_star .totalStar a {margin: 5px 0 0 2px; font-size: 13px;}
+/*.prd_infoWrap .prdName_section .prd_star .totalStar a:hover {text-decoration: underline;}*/
+.prd_infoWrap .prdInfo_section {}
+.prd_infoWrap .prdInfo_section .col1 {float: left; width: 550px;}
+.prd_infoWrap .prdInfo_section .col1 .prdImg {width: 550px; height: 550px; overflow: hidden;}
+.prd_infoWrap .prdInfo_section .col1 .prdImg img {width: 100%;}
+.prd_infoWrap .prdInfo_section .col1 .prdThumb {margin: 20px 0 0 0;}
+.prd_infoWrap .prdInfo_section .col1 .prdThumb li {position: relative; float: left; width: 60px; height: 60px; margin: 0 6px 0 0; overflow: hidden; border: 1px solid #dbdbdb;}
+.prd_infoWrap .prdInfo_section .col1 .prdThumb li:last-child {margin: 0 0 0 0;}
+.prd_infoWrap .prdInfo_section .col1 .prdThumb li:hover,
+.prd_infoWrap .prdInfo_section .col1 .prdThumb li.current {width: 58px; height: 58px; overflow: hidden; border: 2px solid #0b0c0e;}
+.prd_infoWrap .prdInfo_section .col1 .prdThumb li a {}
+.prd_infoWrap .prdInfo_section .col1 .prdThumb li a img {display: block; position: absolute; width: 58px; height: 58px; top: 50%; left: 50%; margin: -29px 0 0 -29px;}
+.prd_infoWrap .prdInfo_section .col2 {float: left; width: 550px;}
+.prd_infoWrap .prdInfo_section .col2 > ul {margin-top: 30px;}
+.prd_infoWrap .prdInfo_section .col2 > ul li {clear: both; position: relative; padding-bottom: 12px;}
+.prd_infoWrap .prdInfo_section .col2 > ul li.bg_gray {box-sizing: border-box; padding: 10px 15px; font-size: 12px;}
+.prd_infoWrap .prdInfo_section .col2 > ul li:last-child {padding-bottom: 20px;}
+.prd_infoWrap .prdInfo_section .col2 > ul li dl {font-size: 14px;}
+.prd_infoWrap .prdInfo_section .col2 > ul li dt {display: inline-block; vertical-align: top; width: 150px; color: #858586;}
+.prd_infoWrap .prdInfo_section .col2 > ul li dd {display: inline-block;}
+.prd_infoWrap .prdInfo_section .col2 > ul li dd img {display: inline-block; vertical-align: middle;}
+.prd_infoWrap .prdInfo_section .col2 > ul li dd .btn_info_lp {cursor: pointer;}
+.prd_infoWrap .prdInfo_section .col2 > ul li dd .link_lp {display: inline-block; position: relative;}
+.prd_infoWrap .prdInfo_section .col2 .prd_lp {position: absolute; box-sizing: border-box; padding: 20px; border: 1px solid #0b0c0e; background: #fff; z-index: 200;}
+.prd_infoWrap .prdInfo_section .col2 .prd_lp h3 {font-size: 14px; font-weight: bold;}
+.prd_infoWrap .prdInfo_section .col2 .prd_lp .dot_list {margin-top: 10px;}
+.prd_infoWrap .prdInfo_section .col2 .prd_lp .dot_list li {padding-right: 20px; font-size: 12px; background-position: 0 10%}
+.prd_infoWrap .prdInfo_section .col2 .prd_lp .dot_list li:last-child {padding-bottom: 0;}
+.prd_infoWrap .prdInfo_section .col2 .prd_lp .dot_list li strong {display: block; font-size: 13px;}
+.prd_infoWrap .prdInfo_section .col2 .prd_lp img.lp_deco {position: absolute; top: -7px;}
+
+.prd_lp.hover_lp {width: 260px; top: 33px; left: -10px;}
+.prd_lp.hover_lp img.lp_deco {left: 20px;}
+
+.prd_lp.coup_lp {top: 39px; right: 0;}
+.prd_lp.coup_lp img.lp_deco {right: 20px;}
+
+.prd_lp.ins_lp {top: 28px; right: 59px; overflow-y: scroll;}
+
+.prd_infoWrap .prdInfo_section .col2 .prd_lp .tabMenu {}
+.prd_infoWrap .prdInfo_section .col2 .prd_lp .tabMenu li {clear: none; float: left; width: 65px; height: 30px; line-height: 30px; padding: 0; text-align: center; font-size: 12px; border-radius: 5px 5px 0 0; opacity: 0.5;}
+/*.prd_infoWrap .prdInfo_section .col2 .prd_lp .tabMenu li a {display: block; }*/
+.prd_infoWrap .prdInfo_section .col2 .prd_lp .tabMenu li.current {opacity: 1;}
+
+.prd_infoWrap .prdInfo_section .col2 .prd_lp .tabCn {display: none; box-sizing: border-box; padding: 10px; font-size: 11px; border: 1px solid #0b0c0e; border-top: none; background: #fff;}
+.prd_infoWrap .prdInfo_section .col2 .prd_lp .tabCn .tc_title {padding-bottom: 5px; font-size: 12px; font-weight: bold;}
+.prd_infoWrap .prdInfo_section .col2 .prd_lp table th,
+.prd_infoWrap .prdInfo_section .col2 .prd_lp table td {padding: 5px 0;}
+
+
+
+
+.prdCounter_wrap {width: 550px; height: 160px; overflow-y: scroll;}
+.prdCounter_wrap table {width: 100%; border-top: 1px solid #dbdbdb; border-bottom: 1px solid #dbdbdb;}
+.prdCounter_wrap table tr {border-top: 1px solid #dbdbdb; border-bottom: 1px solid #dbdbdb;}
+.prdCounter_wrap table td.counter_prdname {width: 247px; padding: 22px 30px 22px 0; line-height: 18px; color: #858586; font-size: 13px;}
+.prdCounter_wrap table td .counter {display: block; width: 79px; height: 34px; border: 1px solid #dbdbdb;}
+.prdCounter_wrap table td .counter input {float: left;width: 57px; height: 34px; margin: 0; line-height: 34px; text-align: center; font-size: 15px; border: none;}
+.prdCounter_wrap table td .counter .counterBtn {display: block; float: right; position: relative; width: 21px; height: 34px; border-left: 1px solid #dbdbdb;}
+.prdCounter_wrap table td .counter .counterBtn a {display: block; width: 21px; height: 17px;}
+.prdCounter_wrap table td .counter .counterBtn a.btnPlus {height: 17px; border-bottom: 1px solid #dbdbdb; background: url(../images/ico_up.gif) no-repeat center center;}
+.prdCounter_wrap table td .counter .counterBtn a.btnMinus {height: 16px; background: url(../images/ico_down.gif) no-repeat center center;}
+.prdCounter_wrap table td.total_price {padding: 0 13px 0 0; line-height: 21px; text-align: right; font-size: 13px;}
+.prdCounter_wrap table td.total_price span {font-size: 15px;}
+.prdCounter_wrap table td.total_price strong {font-size: 20px;}
+.prd_infoWrap .prdInfo_section .col2 .prdBtns {margin: 16px 0 0 0; text-align: center;}
+.prd_infoWrap .prdInfo_section .col2 .prdBtns a {display: block; float: left;}
+.prd_infoWrap .prdInfo_section .col2 .prdBtns a.btn_dark_l {margin:0 20px;}
+
+.prd_detail_infoWrap {position: relative; width: 1100px; margin: 0 auto 250px;}
+.prd_detail_infoWrap .detailTab {width: 1100px; height: 55px; border-top: 2px solid #0b0c0e; border-bottom: 1px solid #dbdbdb; background: #fff;}
+.prd_detail_infoWrap .detailTab li {float: left; width: 20%; line-height: 57px; text-align: center; font-size: 15px;}
+.prd_detail_infoWrap .detailTab li a {display: block; width: 100%; height: 55px; opacity: 0.6}
+.prd_detail_infoWrap .detailTab li a img {display: none; padding: 0 0 0 8px; vertical-align: middle;}
+.prd_detail_infoWrap .detailTab li a:hover,
+.prd_detail_infoWrap .detailTab li a.current {opacity: 1;}
+.prd_detail_infoWrap .detailTab li a:hover img,
+.prd_detail_infoWrap .detailTab li a.current img {display: inline-block;}
+.prd_detail_infoWrap .detailView {padding: 60px 0 90px 0;}
+.prd_detail_infoWrap .detailView h3 {height: 26px; padding: 0 0 20px 0; font-size: 22px; font-weight: 600;}
+.prd_detail_infoWrap .detailView h3 > span {display: inline-block; height: 26px; padding: 0 0 0 13px; line-height: 23px; vertical-align: middle; font-weight: normal;}
+.prd_detail_infoWrap .detailView .prd_detailInfo {padding: 34px 0; text-align: center; border: 1px solid #dbdbdb;}
+.prd_detail_infoWrap .detailView .prd_detailInfo ul {display: inline-block; padding: 0 30px; border-right: 1px solid #dbdbdb;}
+.prd_detail_infoWrap .detailView .prd_detailInfo ul:last-child {border: none;}
+.prd_detail_infoWrap .detailView .prd_detailInfo ul li {padding: 0 0 5px 0; font-size: 13px;}
+.prd_detail_infoWrap .detailView .prd_detailInfo ul li:last-child {padding: 0;}
+.prd_detail_infoWrap .detailView .prd_detailInfo ul li .info_sbj {font-weight: 600; color: #b2b2b2;}
+.prd_detail_infoWrap .detailView .prd_detailInfo ul li .info_spec {padding: 0 0 0 35px;}
+.prd_detail_infoWrap .detailView .reviewStar_view {height: 80px; padding: 0 27px; background: #fbfbfb;}
+
+.prd_detail_infoWrap .detailView .reviewStar_view .averageStars img {display: block; float: left; margin: 25px 0 0 0;}
+.prd_detail_infoWrap .detailView .reviewStar_view .eachStars {padding: 15px 20px; margin-top: 20px; background: #fff;}
+.prd_detail_infoWrap .detailView .reviewStar_view .eachStars li {float: left; margin: 0 15px 0 0; font-weight: bold;}
+.prd_detail_infoWrap .detailView .reviewStar_view .eachStars li:last-child {margin-right: 0;}
+.prd_detail_infoWrap .detailView .reviewStar_view .eachStars li img {display: inline-block; vertical-align: middle;}
+
+
+.prd_detail_infoWrap .detailView .reviewStar_view .reviewAverage {float: left; padding: 0 0 0 19px; line-height: 83px; font-size: 25px; font-weight: 600;}
+.prd_detail_infoWrap .detailView .table_menu {clear: both; margin: 20px 0 8px 0; font-size: 11px;}
+.prd_detail_infoWrap .detailView .table_menu img {padding:0 5px 0 0; vertical-align: middle;}
+.prd_detail_infoWrap .detailView .table_menu ul {float: left;}
+.prd_detail_infoWrap .detailView .table_menu ul li {float: left; padding: 0 20px 0 0; font-size: 11px;}
+.prd_detail_infoWrap .detailView .table_menu ul li a {}
+.prd_detail_infoWrap .detailView .table_menu ul li a img {padding:0 5px 0 0;}
+.prd_detail_infoWrap .detailView .table_menu ul li a:hover,
+.prd_detail_infoWrap .detailView .table_menu ul li a.current {font-weight: 600;}
+.prd_detail_infoWrap .detailView .table_menu .btn_gray {float: right;}
+
+
+
+
+
+/*
+@DATE : 2017-03-24
+@USE : 33~45以� �섏젙, �곹뭹 �곸젣 �섅뀭�� �덉씠�� 異붽�
+@WRITER : 理쒖삁吏�
+*/
+.select_prd_wrap {box-sizing: border-box; width: 100%; padding: 10px; margin: 0 0 10px 0; background: #f1f1f1;}
+.select_prd_wrap td {padding: 10px 20px; font-size: 14px; color: #666;}
+.select_prd_wrap td select {width: 100%; background-position: 96%;}
+
+.bttm_optionLayer {position: fixed; box-sizing: border-box; width: 550px; height: 50px; left: 45%; bottom: 0; z-index: 500;}
+
+.optionBox {position: absolute; box-sizing: border-box; width: 100%; height: 50px; line-height: 30px; padding: 10px; z-index: 60; background: #f0353c;}
+.optionBox .leftSec {float: left; padding-left: 10px; font-size: 14px; color: #fff; cursor: pointer;}
+.optionBox .leftSec img {padding-left: 10px;}
+.optionBox .rightSec {float: right;}
+.optionBox .rightSec a {height: 30px; line-height: 30px; padding: 0 20px; font-size: 13px;}
+
+.btn_white_m {color: #f0353c; background: #fff;}
+
+.optionView {position: absolute; box-sizing: border-box; width: 100%; padding: 10px; z-index: 50; border: 4px solid #f0353c; background: #fff;}
+.optionView .prd_name {float: left; width: 92%; padding: 10px 0 10px; font-size: 15px;}
+.optionView .btn_close_optionView {float: right;}
+
+.optionView .optionSelector {width: 100%; margin: 10px 0 15px; background-position: 98% center;}
+
+.optionView .prdCounter_wrap {width: 100%;}
+.optionView .prdCounter_wrap.normalPrd_option {height: auto; overflow-y: auto;}
+.optionView .prdCounter_wrap .border_none {border: none;}
+.optionView .prdCounter_wrap .border_none td {padding: 10px 0;}
+/*.optionView .prdCounter_wrap .border_none tr {border: none;}*/
+
+.optionView .total_price {padding: 30px 0 0 0; font-size: 13px;}
+.optionView .total_price strong {font-size: 17px;}
+
+
+
+/*
+@DATE : 2017-03-27
+@USE : mouseover zoom in, wishlist
+@WRITER : 理쒖삁吏�
+*/
+.prd_infoWrap .prdInfo_section .col2 {box-sizing: border-box; padding-left: 20px;}
+.prdCounter_wrap {width: 100%;}
+
+.prd_infoWrap .prdInfo_section .col1 .prdImg > img {width: 100%;}
+.prd_infoWrap .prdInfo_section .col1 .prdImg .easyzoom-flyout img {width: auto;}
+
+.prd_infoWrap .prdInfo_section .col1 {position: relative;}
+.zoom_viewBox {position: absolute; width: 550px; height: 637px; top: 0; right: -550px; z-index: 100; background: #efefef;}
+
+.prd_infoWrap .prdInfo_section .col2 .prdBtns a {width: 227px;}
+.prd_infoWrap .prdInfo_section .col2 .prdBtns a.btn_dark_l {margin: 0 9px;}
+.prd_infoWrap .prdInfo_section .col2 .prdBtns a:last-child {width: 55px; background: url(../images/ico_wish_l.png) no-repeat center;}
+
+.prdCounter_wrap {width: 100%; height: auto; overflow-y: auto;}
+
+.bttm_optionLayer {width: 650px;}
+
+
+
+/*
+@DATE : 2017-04-18
+@USE : �쇱떆�덉젅
+@WRITER : 理쒖삁吏�
+*/
+.sign_soldout {display: block; box-sizing: border-box; float: left; width: 463px; height: 50px; line-height: 42px; margin-right: 10px; font-size: 16px; font-weight: 600; color: #fff; border: 4px solid #6e0000; box-shadow: 0 0 0 1px #fff inset; background: #6e0000;}
+.prdArea > li.prd_soldout a .prdImg_section img {opacity: 0.5;}
+.prdArea > li a .prdImg_section img.sign_prdSoldout {display: block; position: absolute; width: 154px; height: 26px; top: 35%; left: 50%; margin: -13px 0 0 -77px; opacity: 1;}
+
+/* 예약 버튼*/
+#dtime .timeBtn {/* width: 50% */}
+#dtime .timeBtn button{
+   background: #eeebeb;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-right: 5px;
+    float: left;
+}
+.desginerName{
+   display: inline-block;
+   width: 40%;
+   margin: 15px 0;
+   float: left;
+}
+.destime{
+   width: 60%;
+   
+}

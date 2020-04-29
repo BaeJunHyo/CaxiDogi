@@ -304,6 +304,7 @@ $(document).ready(function(){
            // 마우스 오버됬을때 클릭한것처럼 동작
            $(this).click();
        }).on("mouseout", function(){
+    	  var idx = tabMenu.index($(this));
           tabSubMenu.eq(idx).css("display", "none");
        });
        

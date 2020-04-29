@@ -4,59 +4,60 @@
 
 <mapper namespace="Member">
 
+<!-- ID중복 확인 -->
 <select id="idCheck" parameterType="cd.com.a.model.memberDto" resultType="java.lang.Integer">
 SELECT IFNULL(COUNT(*),0)
 FROM member
 WHERE id=#{id} AND user_api=${user_api}
 </select>
-
+<!-- 닉네임 중복 확인 -->
 <select id="nickCheck" parameterType="java.lang.String" resultType="java.lang.Integer">
 SELECT IFNULL(COUNT(*),0)
 FROM member
 WHERE nick_name=#{nick_name}
 </select>
-
+<!-- 자체회원 가입  -->
 <insert id="newRegi" parameterType="cd.com.a.model.memberDto">
 INSERT INTO member(id,password,user_api,nick_name,user_name,birthday,address,phone,pass_question,pass_hint,point,auth)
 VALUES(#{id},#{password},${user_api},#{nick_name},#{user_name},#{birthday},#{address},#{phone},${pass_question},#{pass_hint},5000,1)
 </insert>
-
+<!-- 로그인(세션용)-->
 <select id="login" parameterType="cd.com.a.model.memberDto" resultType="cd.com.a.model.memberDto">
-SELECT mem_seq, id, user_api, nick_name, user_name, birthday, address, phone, pass_question, point, auth
+SELECT mem_seq,id,user_api,nick_name,user_name,auth
 FROM member
-WHERE id=#{id} AND password=#{password}
+WHERE id=#{id} AND password=#{password} AND user_api=0
 </select>
-
+<!-- ID찾기 -->
 <select id="findId" parameterType="cd.com.a.model.memberDto" resultType="java.lang.String">
 SELECT id
 FROM member
-WHERE user_name=#{user_name} AND phone=${phone}
+WHERE user_name=#{user_name} AND phone=${phone} AND user_api=0
 </select>
-
+<!-- PW찾기 -->
 <select id="findPwd" parameterType="cd.com.a.model.memberDto" resultType="java.lang.String">
 SELECT password
 FROM member
 WHERE id=#{id} AND user_name=#{user_name} AND phone=#{phone} AND pass_question=${pass_question} AND pass_hint=#{pass_hint}
 </select>
-
+<!-- SNS로그인  -->
 <select id="snsLogin" parameterType="cd.com.a.model.memberDto" resultType="cd.com.a.model.memberDto">
-SELECT *
+SELECT mem_seq,id,user_api,nick_name,user_name,auth
 FROM member
 WHERE id=#{id} AND user_api=${user_api}
 </select>
-
-<select id="snsFirstUpdate" parameterType="cd.com.a.model.memberDto" resultType="java.lang.Integer">
+<!-- SNS 첫 로그인 후 회원정보 업데이트 -->
+<update id="snsFirstUpdate" parameterType="cd.com.a.model.memberDto">
 UPDATE member
 SET nick_name=#{nick_name},user_name=#{user_name},birthday=#{birthday},address=#{address},phone=#{phone}
 WHERE mem_seq=${mem_seq}
-</select>
-
+</update>
+<!-- 회원정보 가져오기-->
 <select id="loginId" parameterType="java.lang.Integer" resultType="cd.com.a.model.memberDto">
 SELECT *
 FROM member
 WHERE mem_seq=${mem_seq}
 </select>
-
+<!-- 비밀번호 확인 -->
 <select id="pwdCheck" parameterType="cd.com.a.model.memberDto" resultType="java.lang.Integer">
 SELECT IFNULL(COUNT(*),0)
 FROM member
@@ -64,16 +65,77 @@ WHERE mem_seq=${mem_seq} AND password=#{password}
 </select>
 
 <select id ="resvMem" parameterType="java.lang.Integer" resultType="cd.com.a.model.memberDto">
-<<<<<<< HEAD
-   select user_name, phone
-   from member
-   where mem_seq = #{mem_seq}
+select user_name, phone
+from member
+where mem_seq = #{mem_seq}
+</select>
+<!-- 자체 회원정보 변경 -->
+<update id="userUpdate" parameterType="cd.com.a.model.memberDto">
+UPDATE member
+SET password=#{password},nick_name=#{nick_name},address=#{address},phone=#{phone},pass_question=${pass_question},pass_hint=#{pass_hint}
+WHERE mem_seq=${mem_seq}
+</update>
+<!-- SNS회원 정보 변경 -->
+<update id="snsUserUpdate" parameterType="cd.com.a.model.memberDto">
+UPDATE member
+SET nick_name=#{nick_name},address=#{address},phone=#{phone}
+WHERE mem_seq=${mem_seq}
+</update>
+<!-- 판매자 신청(일반->승인대기) -->
+<update id="sellerAccess" parameterType="java.lang.Integer">
+UPDATE member
+SET auth=2
+WHERE mem_seq=${mem_seq}
+</update>
+<!-- 승인대기 회원 리스트 -->
+<select id="sellerAccessList" resultType="cd.com.a.model.memberDto">
+SELECT mem_seq,id,user_api,nick_name,user_name,address,phone,auth
+FROM member
+WHERE auth=2
+</select>
+<!-- 판매자 신청(승인대기->승인(판매자)) -->
+<update id="sellerAccessPass" parameterType="java.util.ArrayList">
+UPDATE member
+SET auth=3
+WHERE mem_seq IN(
+<foreach collection="array" item="mem_seq" separator=",">
+	#{mem_seq}
+</foreach>
+)
+</update>
+<!-- 판매자 신청(승인대기->반려(일반)) -->
+<update id="sellerAccessFail" parameterType="java.util.ArrayList">
+UPDATE member
+SET auth=1
+WHERE mem_seq IN(
+<foreach collection="array" item="mem_seq" separator=",">
+	#{mem_seq}
+</foreach>
+)
+</update>
+<!-- 회원 탈퇴 -->
+<update id="memberEscape" parameterType="java.lang.Integer">
+UPDATE member
+SET auth=0
+WHERE mem_seq=${mem_seq}
+</update>
+<!-- 회원 복구 -->
+<update id="recoveryId" parameterType="java.lang.Integer">
+UPDATE member
+SET auth=1
+WHERE mem_seq=${mem_seq}
+</update>
+<!-- 회원복구 시 seq 찾기 -->
+<select id="findSeq" parameterType="cd.com.a.model.memberDto" resultType="java.lang.Integer">
+SELECT mem_seq
+FROM member
+WHERE id=#{id} AND password=#{password} AND user_name=#{user_name} AND user_api=0
+</select>
+<!-- 회원복구 시 계정 존재 여부 -->
+<select id="recoveryCheck" parameterType="cd.com.a.model.memberDto" resultType="java.lang.Integer">
+SELECT IFNULL(COUNT(*),0)
+FROM member
+WHERE id=#{id} AND password=#{password} AND user_name=#{user_name} AND user_api=0
 </select>
 
-=======
-	select user_name, phone
-	from member
-	where mem_seq = #{mem_seq}
-</select>
->>>>>>> origin/NewKyeongRyul
 </mapper>

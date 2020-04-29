@@ -65,7 +65,6 @@ if(loginUser.getAuth()==1 || loginUser.getAuth()==2){
 	
 	</div><!--// contents -->
 
-</div><!--container E : -->
 
 <%@ include file="./../../../include/footer.jsp" %>
 

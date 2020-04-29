@@ -4,9 +4,17 @@
 
 <%@ include file="./../../../include/header.jsp" %>
 <%@ include file="./../../../include/left_frm.jsp" %>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="sweetalert2.all.min.js"></script>
+<!-- Optional: include a polyfill for ES6 Promises for IE11 -->
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+<script src="sweetalert2.min.js"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
+
 <link href="./css/showShopResv.css" rel="stylesheet">
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css'>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+
 
 <div class="cusSec_right">
 
@@ -18,7 +26,7 @@
   
  <c:forEach items="${showShopList }" var="showList">
  <input type="hidden" value="${showList.shop_resv_tel}" id="h_user_tel">
- <input type="hidden" value="${showList.shop_tel}" id="h_shop_tel">
+
   <ul class="mind_booking_listings">
     <li>
       <div class="booking_list1">
@@ -63,7 +71,9 @@
     </ul>
     <ul class="child_ul_2">
     	<li>가게 주소: ${showList.shop_addr}</li>
-    	<li id="tel" h_shop_tel="${showList.shop_tel}">가게 전화: ${showList.shop_tel}</li>
+    	<li id="tel" class="tel" value="${showList.shop_tel}">${showList.shop_tel}</li>
+    	 <%-- <input type="hidden" value="${showList.shop_tel}" id="h_shop_tel"> --%>
+    	 <%-- <input type="text" value="${showList.shop_tel}" id="h_shop_tel" class="h_shop_tel"> --%>
     	<li>영업 시간: ${showList.shop_time}</li>
     </ul>
    <%--  <p> 예약자 명: ${showList.shop_resv_name}  예약시간 : ${showList.shop_resv_time }
@@ -83,7 +93,19 @@
     </li>
   </ul>
 </c:forEach>
-  
+<form name="frmForm1" id="_frmFormSearch" method="post">
+
+ <input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?0:recordCountPerPage }">
+ <input type="hidden" name="pageNumber" id="_pageNumber" value="${(empty pageNumber)?0:pageNumber }">
+</form>
+ <jsp:include page="/include/paging.jsp" flush="false">
+		<jsp:param name="totalRecordCount" value="${totalRecordCount }" />
+		<jsp:param name="pageNumber" value="${pageNumber }" />
+		<jsp:param name="pageCountPerScreen" value="${pageCountPerScreen }" />
+		<jsp:param name="recordCountPerPage" value="${recordCountPerPage }" />
+</jsp:include> 
+
+</div>
 </div>
 </div>
 </div>
@@ -91,9 +113,13 @@
  <script src="<%=request.getContextPath() %>/js/showShopResv.js"></script>
 
 <script>
-var tel = $("#h_shop_tel").val();
+// 전화번호들 수정해야함 ---------------------------------------------------------------------------
+//var tel = $(".tel").val();
+var tel ="${showList.shop_tel}"
 var userTel = $("#h_user_tel").val();
 //var tel = $('li').attr('h_shop_tel');
+//var tel = $("li#tel").val();
+
 
 tel = tel.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3");
 userTel = userTel.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3");
@@ -102,16 +128,122 @@ document.querySelector("#userTel").innerText = '예약자 연락처: '+userTel;
 
 </script>
 <script>
+/* $(".cancelShopResv").click(function(){
+	var shop_seq = $(this).attr("shop_seq");
+	var shop_resv_auth = $(this).attr("shop_resv_auth");
+	var shop_resv_seq = $(this).attr("shop_resv_seq");
+	//alert("li!+" +tel);
+	alert("shop_seq: " + shop_seq);
+	if(confirm('정말 취소하시겠습니까?')== true){
+		//location.href="getShopList.do";
+		 $.ajax({
+				url:"./cancelShopResv.do",
+				type:'post',
+				data:{"shop_seq" : shop_seq, 
+					 "shop_resv_auth" : shop_resv_auth,
+					 "shop_resv_seq" : shop_resv_seq},
+				success: function(data){
+					//alert("success");
+					if(data == 'ok'){
+						alert("취소되었습니다");
+						location.href="getShopList.do";
+					}else if(data == 'no'){
+						alert("예약 날짜로부터 이틀전은 취소가 불가능합니다");
+					}
+				},
+				error: function(e){
+					alert("err");
+				}
+			});
+
+
+		
+	}else {
+		return false;
+	}
+	/* $.ajax({
+		url:"./cancelShopResv.do",
+		type:'post',
+		data:{"shop_seq" : shop_seq, 
+			 "shop_resv_auth" : shop_resv_auth,
+			 "shop_resv_seq" : shop_resv_seq},
+		success: function(data){
+			alert("success");
+			if(data == 'ok'){
+				if(confirm('정말 취소하시겠습니까?') ==true){
+					alert('취소되었습니다');
+					location.href="getShopList.do";
+				}else{
+					return false;
+				}
+			}else{
+				alert("예약 날짜로부터 이틀전은 취소가 불가능합니다");
+			}
+		},
+		error: function(e){
+			alert("err");
+		}
+	}); 
+	
+	
+}) */
+
+
+
 $(".cancelShopResv").click(function(){
 	var shop_seq = $(this).attr("shop_seq");
 	var shop_resv_auth = $(this).attr("shop_resv_auth");
 	var shop_resv_seq = $(this).attr("shop_resv_seq");
+	Swal.fire({
+		  title: 'Are you sure?',
+		  text: "You won't be able to revert this!",
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  confirmButtonText: 'Yes, delete it!'
+		}).then((result) => {
+		  if (result.value) {
+			  $.ajax({
+					url:"./cancelShopResv.do",
+					type:'post',
+					data:{"shop_seq" : shop_seq, 
+						 "shop_resv_auth" : shop_resv_auth,
+						 "shop_resv_seq" : shop_resv_seq},
+					success: function(data){
+						//alert("success");
+						if(data == 'ok'){
+							Swal.fire(
+								      'Deleted!',
+								      'Your file has been deleted.',
+								      'success'
+								   ).then(function(){
+							        	  window.location="getShopList.do"});
+						}else if(data == 'no'){
+							
+							alert("예약 날짜로부터 이틀전은 취소가 불가능합니다");
+						}
+					},
+					error: function(e){
+						alert("err");
+					}
+				});
+		    
+		  }
 
-	alert("shop_seq: " + shop_seq);
-	
-	
+
+		  
+		})
 })
 
+</script>
+<script>
+function goPage( pageNumber ){
+	alert(pageNumber);
+	
+	$("#_pageNumber").val(pageNumber);
+	$("#_frmFormSearch").attr("action", "showShopResv.do").submit();	
+}
 </script>
 
 

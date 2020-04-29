@@ -213,7 +213,9 @@
 					src="./images/ico_arrow_prdDetail.gif"></a></li>
 		</ul>
 		<div class="detailView move01">
-			<img src="./images/img_prdInfo.jpg">
+			<span>
+				${shopDetail.shop_content }
+			</span>
 		</div>
 
 

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import cd.com.a.dao.ShopDao;
 import cd.com.a.model.shopDesignerDto;
 import cd.com.a.model.shopDto;
+import cd.com.a.model.shopPagingParam;
 import cd.com.a.model.shopResvDto;
 import cd.com.a.model.shopShowResvParam;
 
@@ -89,8 +90,8 @@ public class ShopDaoImpl implements ShopDao {
 	}
 
 	@Override
-	public List<shopShowResvParam> showShopResv(int mem_seq) {
-		List<shopShowResvParam> list = sqlSession.selectList(ns+"showShopResv", mem_seq);
+	public List<shopShowResvParam> showShopResv(shopPagingParam param) {
+		List<shopShowResvParam> list = sqlSession.selectList(ns+"showShopResv", param);
 		return list;
 	}
 
@@ -152,6 +153,11 @@ public class ShopDaoImpl implements ShopDao {
 	@Override
 	public int shopCalcelTimeCheck(shopResvDto shopresv) {
 		return sqlSession.selectOne(ns+"shopCalcelTimeCheck", shopresv);
+	}
+
+	@Override
+	public int getShopResvCount(int mem_seq) {
+		return sqlSession.selectOne(ns+"getShopResvCount", mem_seq);
 	}
 
 	

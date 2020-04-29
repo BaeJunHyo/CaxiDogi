@@ -6,77 +6,79 @@
 
 <!-- 상품리스트(검색 - 관리자) -->
 <select id="prdSearchList" parameterType="cd.com.a.model.ProductParam" resultType="cd.com.a.model.productDto">
-	SELECT product_num, product_code, product_img, product_name, 
-		product_price, product_brand, product_hidden, 
+	SELECT @rownum:=@rownum+1 as rownum, product_num, product_code, product_img, product_name, 
+		product_price, product_brand, product_hidden, product_group, product_sub_group,
 		product_sale, product_stock, product_regi_date, product_del 
 	FROM product
-	ORDER BY product_num
+	WHERE (@rownum:=0)=0
 	<where>
-		   <if test="s_category != null and s_category != ''
-				and s_keyword != null and s_keyword != '' 
-				and s_category1 != null and s_category1 != '' 
-				and s_product_group != null and s_product_group != ''
-				and s_product_sub_group != null and s_product_sub_group != ''
-				and soldState != null and soldState != ''">
-				 AND product_del=0 
-				 AND s_product_group = #{product_group} 
-				 AND s_product_sub_group = #{product_sub_group}
-				 <!-- AND soldState = #{soldState} -->
-				 
-				 <!-- <if test="soldState == 0">
-					AND soldState=#{soldState}
-				</if> -->
-				<!-- 
-				<if test="soldState == 1">
-					AND soldState=#{soldState}
-				</if>
-				<if test="soldState == 2">
-					AND soldState=#{soldState}
-				</if> -->
-				 
-				<if test="s_category == 'product_name'">
-					AND product_name LIKE '%'||#{s_keyword}||'%'
-				</if>
-				<if test="s_category == 'product_code'">
-					AND product_code LIKE '%'||#{s_keyword}||'%'
-				</if>
-				<if test="s_category == 'product_brand'">
-					AND product_brand LIKE '%'||#{s_keyword}||'%'
-				</if>
-				
-				<if test="s_product_group == 'dogGoods'">
-					AND product_group=#{dogGoods}
-				</if>
-				<if test="s_product_group == 'catGoods'">
-					AND product_group=#{catGoods}
-				</if>
-				<if test="s_product_group == 'pub'">
-					AND product_group=#{pub}
-				</if>
-				
-				<if test="s_product_sub_group == 'feed'">
-					AND product_sub_group=#{feed}
-				</if>
-				<if test="s_product_sub_group == 'snack'">
-					AND product_sub_group=#{snack}
-				</if>
-				<if test="s_product_sub_group == 'toilet'">
-					AND product_sub_group=#{toilet}
-				</if>
-				<if test="s_product_sub_group == 'play'">
-					AND product_sub_group=#{play}
-				</if>
-				<if test="s_product_sub_group == 'beauty'">
-					AND product_sub_group=#{beauty}
-				</if>
-				
-				
+		<if test="s_category != null and s_category != '' 
+			  and s_keyword != null and s_keyword != ''
+			  and s_product_group != null and s_product_group != ''
+			  and s_product_sub_group != null and s_product_sub_group != ''">
+				AND s_product_group = #{product_group} 
+			 	AND s_product_sub_group = #{product_sub_group}
+			 	AND soldStateArr = #{product_stock}
+			 	
+			<if test="s_category == 'product_name'">
+				AND product_name LIKE CONCAT ('%',#{s_keyword},'%')
 			</if>
-		   </where>
+			<if test="s_category == 'product_code'">
+				AND product_code LIKE CONCAT ('%',#{s_keyword},'%')
+			</if>
+			<if test="s_category == 'product_brand'">
+				AND product_brand LIKE CONCAT ('%',#{s_keyword},'%')
+			</if>
+			<if test="product_group_df == 1 and product_group_df == 2 and product_group_df == 3">
+				AND product_group_df = #{product_group}
+			</if>
+			<if test="product_sub_group_df == 1 and product_sub_group_df == 2 and product_sub_group_df == 3
+			and product_sub_group_df == 4 and product_sub_group_df == 5">
+				AND product_group_df = #{product_group}
+			</if>
+			
+			<if test="soldStateArr == 1">
+				AND product_stock = LIKE CONCAT ('%',#{s_soldState},'%')
+			</if>
+			<if test="soldStateArr == 2">
+				AND NOT product_stock LIKE CONCAT ('%',#{s_soldState},'%') 
+			</if>
+		</if>
+	</where>
+	
+	<!-- WHERE RNUM BETWEEN ${start} AND ${end} -->
+	ORDER BY product_num
+	LIMIT #{start}, #{recordCountPerPage}
 		   
-		   
-		<!-- WHERE RNUM BETWEEN ${start} AND ${end} -->
 </select>
+
+<select id="getPrdCount" resultType="java.lang.Integer">
+SELECT IFNULL(COUNT(*), 0) FROM product;
+</select>
+
+<!-- 상품리스트(페이징 - 관리자) -->
+<!-- 
+<select id="getPrdCount" parameterType="cd.com.a.model.ProductParam" resultType="java.lang.Integer">
+SELECT NVL(COUNT(*), 0) AS CNT
+FROM product
+
+<where>
+	<if test="s_category != null and s_category != ''
+		and s_keyword != null and s_keyword != ''">
+		<if test="s_category == 'title'">
+			AND TITLE LIKE '%'||#{s_keyword}||'%'
+		</if>
+		<if test="s_category == 'contents'">
+			AND CONTENT LIKE '%'||#{s_keyword}||'%'
+		</if>
+		<if test="s_category == 'writer'">
+			AND ID=#{s_keyword}
+		</if>				
+	</if>
+</where>
+
+</select> 
+-->
 
 
 <!-- 상품등록(관리자) -->
@@ -107,6 +109,19 @@
 </update>
 
 
+<!-- 상품리스트 삭제(관리자) -->
+<update id="prdDelete" parameterType="java.util.ArrayList">
+	UPDATE product
+	SET product_del=1, product_sale=1
+	WHERE product_num IN(
+		<foreach collection="array" item="product_num" separator=",">
+		#{product_num}
+		</foreach>
+	)
+</update>
+
+
+
 <!-- ========= 상품리스트(client)  ======== -->
 <select id="getPrdList" resultType="cd.com.a.model.productDto">
 	SELECT 
@@ -119,8 +134,9 @@
 <!-- ========= 상품구매(client & 관리자) 상품상세 ======== -->
 <select id="getPrd" parameterType="java.lang.Integer" resultType="cd.com.a.model.productDto">
 	SELECT 
-		   product_num, product_code, product_img, product_name, product_price, 
-		   product_brand, product_hidden, product_sale, product_stock, product_content
+		   product_num, product_code, product_img, product_name, product_price, product_delivery_auth, 
+		   product_brand, product_hidden, product_sale, product_stock, product_content,
+		   product_group, product_sub_group,
 		   product_regi_date, product_del
 	FROM product
 	WHERE product_num = #{product_num}

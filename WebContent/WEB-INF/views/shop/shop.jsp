@@ -67,13 +67,17 @@
 		<!-- //상품추출 -->
 
 
-		<ol class="paging">
-
-			<li class="now"><a
+<!-- 		<ol class="paging">
+		<li class="now"><a
 				href="/shop/shopbrand.html?type=X&amp;xcode=012&amp;sort=&amp;page=1"></a></li>
-
-
-		</ol>
+		</ol> -->
+		
+		<div class="shop_section">
+		<p class="main_menu">
+				<span class="searchArea"> <input type="text"> <a href="#n"><img src="images/ico_h_search.gif" alt="검색버튼"></a>
+				</span> 
+		</p>
+		</div>
 
 	</div>
 

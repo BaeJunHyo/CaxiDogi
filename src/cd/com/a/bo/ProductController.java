@@ -10,6 +10,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.ibatis.session.SqlSession;
@@ -41,15 +42,32 @@ public class ProductController {
 	
 	@RequestMapping(value="productList.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public String productlist(Model model, ProductParam prdparam) {
-//		Gson gson = new Gson();
-//		List<productDto> prdlist = new ArrayList<productDto>();
+		
+		// paging 처리
+		int pageNumber = prdparam.getPageNumber();	// 0 1 2	현재 페이지
+		int start = pageNumber * prdparam.getRecordCountPerPage(); // 1, 11, 21
+		int end = (pageNumber + 1) * prdparam.getRecordCountPerPage();	// 10, 20, 30
+		
+		prdparam.setStart(start);
+		prdparam.setEnd(end);
+		
+		System.out.println("prdparam = " + prdparam.toString());
 		List<productDto> prdlist = prdService.prdSearchList(prdparam);
 		//System.out.println("productList : " + prdlist);
+		int totalRecordCount = prdService.getPrdCount();
 		
 		model.addAttribute("prdlist", prdlist);
 		
 		model.addAttribute("s_category", prdparam.getS_category());
 		model.addAttribute("s_keyword", prdparam.getS_keyword());
+		model.addAttribute("s_product_group", prdparam.getS_product_group());
+		model.addAttribute("s_product_sub_group", prdparam.getS_product_sub_group());
+		model.addAttribute("prdparam", prdparam);
+		
+		model.addAttribute("pageNumber", pageNumber);
+		model.addAttribute("pageCountPerScreen", 10);
+		model.addAttribute("recordCountPerPage", prdparam.getRecordCountPerPage());
+		model.addAttribute("totalRecordCount", totalRecordCount);
 		
 		return "/bo/bo_02product_1";
 	}
@@ -113,8 +131,8 @@ public class ProductController {
 		
 	}
 	
-	
-	public String imageUpload(HttpServletRequest req, HttpServletResponse resp, 
+	@RequestMapping(value="boimageUpload.do",  method = {RequestMethod.POST, RequestMethod.GET})
+	public String boimageUpload(HttpServletRequest req, HttpServletResponse resp, 
 	                 MultipartHttpServletRequest multiFile) throws Exception {
 		
 	      JsonObject json = new JsonObject();
@@ -219,10 +237,10 @@ public class ProductController {
 				boolean status = prdService.prdUpdate(product);
 				
 				if(status == true) {
-					str = "수정 - DB등록 완료";
+					str = "ok";
 					
 				} else {
-					str = "수정 - DB등록 실패";
+					str = "no";
 				}
 				
 			} catch (IOException e) {
@@ -234,13 +252,13 @@ public class ProductController {
 			boolean status = prdService.prdUpdate(product);
 			
 			if(status == true) {
-				str = "수정 - DB등록 완료";
+				str = "ok";
 			} else {
-				str = "수정 - DB등록 실패";
+				str = "on";
 			}
 		}
 		
-		return "redirect:/productList.do";
+		return str;
 //		prdService.prdUpdate(product);
 //		
 //		model.addAttribute("product", product);
@@ -249,8 +267,36 @@ public class ProductController {
 	}
 	
 	
+	@ResponseBody
+	@RequestMapping(value="deletePrd.do", method= {RequestMethod.GET,RequestMethod.POST})
+	public String prdDelete(HttpSession session, productDto prddto, Model model, 
+		     @RequestParam(value = "chbox[]") int[] product_num) throws Exception {
+		
+		System.out.println("--------" + product_num[0]);
+		
+		boolean result = prdService.prdDelete(product_num);
+		
+		if(result) {
+			return "success";
+		}else {
+			return "fail";
+		}
+		
+//		int result = 0;
+//		int prdNum = 0;
+//		
+//		for(String i : chArr) {
+//			prdNum = Integer.parseInt(i);
+//			prddto.setProduct_num(prdNum);
+//			prdService.prdDelete(prddto);
+//		}
+//		//productDto prddto = prdService.prdDelete(product_num);
+//		
+//		//model.addAttribute("prddto", prddto);
+//		
+//		return result;
+//	}
 	
-	
-	
+	}
 	
 }

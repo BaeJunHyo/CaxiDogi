@@ -4,32 +4,23 @@ import java.io.Serializable;
 
 public class ProductParam implements Serializable {
 	
-	// 상품 검색
+	//-- 상품 검색
 	private String s_category;
 	private String s_keyword;
 	
-	private int s_product_group;
-	private int dogGoods;
-	private int catGoods;
-	private int pub;
+	private String s_product_group;	// 그룹
+	private int product_group_df = 0; 
+	private String s_product_sub_group;	// 서브그룹
+	private int product_sub_group_df = 0;
 	
-	private String product_group;		// 그룹
-	private String product_sub_group;	// 서브그룹
-	
-	private int s_product_sub_group;
-	private int feed;
-	private int snack;
-	private int toilet;
-	private int play;
-	private int beauty;
-	
-	private int soldState;
+	private int soldStateArr = 0;
+	private int s_soldState;	// 품절상태
 
-	// paging
+	//-- paging
 	private int pageNumber = 0;	// 현재 페이지
 	private int recordCountPerPage = 10;	// 페이지의 글수
 	
-	// DB
+	//-- DB
 	private int start = 1;
 	private int end = 10;
 	
@@ -37,25 +28,18 @@ public class ProductParam implements Serializable {
 		
 	}
 
-	public ProductParam(String s_category, String s_keyword, int s_product_group, int dogGoods, int catGoods, int pub,
-			String product_group, String product_sub_group, int s_product_sub_group, int feed, int snack, int toilet,
-			int play, int beauty, int soldState, int pageNumber, int recordCountPerPage, int start, int end) {
+	public ProductParam(String s_category, String s_keyword, String s_product_group, int product_group_df,
+			String s_product_sub_group, int product_sub_group_df, int soldStateArr, int s_soldState, int pageNumber,
+			int recordCountPerPage, int start, int end) {
 		super();
 		this.s_category = s_category;
 		this.s_keyword = s_keyword;
 		this.s_product_group = s_product_group;
-		this.dogGoods = dogGoods;
-		this.catGoods = catGoods;
-		this.pub = pub;
-		this.product_group = product_group;
-		this.product_sub_group = product_sub_group;
+		this.product_group_df = product_group_df;
 		this.s_product_sub_group = s_product_sub_group;
-		this.feed = feed;
-		this.snack = snack;
-		this.toilet = toilet;
-		this.play = play;
-		this.beauty = beauty;
-		this.soldState = soldState;
+		this.product_sub_group_df = product_sub_group_df;
+		this.soldStateArr = soldStateArr;
+		this.s_soldState = s_soldState;
 		this.pageNumber = pageNumber;
 		this.recordCountPerPage = recordCountPerPage;
 		this.start = start;
@@ -78,108 +62,52 @@ public class ProductParam implements Serializable {
 		this.s_keyword = s_keyword;
 	}
 
-	public int getS_product_group() {
+	public String getS_product_group() {
 		return s_product_group;
 	}
 
-	public void setS_product_group(int s_product_group) {
+	public void setS_product_group(String s_product_group) {
 		this.s_product_group = s_product_group;
 	}
 
-	public int getDogGoods() {
-		return dogGoods;
+	public int getProduct_group_df() {
+		return product_group_df;
 	}
 
-	public void setDogGoods(int dogGoods) {
-		this.dogGoods = dogGoods;
+	public void setProduct_group_df(int product_group_df) {
+		this.product_group_df = product_group_df;
 	}
 
-	public int getCatGoods() {
-		return catGoods;
-	}
-
-	public void setCatGoods(int catGoods) {
-		this.catGoods = catGoods;
-	}
-
-	public int getPub() {
-		return pub;
-	}
-
-	public void setPub(int pub) {
-		this.pub = pub;
-	}
-
-	public String getProduct_group() {
-		return product_group;
-	}
-
-	public void setProduct_group(String product_group) {
-		this.product_group = product_group;
-	}
-
-	public String getProduct_sub_group() {
-		return product_sub_group;
-	}
-
-	public void setProduct_sub_group(String product_sub_group) {
-		this.product_sub_group = product_sub_group;
-	}
-
-	public int getS_product_sub_group() {
+	public String getS_product_sub_group() {
 		return s_product_sub_group;
 	}
 
-	public void setS_product_sub_group(int s_product_sub_group) {
+	public void setS_product_sub_group(String s_product_sub_group) {
 		this.s_product_sub_group = s_product_sub_group;
 	}
 
-	public int getFeed() {
-		return feed;
+	public int getProduct_sub_group_df() {
+		return product_sub_group_df;
 	}
 
-	public void setFeed(int feed) {
-		this.feed = feed;
+	public void setProduct_sub_group_df(int product_sub_group_df) {
+		this.product_sub_group_df = product_sub_group_df;
 	}
 
-	public int getSnack() {
-		return snack;
+	public int getSoldStateArr() {
+		return soldStateArr;
 	}
 
-	public void setSnack(int snack) {
-		this.snack = snack;
+	public void setSoldStateArr(int soldStateArr) {
+		this.soldStateArr = soldStateArr;
 	}
 
-	public int getToilet() {
-		return toilet;
+	public int getS_soldState() {
+		return s_soldState;
 	}
 
-	public void setToilet(int toilet) {
-		this.toilet = toilet;
-	}
-
-	public int getPlay() {
-		return play;
-	}
-
-	public void setPlay(int play) {
-		this.play = play;
-	}
-
-	public int getBeauty() {
-		return beauty;
-	}
-
-	public void setBeauty(int beauty) {
-		this.beauty = beauty;
-	}
-
-	public int getSoldState() {
-		return soldState;
-	}
-
-	public void setSoldState(int soldState) {
-		this.soldState = soldState;
+	public void setS_soldState(int s_soldState) {
+		this.s_soldState = s_soldState;
 	}
 
 	public int getPageNumber() {
@@ -217,11 +145,10 @@ public class ProductParam implements Serializable {
 	@Override
 	public String toString() {
 		return "ProductParam [s_category=" + s_category + ", s_keyword=" + s_keyword + ", s_product_group="
-				+ s_product_group + ", dogGoods=" + dogGoods + ", catGoods=" + catGoods + ", pub=" + pub
-				+ ", product_group=" + product_group + ", product_sub_group=" + product_sub_group
-				+ ", s_product_sub_group=" + s_product_sub_group + ", feed=" + feed + ", snack=" + snack + ", toilet="
-				+ toilet + ", play=" + play + ", beauty=" + beauty + ", soldState=" + soldState + ", pageNumber="
-				+ pageNumber + ", recordCountPerPage=" + recordCountPerPage + ", start=" + start + ", end=" + end + "]";
+				+ s_product_group + ", product_group_df=" + product_group_df + ", s_product_sub_group="
+				+ s_product_sub_group + ", product_sub_group_df=" + product_sub_group_df + ", soldStateArr="
+				+ soldStateArr + ", s_soldState=" + s_soldState + ", pageNumber=" + pageNumber + ", recordCountPerPage="
+				+ recordCountPerPage + ", start=" + start + ", end=" + end + "]";
 	}
 
 	

@@ -8,7 +8,9 @@
 <%@ taglib prefix = "fn"  uri = "http://java.sun.com/jsp/jstl/functions" %>
 <fmt:requestEncoding value="utf-8"/>
 
-<%@ include file="./../../../../include/bo_header.jsp" %>
+<%@ include file="/include/bo/bo_header.jsp" %>
+
+
 
 <%-- <%
 String category = (String)request.getAttribute("s_category");

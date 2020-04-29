@@ -8,9 +8,9 @@
 <%@ taglib prefix = "fn"  uri = "http://java.sun.com/jsp/jstl/functions" %>
 <fmt:requestEncoding value="utf-8"/>
 
-<%@ include file="./../../../../include/bo_header.jsp" %>
+<%@ include file="/include/bo/bo_header.jsp" %>
 
-<%@ include file="./../../../../include/bo_leftNav.jsp"%>
+<%@ include file="/include/bo/bo_leftNav_product.jsp"%>
 <%
 	AdminPoolParam param = (AdminPoolParam)request.getAttribute("param");
 %>

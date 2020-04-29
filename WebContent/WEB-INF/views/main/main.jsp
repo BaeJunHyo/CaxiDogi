@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-
 <%@ include file="./../../../include/header.jsp" %>
 
 <!-- container S : -->
@@ -52,617 +50,69 @@
 
     })
   </script>
-
-  <div class="brandFilter">
-    <table class="brandList">
-      <colgroup>
-        <col width="16%">
-        <col width="16%">
-        <col width="16%">
-        <col width="16%">
-        <col width="16%">
-        <col width="16%">
-      </colgroup>
-      <tbody>
-        <tr>
-          <td>ALL</td>
-          <td class="audemars">
-            <p class="brandNm">AUDEMARS PIGUET</p>
-            <img src="./images/thumb_brand_audemars.jpg">
-          </td>
-          <td class="current">
-            <p class="brandNm">Breguet</p>
-            <img src="./images/thumb_brand_breguet.jpg">
-          </td>
-          <td>
-            <p class="brandNm">BREITLING</p>
-            <img src="./images/thumb_brand_breitling.jpg">
-          </td>
-          <td>
-            <p class="brandNm">BOUCHERON</p>
-            <img src="./images/thumb_brand_boucheron.jpg">
-          <td>
-            <p class="brandNm">BULGARI</p>
-            <img src="./images/thumb_brand_bulgari.jpg">
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <p class="brandNm">Chopard</p>
-            <img src="./images/thumb_brand_chopard.jpg">
-          </td>
-          <td>
-            <p ckass="brandNm">CHRONOSWISS</p>
-            <img src="./images/thumb_brand_chronoswiss.jpg">
-          </td>
-          <td>
-            <p class="brandNm">Dior</p>
-            <img src="./images/thumb_brand_dior.jpg">
-          </td>
-          <td>
-            <p class="brandNm">FRANCK MULLER</p>
-            <img src="./images/thumb_brand_franck.jpg">
-          </td>
-          <td>
-            <p class="brandNm">Fred</p>
-            <img src="./images/thumb_brand_fred.jpg">
-          </td>
-          <td>
-            <p class="brandNm">HERMES</p>
-            <img src="./images/thumb_brand_hermes.jpg">
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <p class="brandNm">CHANEL</p>
-            <img src="./images/thumb_brand_chanel.jpg">
-          </td>
-          <td>
-            <p class="brandNm">AUDEMARS PIGUET</p>
-            <img src="./images/thumb_brand_audemars.jpg">
-          </td>
-          <td>
-            <p class="brandNm">Breguet</p>
-            <img src="./images/thumb_brand_breguet.jpg">
-          </td>
-          <td>
-            <p class="brandNm">BREITLING</p>
-            <img src="./images/thumb_brand_breitling.jpg">
-          </td>
-          <td>
-            <p class="brandNm">BOUCHERON</p>
-            <img src="./images/thumb_brand_boucheron.jpg">
-          <td>
-            <p class="brandNm">BULGARI</p>
-            <img src="./images/thumb_brand_bulgari.jpg">
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <p class="brandNm">Chopard</p>
-            <img src="./images/thumb_brand_chopard.jpg">
-          </td>
-          <td>
-            <p ckass="brandNm">CHRONOSWISS</p>
-            <img src="./images/thumb_brand_chronoswiss.jpg">
-          </td>
-          <td>
-            <p class="brandNm">Dior</p>
-            <img src="./images/thumb_brand_dior.jpg">
-          </td>
-          <td>
-            <p class="brandNm">FRANCK MULLER</p>
-            <img src="./images/thumb_brand_franck.jpg">
-          </td>
-          <td>
-            <p class="brandNm">Fred</p>
-            <img src="./images/thumb_brand_fred.jpg">
-          </td>
-          <td>
-            <p class="brandNm">HERMES</p>
-            <img src="./images/thumb_brand_hermes.jpg">
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <a href="#n" class="brand_moreBtn"><img src="images/btn_more_brand_on.png"></a>
-
-    <ul class="prdArea clearfix">
-      <li class="prd_soldout">
-        <a href="#n">
-          <span class="prdImg_section">
-            <img src="images/1000057659_Detail0.jpg">
-            <img src="./images/img_sign_prdSoldout.gif" class="sign_prdSoldout">
-          </span>
-          <span class="prdInfo_section">
-            <strong>DIESEL</strong>
-            <span class="prdInfo_name">DZ7376 / 57mm UBER CHIEF 57mm UBER CHIEF57mm UBER CHIEF</span>
-            <span class="prdInfo_price">
-              <span class="orgin_price">400,000원</span>
-              245,000원
-            </span>
-          </span>
-        </a>
-        <span class="prdHover">
-          <a href="#n"><img src="images/ico_hoverWish.png" alt="상품 미리보기"></a>
-          <a href="#n" class="btn_prdCart"><img src="images/ico_hoverCart.png" alt="상품 미리보기"></a>
-        </span>
-      </li>
-      <li>
-        <a href="#n">
-          <span class="prdImg_section"><img src="images/img_prd.jpg"></span>
-          <span class="prdInfo_section">
-            <strong>DIESEL</strong>
-            <span class="prdInfo_name">DZ7376 / 57mm UBER CHIEF</span>
-            <span class="prdInfo_price">245,000원</span>
-          </span>
-        </a>
-        <span class="prdHover">
-          <a href="#n"><img src="images/ico_hoverWish.png" alt="상품 미리보기"></a>
-          <a href="#n" class="btn_prdCart"><img src="images/ico_hoverCart.png" alt="상품 미리보기"></a>
-        </span>
-      </li>
-      <li>
-        <a href="#n">
-          <span class="prdImg_section"><img src="images/img_prd.jpg"></span>
-          <span class="prdInfo_section">
-            <strong>DIESEL</strong>
-            <span class="prdInfo_name">DZ7376 / 57mm UBER CHIEF</span>
-            <span class="prdInfo_price">245,000원</span>
-          </span>
-        </a>
-        <span class="prdHover">
-          <a href="#n"><img src="images/ico_hoverWish.png" alt="상품 미리보기"></a>
-          <a href="#n" class="btn_prdCart"><img src="images/ico_hoverCart.png" alt="상품 미리보기"></a>
-        </span>
-      </li>
-      <li>
-        <a href="#n">
-          <span class="prdImg_section"><img src="images/img_prd.jpg"></span>
-          <span class="prdInfo_section">
-            <strong>DIESEL</strong>
-            <span class="prdInfo_name">DZ7376 / 57mm UBER CHIEF</span>
-            <span class="prdInfo_price">245,000원</span>
-          </span>
-        </a>
-        <span class="prdHover">
-          <a href="#n"><img src="images/ico_hoverWish.png" alt="상품 미리보기"></a>
-          <a href="#n" class="btn_prdCart"><img src="images/ico_hoverCart.png" alt="상품 미리보기"></a>
-        </span>
-      </li>
-      <li>
-        <a href="#n">
-          <span class="prdImg_section"><img src="images/img_prd.jpg"></span>
-          <span class="prdInfo_section">
-            <strong>DIESEL</strong>
-            <span class="prdInfo_name">DZ7376 / 57mm UBER CHIEF</span>
-            <span class="prdInfo_price">245,000원</span>
-          </span>
-        </a>
-        <span class="prdHover">
-          <a href="#n"><img src="images/ico_hoverWish.png" alt="상품 미리보기"></a>
-          <a href="#n" class="btn_prdCart"><img src="images/ico_hoverCart.png" alt="상품 미리보기"></a>
-        </span>
-      </li>
-      <li>
-        <a href="#n">
-          <span class="prdImg_section"><img src="images/img_prd.jpg"></span>
-          <span class="prdInfo_section">
-            <strong>DIESEL</strong>
-            <span class="prdInfo_name">DZ7376 / 57mm UBER CHIEF</span>
-            <span class="prdInfo_price">245,000원</span>
-          </span>
-        </a>
-        <span class="prdHover">
-          <a href="#n"><img src="images/ico_hoverWish.png" alt="상품 미리보기"></a>
-          <a href="#n" class="btn_prdCart"><img src="images/ico_hoverCart.png" alt="상품 미리보기"></a>
-        </span>
-      </li>
-      <li>
-        <a href="#n">
-          <span class="prdImg_section"><img src="images/img_prd.jpg"></span>
-          <span class="prdInfo_section">
-            <strong>DIESEL</strong>
-            <span class="prdInfo_name">DZ7376 / 57mm UBER CHIEF</span>
-            <span class="prdInfo_price">245,000원</span>
-          </span>
-        </a>
-        <span class="prdHover">
-          <a href="#n"><img src="images/ico_hoverWish.png" alt="상품 미리보기"></a>
-          <a href="#n" class="btn_prdCart"><img src="images/ico_hoverCart.png" alt="상품 미리보기"></a>
-        </span>
-      </li>
-      <li>
-        <a href="#n">
-          <span class="prdImg_section"><img src="images/img_prd.jpg"></span>
-          <span class="prdInfo_section">
-            <strong>DIESEL</strong>
-            <span class="prdInfo_name">DZ7376 / 57mm UBER CHIEF</span>
-            <span class="prdInfo_price">245,000원</span>
-          </span>
-        </a>
-        <span class="prdHover">
-          <a href="#n"><img src="images/ico_hoverWish.png" alt="상품 미리보기"></a>
-          <a href="#n" class="btn_prdCart"><img src="images/ico_hoverCart.png" alt="상품 미리보기"></a>
-        </span>
-      </li>
-      <li>
-        <a href="#n">
-          <span class="prdImg_section"><img src="images/img_prd.jpg"></span>
-          <span class="prdInfo_section">
-            <strong>DIESEL</strong>
-            <span class="prdInfo_name">DZ7376 / 57mm UBER CHIEF</span>
-            <span class="prdInfo_price">245,000원</span>
-          </span>
-        </a>
-        <span class="prdHover">
-          <a href="#n"><img src="images/ico_hoverWish.png" alt="상품 미리보기"></a>
-          <a href="#n" class="btn_prdCart"><img src="images/ico_hoverCart.png" alt="상품 미리보기"></a>
-        </span>
-      </li>
-      <li>
-        <a href="#n">
-          <span class="prdImg_section"><img src="images/img_prd.jpg"></span>
-          <span class="prdInfo_section">
-            <strong>DIESEL</strong>
-            <span class="prdInfo_name">DZ7376 / 57mm UBER CHIEF</span>
-            <span class="prdInfo_price">245,000원</span>
-          </span>
-        </a>
-        <span class="prdHover">
-          <a href="#n"><img src="images/ico_hoverWish.png" alt="상품 미리보기"></a>
-          <a href="#n" class="btn_prdCart"><img src="images/ico_hoverCart.png" alt="상품 미리보기"></a>
-        </span>
-      </li>
-      <li>
-        <a href="#n">
-          <span class="prdImg_section"><img src="images/img_prd.jpg"></span>
-          <span class="prdInfo_section">
-            <strong>DIESEL</strong>
-            <span class="prdInfo_name">DZ7376 / 57mm UBER CHIEF</span>
-            <span class="prdInfo_price">245,000원</span>
-          </span>
-        </a>
-        <span class="prdHover">
-          <a href="#n"><img src="images/ico_hoverWish.png" alt="상품 미리보기"></a>
-          <a href="#n" class="btn_prdCart"><img src="images/ico_hoverCart.png" alt="상품 미리보기"></a>
-        </span>
-      </li>
-      <li>
-        <a href="#n">
-          <span class="prdImg_section"><img src="images/img_prd.jpg"></span>
-          <span class="prdInfo_section">
-            <strong>DIESEL</strong>
-            <span class="prdInfo_name">DZ7376 / 57mm UBER CHIEF</span>
-            <span class="prdInfo_price">245,000원</span>
-          </span>
-        </a>
-        <span class="prdHover">
-          <a href="#n"><img src="images/ico_hoverWish.png" alt="상품 미리보기"></a>
-          <a href="#n" class="btn_prdCart"><img src="images/ico_hoverCart.png" alt="상품 미리보기"></a>
-        </span>
-      </li>
-      <li>
-        <a href="#n">
-          <span class="prdImg_section"><img src="images/img_prd.jpg"></span>
-          <span class="prdInfo_section">
-            <strong>DIESEL</strong>
-            <span class="prdInfo_name">DZ7376 / 57mm UBER CHIEF</span>
-            <span class="prdInfo_price">245,000원</span>
-          </span>
-        </a>
-        <span class="prdHover">
-          <a href="#n"><img src="images/ico_hoverWish.png" alt="상품 미리보기"></a>
-          <a href="#n" class="btn_prdCart"><img src="images/ico_hoverCart.png" alt="상품 미리보기"></a>
-        </span>
-      </li>
-      <li>
-        <a href="#n">
-          <span class="prdImg_section"><img src="images/img_prd.jpg"></span>
-          <span class="prdInfo_section">
-            <strong>DIESEL</strong>
-            <span class="prdInfo_name">DZ7376 / 57mm UBER CHIEF</span>
-            <span class="prdInfo_price">245,000원</span>
-          </span>
-        </a>
-        <span class="prdHover">
-          <a href="#n"><img src="images/ico_hoverWish.png" alt="상품 미리보기"></a>
-          <a href="#n" class="btn_prdCart"><img src="images/ico_hoverCart.png" alt="상품 미리보기"></a>
-        </span>
-      </li>
-      <li>
-        <a href="#n">
-          <span class="prdImg_section"><img src="images/img_prd.jpg"></span>
-          <span class="prdInfo_section">
-            <strong>DIESEL</strong>
-            <span class="prdInfo_name">DZ7376 / 57mm UBER CHIEF</span>
-            <span class="prdInfo_price">245,000원</span>
-          </span>
-        </a>
-        <span class="prdHover">
-          <a href="#n"><img src="images/ico_hoverWish.png" alt="상품 미리보기"></a>
-          <a href="#n" class="btn_prdCart"><img src="images/ico_hoverCart.png" alt="상품 미리보기"></a>
-        </span>
-      </li>
-    </ul>
-    <a href="#n" class="btn_line_more mt50 mb50">더보기</a>
-
-
-  </div>
-  <!--// brandFilter -->
-
-
+  
+    <!--// 상품 -->
   <div class="bigCate new_product w1100">
-    <h3 class="objTit"><span class="font_noto">NEW PRODUCT</span></h3>
-    <!-- <p class="prdSlide_btn">
-    <a href="#n" class="slidePrev"><img src="images/btn_prev.jpg" alt="이전 상품 보기 버튼"></a>
-    <a href="#n" class="slideNext"><img src="images/btn_next.jpg" alt="다음 상품 보기 버튼"></a>
-  </p> -->
+    <h3 class="objTit"><span class="font_noto">PRODUCT</span></h3>
     <ul class="prdArea prdView clearfix">
-      <li class="prd_soldout">
-        <a href="#n">
+    <c:forEach items="${poolList }" var="pool">
+      <li>
+        <a href="poolDetail.do?pool_seq=${pool.pool_seq }">
           <span class="prdImg_section">
-            <img src="images/img_prd.jpg">
-            <img src="./images/img_sign_prdSoldout.gif" class="sign_prdSoldout">
+            <img src="<%=request.getContextPath() %>/images/poolImg/${pool.pool_photo}">
           </span>
           <span class="prdInfo_section">
-            <strong>DIESEL</strong>
-            <span class="prdInfo_name">DZ7376 / 57mm UBER CHIEF DZ7376 / 57mm UBER CHIEF</span>
-            <span class="prdInfo_price">245,000원</span>
-          </span>
-          <span class="prdFlag">
-            <img src="images/img_flag_best.png" alt="베스트상품">
-            <img src="images/img_flag_sale.png" alt="세일상품">
+            <strong>${pool.pool_name }</strong>
+            <span class="prdInfo_name">${fn:split(pool.pool_addr, '/')[1] }</span>
+            <span class="prdInfo_price"><fmt:formatNumber value="${pool.pool_price}" pattern="###,###,###"/>원</span>
           </span>
         </a>
-        <span class="prdHover">
-          <a href="#n"><img src="images/ico_hoverWish.png" alt="상품 미리보기"></a>
-          <a href="#n" class="btn_prdCart"><img src="images/ico_hoverCart.png" alt="상품 미리보기"></a>
-        </span>
       </li>
-      <li>
-        <a href="#n">
-          <span class="prdImg_section"><img src="images/img_prd.jpg"></span>
-          <span class="prdInfo_section">
-            <strong>DIESEL</strong>
-            <span class="prdInfo_name">DZ7376 / 57mm UBER CHIEF</span>
-            <span class="prdInfo_price">245,000원</span>
-          </span>
-          <span class="prdFlag">
-            <img src="images/img_flag_sale.png" alt="세일상품">
-          </span>
-        </a>
-        <span class="prdHover">
-          <a href="#n"><img src="images/ico_hoverWish.png" alt="상품 미리보기"></a>
-          <a href="#n" class="btn_prdCart"><img src="images/ico_hoverCart.png" alt="상품 미리보기"></a>
-        </span>
-      </li>
-      <li>
-        <a href="#n">
-          <span class="prdImg_section"><img src="images/img_prd.jpg"></span>
-          <span class="prdInfo_section">
-            <strong>DIESEL</strong>
-            <span class="prdInfo_name">DZ7376 / 57mm UBER CHIEF</span>
-            <span class="prdInfo_price">245,000원</span>
-          </span>
-        </a>
-        <span class="prdHover">
-          <a href="#n"><img src="images/ico_hoverWish.png" alt="상품 미리보기"></a>
-          <a href="#n" class="btn_prdCart"><img src="images/ico_hoverCart.png" alt="상품 미리보기"></a>
-        </span>
-      </li>
-      <li>
-        <a href="#n">
-          <span class="prdImg_section"><img src="images/img_prd.jpg"></span>
-          <span class="prdInfo_section">
-            <strong>DIESEL</strong>
-            <span class="prdInfo_name">DZ7376 / 57mm UBER CHIEF</span>
-            <span class="prdInfo_price">245,000원</span>
-          </span>
-        </a>
-        <span class="prdHover">
-          <a href="#n"><img src="images/ico_hoverWish.png" alt="상품 미리보기"></a>
-          <a href="#n" class="btn_prdCart"><img src="images/ico_hoverCart.png" alt="상품 미리보기"></a>
-        </span>
-      </li>
-      <li>
-        <a href="#n">
-          <span class="prdImg_section"><img src="images/img_prd.jpg"></span>
-          <span class="prdInfo_section">
-            <strong>DIESEL</strong>
-            <span class="prdInfo_name">DZ7376 / 57mm UBER CHIEF</span>
-            <span class="prdInfo_price">245,000원</span>
-          </span>
-        </a>
-        <span class="prdHover">
-          <a href="#n"><img src="images/ico_hoverWish.png" alt="상품 미리보기"></a>
-          <a href="#n" class="btn_prdCart"><img src="images/ico_hoverCart.png" alt="상품 미리보기"></a>
-        </span>
-      </li>
-      <li>
-        <a href="#n">
-          <span class="prdImg_section"><img src="images/img_prd.jpg"></span>
-          <span class="prdInfo_section">
-            <strong>DIESEL</strong>
-            <span class="prdInfo_name">DZ7376 / 57mm UBER CHIEF</span>
-            <span class="prdInfo_price">245,000원</span>
-          </span>
-        </a>
-        <span class="prdHover">
-          <a href="#n"><img src="images/ico_hoverWish.png" alt="상품 미리보기"></a>
-          <a href="#n" class="btn_prdCart"><img src="images/ico_hoverCart.png" alt="상품 미리보기"></a>
-        </span>
-      </li>
-      <li>
-        <a href="#n">
-          <span class="prdImg_section"><img src="images/img_prd.jpg"></span>
-          <span class="prdInfo_section">
-            <strong>DIESEL</strong>
-            <span class="prdInfo_name">DZ7376 / 57mm UBER CHIEF</span>
-            <span class="prdInfo_price">245,000원</span>
-          </span>
-        </a>
-        <span class="prdHover">
-          <a href="#n"><img src="images/ico_hoverWish.png" alt="상품 미리보기"></a>
-          <a href="#n" class="btn_prdCart"><img src="images/ico_hoverCart.png" alt="상품 미리보기"></a>
-        </span>
-      </li>
-      <li>
-        <a href="#n">
-          <span class="prdImg_section"><img src="images/img_prd.jpg"></span>
-          <span class="prdInfo_section">
-            <strong>DIESEL</strong>
-            <span class="prdInfo_name">DZ7376 / 57mm UBER CHIEF</span>
-            <span class="prdInfo_price">245,000원</span>
-          </span>
-        </a>
-        <span class="prdHover">
-          <a href="#n"><img src="images/ico_hoverWish.png" alt="상품 미리보기"></a>
-          <a href="#n" class="btn_prdCart"><img src="images/ico_hoverCart.png" alt="상품 미리보기"></a>
-        </span>
-      </li>
+      </c:forEach>
     </ul>
-    <!-- <a href="#n" class="btn_line_more mb100">더보기</a> -->
-  </div>
-  <!--// new_product -->
+  </div><!--// 상품 끝-->
 
-  <a class="eventBanner">
-    <img src="images/img_eventBn.jpg">
-  </a>
-  <!--// eventBanner -->
-
-  <div class="bigCate md_recommend">
-    <h3 class="objTit"><span class="font_noto">MD 추천</span></h3>
-    <!-- <ul class="brandList">
-    <li><a href="#n"><img src="images/img_brandList_casio.png"></a></li>
-    <li><a href="#n"><img src="images/img_brandList_casio.png"></a></li>
-    <li><a href="#n"><img src="images/img_brandList_casio.png"></a></li>
-    <li><a href="#n"><img src="images/img_brandList_casio.png"></a></li>
-    <li><a href="#n"><img src="images/img_brandList_casio.png"></a></li>
-  </ul> -->
-    <ul class="prdArea clearfix">
-      <li class="prd_soldout">
-        <a href="#n">
+    <!--// SHOP -->
+  <div class="bigCate new_product w1100">
+    <h3 class="objTit"><span class="font_noto">SHOP</span></h3>
+    <ul class="prdArea prdView clearfix">
+    <c:forEach items="${poolList }" var="pool">
+      <li>
+        <a href="poolDetail.do?pool_seq=${pool.pool_seq }">
           <span class="prdImg_section">
-            <img src="images/1000057659_Detail0.jpg">
-            <img src="./images/img_sign_prdSoldout.gif" class="sign_prdSoldout">
+            <img src="<%=request.getContextPath() %>/images/poolImg/${pool.pool_photo}">
           </span>
           <span class="prdInfo_section">
-            <strong>DIESEL</strong>
-            <span class="prdInfo_name">DZ7376 / 57mm UBER CHIEF</span>
-            <span class="prdInfo_price">245,000원</span>
+            <strong>${pool.pool_name }</strong>
+            <span class="prdInfo_name">${fn:split(pool.pool_addr, '/')[1] }</span>
+            <span class="prdInfo_price"><fmt:formatNumber value="${pool.pool_price}" pattern="###,###,###"/>원</span>
           </span>
         </a>
-        <span class="prdHover">
-          <a href="#n"><img src="images/ico_hoverWish.png" alt="상품 미리보기"></a>
-          <a href="#n" class="btn_prdCart"><img src="images/ico_hoverCart.png" alt="상품 미리보기"></a>
-        </span>
       </li>
-      <li>
-        <a href="#n">
-          <span class="prdImg_section"><img src="images/1000057659_Detail0.jpg"></span>
-          <span class="prdInfo_section">
-            <strong>DIESEL</strong>
-            <span class="prdInfo_name">DZ7376 / 57mm UBER CHIEF</span>
-            <span class="prdInfo_price">245,000원</span>
-          </span>
-        </a>
-        <span class="prdHover">
-          <a href="#n"><img src="images/ico_hoverWish.png" alt="상품 미리보기"></a>
-          <a href="#n" class="btn_prdCart"><img src="images/ico_hoverCart.png" alt="상품 미리보기"></a>
-        </span>
-      </li>
-      <li>
-        <a href="#n">
-          <span class="prdImg_section"><img src="images/img_prd.jpg"></span>
-          <span class="prdInfo_section">
-            <strong>DIESEL</strong>
-            <span class="prdInfo_name">DZ7376 / 57mm UBER CHIEF</span>
-            <span class="prdInfo_price">245,000원</span>
-          </span>
-        </a>
-        <span class="prdHover">
-          <a href="#n"><img src="images/ico_hoverWish.png" alt="상품 미리보기"></a>
-          <a href="#n" class="btn_prdCart"><img src="images/ico_hoverCart.png" alt="상품 미리보기"></a>
-        </span>
-      </li>
-      <li>
-        <a href="#n">
-          <span class="prdImg_section"><img src="images/img_prd.jpg"></span>
-          <span class="prdInfo_section">
-            <strong>DIESEL</strong>
-            <span class="prdInfo_name">DZ7376 / 57mm UBER CHIEF</span>
-            <span class="prdInfo_price">245,000원</span>
-          </span>
-        </a>
-        <span class="prdHover">
-          <a href="#n"><img src="images/ico_hoverWish.png" alt="상품 미리보기"></a>
-          <a href="#n" class="btn_prdCart"><img src="images/ico_hoverCart.png" alt="상품 미리보기"></a>
-        </span>
-      </li>
-      <li>
-        <a href="#n">
-          <span class="prdImg_section"><img src="images/img_prd.jpg"></span>
-          <span class="prdInfo_section">
-            <strong>DIESEL</strong>
-            <span class="prdInfo_name">DZ7376 / 57mm UBER CHIEF</span>
-            <span class="prdInfo_price">245,000원</span>
-          </span>
-        </a>
-        <span class="prdHover">
-          <a href="#n"><img src="images/ico_hoverWish.png" alt="상품 미리보기"></a>
-          <a href="#n" class="btn_prdCart"><img src="images/ico_hoverCart.png" alt="상품 미리보기"></a>
-        </span>
-      </li>
-      <li>
-        <a href="#n">
-          <span class="prdImg_section"><img src="images/img_prd.jpg"></span>
-          <span class="prdInfo_section">
-            <strong>DIESEL</strong>
-            <span class="prdInfo_name">DZ7376 / 57mm UBER CHIEF</span>
-            <span class="prdInfo_price">245,000원</span>
-          </span>
-        </a>
-        <span class="prdHover">
-          <a href="#n"><img src="images/ico_hoverWish.png" alt="상품 미리보기"></a>
-          <a href="#n" class="btn_prdCart"><img src="images/ico_hoverCart.png" alt="상품 미리보기"></a>
-        </span>
-      </li>
-      <li>
-        <a href="#n">
-          <span class="prdImg_section"><img src="images/img_prd.jpg"></span>
-          <span class="prdInfo_section">
-            <strong>DIESEL</strong>
-            <span class="prdInfo_name">DZ7376 / 57mm UBER CHIEF</span>
-            <span class="prdInfo_price">245,000원</span>
-          </span>
-        </a>
-        <span class="prdHover">
-          <a href="#n"><img src="images/ico_hoverWish.png" alt="상품 미리보기"></a>
-          <a href="#n" class="btn_prdCart"><img src="images/ico_hoverCart.png" alt="상품 미리보기"></a>
-        </span>
-      </li>
-      <li>
-        <a href="#n">
-          <span class="prdImg_section"><img src="images/img_prd.jpg"></span>
-          <span class="prdInfo_section">
-            <strong>DIESEL</strong>
-            <span class="prdInfo_name">DZ7376 / 57mm UBER CHIEF</span>
-            <span class="prdInfo_price">
-              <span class="orgin_price">400,000원</span>
-              245,000원
-            </span>
-          </span>
-        </a>
-        <span class="prdHover">
-          <a href="#n"><img src="images/ico_hoverWish.png" alt="상품 미리보기"></a>
-          <a href="#n" class="btn_prdCart"><img src="images/ico_hoverCart.png" alt="상품 미리보기"></a>
-        </span>
-      </li>
+      </c:forEach>
     </ul>
-    <!-- <a href="#n" class="btn_line_more mb100">더보기</a> -->
-  </div>
-  <!--// md_recommend -->
+  </div><!--// SHOP 끝-->
+
+  <!--// 수영장 -->
+  <div class="bigCate new_product w1100">
+    <h3 class="objTit"><span class="font_noto">POOL</span></h3>
+    <ul class="prdArea prdView clearfix main">
+    <c:forEach items="${poolList }" var="pool">
+      <li>
+        <a href="poolDetail.do?pool_seq=${pool.pool_seq }">
+          <span class="prdImg_section">
+            <img src="<%=request.getContextPath() %>/images/poolImg/${pool.pool_photo}">
+          </span>
+          <span class="prdInfo_section">
+            <strong>${pool.pool_name }</strong>
+            <span class="prdInfo_name">${fn:split(pool.pool_addr, '/')[1] }</span>
+            <span class="prdInfo_price"><fmt:formatNumber value="${pool.pool_price}" pattern="###,###,###"/>원</span>
+          </span>
+        </a>
+      </li>
+      </c:forEach>
+    </ul>
+  </div><!--// 수영장 끝-->
 </div>
 <!-- container E : -->
 

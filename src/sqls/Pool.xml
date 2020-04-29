@@ -168,6 +168,19 @@
    	set pool_resv_payment=1 , pool_resv_auth=2
    	where pool_resv_seq = #{pool_resv_seq}
    </update>
+   
+<update id="adminPoolOk" parameterType="java.lang.Integer">
+	update pool
+	set pool_auth=1
+	where pool_seq=#{pool_seq}
+</update>
+
+<update id="adminPoolNo" parameterType="java.lang.Integer">
+	update pool
+	set pool_auth=2
+	where pool_seq=#{pool_seq}
+</update>
+   
 
 	<select id="getPoolResvUserCount" parameterType="cd.com.a.model.poolParam" resultType="java.lang.Integer">
 	select count(*)
@@ -203,6 +216,37 @@
 				(select @finalnum:=0) ftmp order by sub.rownum desc) fsub
     	order by fsub.finalnum desc
     limit #{start}, #{end}
+    </select>
+    
+    <select id ="adminPoolList" parameterType="cd.com.a.model.AdminPoolParam" resultType="cd.com.a.model.poolDto">
+    select *
+		from (select @finalnum:=@finalnum+1 as finalnum, sub.* from
+				(select @rownum:=@rownum+1 as rownum, pool_seq, pool_owner, pool_number, pool_name, pool_addr, 
+						pool_tel, pool_auth, pool_time
+				from pool
+				where (@rownum:=0)=0
+				<if test = "pool_auth != null and pool_auth != 100">
+					and pool_auth=#{pool_auth}	
+				</if>
+				order by  pool_seq desc) sub, (select @finalnum:=0) ftmp
+			order by sub.rownum desc) fsub
+    order by fsub.finalnum desc
+    limit #{start}, #{end}
+    </select>
+    
+        <select id ="adminPoolListCount" parameterType="cd.com.a.model.AdminPoolParam" resultType="java.lang.Integer">
+     select count(*)
+		from (select @finalnum:=@finalnum+1 as finalnum, sub.* from
+				(select @rownum:=@rownum+1 as rownum, pool_seq, pool_owner, pool_number, pool_name, pool_addr, 
+						pool_tel, pool_auth, pool_time
+				from pool
+				where (@rownum:=0)=0
+				<if test = "pool_auth != null and pool_auth != 100">
+					and pool_auth=#{pool_auth}	
+				</if>
+				order by  pool_seq desc) sub, (select @finalnum:=0) ftmp
+			order by sub.rownum desc) fsub
+    order by fsub.finalnum desc
     </select>
 
    </mapper>

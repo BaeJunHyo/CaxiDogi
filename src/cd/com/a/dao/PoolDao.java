@@ -2,6 +2,7 @@ package cd.com.a.dao;
 
 import java.util.List;
 
+import cd.com.a.model.AdminPoolParam;
 import cd.com.a.model.poolDto;
 import cd.com.a.model.poolParam;
 import cd.com.a.model.poolResvDto;
@@ -28,4 +29,10 @@ public interface PoolDao {
 	public int getPoolResvUserCount(poolParam param);
 	public poolResvDto getResvPool(int pool_resv_seq);
 	public int resvPool(poolResvDto poolResv);
+	
+	//admin
+	public boolean adminPoolOk(int pool_seq);
+	public boolean adminPoolNo(int pool_seq);
+	public List<poolDto> adminPoolList(AdminPoolParam param);
+	public int adminPoolListCount(AdminPoolParam param);
 }

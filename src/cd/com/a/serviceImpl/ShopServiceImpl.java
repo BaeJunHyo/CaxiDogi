@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cd.com.a.dao.ShopDao;
+import cd.com.a.model.adminShopParam;
 import cd.com.a.model.shopDesignerDto;
 import cd.com.a.model.shopDto;
 import cd.com.a.model.shopPagingParam;
@@ -131,7 +132,25 @@ public class ShopServiceImpl implements ShopService {
 	public int getShopResvCount(int mem_seq) {
 		return shopDao.getShopResvCount(mem_seq);
 	}
-	
-	
+
+	@Override
+	public List<shopDto> adminShopList(adminShopParam param) {
+		return shopDao.adminShopList(param);
+	}
+
+	@Override
+	public int adminShopListCount(adminShopParam param) {
+		return shopDao.adminShopListCount(param);
+	}
+
+	@Override
+	public boolean adminShopOk(int shop_seq) {
+		return shopDao.adminShopOk(shop_seq);
+	}
+
+	@Override
+	public boolean adminShopNo(int shop_seq) {
+		return shopDao.adminShopNo(shop_seq);
+	}
 
 }

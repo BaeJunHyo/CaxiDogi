@@ -108,7 +108,7 @@
 
 <script>
 function goPage( pageNumber ){
-	location.href = "poolResvList.do?pageNumber="+pageNumber;
+	location.href = "adminShopList.do?pageNumber="+pageNumber;
 }
 
 $(document).on("click", ".poolResv", function(){

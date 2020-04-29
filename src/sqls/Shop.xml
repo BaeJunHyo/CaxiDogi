@@ -86,6 +86,19 @@
 		<![CDATA[and shop_resv_rday >= curdate()]]>
 </select>
 
+
+<update id="adminShopOk" parameterType="java.lang.Integer">
+	update shop
+	set shop_auth=1
+	where shop_seq=#{shop_seq}
+</update>
+
+<update id="adminShopNo" parameterType="java.lang.Integer">
+	update shop
+	set shop_auth=2
+	where shop_seq=#{shop_seq}
+</update>
+
 <update id ="designModify" parameterType ="cd.com.a.model.shopDesignerDto">
 	update shop_designer
 	set design_price=#{design_price}, design_name=#{design_name}, design_time=#{design_time}
@@ -162,7 +175,38 @@ select ifnull(count(*),0) from shop_reservation
 where shop_resv_auth=0 and mem_seq=#{mem_seq}
 </select>
 
+<select id="adminShopList" parameterType="cd.com.a.model.adminShopParam" resultType="cd.com.a.model.shopDto" >
+    select *
+		from (select @finalnum:=@finalnum+1 as finalnum, sub.* from
+				(select @rownum:=@rownum+1 as rownum, shop_seq, shop_owner, shop_number, shop_name, shop_addr, 
+						shop_tel, shop_auth, mem_seq, shop_time
+				from shop
+				where (@rownum:=0)=0
+				<if test = "shop_auth != null and shop_auth != 100">
+					and shop_auth=#{shop_auth}	
+				</if>
+				order by  shop_seq desc) sub, (select @finalnum:=0) ftmp
+			order by sub.rownum desc) fsub
+    order by fsub.finalnum desc
+    limit #{start}, #{end}
 
+</select>
+
+<select id="adminShopListCount" parameterType="cd.com.a.model.adminShopParam" resultType="java.lang.Integer" >
+    select count(*)
+		from (select @finalnum:=@finalnum+1 as finalnum, sub.* from
+				(select @rownum:=@rownum+1 as rownum, shop_seq, shop_owner, shop_number, shop_name, shop_addr, 
+						shop_tel, shop_auth, mem_seq, shop_time
+				from shop
+				where (@rownum:=0)=0
+				<if test = "shop_auth != null and shop_auth != 100">
+					and shop_auth=#{shop_auth}	
+				</if>
+				order by  shop_seq desc) sub, (select @finalnum:=0) ftmp
+			order by sub.rownum desc) fsub
+    order by fsub.finalnum desc
+
+</select>
   
   </mapper>
   

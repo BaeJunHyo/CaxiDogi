@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cd.com.a.dao.PoolDao;
+import cd.com.a.model.AdminPoolParam;
 import cd.com.a.model.poolDto;
 import cd.com.a.model.poolParam;
 import cd.com.a.model.poolResvDto;
@@ -105,6 +106,26 @@ public class PoolServiceImpl implements PoolService {
 	@Override
 	public boolean poolUse(int pool_resv_seq) {
 		return poolDao.poolUse(pool_resv_seq);
+	}
+
+	@Override
+	public boolean adminPoolOk(int pool_seq) {
+		return poolDao.adminPoolOk(pool_seq);
+	}
+
+	@Override
+	public boolean adminPoolNo(int pool_seq) {
+		return poolDao.adminPoolNo(pool_seq);
+	}
+
+	@Override
+	public List<poolDto> adminPoolList(AdminPoolParam param) {
+		return poolDao.adminPoolList(param);
+	}
+
+	@Override
+	public int adminPoolListCount(AdminPoolParam param) {
+		return poolDao.adminPoolListCount(param);
 	}
 
 }

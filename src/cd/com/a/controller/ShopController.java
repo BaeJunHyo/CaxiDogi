@@ -30,6 +30,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.gson.JsonObject;
 
+import cd.com.a.model.adminShopParam;
 import cd.com.a.model.memberDto;
 import cd.com.a.model.shopDesignerDto;
 import cd.com.a.model.shopDto;
@@ -52,6 +53,69 @@ public class ShopController {
 	public String shopRegi() {
 		
 		return "/smypage/shop/regi_shop";
+	}
+	
+	@RequestMapping(value="adminShopList.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String adminShopList(Model model, adminShopParam param) {
+		// paging 처리
+		int sn = param.getPageNumber();	// 0 1 2	현재 페이지
+		int start = sn * param.getRecordCountPerPage(); // 1, 11, 21
+		int end = (sn + 1) * param.getRecordCountPerPage();	// 10, 20, 30
+		
+		param.setStart(start);
+		param.setEnd(end);
+		
+		List<shopDto> shopList = shopService.adminShopList(param);
+		int totalRecordCount = shopService.adminShopListCount(param);
+		
+		model.addAttribute("shopList", shopList);
+		model.addAttribute("pageNumber", sn);
+		model.addAttribute("pageCountPerScreen", 10);
+		model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
+		model.addAttribute("totalRecordCount", totalRecordCount);
+		model.addAttribute("param",param);
+		
+		return "/bo/shop/bo_shopList";
+	}
+	
+	@RequestMapping(value="adminShopDetail.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String adminShopDetail(int shop_seq, Model model) {
+		
+		shopDto shop = shopService.getShopDetail(shop_seq);
+		model.addAttribute("shop", shop);
+		
+		return "/bo/shop/bo_ShopDetail";
+	}
+	
+	@RequestMapping(value="adminShopOk.do", method= {RequestMethod.GET,RequestMethod.POST})
+	@ResponseBody
+	public String adminShopOk(int shop_seq) {
+		String str = "";
+		boolean	status = shopService.adminShopOk(shop_seq);
+		
+		if(status == true) {
+			str = "ok";
+		} else {
+			str = "no";
+		}
+		
+		return str;
+	}
+	
+	
+	@RequestMapping(value="adminShopNo.do", method= {RequestMethod.GET,RequestMethod.POST})
+	@ResponseBody
+	public String adminShopNo(int shop_seq) {
+		String str = "";
+		boolean	status = shopService.adminShopNo(shop_seq);
+		
+		if(status == true) {
+			str = "ok";
+		} else {
+			str = "no";
+		}
+		
+		return str;
 	}
 	
 	@RequestMapping(value="imageUpload.do", method=RequestMethod.POST)

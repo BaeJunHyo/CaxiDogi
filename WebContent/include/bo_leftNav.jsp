@@ -28,6 +28,12 @@
 				<li><a href="#n">카테고리 관리</a></li>
 				<li><a href="#n">브랜드 관리</a></li>
 			</ul></li>
+		<li class="lnb_sbj"><a href="#n">액티브 관리</a>
+			<ul class="sub_lnbmenu">
+				<li><a href="testBJH.do">셀러 관리</a></li>
+				<li><a href="adminShopList.do">Shop 관리</a></li>
+				<li><a href="adminPoolList.do">수영장 관리</a></li>
+			</ul></li>
 	</ul>
 </div>
 <!--// lnbWrap -->

@@ -46,14 +46,4 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	
-    @Override
-    public boolean prdDelete(int[] product_num) throws Exception {
-        return productDao.prdDelete(product_num);
-    }
-	
-	
-
-	
-	
-	
 }

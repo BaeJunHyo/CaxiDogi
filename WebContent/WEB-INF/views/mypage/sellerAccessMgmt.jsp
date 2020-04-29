@@ -4,7 +4,7 @@
     pageEncoding="UTF-8"%>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<%@include file="/include/bo_header.jsp" %>
+<%@include file="/include/bo/bo_header.jsp" %>
 <%@include file="/include/bo_leftNav.jsp" %>
 <%
 List<memberDto> sellerAccessList = (List<memberDto>)request.getAttribute("sellerAccessList");

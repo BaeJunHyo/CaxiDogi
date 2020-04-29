@@ -26,7 +26,7 @@ public class MemberController {
 	MemberService memberService;
 	@Autowired
 	MyPageService mypageService;
-	
+
 	//회원가입 페이지 이동
 	@RequestMapping(value = "/newAccount.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public String newAccount() {
@@ -106,7 +106,7 @@ public class MemberController {
 		boolean result = memberService.nickCheck(nick_name);
 		return result;
 	}
-	
+
 	// 회원가입 완료 여부
 	@RequestMapping(value="/memberInsert.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public String memberInsert(memberDto dto, Model model) {
@@ -119,7 +119,7 @@ public class MemberController {
 		/* return "redirect:/main.do"; */
 		return "/member/alertPage";
 	}
-	
+
 	// 마이페이지 이동
 	@RequestMapping(value="/myPage.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public String myPage(Model model, HttpServletRequest req) {
@@ -127,28 +127,28 @@ public class MemberController {
 		List<poolResvParam> myPoolResvList = mypageService.getPoolResvList(mem_seq);
 		List<groundResvParam> myGroundResvList = mypageService.getGroundResvList(mem_seq);
 		List<shopShowResvParam> myShopResvList = mypageService.getShopResvList(mem_seq);
-		
-		//최근 나의 구매,예약 리스트  
+
+		//최근 나의 구매,예약 리스트
 		//model.addAttribute("myBuyList",myBuyList);
 		model.addAttribute("myGroundResvList",myGroundResvList);
 		model.addAttribute("myPoolResvList",myPoolResvList);
 		model.addAttribute("myShopResvList",myShopResvList);
 		return "/mypage/mypage_main";
 	}
-	
-	//헤더 마이페이지 클릭시 
+
+	//헤더 마이페이지 클릭시
 	@RequestMapping(value="/myPageMove.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public String myPageMove(HttpServletRequest req, Model model) {
 		memberDto loginUser = (memberDto)req.getSession().getAttribute("loginUser");
 		if(loginUser != null) {
-			// 자체 회원 
+			// 자체 회원
 			if(loginUser.getUser_api() == 0){
 				return "redirect:myPage.do";
-			// sns 
+			// sns
 			}else{
 				memberDto memberDetail = memberService.loginId(loginUser.getMem_seq());
-				// 회원정보 미입력된 내용 존재 시 
-				if(memberDetail.getUser_name()==null || 
+				// 회원정보 미입력된 내용 존재 시
+				if(memberDetail.getUser_name()==null ||
 						memberDetail.getNick_name()==null ||
 						memberDetail.getAddress()==null ||
 						memberDetail.getPhone()==null ||
@@ -156,7 +156,7 @@ public class MemberController {
 						//model.addAttribute("info","false");
 						model.addAttribute("memberDetail",memberDetail);
 					return "/mypage/snsMemberDetail";
-				// 회원정보 공란 없을 시 
+				// 회원정보 공란 없을 시
 				}else {
 					return "redirect:myPage.do";
 				}
@@ -164,14 +164,14 @@ public class MemberController {
 		}
 		return "redirect:myPage.do";
 	}
-	// sns로 첫 로그인시 미입력 회원정보 입력 하도록 
+	// sns로 첫 로그인시 미입력 회원정보 입력 하도록
 	@RequestMapping(value="/snsFirstLogin.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public String snsFirstLogin(HttpServletRequest req,Model model) {
 		memberDto loginUser = (memberDto)req.getSession().getAttribute("loginUser");
 		model.addAttribute("memberDetail",memberService.loginId(loginUser.getMem_seq()));
 		return "/mypage/snsMemberDetail";
 	}
-	
+
 	// 회원정보 상세
 	@RequestMapping(value="/memberDetail.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public String memberDetail(HttpServletRequest req, Model model) {
@@ -183,8 +183,8 @@ public class MemberController {
 			return "redirect:snsFirstLogin.do";
 		}
 	}
-	
-	// SNS회원정보 기입 후 정보 업데이트 
+
+	// SNS회원정보 기입 후 정보 업데이트
 	@RequestMapping(value="/snsFirstUpdate.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public String snsFirstUpdate(memberDto dto, Model model, HttpServletRequest req) {
 		System.out.println("snsUP="+dto.toString());
@@ -200,9 +200,9 @@ public class MemberController {
 			model.addAttribute("update","false");
 			return "/member/alertPage";
 		}
-		
+
 	}
-	// 자체회원 정보 변경 
+	// 자체회원 정보 변경
 	@RequestMapping(value="/memberUpdateMove.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public String memberUpdate(HttpServletRequest req,Model model) {
 		memberDto loginUser = (memberDto)req.getSession().getAttribute("loginUser");
@@ -225,14 +225,14 @@ public class MemberController {
 			return "false";
 		}
 	}
-	
+
 	// 판매자 등록 신청 ( 승인대기 )
 	@ResponseBody
 	@RequestMapping(value="/sellerAccess.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public String sellerAccess(@RequestParam("mem_seq")int mem_seq,HttpServletRequest req) {
 		boolean result = memberService.sellerAccess(mem_seq);
 		if(result) {
-			// auth 변경 값  세션 재 적용 
+			// auth 변경 값  세션 재 적용
 			req.getSession().removeAttribute("loginUser");
 			memberDto login = memberService.loginId(mem_seq);
 			req.getSession().setAttribute("loginUser", login);
@@ -242,7 +242,7 @@ public class MemberController {
 			return "fail";
 		}
 	}
-	
+
 	// 회원 탈퇴
 	@RequestMapping(value="/memberEscape.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public String memberEscape(HttpServletRequest req, Model model) {
@@ -252,7 +252,7 @@ public class MemberController {
 		model.addAttribute("msg","탈퇴처리 되었습니다.");
 		return "/member/alertPage";
 	}
-	
+
 	@RequestMapping(value="/userUpdate.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public String userUpdate(memberDto dto,HttpServletRequest req, Model model) {
 		boolean result = memberService.userUpdate(dto);
@@ -263,7 +263,7 @@ public class MemberController {
 			}else {
 				login = memberService.snsLogin(dto);
 			}
-				
+
 			req.getSession().removeAttribute("loginUser");
 			req.getSession().setAttribute("loginUser", login);
 			req.getSession().setMaxInactiveInterval(60*60*365);
@@ -281,11 +281,12 @@ public class MemberController {
 	   public String sellerMyPage() {
 	      return "/mypage/mypage_seller";
 	   }
+
 	   // [관리자] 승인대기 -> 승인  처리
 	   @ResponseBody
 	   @RequestMapping(value="/sellerAccessPass.do", method= {RequestMethod.GET,RequestMethod.POST})
 	   public String sellerAccessPass(@RequestParam(value="passList[]")int[] mem_seq,HttpServletRequest req) {
-		  
+
 		  System.out.println("=="+mem_seq[0]);
 		  boolean result = memberService.sellerAccessPass(mem_seq);
 		  if(result) {
@@ -313,13 +314,4 @@ public class MemberController {
 		   model.addAttribute("sellerAccessList",sellerAccessList);
 	      return "/mypage/sellerAccessMgmt";
 	   }
-	   
-	   
-	
-	
-	
-	
-	
-	
-	
 }

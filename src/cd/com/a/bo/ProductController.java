@@ -42,26 +42,47 @@ public class ProductController {
 	
 	@RequestMapping(value="productList.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public String productlist(Model model, ProductParam prdparam) {
-//		Gson gson = new Gson();
-//		List<productDto> prdlist = new ArrayList<productDto>();
+		
+		// paging 처리
+		int pageNumber = prdparam.getPageNumber();	// 0 1 2	현재 페이지
+		int start = pageNumber * prdparam.getRecordCountPerPage(); // 1, 11, 21
+		int end = (pageNumber + 1) * prdparam.getRecordCountPerPage();	// 10, 20, 30
+		
+		prdparam.setStart(start);
+		prdparam.setEnd(end);
+		
 		System.out.println("prdparam = " + prdparam.toString());
 		List<productDto> prdlist = prdService.prdSearchList(prdparam);
 		//System.out.println("productList : " + prdlist);
 		
+		// count > 글의 총 수
+		int totalRecordCount = prdService.getPrdCount(prdparam);
+		
 		model.addAttribute("prdlist", prdlist);
+		model.addAttribute("pageNumber", pageNumber);
+		model.addAttribute("pageCountPerScreen", 10);
+		model.addAttribute("recordCountPerPage", prdparam.getRecordCountPerPage());
+		model.addAttribute("totalRecordCount", totalRecordCount);
+		
 		
 		model.addAttribute("s_category", prdparam.getS_category());
 		model.addAttribute("s_keyword", prdparam.getS_keyword());
-		model.addAttribute("s_product_group", prdparam.getS_product_group());
-		model.addAttribute("s_product_sub_group", prdparam.getS_product_sub_group());
+		model.addAttribute("product_group", prdparam.getProduct_group());
+		model.addAttribute("product_sub_group", prdparam.getProduct_sub_group());
+		model.addAttribute("s_soldState", prdparam.getS_soldState());
+		model.addAttribute("sorting", prdparam.getSorting());
+		model.addAttribute("countList", prdparam.getCountList());
+		model.addAttribute("prdparam", prdparam);
 		
-		return "/bo/bo_02product_1";
+		
+		
+		return "/bo/product/bo_02product_1";
 	}
 	
 	
 	@RequestMapping(value="productInsert.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public String productWrite(Model model) {
-		return "/bo/bo_02product_2_regi";
+		return "/bo/product/bo_02product_2_regi";
 	}
 	
 	
@@ -186,7 +207,7 @@ public class ProductController {
 		System.out.println("업데이트페이지 들어오면서 갖고온 dto : " + prddto);
 		
 		model.addAttribute("prddto", prddto);
-		return "/bo/bo_02product_3_update";
+		return "/bo/product/bo_02product_3_update";
 	}
 	
 	

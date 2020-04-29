@@ -35,6 +35,16 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.prdUpdate(dto);
 	}
 
+	@Override
+	public boolean prdDelete(int[] product_num) throws Exception {
+		return productDao.prdDelete(product_num);
+	}
+
+	@Override
+	public int getPrdCount(ProductParam prdParam) {
+		return productDao.getPrdCount(prdParam);
+	}
+
 	
     @Override
     public boolean prdDelete(int[] product_num) throws Exception {

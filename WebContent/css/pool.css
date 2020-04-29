@@ -40,6 +40,20 @@
 .pool_infoWrap .poolInfo_section .col2 .pool_lp .dot_list li strong {display: block; font-size: 13px;}
 .pool_infoWrap .poolInfo_section .col2 .pool_lp img.lp_deco {position: absolute; top: -7px;}
 
+
+
+.poolInfo_section .info > ul {margin-top: 30px;}
+.poolInfo_section .info > ul li {clear: both; position: relative; padding-bottom: 12px; }
+.poolInfo_section .info > ul li.bg_gray {box-sizing: border-box; padding: 10px 15px; font-size: 12px;}
+.poolInfo_section .info > ul li:last-child {padding-bottom: 20px;}
+.poolInfo_section .info > ul li dl {font-size: 14px;margin-top : 15px;}
+.poolInfo_section .info > ul li dt {display: inline-block; vertical-align: top; width: 150px; color: #858586; font-weight: bold;}
+.poolInfo_section .info > ul li dd {display: inline-block;}
+.poolInfo_section .info > ul li dd img {display: inline-block; vertical-align: middle;}
+.poolInfo_section .info > ul li dd .btn_info_lp {cursor: pointer;}
+.poolInfo_section .info > ul li dd .link_lp {display: inline-block; position: relative;}
+
+
 .pool_lp.hover_lp {width: 260px; top: 33px; left: -10px;}
 .pool_lp.hover_lp img.lp_deco {left: 20px;}
 

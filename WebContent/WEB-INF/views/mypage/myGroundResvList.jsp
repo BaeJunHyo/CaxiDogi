@@ -46,9 +46,6 @@ List<groundResvParam> myGroundResvList = (List<groundResvParam>)request.getAttri
 			}
 			for(int i=0 ;i<size;i++){
 				groundResv = myGroundResvList.get(i);
-				
-				
-			
 		%>
 			<tr>
 				<td>

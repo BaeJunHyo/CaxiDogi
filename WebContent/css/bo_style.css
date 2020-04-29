@@ -370,6 +370,7 @@ textarea.txtarea_bd {box-sizing: border-box; padding: 10px; margin: 10px 0; bord
 .paging a.btn_next {background: url(../images/bo/ico_paging_next.png) #efefef no-repeat center center;}
 .paging a.btn_last {background: url(../images/bo/ico_paging_last.png) #efefef no-repeat center center;}
 
+
 .lp_box .paging {padding: 0;}
 .lp_box .btn_close {text-align: center;}
 
@@ -936,8 +937,6 @@ body{overflow-x: hidden;}
     display: block;
     font-weight: bold;
 }
-
-
 
 
 

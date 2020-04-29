@@ -4,19 +4,23 @@ import java.io.Serializable;
 
 public class ProductParam implements Serializable {
 	
-	// 상품 검색
+	//-- 상품 검색
 	private String s_category;
 	private String s_keyword;
 	
-    private int s_product_group;    // 그룹
-    private int s_product_sub_group;    // 서브그룹
-    private int soldState;    // 품절상태
+	private int product_group;	// 그룹
+	private int product_sub_group;	// 서브그룹
+	
+	private int s_soldState;	// 품절상태
 
-	// paging
+	//-- paging
 	private int pageNumber = 0;	// 현재 페이지
 	private int recordCountPerPage = 10;	// 페이지의 글수
 	
-	// DB
+	private int sorting = 0;
+	private int countList = 10;
+	
+	//-- DB
 	private int start = 1;
 	private int end = 10;
 	
@@ -24,16 +28,18 @@ public class ProductParam implements Serializable {
 		
 	}
 
-	public ProductParam(String s_category, String s_keyword, int s_product_group, int s_product_sub_group,
-			int soldState, int pageNumber, int recordCountPerPage, int start, int end) {
+	public ProductParam(String s_category, String s_keyword, int product_group, int product_sub_group, int s_soldState,
+			int pageNumber, int recordCountPerPage, int sorting, int countList, int start, int end) {
 		super();
 		this.s_category = s_category;
 		this.s_keyword = s_keyword;
-		this.s_product_group = s_product_group;
-		this.s_product_sub_group = s_product_sub_group;
-		this.soldState = soldState;
+		this.product_group = product_group;
+		this.product_sub_group = product_sub_group;
+		this.s_soldState = s_soldState;
 		this.pageNumber = pageNumber;
 		this.recordCountPerPage = recordCountPerPage;
+		this.sorting = sorting;
+		this.countList = countList;
 		this.start = start;
 		this.end = end;
 	}
@@ -54,28 +60,28 @@ public class ProductParam implements Serializable {
 		this.s_keyword = s_keyword;
 	}
 
-	public int getS_product_group() {
-		return s_product_group;
+	public int getProduct_group() {
+		return product_group;
 	}
 
-	public void setS_product_group(int s_product_group) {
-		this.s_product_group = s_product_group;
+	public void setProduct_group(int product_group) {
+		this.product_group = product_group;
 	}
 
-	public int getS_product_sub_group() {
-		return s_product_sub_group;
+	public int getProduct_sub_group() {
+		return product_sub_group;
 	}
 
-	public void setS_product_sub_group(int s_product_sub_group) {
-		this.s_product_sub_group = s_product_sub_group;
+	public void setProduct_sub_group(int product_sub_group) {
+		this.product_sub_group = product_sub_group;
 	}
 
-	public int getSoldState() {
-		return soldState;
+	public int getS_soldState() {
+		return s_soldState;
 	}
 
-	public void setSoldState(int soldState) {
-		this.soldState = soldState;
+	public void setS_soldState(int s_soldState) {
+		this.s_soldState = s_soldState;
 	}
 
 	public int getPageNumber() {
@@ -92,6 +98,22 @@ public class ProductParam implements Serializable {
 
 	public void setRecordCountPerPage(int recordCountPerPage) {
 		this.recordCountPerPage = recordCountPerPage;
+	}
+
+	public int getSorting() {
+		return sorting;
+	}
+
+	public void setSorting(int sorting) {
+		this.sorting = sorting;
+	}
+
+	public int getCountList() {
+		return countList;
+	}
+
+	public void setCountList(int countList) {
+		this.countList = countList;
 	}
 
 	public int getStart() {
@@ -112,10 +134,10 @@ public class ProductParam implements Serializable {
 
 	@Override
 	public String toString() {
-		return "ProductParam [s_category=" + s_category + ", s_keyword=" + s_keyword + ", s_product_group="
-				+ s_product_group + ", s_product_sub_group=" + s_product_sub_group + ", soldState=" + soldState
-				+ ", pageNumber=" + pageNumber + ", recordCountPerPage=" + recordCountPerPage + ", start=" + start
-				+ ", end=" + end + "]";
+		return "ProductParam [s_category=" + s_category + ", s_keyword=" + s_keyword + ", product_group="
+				+ product_group + ", product_sub_group=" + product_sub_group + ", s_soldState=" + s_soldState
+				+ ", pageNumber=" + pageNumber + ", recordCountPerPage=" + recordCountPerPage + ", sorting=" + sorting
+				+ ", countList=" + countList + ", start=" + start + ", end=" + end + "]";
 	}
 
 	

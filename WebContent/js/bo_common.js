@@ -130,10 +130,7 @@ $(document).ready(function(){
 });
 
 
-
-// @DATE: 2017-06-15
-// @WRITER : yejin.choi
-// @COMMENT : lnb �몃━�≪뀡
+// @COMMENT : lnb 접기
 $(function(){
 	// $('.sub_lnbmenu li a .lnb_sbj').find('.sub_lnbmenu').each(function(index){
 	// 	$(this).attr('data-n',index+1)
@@ -150,20 +147,17 @@ $(function(){
         }
 	})
 
-	$('.lnb_sbj > a').click(function(){
-		$('+.sub_lnbmenu',this).slideToggle();
-	})
+	
+	$('.lnb_sbj > a').click(function() {
+        $('+.sub_lnbmenu',this).slideToggle('slow', function() {
+          // 객체가 다 펼치지거나 접히고 나면 여기에 든 내용이 실행된다.
+        });
+	});
+	
+	
 
-	$('.sub_lnbmenu li > a').click(function(){
-		$('+.sl_inmenu',this).slideToggle();
-	})
 
-
-/*
-@DATE : 2017-09-05
-@WRITER : yejin.choi
-@COMMENT : �대┃ �덉씠�댄뙘��
- */
+//@COMMENT : 팝업 열기 / 닫기
 
  $('.btn_lp_click').click(function(){
  	$('+ .lp_box_click',this).show();

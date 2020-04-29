@@ -1,5 +1,7 @@
 package cd.com.a.serviceImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +22,8 @@ public class orderServiceImpl implements orderService {
 	}
 
 	@Override
-	public boolean crete_productOrder(productSaleDto saleDto) {
-		return orderdao.crete_productOrder(saleDto);
+	public boolean crete_productOrder(productSaleDto saleList) {
+		return orderdao.crete_productOrder(saleList);
 	}
 
 	@Override
@@ -32,6 +34,16 @@ public class orderServiceImpl implements orderService {
 	@Override
 	public int getSaleGroup(int mem_seq) {
 		return orderdao.getSaleGroup(mem_seq);
+	}
+
+	@Override
+	public boolean kakaoUpdate(productSaleDto saleDto) {
+		return orderdao.kakaoUpdate(saleDto);
+	}
+
+	@Override
+	public productSaleDto getNowSaleing(int mem_seq) {
+		return orderdao.getNowSaleing(mem_seq);
 	}
 	
 	

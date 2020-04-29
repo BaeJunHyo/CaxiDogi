@@ -872,20 +872,16 @@
 <input type="text" id="qty" vlaue="0" style="display: none;">
 
 <form id="frm" name="frm" method="post" action="productOrder.do">
-	<input type="hidden" id="prd_seq1" name="orderList[0].product_num"
-		value="${prddetail.product_num }"> <input type="hidden"
-		id="acount1" name="orderList[0].acount" value="1"> <input
-		type="hidden" id="prd_seq2" name="orderList[1].product_num" value="17">
-	<input type="hidden" id="acount2" name="orderList[1].acount" value="2">
-	<input type="hidden" id="prd_seq3" name="orderList[2].product_num"
-		value="18"> <input type="hidden" id="acount3"
-		name="orderList[2].acount" value="3"> <input type="hidden"
-		id="prd_seq4" name="orderList[3].product_num" value="23"> <input
-		type="hidden" id="acount4" name="orderList[3].acount" value="4">
+	<input type="hidden" id="prd_seq1" name="orderList[0].product_num" value="${prddetail.product_num }">
+	<input type="hidden"id="acount1" name="orderList[0].acount" value="1">
 </form>
 
+<c:if test="${loginUser ne null }">
 <input type="hidden" id="login_find" value="${loginUser }">
-
+</c:if>
+<c:if test="${loginUser eq null }">
+<input type="hidden" id="login_find" value="-1">
+</c:if>
 <script>
 
 
@@ -901,6 +897,7 @@ function minus(){
 	   $("input[type='text'].tcount").val(qty);
 	   $(".totalPrice").text(qty * Number(price));
 	   $("input[type='text'].tcount").val(qty);
+	   $('#acount1').val(qty);
    }   
 };
 
@@ -913,6 +910,7 @@ function plus() {
 	   $("input[type='text'].tcount").val(qty);
 	   $(".totalPrice").text(qty * Number(price));
 	   $("input[type='text'].tcount").val(qty);
+	   $('#acount1').val(qty);
    }
   
 };   
@@ -933,10 +931,33 @@ function calc(){
 
 
 $(document).on("click", "#nowPayment1", function() {
-	alert("클릭");
+	//로그인 상태 판단 
+	if($("#login_find").val() == -1){
+		var islogin = confirm("구매를 위해서는 로그인이 필요합니다\n로그인페이지으로 이동하시겠습니까?");
+		if(islogin){
+			location.href="loginView.do";
+		}else{
+			return;
+		}
+	}else{
+		var str = $('#frm').serializeArray();
+		$('#frm').submit();
+	}
+	
 });
 $(document).on("click", "#nowPayment2", function() {
-	alert("클릭");
+	//로그인 상태 판단 
+	if($("#login_find").val() == -1){
+		var islogin = confirm("구매를 위해서는 로그인이 필요합니다\n로그인페이지으로 이동하시겠습니까?");
+		if(islogin){
+			location.href="loginView.do";
+		}else{
+			return;
+		}
+	}else{
+		var str = $('#frm').serializeArray();
+		$('#frm').submit();
+	}
 });
 /*
 //바로구매 버튼 클릭시 동작하는 함수

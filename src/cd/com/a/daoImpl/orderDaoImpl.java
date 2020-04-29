@@ -1,5 +1,7 @@
 package cd.com.a.daoImpl;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,8 +25,9 @@ public class orderDaoImpl implements orderDao {
 	}
 
 	@Override
-	public boolean crete_productOrder(productSaleDto saleDto) {
-		return sqlSession.insert(ns + "crete_productOrder", saleDto) > 0? true:false;
+	public boolean crete_productOrder(productSaleDto saleList) {
+
+		return sqlSession.insert(ns + "crete_productOrder", saleList) > 0? true:false;
 	}
 
 	@Override
@@ -35,6 +38,16 @@ public class orderDaoImpl implements orderDao {
 	@Override
 	public int getSaleGroup(int mem_seq) {
 		return sqlSession.selectOne(ns + "getSaleGroup", mem_seq);
+	}
+
+	@Override
+	public boolean kakaoUpdate(productSaleDto saleDto) {
+		return sqlSession.update(ns + "kakaoUpdate", saleDto)>0?true:false;
+	}
+
+	@Override
+	public productSaleDto getNowSaleing(int mem_seq) {
+		return sqlSession.selectOne(ns + "getNowSaleing", mem_seq);
 	}
 	
 	

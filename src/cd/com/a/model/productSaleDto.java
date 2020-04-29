@@ -31,7 +31,7 @@ ALTER TABLE product_saleing
 public class productSaleDto implements Serializable {
 		
 	private int saleing_num;
-	private String mem_seq;
+	private int mem_seq;
 	private int product_num;
 	private int saleing_amount;
 	private String saleing_addr;
@@ -41,11 +41,11 @@ public class productSaleDto implements Serializable {
 	private int saleing_option;
 	private int saleing_option_state;
 	
-	private String saleing_kakao_tid;
-	private String saleing_kakao_cid;
+	private String kakao_tid;
+	private String kakao_cid;
 	
 	private int saleing_group;
-	private int product_delivery;
+	private int saleing_delivery;
 	private String delivery_message;
 	
 	public productSaleDto() {
@@ -53,9 +53,9 @@ public class productSaleDto implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public productSaleDto(int saleing_num, String mem_seq, int product_num, int saleing_amount, String saleing_addr,
+	public productSaleDto(int saleing_num, int mem_seq, int product_num, int saleing_amount, String saleing_addr,
 			String saleing_tel, String saleing_date, String saleing_name, int saleing_option, int saleing_option_state,
-			String saleing_kakao_tid, String saleing_kakao_cid, int saleing_group, int product_delivery,
+			String kakao_tid, String kakao_cid, int saleing_group, int saleing_delivery,
 			String delivery_message) {
 		super();
 		this.saleing_num = saleing_num;
@@ -68,15 +68,15 @@ public class productSaleDto implements Serializable {
 		this.saleing_name = saleing_name;
 		this.saleing_option = saleing_option;
 		this.saleing_option_state = saleing_option_state;
-		this.saleing_kakao_tid = saleing_kakao_tid;
-		this.saleing_kakao_cid = saleing_kakao_cid;
+		this.kakao_tid = kakao_tid;
+		this.kakao_cid = kakao_cid;
 		this.saleing_group = saleing_group;
-		this.product_delivery = product_delivery;
+		this.saleing_delivery = saleing_delivery;
 		this.delivery_message = delivery_message;
 	}
 
-	public productSaleDto(String mem_seq, int product_num, int saleing_amount, String saleing_addr, String saleing_tel,
-			String saleing_name, int saleing_group, int product_delivery, String delivery_message) {
+	public productSaleDto(int mem_seq, int product_num, int saleing_amount, String saleing_addr, String saleing_tel,
+			String saleing_name, int saleing_group, int saleing_delivery, String delivery_message) {
 		super();
 		this.mem_seq = mem_seq;
 		this.product_num = product_num;
@@ -85,7 +85,7 @@ public class productSaleDto implements Serializable {
 		this.saleing_tel = saleing_tel;
 		this.saleing_name = saleing_name;
 		this.saleing_group = saleing_group;
-		this.product_delivery = product_delivery;
+		this.saleing_delivery = saleing_delivery;
 		this.delivery_message = delivery_message;
 	}
 
@@ -97,11 +97,11 @@ public class productSaleDto implements Serializable {
 		this.saleing_num = saleing_num;
 	}
 
-	public String getMem_seq() {
+	public int getMem_seq() {
 		return mem_seq;
 	}
 
-	public void setMem_seq(String mem_seq) {
+	public void setMem_seq(int mem_seq) {
 		this.mem_seq = mem_seq;
 	}
 
@@ -144,7 +144,7 @@ public class productSaleDto implements Serializable {
 	public void setSaleing_date(String saleing_date) {
 		this.saleing_date = saleing_date;
 	}
-
+	
 	public String getSaleing_name() {
 		return saleing_name;
 	}
@@ -169,20 +169,20 @@ public class productSaleDto implements Serializable {
 		this.saleing_option_state = saleing_option_state;
 	}
 
-	public String getSaleing_kakao_tid() {
-		return saleing_kakao_tid;
+	public String getKakao_tid() {
+		return kakao_tid;
 	}
 
-	public void setSaleing_kakao_tid(String saleing_kakao_tid) {
-		this.saleing_kakao_tid = saleing_kakao_tid;
+	public void setKakao_tid(String kakao_tid) {
+		this.kakao_tid = kakao_tid;
 	}
 
-	public String getSaleing_kakao_cid() {
-		return saleing_kakao_cid;
+	public String getKakao_cid() {
+		return kakao_cid;
 	}
 
-	public void setSaleing_kakao_cid(String saleing_kakao_cid) {
-		this.saleing_kakao_cid = saleing_kakao_cid;
+	public void setKakao_cid(String kakao_cid) {
+		this.kakao_cid = kakao_cid;
 	}
 
 	public int getSaleing_group() {
@@ -193,12 +193,12 @@ public class productSaleDto implements Serializable {
 		this.saleing_group = saleing_group;
 	}
 
-	public int getProduct_delivery() {
-		return product_delivery;
+	public int getSaleing_delivery() {
+		return saleing_delivery;
 	}
 
-	public void setProduct_delivery(int product_delivery) {
-		this.product_delivery = product_delivery;
+	public void setSaleing_delivery(int saleing_delivery) {
+		this.saleing_delivery = saleing_delivery;
 	}
 
 	public String getDelivery_message() {
@@ -215,8 +215,8 @@ public class productSaleDto implements Serializable {
 				+ ", saleing_amount=" + saleing_amount + ", saleing_addr=" + saleing_addr + ", saleing_tel="
 				+ saleing_tel + ", saleing_date=" + saleing_date + ", saleing_name=" + saleing_name
 				+ ", saleing_option=" + saleing_option + ", saleing_option_state=" + saleing_option_state
-				+ ", saleing_kakao_tid=" + saleing_kakao_tid + ", saleing_kakao_cid=" + saleing_kakao_cid
-				+ ", saleing_group=" + saleing_group + ", product_delivery=" + product_delivery + ", delivery_message="
+				+ ", kakao_tid=" + kakao_tid + ", kakao_cid=" + kakao_cid
+				+ ", saleing_group=" + saleing_group + ", saleing_delivery=" + saleing_delivery + ", delivery_message="
 				+ delivery_message + "]";
 	}
 	

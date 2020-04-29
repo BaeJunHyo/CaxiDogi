@@ -9,9 +9,11 @@
 			<ul class="sub_lnbmenu" style="display: block;">
 				<li><a href="productList.do">상품리스트</a></li>
 				<li><a href="productInsert.do">상품 등록</a></li>
-				<!-- <li><a href="#n">상품 일괄 등록</a></li>
-				<li><a href="#n">상품 이미지 일괄 처리</a></li> -->
+				<!-- 
+				<li><a href="#n">상품 일괄 등록</a></li>
+				<li><a href="#n">상품 이미지 일괄 처리</a></li> 
 				<li><a href="#n">삭제 상품 관리</a></li>
+				-->
 			</ul>
 		</li>
 		<!-- 

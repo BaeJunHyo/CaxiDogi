@@ -32,8 +32,6 @@
 		<ul>
 			<li><a href="#n">사이트맵</a></li>
 			<li><a href="#n">회원가입</a></li>
-			<li><a href="#n">메뉴얼</a></li>
-			<li><a href="#n">마이쇼핑몰</a></li>
 		</ul>
 	</div>
 </div><!--// header -->

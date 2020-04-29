@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class OrderController {
+public class PrdOrderController {
 	
 	@Autowired
-	OrderService orderService;
+	PrdOrderService orderService;
 	SqlSession sqlSession;
 	
 	@RequestMapping(value="orderList.do", method= {RequestMethod.GET,RequestMethod.POST})

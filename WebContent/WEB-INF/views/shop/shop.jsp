@@ -1,3 +1,4 @@
+<%@page import="cd.com.a.model.shopListParam"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -29,7 +30,13 @@
 
 
 	<div class="prdlist_default">
-
+	
+	<select id="shop_sel">
+		<option value="-1" >지역 검색</option>
+		<option value="1">서울</option>
+		<option value="2">경기</option>
+		<option value="3">기타</option>
+	</select>
 
 		<!-- 상품추출 -->
 		<div class="mproduct_area">
@@ -72,12 +79,7 @@
 				href="/shop/shopbrand.html?type=X&amp;xcode=012&amp;sort=&amp;page=1"></a></li>
 		</ol> -->
 		
-		<div class="shop_section">
-		<p class="main_menu">
-				<span class="searchArea"> <input type="text"> <a href="#n"><img src="images/ico_h_search.gif" alt="검색버튼"></a>
-				</span> 
-		</p>
-		</div>
+	
 
 	</div>
 
@@ -87,9 +89,39 @@
 
 
 	<!--// new_product -->
+	 <jsp:include page="/include/paging.jsp" flush="false">
+		<jsp:param name="totalRecordCount" value="${totalRecordCount }" />
+		<jsp:param name="pageNumber" value="${pageNumber }" />
+		<jsp:param name="pageCountPerScreen" value="${pageCountPerScreen }" />
+		<jsp:param name="recordCountPerPage" value="${recordCountPerPage }" />
+</jsp:include> 
 
 
 </div>
 <!-- container E : -->
+<script>
+$("#shop_sel").change(function(){
+	var shopAddr = $("#shop_sel option:selected").val();
+
+	location.href="getShopList.do?shopAddr="+shopAddr;
+});
+<%-- $("#shop_sel option:selected").val(<%=param.getShopAddrSeo()%>).prop('selected',true); --%>
+
+
+$("#shop_sel").val(${param.shopAddr}).prop("selected", true);
+
+<%-- $("#shop_sel").val("<%=param.getShopAddrSeo()%>").prop("selected", true);
+$("#shop_sel").val("<%=param.getShopAddrKyeong()%>").prop("selected", true);
+$("#shop_sel").val("<%=param.getShopAddrEtc()%>").prop("selected", true); --%>
+
+<%-- $("#shop_sel").val(<%=param.getShopAddrSeo() %>).prop('selected',true);
+$("#shop_sel").val(<%=param.getShopAddrKyeong()%>).prop('selected',true);
+$("#shop_sel").val(<%=param.getShopAddrEtc()%>).prop('selected',true); --%>
+
+function goPage(pageNumber){
+	var shopAddr = $("#shop_sel option:selected").val();
+	location.href="getShopList.do?shopAddr="+shopAddr;
+}
+</script>
 
 <%@ include file="./../../../include/footer.jsp"%>

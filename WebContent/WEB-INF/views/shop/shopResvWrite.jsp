@@ -5,6 +5,16 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="./../../../include/header.jsp"%>
 <link href="<%=request.getContextPath()%>/css/pool.css" rel="stylesheet">
+<style>
+.shopinput{
+	width: 216px !important;
+    height: 33px;
+    padding: 0 10px;
+    line-height: 33px;
+    box-sizing: border-box;
+    border: 1px solid #232a32;
+}
+</style>
 <div class="category_dept">
 	<ul>
 		<li>HOME</li>
@@ -84,7 +94,7 @@
 					<dl>
 						<dt>예상 총 금액</dt>
 						<dd id="price">
-						<input type="text" id="shop_resv_price" name="shop_resv_price" readonly="readonly">
+						<input type="text" id="shop_resv_price" name="shop_resv_price" readonly="readonly" class="shopinput">
 						<span>금액의 변동사항이 있을 수 있습니다. </span>
 						</dd>
 					</dl>
@@ -95,7 +105,7 @@
 					<dl>
 						<dt>예약자명</dt>
 						<dd>
-							<input type ="text" id="shop_resv_name" name ="shop_resv_name" value ="${shopResvdto.shop_resv_name}" placeholder="예약자명을 입력해주세요">
+							<input type ="text" id="shop_resv_name" class="shopinput" name ="shop_resv_name" value ="${shopResvdto.shop_resv_name}" placeholder="예약자명을 입력해주세요">
 						</dd>
 					</dl>
 				</li>
@@ -103,8 +113,16 @@
 					<dl>
 						<dt>연락처</dt>
 						<dd>
-							<input type ="text" id="shop_resv_tel" name ="shop_resv_tel" value ="${shopResvdto.shop_resv_tel}" placeholder="연락처를 입력해주세요">
+							<input type ="text" id="shop_resv_tel" class="shopinput" name ="shop_resv_tel" value ="${shopResvdto.shop_resv_tel}" placeholder="연락처를 입력해주세요">
 							<input type ="hidden" name ="mem_seq" value = "${shopResvdto.mem_seq }">
+						</dd>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dt>요청사항</dt>
+						<dd>
+							<input type ="text" id="shop_resv_comment" class="shopinput" name ="shop_resv_comment" value ="${shopResvdto.shop_resv_comment}" placeholder="요청사항이 있으시면 적어주세요">
 						</dd>
 					</dl>
 				</li>

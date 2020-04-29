@@ -33,12 +33,16 @@ import com.google.gson.JsonObject;
 import cd.com.a.model.memberDto;
 import cd.com.a.model.shopDesignerDto;
 import cd.com.a.model.shopDto;
+import cd.com.a.model.shopListParam;
 import cd.com.a.model.shopPagingParam;
 import cd.com.a.model.shopResvDto;
+import cd.com.a.model.shopSellerPagingParam;
+import cd.com.a.model.shopSellerResvParam;
 import cd.com.a.model.shopShowResvParam;
 import cd.com.a.service.MemberService;
 import cd.com.a.service.ShopService;
 import cd.com.a.util.FileUploadUtil;
+import oracle.net.aso.f;
 
 @Controller
 public class ShopController {
@@ -375,13 +379,33 @@ public class ShopController {
 //--------------------------------------------------------------MJ--------------------------------------------------	
 	
 	@RequestMapping(value="getShopList.do",  method= {RequestMethod.GET,RequestMethod.POST})
-	public String getShopList(Model model) {
-		List<shopDto> shoplist = shopService.getShopList();
+	public String getShopList(Model model, shopListParam param) {
+		
+		System.out.println(param.toString());
+		// paging 처리
+		int pageNumber = param.getPageNumber();	// 0 1 2	현재 페이지
+		int start = pageNumber * param.getRecordCountPerPage(); // 0, 10, 21
+		
+		int end = (pageNumber + 1) * param.getRecordCountPerPage();	// 10, 20, 30
+		
+		param.setStart(start);
+		param.setEnd(end);
+		
+		List<shopDto> shoplist = shopService.getShopList(param);
+		
+		//글의 총수
+		int totalRecordCount = shopService.getShopCount();
+		
 		model.addAttribute("shoplist", shoplist);
+		model.addAttribute("pageNumber", pageNumber);
+		model.addAttribute("pageCountPerScreen", 10);
+		model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
+		model.addAttribute("totalRecordCount", totalRecordCount);
+		model.addAttribute("param",param);
 		
 		return "/shop/shop";
 	}
-	
+
 	
 	
 	@ResponseBody
@@ -512,13 +536,16 @@ public class ShopController {
 		
 	}
 	
+	
+	// 유저 미용 예약 리스트
 	@RequestMapping(value="showShopResv.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public String showShopResv(Model model, HttpSession session, shopPagingParam param) {
 		memberDto loginUser = (memberDto)session.getAttribute("loginUser");
 		System.out.println("=============showResv: " + loginUser.getMem_seq() );
 		// paging 처리
 		int pageNumber = param.getPageNumber();	// 0 1 2	현재 페이지
-		int start = pageNumber * param.getRecordCountPerPage(); // 1, 11, 21
+		int start = pageNumber * param.getRecordCountPerPage(); // 0, 10, 21
+		
 		int end = (pageNumber + 1) * param.getRecordCountPerPage();	// 10, 20, 30
 		
 		param.setStart(start);
@@ -560,6 +587,7 @@ public class ShopController {
 		return "/shop/showShopResv";
 	}
 	
+	// 유저 미용 예약 취소
 	@ResponseBody
 	@RequestMapping(value="cancelShopResv.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public String cancelShopResv(shopResvDto shopresv) {
@@ -580,7 +608,98 @@ public class ShopController {
 		return str;
 	}
 	
+	////// 셀러 미용 예약 리스트
+	@RequestMapping(value="shopSellerResvList.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String shopSellerResvList(HttpSession session, Model model, shopSellerPagingParam param) {
+		memberDto mem = (memberDto)session.getAttribute("loginUser");
+		param.setMemSeq(mem.getMem_seq());
+		// paging 처리
+		int pageNumber = param.getPageNumber();	// 0 1 2	현재 페이지
+		int start = pageNumber * param.getRecordCountPerPage(); // 1, 11, 21
+		
+		int end = (pageNumber + 1) * param.getRecordCountPerPage();	// 10, 20, 30
+		
+		param.setStart(start);
+		param.setEnd(end);
+		int totalRecordCount = shopService.getSellerResvCount(param);
+		
+		List<shopSellerResvParam> resvlist = shopService.getSellerShopResvList(param);
+		for(int i=0; i<resvlist.size();i++) {
+			shopSellerResvParam dto = resvlist.get(i);
+			
+		}
+		List<shopDto> shoplist = shopService.getSellerShopList(mem.getMem_seq());
+		
+		model.addAttribute("shopresvlist", resvlist);
+		model.addAttribute("shoplist", shoplist);
+		model.addAttribute("pageNumber", pageNumber);
+		model.addAttribute("pageCountPerScreen", 10);
+		model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
+		model.addAttribute("totalRecordCount", totalRecordCount);
+		model.addAttribute("param",param);
+		
+		return "/smypage/shop/sellerShopResvList";
+	}
+	
+	@RequestMapping(value="shopSellerResvDetail.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String shopSellerResvDetail(Model model, int shop_resv_seq) {
+		shopSellerResvParam shopresv = shopService.getSellerResvDetail(shop_resv_seq);
+		model.addAttribute("shopresv", shopresv);
+		
+		return "/smypage/shop/shopResvDetail";
+	}
+	
+	@RequestMapping(value="shopResvUpdate.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String shopResvUpdate(Model model,int shop_resv_seq) {
+		model.addAttribute("shop_resv_seq", shop_resv_seq);
+		return "/shop/shopResvUpdate";
+	}
 
+	@ResponseBody
+	@RequestMapping(value="shopResvUpdateAf.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String shopResvUpdate(Model model, shopResvDto resv) {
+		String str = "";
+		boolean b = shopService.shopResvUpdate(resv);
+		
+		if(b) {
+			str="ok";
+		}else {
+			str ="no";
+		}
+		
+		return str;
+		
+	}
 	
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

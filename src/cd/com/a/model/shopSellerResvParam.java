@@ -2,8 +2,8 @@ package cd.com.a.model;
 
 import java.io.Serializable;
 
-public class shopShowResvParam implements Serializable {
-
+public class shopSellerResvParam implements Serializable {
+	
 	private int shop_resv_seq;				// 예약번호
 	private int shop_seq;					// 샵번호
 	private int design_seq;					// 디자이너 번호
@@ -26,14 +26,17 @@ public class shopShowResvParam implements Serializable {
 	
 	private String design_name;	
 	
-	public shopShowResvParam() {
+	private int seller_seq;  
+	
+	public shopSellerResvParam() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public shopShowResvParam(int shop_resv_seq, int shop_seq, int design_seq, int mem_seq, String shop_resv_time,
+	public shopSellerResvParam(int shop_resv_seq, int shop_seq, int design_seq, int mem_seq, String shop_resv_time,
 			String shop_resv_rday, String shop_resv_day, int shop_resv_size, String shop_resv_name,
 			String shop_resv_tel, int shop_resv_price, int shop_resv_auth, String shop_resv_comment, String shop_name,
-			String shop_addr, String shop_tel, String shop_time, String shop_photo, String design_name) {
+			String shop_addr, String shop_tel, String shop_time, String shop_photo, String design_name,
+			int seller_seq) {
 		super();
 		this.shop_resv_seq = shop_resv_seq;
 		this.shop_seq = shop_seq;
@@ -54,6 +57,7 @@ public class shopShowResvParam implements Serializable {
 		this.shop_time = shop_time;
 		this.shop_photo = shop_photo;
 		this.design_name = design_name;
+		this.seller_seq = seller_seq;
 	}
 
 	public int getShop_resv_seq() {
@@ -208,20 +212,25 @@ public class shopShowResvParam implements Serializable {
 		this.design_name = design_name;
 	}
 
+	public int getSeller_seq() {
+		return seller_seq;
+	}
+
+	public void setSeller_seq(int seller_seq) {
+		this.seller_seq = seller_seq;
+	}
+
 	@Override
 	public String toString() {
-		return "shopShowResvParam [shop_resv_seq=" + shop_resv_seq + ", shop_seq=" + shop_seq + ", design_seq="
+		return "shopSellerResvParam [shop_resv_seq=" + shop_resv_seq + ", shop_seq=" + shop_seq + ", design_seq="
 				+ design_seq + ", mem_seq=" + mem_seq + ", shop_resv_time=" + shop_resv_time + ", shop_resv_rday="
 				+ shop_resv_rday + ", shop_resv_day=" + shop_resv_day + ", shop_resv_size=" + shop_resv_size
 				+ ", shop_resv_name=" + shop_resv_name + ", shop_resv_tel=" + shop_resv_tel + ", shop_resv_price="
 				+ shop_resv_price + ", shop_resv_auth=" + shop_resv_auth + ", shop_resv_comment=" + shop_resv_comment
 				+ ", shop_name=" + shop_name + ", shop_addr=" + shop_addr + ", shop_tel=" + shop_tel + ", shop_time="
-				+ shop_time + ", shop_photo=" + shop_photo + ", design_name=" + design_name + "]";
+				+ shop_time + ", shop_photo=" + shop_photo + ", design_name=" + design_name + ", seller_seq="
+				+ seller_seq + "]";
 	}
-
-	
-	
-	
 	
 	
 }

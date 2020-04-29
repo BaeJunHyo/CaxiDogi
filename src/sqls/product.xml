@@ -6,11 +6,11 @@
 
 <!-- 상품리스트(검색 - 관리자) -->
 <select id="prdSearchList" parameterType="cd.com.a.model.ProductParam" resultType="cd.com.a.model.productDto">
-	SELECT product_num, product_code, product_img, product_name, 
-		product_price, product_brand, product_hidden, 
+	SELECT @rownum:=@rownum+1 as rownum, product_num, product_code, product_img, product_name, 
+		product_price, product_brand, product_hidden, product_group, product_sub_group,
 		product_sale, product_stock, product_regi_date, product_del 
 	FROM product
-	
+	WHERE (@rownum:=0)=0
 	<where>
 		<if test="s_category != null and s_category != '' 
 			  and s_keyword != null and s_keyword != ''
@@ -18,6 +18,7 @@
 			  and s_product_sub_group != null and s_product_sub_group != ''">
 				AND s_product_group = #{product_group} 
 			 	AND s_product_sub_group = #{product_sub_group}
+			 	AND soldStateArr = #{product_stock}
 			 	
 			<if test="s_category == 'product_name'">
 				AND product_name LIKE CONCAT ('%',#{s_keyword},'%')
@@ -28,19 +29,39 @@
 			<if test="s_category == 'product_brand'">
 				AND product_brand LIKE CONCAT ('%',#{s_keyword},'%')
 			</if>
+			<if test="product_group_df == 1 and product_group_df == 2 and product_group_df == 3">
+				AND product_group_df = #{product_group}
+			</if>
+			<if test="product_sub_group_df == 1 and product_sub_group_df == 2 and product_sub_group_df == 3
+			and product_sub_group_df == 4 and product_sub_group_df == 5">
+				AND product_group_df = #{product_group}
+			</if>
+			
+			<if test="soldStateArr == 1">
+				AND product_stock = LIKE CONCAT ('%',#{s_soldState},'%')
+			</if>
+			<if test="soldStateArr == 2">
+				AND NOT product_stock LIKE CONCAT ('%',#{s_soldState},'%') 
+			</if>
 		</if>
 	</where>
 	
 	<!-- WHERE RNUM BETWEEN ${start} AND ${end} -->
 	ORDER BY product_num
+	LIMIT #{start}, #{recordCountPerPage}
 		   
 </select>
 
+<select id="getPrdCount" resultType="java.lang.Integer">
+SELECT IFNULL(COUNT(*), 0) FROM product;
+</select>
 
 <!-- 상품리스트(페이징 - 관리자) -->
-<!-- <select id="getPrdCount" parameterType="cd.com.a.model.ProductParam" resultType="java.lang.Integer">
+<!-- 
+<select id="getPrdCount" parameterType="cd.com.a.model.ProductParam" resultType="java.lang.Integer">
 SELECT NVL(COUNT(*), 0) AS CNT
 FROM product
+
 <where>
 	<if test="s_category != null and s_category != ''
 		and s_keyword != null and s_keyword != ''">
@@ -55,7 +76,9 @@ FROM product
 		</if>				
 	</if>
 </where>
-</select> -->
+
+</select> 
+-->
 
 
 <!-- 상품등록(관리자) -->

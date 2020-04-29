@@ -42,16 +42,32 @@ public class ProductController {
 	
 	@RequestMapping(value="productList.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public String productlist(Model model, ProductParam prdparam) {
-//		Gson gson = new Gson();
-//		List<productDto> prdlist = new ArrayList<productDto>();
+		
+		// paging 처리
+		int pageNumber = prdparam.getPageNumber();	// 0 1 2	현재 페이지
+		int start = pageNumber * prdparam.getRecordCountPerPage(); // 1, 11, 21
+		int end = (pageNumber + 1) * prdparam.getRecordCountPerPage();	// 10, 20, 30
+		
+		prdparam.setStart(start);
+		prdparam.setEnd(end);
+		
 		System.out.println("prdparam = " + prdparam.toString());
 		List<productDto> prdlist = prdService.prdSearchList(prdparam);
 		//System.out.println("productList : " + prdlist);
+		int totalRecordCount = prdService.getPrdCount();
 		
 		model.addAttribute("prdlist", prdlist);
 		
 		model.addAttribute("s_category", prdparam.getS_category());
 		model.addAttribute("s_keyword", prdparam.getS_keyword());
+		model.addAttribute("s_product_group", prdparam.getS_product_group());
+		model.addAttribute("s_product_sub_group", prdparam.getS_product_sub_group());
+		model.addAttribute("prdparam", prdparam);
+		
+		model.addAttribute("pageNumber", pageNumber);
+		model.addAttribute("pageCountPerScreen", 10);
+		model.addAttribute("recordCountPerPage", prdparam.getRecordCountPerPage());
+		model.addAttribute("totalRecordCount", totalRecordCount);
 		
 		return "/bo/bo_02product_1";
 	}

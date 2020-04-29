@@ -8,6 +8,8 @@ import cd.com.a.model.productDto;
 public interface ProductService {
 	
 	public List<productDto> prdSearchList(ProductParam prdParam);
+	public int getPrdCount();
+	
 	public boolean productInsert(productDto dto);
 	
 	public productDto getPrd(int product_num);

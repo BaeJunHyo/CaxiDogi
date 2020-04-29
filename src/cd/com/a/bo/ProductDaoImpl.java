@@ -50,6 +50,12 @@ public class ProductDaoImpl implements ProductDao {
 		return result > 0 ? true:false;
 	}
 
+
+	@Override
+	public int getPrdCount() {
+		return sqlSession.selectOne(ns + "getPrdCount");
+	}
+
 	
 	
 

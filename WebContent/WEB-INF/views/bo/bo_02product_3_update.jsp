@@ -133,6 +133,7 @@
 							<th>상품 대표 사진</th>
 							<td>
 								<input type="file" name="fileUpload" >
+								<input type="hidden" name="file" value="${prddto.product_img }">
 							</td>
 						</tr>
 					</tbody>

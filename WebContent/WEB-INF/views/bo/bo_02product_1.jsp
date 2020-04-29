@@ -9,7 +9,7 @@
 
 <%@ include file="./../../../include/bo_header.jsp" %>
 
-<%
+<%-- <%
 String category = (String)request.getAttribute("s_category");
 if(category == null) category = "";
 	
@@ -25,7 +25,7 @@ $(document).ready(function () {
 	
 	document.prdSrchFrm.s_keyword.value = keyword;
 });
-</script>
+</script> --%>
 
 <%@ include file="./../../../include/bo_leftNav.jsp"%>
 
@@ -65,172 +65,76 @@ $(document).ready(function () {
 				</div><!--// table_top -->
 				
 				<!-- 검색 -->
-					<table class="product_srchTable">
-						<colgroup>
-							<col width="162px">
-							<col width="*">
-							<col width="162px">
-							<col width="*">
-						</colgroup>
-						<tbody>
-							<tr>
-								<th>검색어</th>
-								<td colspan="3">
-									<select id="_s_category" name="s_category">
-										<option value="">통합검색</option>
-										<option value="product_name">상품명</option>
-										<option value="product_code">상품코드</option>
-										<option value="product_brand">공급사</option>
-									</select>
-									<input type="text" id="_s_keyword" name="s_keyword">
-								</td>
-							</tr>
-							
-							<!-- <tr class="click_hide">
-								<th>기간검색</th>
-								<td colspan="3">
-									<select>
-										<option>등록일</option>
-									</select>
-									<span class="input_cal input_w02">
-										<input type="text" value="2020-05-07">
-										<a href="#n"><img src="./images/bo/ico_cal.gif"></a>
-									</span>
-									~
-									<span class="input_cal input_w02 mr10">
-										<input type="text" value="2020-05-11">
-										<a href="#n"><img src="./images/bo/ico_cal.gif"></a>
-									</span>
-									
-									<a href="#n" class="btn_r_navy">오늘</a>
-									<a href="#n" class="btn_r_navy">7일</a>
-									<a href="#n" class="btn_r_navy">15일</a>
-									<a href="#n" class="btn_r_navy">1개월</a>
-									<a href="#n" class="btn_r_navy">3개월</a>
-									<a href="#n" class="btn_r_navy">전체</a> 
-									
-								</td>
-							</tr> -->
-							
-							<tr>
-								<th>카테고리</th>
-								<td colspan="3">
-									<select id="_s_product_group" name="s_product_group">
-										<option value="">카테고리 선택</option>
-										<option value="1">강아지 용품</option>
-										<option value="2">고양이 용품</option>
-										<option value="3">공용</option>
-									</select>
-									
-									<select id="_s_product_sub_group" name="s_product_sub_group">
-										<option value="">카테고리 선택</option>
-										<option value="1">사료</option>
-										<option value="2">간식</option>
-										<option value="3">배변용품</option>
-										<option value="4">놀이용품</option>
-										<option value="5">미용용품</option>
-									</select>
-								</td>
-							</tr>
-							<!-- 
-							<tr>
-								<th>상품 재고</th>
-								<td>
-									<input type="number" class="input_w02" name="minStorage" value="minStorage"> 개 이상 ~ 
-									<input type="number" class="input_w02" name="maxStorage" value="maxStorage"> 개 이하
-								</td>
+				<table class="product_srchTable">
+					<colgroup>
+						<col width="162px">
+						<col width="*">
+						<col width="162px">
+						<col width="*">
+					</colgroup>
+					<tbody>
+						<tr>
+							<th>검색어</th>
+							<td colspan="3">
+								<select id="_s_category" name="s_category">
+									<option value="">통합검색</option>
+									<option value="product_name">상품명</option>
+									<option value="product_code">상품코드</option>
+									<option value="product_brand">공급사</option>
+								</select>
+								<input type="text" id="_s_keyword" name="s_keyword">
+							</td>
+						</tr>
+						
+						<tr>
+							<th>카테고리</th>
+							<td colspan="3">
+								<select id="_s_product_group" name="product_group">
+									<option value="0">카테고리 선택</option>
+									<option value="1">강아지 용품</option>
+									<option value="2">고양이 용품</option>
+									<option value="3">공용</option>
+								</select>
 								
-								<th>판매가</th>
-								<td>
-									<input type="number" class="input_w02" name="minPrice" value="minPrice"> 이상 ~ 
-									<input type="number" class="input_w02" name="maxPrice" value="maxPrice"> 이하
-								</td>
-							</tr> 
-							<tr>
-								<th>상품노출 상태</th>
-								<td>
-									<span class="select_wrap">
-										<input type="radio" name="product_hidden" value="" checked="checked">
-										<label>전체</label>
-									</span>
-									<span class="select_wrap">
-										<input type="radio"  name="product_hidden" value="0">
-										<label>노출</label>
-									</span>
-									<span class="select_wrap">
-										<input type="radio"  name="product_hidden" value="1">
-										<label>미노출</label>
-									</span>
-								</td>
-								
-								<th>상품판매 상태</th>
-								<td>
-									<span class="select_wrap">
-										<input type="radio"  name="product_sale" value="sellState" checked="checked">
-										<label>전체</label>
-									</span>
-									<span class="select_wrap">
-										<input type="radio" name="product_sale" value="0">
-										<label>사용함</label>
-									</span>
-									<span class="select_wrap">
-										<input type="radio" name="product_sale" value="1">
-										<label>판매안함</label>
-									</span>
-								</td>
-							</tr> 
-							-->
-							<tr>
-								<th>품절 상태</th>
-								<td>
-									<span class="select_wrap">
-										<input type="radio" name="soldState" value="" checked="checked">
-										<label>전체</label>
-									</span>
-									<span class="select_wrap">
-										<input type="radio" name="soldState" value="1">
-										<label>품절</label>
-									</span>
-									<span class="select_wrap">
-										<input type="radio" name="soldState" value="2">
-										<label>정상</label>
-									</span>
-								</td>
-							</tr>
-							<!-- <tr>
-								<th>배송비 조건</th>
-								<td colspan="3">
-									<span class="select_wrap">
-										<input type="radio" name="deliverCondition" value="deliverCondition">
-										<label>전체</label>
-									</span>
-									<span class="select_wrap">
-										<input type="radio" name="deliverCondition" value="deliverCondition">
-										<label>배송비무료</label>
-									</span>
-									<span class="select_wrap">
-										<input type="radio" name="deliverCondition" value="deliverCondition">
-										<label>배송비유료</label>
-									</span>
-								</td>
-							</tr> -->
-							<tr class="prdSearch">
-								<td colspan="4">
-									<a href="#n" id="_btnSearch">검 색</a>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-					
-					<!-- 
-					<p class="table_optionBtn">
-						<a href="#n" id="_btnSearch" class="btn_c dis_b">검 색</a>
-					</p>
-					 -->
-					<!-- <p class="table_optionBtn">
-						<a href="#n" class="btn_r_navy btn_detailsrch">상세검색 닫기</a>
-					</p> -->
-					
+								<select id="_s_product_sub_group" name="product_sub_group">
+									<option value="0">카테고리 선택</option>
+									<option value="1">사료</option>
+									<option value="2">간식</option>
+									<option value="3">배변용품</option>
+									<option value="4">놀이용품</option>
+									<option value="5">미용용품</option>
+									<%-- <option value="5" <c:if test="${prdlist.product_sub_group == 5 }">selected></c:if>>미용용품</option> --%>
+								</select>
+							</td>
+						</tr>
+						<tr>
+						    <th>품절 상태</th>
+						    <td>
+						        <span class="select_wrap">
+						            <input type="radio" name="s_soldState" value="0" checked="checked">
+						            <label>전체</label>
+						            
+						            <input type="radio" name="s_soldState" value="1">
+						            <label>품절</label>
+						            
+						            <input type="radio" name="s_soldState" value="2">
+						            <label>정상</label>
+						        </span>
+						        <!-- <span class="select_wrap">
+						            
+						        </span>
+						        <span class="select_wrap">
+						            
+						        </span> -->
+						    </td>
+						</tr>
+						<tr class="prdSearch">
+							<td colspan="4">
+								<a href="#n" id="_btnSearch">검 색</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 			<!-- //cn_wrap -->
 	
@@ -320,7 +224,7 @@ $(document).ready(function () {
 					<a href="" class="btn_r02_green">엑셀 다운로드</a>
 				</p>
 	
-				<div class="pagingWrap">
+				<!-- <div class="pagingWrap">
 					<p class="paging">
 						<a href="#n" class="btn_first"></a>
 						<a href="#n" class="btn_prev"></a>
@@ -331,13 +235,49 @@ $(document).ready(function () {
 						<a href="#n" class="btn_next"></a>
 						<a href="#n" class="btn_last"></a>
 					</p>
-				</div>
+				</div> -->
+				<jsp:include page="/include/paging.jsp" flush="false">
+					<jsp:param name="totalRecordCount" value="${totalRecordCount }" />
+					<jsp:param name="pageNumber" value="${pageNumber }" />
+					<jsp:param name="pageCountPerScreen" value="${pageCountPerScreen }" />
+					<jsp:param name="recordCountPerPage" value="${recordCountPerPage }" />
+				</jsp:include> 
 			</div>
 		</div><!--// container -->
+		
+		<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?0:recordCountPerPage }">
+ 		<input type="hidden" name="pageNumber" id="_pageNumber" value="${(empty pageNumber)?0:pageNumber }">	
+		
 	</form>
+	
+	 
+	
 </div><!--// containerWrap -->
 
 <script>
+/* $("#_s_product_group").val(${prdparam.product_group_df}).prop("selected", true);
+$("#_s_product_sub_group").val(${prdparam.product_sub_group_df}).prop("selected", true); */
+$("input[name=s_product_sub_group]").val(${prdparam.soldStateArr}).prop("checked", true);
+
+
+$("#_s_product_group").change(function() {
+	var product_group_df = $("#_s_product_group option:selected").val();
+});
+
+$("#_s_product_sub_group").change(function() {
+	var product_sub_group_df = $("#_s_product_sub_group option:selected").val();
+});
+
+//radio change 이벤트
+$("input[name=s_soldState]").change(function() {
+
+	var soldStateArr = $(this).val();
+	
+	//alert("품절상태 : " + radioValue);
+	
+});
+
+
 //-- 다중 선택 삭제
 function deletechecks( ch ){
 // alert(ch);
@@ -350,12 +290,12 @@ function deletechecks( ch ){
 	}
 }
 
-/* 
+
 function goPage( pageNumber ){
 	$("#_pageNumber").val(pageNumber);
-	$("#_frmFormSearch").attr("action", "bbslist.do").submit();	
+	$("#_prdSrchFrm").attr("action", "productList.do").submit();	
 }
- */
+ 
 $("#_btnSearch").click(function(){
 //alert("_btnSearch");
 	$("#_prdSrchFrm").attr("action", "productList.do").submit();

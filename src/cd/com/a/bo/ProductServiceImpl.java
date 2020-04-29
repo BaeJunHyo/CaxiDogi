@@ -40,6 +40,11 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.prdDelete(product_num);
 	}
 
+	@Override
+	public int getPrdCount() {
+		return productDao.getPrdCount();
+	}
+
 	
 
 	

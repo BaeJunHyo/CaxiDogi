@@ -10,5 +10,7 @@ public interface MyPageService {
 	List<poolResvParam> getPoolResvList(int mem_seq);
 	List<shopShowResvParam> getShopResvList(int mem_seq);
 	List<groundResvParam> getGroundResvList(int mem_seq);
+	List<poolResvParam> sellerPoolResvList(int mem_seq);
+	List<shopShowResvParam> sellerShopResvList(int mem_seq);
 
 }

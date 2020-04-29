@@ -7,7 +7,7 @@
 <%@ taglib prefix = "fn"  uri = "http://java.sun.com/jsp/jstl/functions" %>
 <fmt:requestEncoding value="utf-8"/>
 
-<%@ include file="./../../../include/bo_header.jsp" %>
+<%@ include file="./../../../../include/bo/bo_header.jsp" %>
 
 <%-- <%
 String category = (String)request.getAttribute("s_category");
@@ -27,19 +27,10 @@ $(document).ready(function () {
 });
 </script> --%>
 
-<%@ include file="./../../../include/bo_leftNav.jsp"%>
+<%@ include file="./../../../../../../include/bo/bo_leftNav_product.jsp"%>
 
 <div class="containerWrap">
-	<ul class="gnb">
-		<li><a href="#n">기본설정</a></li>
-		<li><a href="#n" class="current">상품관리</a></li>
-		<li><a href="#n">주문/배송</a></li>
-		<li><a href="#n">회원</a></li>
-		<li><a href="#n">게시판</a></li>
-		<li><a href="#n">프로모션</a></li>
-		<li><a href="#n">디자인</a></li>
-		<li><a href="#n">통계</a></li>
-	</ul><!--// gnb -->
+	<%@ include file="./../../../../../../include/bo/bo_gnb_product.jsp"%>
 
 	<form name="prdSrchFrm" id="_prdSrchFrm" method="post">
 		<div class="container">
@@ -255,17 +246,16 @@ $(document).ready(function () {
 </div><!--// containerWrap -->
 
 <script>
-/* $("#_s_product_group").val(${prdparam.product_group_df}).prop("selected", true);
-$("#_s_product_sub_group").val(${prdparam.product_sub_group_df}).prop("selected", true); */
-$("input[name=s_product_sub_group]").val(${prdparam.soldStateArr}).prop("checked", true);
+$("input[name=product_sub_group]").val(${prdparam.soldStateArr}).prop("checked", true);
 
 
 $("#_s_product_group").change(function() {
-	var product_group_df = $("#_s_product_group option:selected").val();
+	var product_group = "${product_group}";
+	$("#_s_product_group option:selected").val(product_group);
 });
 
 $("#_s_product_sub_group").change(function() {
-	var product_sub_group_df = $("#_s_product_sub_group option:selected").val();
+	var product_sub_group = $("#_s_product_sub_group option:selected").val();
 });
 
 //radio change 이벤트

@@ -3,7 +3,7 @@
 
 <!-- 로그인 시 -->
 
-<%@ include file="./../../../include/bo_header.jsp" %>
+<%@ include file="./../../../../include/bo/bo_header.jsp" %>
 
 <div class="lnbWrap">
 	<h2>회원관리</h2>

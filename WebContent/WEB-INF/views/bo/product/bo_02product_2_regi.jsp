@@ -2,23 +2,13 @@
 	pageEncoding="UTF-8"%>
 
 
-<%@ include file="./../../../include/bo_header.jsp"%>
+<%@ include file="./../../../../include/bo/bo_header.jsp" %>
 <script src="<%=request.getContextPath()%>/js/ckeditor/ckeditor.js"></script>
 
-<%@ include file="./../../../include/bo_leftNav.jsp"%>
+<%@ include file="./../../../../../../include/bo/bo_leftNav_product.jsp"%>
 
 <div class="containerWrap productRegi">
-	<ul class="gnb">
-		<li><a href="#n">기본설정</a></li>
-		<li><a href="#n" class="current">상품관리</a></li>
-		<li><a href="#n">주문/배송</a></li>
-		<li><a href="#n">회원</a></li>
-		<li><a href="#n">게시판</a></li>
-		<li><a href="#n">프로모션</a></li>
-		<li><a href="#n">디자인</a></li>
-		<li><a href="#n">통계</a></li>
-	</ul>
-	<!--// gnb -->
+	<%@ include file="./../../../../../../include/bo/bo_gnb_product.jsp"%>
 
 	<div class="container">
 		<div class="top clearfix">

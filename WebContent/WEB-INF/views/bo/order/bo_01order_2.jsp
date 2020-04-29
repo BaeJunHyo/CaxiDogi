@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@ include file="./../../../include/bo_header.jsp" %>
+<%@ include file="./../../../../include/bo/bo_header.jsp" %>
 
 <div class="lnbWrap">
 	<h2>주문/배송</h2>
@@ -41,6 +41,7 @@
 				<li>주문/배송</li>
 				<li>주문관리</li>
 				<li>주문통합리스트</li>
+				<li>결제 중단/실패</li>
 			</ul>
 			<ul class="color_info clearfix">
 				<li><img src="../images/img_colorInfo_01.gif">입력정보</li>
@@ -69,14 +70,14 @@
 							<select>
 								<option>전체</option>
 							</select>
-							<input type="text">
+							<input type="text" class="w207">
 						</td>
 						<th>검색어</th>
 						<td>
 							<select>
 								<option>통합검색</option>
 							</select>
-							<input type="text">
+							<input type="text" class="w207">
 						</td>
 					</tr>
 					<tr class="click_hide">
@@ -178,10 +179,7 @@
 			<div class="table_selected clearfix mb7">
 				<p>
 					선택한 주문을
-					<select>
-						<option>주문상태</option>
-					</select>
-					<a href="#n" class="btn_r_navy">일괄처리</a>
+					<a href="#n" class="btn_r_navy">삭제처리</a>
 				</p>
 				<p class="fl_right">
 					<select>
@@ -277,10 +275,7 @@
 			<div class="table_selected clearfix mt7">
 				<p>
 					선택한 주문을
-					<select>
-						<option>주문상태</option>
-					</select>
-					<a href="#n" class="btn_r_navy">일괄처리</a>
+					<a href="#n" class="btn_r_navy">삭제처리</a>
 				</p>
 				<p class="fl_right">
 					<a href="#n" class="btn_r02_green">엑셀 다운로드</a>

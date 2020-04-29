@@ -41,8 +41,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public int getPrdCount() {
-		return productDao.getPrdCount();
+	public int getPrdCount(ProductParam prdParam) {
+		return productDao.getPrdCount(prdParam);
 	}
 
 	

@@ -52,8 +52,8 @@ public class ProductDaoImpl implements ProductDao {
 
 
 	@Override
-	public int getPrdCount() {
-		return sqlSession.selectOne(ns + "getPrdCount");
+	public int getPrdCount(ProductParam prdParam) {
+		return sqlSession.selectOne(ns + "getPrdCount", prdParam);
 	}
 
 	

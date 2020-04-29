@@ -51,6 +51,7 @@
     	<li id="userTel" h_user_tel="${showList.shop_resv_tel}">예약자 연락처: ${showList.shop_resv_tel}</li>
     	<li>예약시간 : ${showList.shop_resv_time }</li>
     	<li>예약날짜 : ${showList.shop_resv_rday }</li>
+    	<li>요청사항 : ${showList.shop_resv_comment }</li>
     	<li>예상 비용 : <fmt:formatNumber value="${showList.shop_resv_price }" pattern="###,###,###"/> 원</li>
     	<li>미용 받을 견종:
     	<c:choose>
@@ -87,11 +88,12 @@
      <a href="#"><button>Book Now</button></a>
    </div>
    <div class="booking_list3">
-   <a href="#"><input type="button" pool_seq="9" class="btn_line_s modifyPoolBtn" value="예약변경"></a>
+   <a href="#"><input type="button" shop_seq="${showList.shop_seq }" shop_resv_seq="${showList.shop_resv_seq }" class="btn_line_s updateResvBtn" value="예약변경"></a>
      <a href="#"><input type="button" shop_seq="${showList.shop_seq }" shop_resv_auth="${showList.shop_resv_auth}" shop_resv_seq="${showList.shop_resv_seq }"  class="btn_line_s cancelShopResv" value="취소"></a>
    </div>
     </li>
   </ul>
+  <input type="hidden" id="">
 </c:forEach>
 <form name="frmForm1" id="_frmFormSearch" method="post">
 
@@ -113,7 +115,7 @@
  <script src="<%=request.getContextPath() %>/js/showShopResv.js"></script>
 
 <script>
-// 전화번호들 수정해야함 ---------------------------------------------------------------------------
+// 전화번호들 수정해야함  포멧넘버 쓰기---------------------------------------------------------------------------
 //var tel = $(".tel").val();
 var tel ="${showList.shop_tel}"
 var userTel = $("#h_user_tel").val();
@@ -234,6 +236,28 @@ $(".cancelShopResv").click(function(){
 
 		  
 		})
+})
+
+$(".updateResvBtn").click(function(){
+/* 	Swal.fire(
+			  '날짜 변경은 취소하고 다시 예약해 주시기 바랍니다.',
+			  'That thing is still around?',
+			  'info'
+			) */
+			var shop_resv_seq = $(this).attr("shop_resv_seq");
+			Swal.fire({
+				  title: '예약 수정하시겠습니까?',
+				  text: "날짜변경은 취소 후 , 다시 예약부탁드립니다.",
+				  icon: 'warning',
+				  showCancelButton: true,
+				  confirmButtonColor: '#3085d6',
+				  cancelButtonColor: '#d33',
+				  confirmButtonText: '수정'
+				}).then((result) => {
+				  if (result.value) {
+				location.href="shopResvUpdate.do?shop_resv_seq="+shop_resv_seq;
+				  }
+				})
 })
 
 </script>

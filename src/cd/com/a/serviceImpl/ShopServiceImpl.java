@@ -8,8 +8,11 @@ import org.springframework.stereotype.Service;
 import cd.com.a.dao.ShopDao;
 import cd.com.a.model.shopDesignerDto;
 import cd.com.a.model.shopDto;
+import cd.com.a.model.shopListParam;
 import cd.com.a.model.shopPagingParam;
 import cd.com.a.model.shopResvDto;
+import cd.com.a.model.shopSellerPagingParam;
+import cd.com.a.model.shopSellerResvParam;
 import cd.com.a.model.shopShowResvParam;
 import cd.com.a.service.ShopService;
 
@@ -24,8 +27,8 @@ public class ShopServiceImpl implements ShopService {
 	}
 	
 	@Override
-	public List<shopDto> getShopList() {
-		return shopDao.getShopList();
+	public List<shopDto> getShopList(shopListParam param) {
+		return shopDao.getShopList(param);
 	}
 
 	@Override
@@ -130,6 +133,31 @@ public class ShopServiceImpl implements ShopService {
 	@Override
 	public int getShopResvCount(int mem_seq) {
 		return shopDao.getShopResvCount(mem_seq);
+	}
+
+	@Override
+	public int getShopCount() {
+		return shopDao.getShopCount();
+	}
+
+	@Override
+	public List<shopSellerResvParam> getSellerShopResvList(shopSellerPagingParam param) {
+		return shopDao.getSellerShopResvList(param);
+	}
+
+	@Override
+	public int getSellerResvCount(shopSellerPagingParam param) {
+		return shopDao.getSellerResvCount(param);
+	}
+
+	@Override
+	public shopSellerResvParam getSellerResvDetail(int shop_resv_seq) {
+		return shopDao.getSellerResvDetail(shop_resv_seq);
+	}
+
+	@Override
+	public boolean shopResvUpdate(shopResvDto resv) {
+		return shopDao.shopResvUpdate(resv);
 	}
 	
 	

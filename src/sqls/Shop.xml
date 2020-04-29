@@ -24,13 +24,40 @@
    where shop_seq=#{shop_seq}
 </update>
 
-<select id="getShopList" resultType="cd.com.a.model.shopDto">
+<!-- <select id="getShopList" resultType="cd.com.a.model.shopDto">
    select shop_seq, shop_owner, shop_number, shop_name, shop_addr, shop_tel, shop_auth,
    mem_seq, shop_time, shop_photo, shop_etc, shop_small_price, shop_medium_price, 
    shop_large_price, shop_content 
    from shop
    where shop_auth=1
+</select> -->
+
+<select id="getShopList" parameterType="cd.com.a.model.shopListParam" resultType="cd.com.a.model.shopDto">
+
+select @rownum:=@rownum+1 as rownum, shop_seq, shop_owner, shop_number, shop_name, shop_addr, shop_tel, shop_auth,
+   mem_seq, shop_time, shop_photo, shop_etc, shop_small_price, shop_medium_price, 
+   shop_large_price, shop_content 
+   from shop
+   where (@rownum:=0)=0 and shop_auth=1
+   <if test="shopAddr == 1">
+   		and shop_addr like concat('%',#{shopAddrSeo},'%')
+   </if>
+   <if test="shopAddr == 2">
+   		and shop_addr like concat('%',#{shopAddrKyeong},'%')
+   </if>
+   <if test="shopAddr == 3">
+   		and not shop_addr like concat('%',#{shopAddrSeo},'%') and not shop_addr like concat('%',#{shopAddrKyeong},'%')
+   </if>
+	order by shop_seq asc
+   limit #{start}, #{recordCountPerPage}
 </select>
+
+<select id="getShopCount" resultType="java.lang.Integer">
+select ifnull(count(*),0) from shop
+where shop_auth=1;
+</select>
+
+
    
 <select id="getSellerShopList" parameterType="java.lang.Integer" resultType="cd.com.a.model.shopDto">
    select shop_seq, shop_owner, shop_number, shop_name, shop_addr, shop_tel, shop_auth,
@@ -163,8 +190,90 @@ where shop_resv_auth=0 and mem_seq=#{mem_seq}
 </select>
 
 
-  
-  </mapper>
+<!-- <select id="getSellerShopList" parameterType="cd.com.a.model.shopSellerPagingParam" resultMap="cd.com.a.model.shopSellerResvParam">
+select * from(
+		select @rownum:=@rownum+1 as rownum, r.*, s.shop_name, s.shop_addr, s.shop_tel, s.shop_time, s.shop_photo, d.design_name
+		from shop_reservation r
+		join shop s on r.shop_seq = s.shop_seq
+		join shop_designer d on r.design_seq = d.design_seq
+where (@rownum:=0)=0 and shop_resv_auth=0 or shop_resv_auth=7 and r.mem_seq=#{mem_seq})fsub
+
+<where>
+	<if test="shopSeq != null and shopSeq != -1">
+		and  fsub.shop_seq=#{shop_seq}
+	</if>
+	<if test="shopResvAuth != null and shopResvAuth != -1">
+		and fsub.shop_resv_auth=#{shop_resv_auth}
+	</if>
+	<if test="shopDesignerSeq != null shopDesignerSeq != -1">
+		and fsub.design_seq=#{design_seq}
+	</if>
+</where>
+order by shop_resv_day desc
+limit #{start}, #{recordCountPerPage}
+
+
+
+
+
+</select> -->
+
+
+
+<select id="getSellerShopResvList" parameterType="cd.com.a.model.shopSellerPagingParam" resultType="cd.com.a.model.shopSellerResvParam" >
+select * from(
+	select @rownum:=@rownum+1 as rownum, r.*, d.design_name, s.shop_name, s.shop_addr, s.shop_tel, s.shop_time, s.shop_photo, s.mem_seq as seller_seq
+	from shop_reservation r
+	join shop s on r.shop_seq = s.shop_seq
+	join shop_designer d on r.design_seq = d.design_seq
+	where (@rownum:=0)=0  and s.mem_seq=#{memSeq}
+	<if test="shopSeq != null and shopSeq != -1">
+		and r.shop_seq=#{shopSeq}
+	</if>
+	
+	<if test="shopResvAuth != null and shopResvAuth != -1">
+		and r.shop_resv_auth=#{shopResvAuth}
+	</if>
+	
+	)fsub
+order by fsub.shop_resv_day desc
+limit #{start}, #{recordCountPerPage}
+</select>
+
+<select id="getSellerResvCount" parameterType="cd.com.a.model.shopSellerPagingParam"  resultType="java.lang.Integer">
+select count(*) from(
+	select @rownum:=@rownum+1 as rownum, r.*, d.design_name, s.shop_name, s.shop_addr, s.shop_tel, s.shop_time, s.shop_photo, s.mem_seq as seller_seq
+	from shop_reservation r
+	join shop s on r.shop_seq = s.shop_seq
+	join shop_designer d on r.design_seq = d.design_seq
+	where (@rownum:=0)=0  and s.mem_seq=#{memSeq}
+	<if test="shopSeq != null and shopSeq != -1">
+		and r.shop_seq=#{shopSeq}
+	</if>
+	<if test="shopResvAuth != null and shopResvAuth != -1">
+		and r.shop_resv_auth=#{shopResvAuth}
+	</if>
+	
+	)fsub
+order by fsub.shop_resv_day desc
+</select>
+
+<select id="getSellerShopResvDetail" parameterType="java.lang.Integer" resultType="cd.com.a.model.shopSellerResvParam" >
+select r.*,d.design_name, s.shop_name, s.shop_addr, s.shop_tel, s.shop_time, s.shop_photo, s.mem_seq as seller_seq
+from shop_reservation r
+join shop s on r.shop_seq = s.shop_seq
+join shop_designer d on r.design_seq = d.design_seq
+where r.shop_resv_seq = #{shop_resv_seq}
+</select>
+
+<update id="shopResvUpdate" parameterType="cd.com.a.model.shopResvDto">
+update shop_reservation
+set shop_resv_name=#{shop_resv_name}, shop_resv_tel=#{shop_resv_tel}, shop_resv_size=#{shop_resv_size},
+shop_resv_comment=#{shop_resv_comment}
+where shop_resv_seq=#{shop_resv_seq}
+</update>
+
+ </mapper>
   
   
   

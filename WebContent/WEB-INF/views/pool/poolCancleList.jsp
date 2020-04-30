@@ -11,7 +11,7 @@
 <div class="cusSec_right">
 		<div class="cusSec_tableWrap tw_wFull">
 			<h3>
-				<span class="t_sbj">수영장 예약 리스트</span>
+				<span class="t_sbj">수영장 취소 리스트</span>
 			</h3>
 		</div>
 <div class="cusSec_tableWrap">
@@ -31,12 +31,11 @@
 				<th>인원수</th>
 				<th>펫수</th>
 				<th>예약금액</th>
-				<th>진행상태</th>
 			</tr>
 		</thead>
 		<tbody>
-		<c:if test = "${fn:length(poolResvList) != 0 }">
-		<c:forEach items="${poolResvList }" var="showList">
+		<c:if test = "${fn:length(poolList) != 0 }">
+		<c:forEach items="${poolList }" var="showList">
 			<tr class ="poolResv" pool_resv_seq = "${showList.pool_resv_seq }">
 				<td>
 				<p>${showList.pool_resv_ydate }/</p>
@@ -63,35 +62,12 @@
 				<td>${showList.pool_resv_user }</td>
 				<td>${showList.pool_resv_pet}</td>
 				<td>${showList.pool_resv_total_price }원</td>
-				<td>
-				
-				    	<c:choose>
-							<c:when test="${showList.pool_resv_auth == 0 }">
-								<span>예약</span>
-							</c:when>
-							
-							<c:when test="${showList.pool_resv_auth == 1 }">
-								<span style="color:red;">결제대기</span>
-							</c:when>
-							
-							<c:when test="${showList.pool_resv_auth == 2 }">
-								<span>예약완료</span>
-							</c:when>
-							<c:when test="${showList.pool_resv_auth == 3 }">
-								<span>취소</span>
-							</c:when>
-							<c:when test="${showList.pool_resv_auth == 7 }">
-								<span>사용완료</span>
-							</c:when>
-						</c:choose><!-- 
-					<a href="#n" class="btn_line_s">상품평작성</a> -->
-				</td>
 			</tr>
 	</c:forEach>
 	</c:if>
-	<c:if test = "${fn:length(poolResvList) == 0 }">
+	<c:if test = "${fn:length(poolList) == 0 }">
 			<tr>
-				<td colspan="5">예약하신 내역이 없습니다.</td>
+				<td colspan="5">취소하신 내역이 없습니다.</td>
 			</tr>
 	</c:if>
 		</tbody>
@@ -108,7 +84,7 @@
 
 <script>
 function goPage( pageNumber ){
-	location.href = "poolResvList.do?pageNumber="+pageNumber;
+	location.href = "poolCancleList.do?pageNumber="+pageNumber;
 }
 
 $(document).on("click", ".poolResv", function(){

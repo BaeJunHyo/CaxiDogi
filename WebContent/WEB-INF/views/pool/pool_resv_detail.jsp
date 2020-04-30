@@ -131,15 +131,15 @@
 		var dateObj = new Date(dateArray[0], Number(dateArray[1])-1, dateArray[2]);
 		var betweenDay =(dateObj.getTime()-today.getTime())/1000/60/60/24;
 			if(betweenDay < 2){
-				if(${pool_resv.pool_resv_auth} != 7){
+				if(${pool_resv.pool_resv_auth} != 7 && ${pool_resv.pool_resv_auth} !=3){
 					$("#cancleBtn").hide();
 					$("#noCancleBtn").show();
 				}
 			} else {
 
-				if(${pool_resv.pool_resv_auth} != 7){
-				$("#cancleBtn").show();			
-				$("#noCancleBtn").hide();
+				if(${pool_resv.pool_resv_auth} != 7 && ${pool_resv.pool_resv_auth} !=3){
+					$("#cancleBtn").show();			
+					$("#noCancleBtn").hide();
 				}
 			}
 		

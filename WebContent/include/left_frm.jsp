@@ -40,16 +40,10 @@
 					<a href="#n">수영장 예약정보</a>
 					<ul>
 						<li><a href="poolResvList.do">수영장 예약 내역보기</a></li>
-						<li><a href="#n">취소 내역보기</a></li>
+						<li><a href="poolCancleList.do">취소 내역보기</a></li>
 					</ul>
 				</li>
-				<li>
-					<a href="#n">운동장 예약정보</a>
-					<ul>
-						<li><a href="#">운동장 예약 내역보기</a></li>
-						<li><a href="#n">취소 내역보기</a></li>
-					</ul>
-				</li>
+
 				<li>
 					<a href="#n">회원정보관리</a>
 					<ul>

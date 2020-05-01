@@ -1,5 +1,7 @@
 package cd.com.a.daoImpl;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -17,6 +19,17 @@ public class basketDaoImpl implements basketDao {
 	@Override
 	public boolean createBasket(basketDto dto) {
 		return sqlSession.insert(ns + "Basket_create", dto)>0?true:false;
+	}
+
+	@Override
+	public List<basketDto> getMyBasketList(int mem_seq) {
+		return sqlSession.selectList(ns + "getMyBasketList", mem_seq);
+	}
+
+	@Override
+	public boolean deleteMyBasket(int basket_num) {
+
+		return sqlSession.delete(ns + "deleteMyBasket", basket_num)>0? true: false;
 	}
 	
 }

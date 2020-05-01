@@ -2,113 +2,141 @@
     pageEncoding="UTF-8"%>
 
 <%@ include file="/include/header.jsp"%>
+<style>
+.btn_1{display: inline-block; height: 40px; padding: 0 35px; text-align: center; font-size: 12px; line-height: 50px; font-weight: bold; color: #fff; background: #000; text-decoration:none;}
+.btn_2{display: inline-block; height: 50px; padding: 0 35px; text-align: center; font-size: 20px; line-height: 50px; font-weight: bold; color: #fff; background: #000; text-decoration:none;}
+</style>
 
-
-<c:set var="total_Price_Sum" value="0"></c:set>
-<div class="container_subWrap">
-	<div class="prd_infoWrap">
-		<div class="prdName_section clearfix">
-			<div class="prd_name">
-				장바구니 페이지
-			</div>
-		</div><!--// prdName_section -->
-	</div><!-- prd_infoWrap -->
-	
-	<%-- 디테일 화면 / 장바구니 에서 넘어온 구매 정보를 보여주는 테이블 --%>
-	<div>	
-		<div>
-			<div class="section_title">
-				Product List Info <span style="font-size: 12px; color: #c8c8c8;">상품 목록 정보</span>
-			</div>
+<%@ include file="/include/left_frm.jsp" %>
+<!-- 마이페이지 메인 -->		
+<div class="cusSec_right">
+	<div class="box_cusMain clearfix">
+		<div class="box_leftSec" style="border-right: none;">
+			<h5 style="font-weight: normal;">
+				${loginUser.user_name }님 안녕하세요
+			</h5>
 			
-			<div style="padding: 20px 20px 20px 20px">
-				
-				<table class="basic_tableStyle">
-					<colgroup>
-						<!-- 1100 -->
-						<col width="400px">
-						<col width="100px">
-						<col width="150px">
-						<col width="120px">
-						<col width="120px">
-						<col width="200px">
-					</colgroup>
+			<p>
+				<img src="./images/mypage/ico_user_s.gif"><strong class="pl5 pr20">회원유형</strong>
+				<c:choose>
+					<c:when test="${loginUser.auth eq 1 or loginUser.auth eq 2}">일반회원</c:when>
+					<c:when test="${loginUser.auth eq 3}">업체회원</c:when>
+					<c:when test="${loginUser.auth eq 4 or loginUser.auth eq 5}">관리자</c:when>
+					<c:otherwise>탈퇴회원</c:otherwise>
+				</c:choose>
+			</p>
+		</div>
+	</div>
+
+
+	<c:set var="total_Price_Sum" value="0"></c:set>
+	<div class="cusSec_tableWrap tw_wFull">	
+		<h3>
+		<span class="t_sbj">장바구니</span>
+		<span class="c_gray">상품 목록 정보</span>
+		</h3>
+		<%-- 디테일 화면 / 장바구니 에서 넘어온 구매 정보를 보여주는 테이블 --%>
+		<div>	
+			<div>
+				<div style="padding: 20px 20px 20px 20px">
 					
-					<thead>
-						<tr style="border: 1px solid #c8c8c8;">
-							<th><strong>상품 정보</strong></th>
-							<th><strong>수량</strong></th>
-							<th><strong>상품 금액</strong></th>
-							<th><strong>적립금</strong></th>
-							<th><strong>배송비</strong></th>
-							<th><strong>주문금액</strong></th>
-						</tr>
-					</thead>
-					
-					<tbody id="prd_list">
-						<c:forEach var="productDto" items="${prd_list }" varStatus="status">
+					<table class="basic_tableStyle">
+						<colgroup>
+							<!-- 1100 -->
+							<col width="80px">
+							<col width="350px">
+							<col width="100px">
+							<col width="150px">
+							<col width="120px">
+							<col width="120px">
+							<col width="200px">
+							<col width="80px">
+						</colgroup>
+						
+						<thead>
 							<tr style="border: 1px solid #c8c8c8;">
-								<td><%-- 상품 이미지와 이름 정보 --%>
-									<div style="padding: 10px 10px 10px 10px;">
-										<div class="이미지" style="width:30%; height:100%; float:left; margin-bottom: 10px;">
-											<a>
-												<img alt="" src="${productDto.product_img }" width="70" height="50">
-											</a>
+								<th>
+									<input type="checkbox" id="all_check">
+									<strong>전체</strong>
+								</th>
+								<th><strong>상품 정보</strong></th>
+								<th><strong>수량</strong></th>
+								<th><strong>상품 금액</strong></th>
+								<th><strong>적립금</strong></th>
+								<th><strong>배송비</strong></th>
+								<th><strong>주문금액</strong></th>
+							</tr>
+						</thead>
+						
+						<tbody id="prd_list">
+							<c:forEach var="basketDto" items="${basketList }" varStatus="status">
+								<tr style="border: 1px solid #c8c8c8;">
+									<td><input type="checkbox" value="${basketDto.basket_num }"></td>
+									<td><%-- 상품 이미지와 이름 정보 --%>
+										<div style="padding: 10px 10px 10px 10px;">
+											<div class="이미지" style="width:30%; height:100%; float:left; margin-bottom: 10px;">
+												<a href="productDetail.do?product_num=${basketDto.product_num }">
+													<img alt="" src="${basketDto.product_img }" width="70" height="50">
+												</a>
+											</div>
+											<div style="width:70%; float:left; text-align: left; align-content: center; padding-top: 12px;">
+												<a href="productDetail.do?product_num=${basketDto.product_num }">${basketDto.product_name }</a>
+											</div>
 										</div>
-										<div style="width:70%; float:left; text-align: left; align-content: center; padding-top: 12px;">
-											${productDto.product_name }
-										</div>
-									</div>
-								</td>
+									</td>
+									<td>
+										<span class="counter" id="counter">
+		                              		<input type="text" value="${basketDto.basket_amount}" class="tCount" readonly="readonly">
+		                              		<span class="counterBtn">
+		                                 		<a href="javascript:void(0)" class="btnPlus"></a>
+		                                 		<a href="javascript:void(0)" class="btnMinus"></a>
+		                             	 	</span>
+		                           		</span>
+									</td>
+									<td>
+										<strong class="prd_Price">
+											${basketDto.product_price}
+										</strong>
+										<strong>원</strong>
+									</td>
+									<td>5%</td>
+									<td><strong>지역에 맞게</strong></td>
+									<td>
+										<strong class="total_Price">
+											${basketDto.product_price * basketDto.basket_amount}
+										</strong>
+										<strong>원</strong>
+									</td>
+								</tr>
+								<c:set var="total_Price_Sum" value="${total_Price_Sum + basketDto.product_price * basketDto.basket_amount }"/>
+							</c:forEach>
+							<tr>
+								<th colspan="6" style="background-color: #FAFAFA"><p id="test">합계 금액</p></th>
 								<td>
-									<span class="counter" id="counter">
-	                              		<input type="text" value="${PrdParamList.getOrderList().get(status.index).acount }" class="tCount" readonly="readonly">
-	                              		<span class="counterBtn">
-	                                 		<a href="javascript:void(0)" class="btnPlus"></a>
-	                                 		<a href="javascript:void(0)" class="btnMinus"></a>
-	                             	 	</span>
-	                           		</span>
-								</td>
-								<td>
-									<strong class="prd_Price">
-										${productDto.product_price}
-									</strong>
-									<strong>원</strong>
-								</td>
-								<td>5%</td>
-								<td><strong>지역에 맞게</strong></td>
-								<td>
-									<strong class="total_Price">
-										${productDto.product_price * PrdParamList.getOrderList().get(status.index).acount  }
+									<strong class="total_Price_Sum">
+											${total_Price_Sum }
 									</strong>
 									<strong>원</strong>
 								</td>
 							</tr>
-							<c:set var="total_Price_Sum" value="${total_Price_Sum + productDto.product_price * PrdParamList.getOrderList().get(status.index).acount }"/>
-						</c:forEach>
-						<tr>
-							<th colspan="5" style="background-color: #FAFAFA"><p id="test">합계 금액</p></th>
-							<td>
-								<strong class="total_Price_Sum">
-										${total_Price_Sum }
-								</strong>
-								<strong>원</strong>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+						</tbody>
+					</table>
+					
+					<div style="margin-top: 30px;">
+						<a class="btn_1" href="javascript:void(0)" id="delBtn"><span>선택삭제</span></a>	
+					</div>
+				</div>
 			</div>
 			
-		</div>
-		
 		
 			
-		<div class="button_Wrap" style="text-align: center;">
-			<a class="button_Wrap_a" id="btn_payment">Choice <span class="button_span">주문 하기</span></a>
+				
+			<div class="button_Wrap" style="text-align: center;margin-top: 100px; margin-bottom: 200px;">
+				<a class="btn_2" id="btn_payment">Choice <span class="button_span">주문 하기</span></a>
+			</div>
 		</div>
 	</div>
 </div>
-
 <form>
 
 </form>
@@ -176,7 +204,7 @@
 		
 		//console.log(tr);
 		//console.log($(acountTag).val()); //input Tag (수량)
-
+		
 		//수량 --
 		var acount = Number($(acountTag).val());
 		acount--;
@@ -220,8 +248,76 @@
 
 </script>
 
+<%-- 버튼 동작 처리  --%>
+<script type="text/javascript">
+
+$(document).on("click", "#all_check", function (){
+	if($(this).is(":checked")){
+		$("input[type='checkbox']").prop('checked',true);
+	}else{
+		$("input[type='checkbox']").prop('checked',false);
+	}
+})
+
+/*  
+$(document).on("click", "input[type='checkbox']", function (){
+	if($(this).is(":checked")){
+		$(this).prop('checked',true);
+	}else{
+		$(this).prop('checked',false);
+	}
+})*/
+
+</script>
 
 
+<%-- 삭제 처리  --%>
+<script>
+	//선택삭제 클릭시
+	$("#delBtn").click(function (){
+		//	alert("삭제 클릭");
+		var checkboxTag = $("input[type='checkbox']");
+
+		for(i=1; i < checkboxTag.length; i++){
+
+			if($(checkboxTag[i]).is(":checked")){
+				//선택되어 있으면 
+				var seq = $(checkboxTag[i]).val();
+				alert(seq); 
+				console.log($(checkboxTag[i]).parent().parent());
+				var target = $(checkboxTag[i]).parent().parent();
+				//$(checkboxTag[i]).parent().parent().remove();
+
+				$.ajax({
+					url:"deleteBasket.do",
+					type:"post",
+					data:{
+						basket_num:seq
+					},
+					success: function (result){
+						console.log("deleteBasket.do 성공");
+						//alert(result);
+						if(result == 'true'){
+							alert("실행");
+							console.log(target);
+							$(target).remove();
+						}else{
+							alert("안실행");
+							return;
+						}
+					},
+					error: function (){
+						console.log("deleteBasket.do 실패");
+					}	
+				})	
+			}
+		}
+		
+	});
+</script>
+<%--    --%>
+<script>
+</script>
 
 
 

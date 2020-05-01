@@ -62,8 +62,6 @@ public class noticeController {
 		String filename = "";
 		boolean isError = true;
 		
-
-		
 		//파일 업로드 경로 설정 
 		String fupload = req.getSession().getServletContext().getRealPath("/");
 		fupload += "upload\\notice";

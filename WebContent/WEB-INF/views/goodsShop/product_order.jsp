@@ -52,12 +52,12 @@
 								<td><%-- 상품 이미지와 이름 정보 --%>
 									<div style="padding: 10px 10px 10px 10px;">
 										<div class="이미지" style="width:30%; height:100%; float:left; margin-bottom: 10px;">
-											<a>
+											<a href="productDetail.do?product_num=${productDto.product_num }">
 												<img alt="" src="${productDto.product_img }" width="70" height="50">
 											</a>
 										</div>
 										<div style="width:70%; float:left; text-align: left; align-content: center; padding-top: 12px;">
-											${productDto.product_name }
+											<a href="productDetail.do?product_num=${productDto.product_num }">${productDto.product_name }</a>
 										</div>
 									</div>
 								</td>

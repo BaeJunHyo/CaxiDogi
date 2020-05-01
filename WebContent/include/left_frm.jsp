@@ -23,7 +23,8 @@
 				<li>
 					<a href="#n">쇼핑정보</a>
 					<ul>
-						<li><a href="#n">주문배송조회</a></li>
+						<li><a href="orderBasket.do">장바구니 보기</a></li>
+						<li><a href="#n">주문조회</a></li>
 						<li><a href="#n">취소/교환/반품</a></li>
 						<li><a href="#n">환불계좌조회</a></li>
 						<li><a href="#n">영수증신청/발급</a></li>
@@ -61,6 +62,7 @@
 			</ul>
 		</div>
 	</div>
+
 <!--</div>  //end wrap -->
 <%
 memberDto check = (memberDto)request.getSession().getAttribute("loginUser");

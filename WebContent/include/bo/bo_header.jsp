@@ -30,7 +30,7 @@
 	<div class="m_right">
 		<a href="#n" class="btn_user">로그인</a>
 		<ul>
-			<li><a href="#n">사이트맵</a></li>
+			<!-- <li><a href="#n">사이트맵</a></li> -->
 			<li><a href="#n">회원가입</a></li>
 		</ul>
 	</div>

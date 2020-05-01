@@ -30,6 +30,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.google.gson.JsonObject;
 
 import cd.com.a.model.AdminPoolParam;
+import cd.com.a.model.PoolListParam;
 import cd.com.a.model.memberDto;
 import cd.com.a.model.poolDto;
 import cd.com.a.model.poolParam;
@@ -111,9 +112,28 @@ public class PoolController {
 	}
 
 	@RequestMapping(value = "getPoolList.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public String getPoolList(Model model) {
-		List<poolDto> poolList = poolService.getPoolList();
-		model.addAttribute("poolList", poolList);
+	public String getPoolList(Model model, PoolListParam param) {
+		// paging 처리
+		int pageNumber = param.getPageNumber();	// 0 1 2	현재 페이지
+		int start = pageNumber * param.getRecordCountPerPage(); // 0, 10, 21
+		
+		int end = (pageNumber + 1) * param.getRecordCountPerPage();	// 10, 20, 30
+		
+		param.setStart(start);
+		param.setEnd(end);
+		
+		List<poolDto> poollist = poolService.getPoolList(param);
+		
+		//글의 총수
+		int totalRecordCount = poolService.getPoolCount(param);
+		
+		model.addAttribute("poollist", poollist);
+		model.addAttribute("pageNumber", pageNumber);
+		model.addAttribute("pageCountPerScreen", 10);
+		model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
+		model.addAttribute("totalRecordCount", totalRecordCount);
+		model.addAttribute("param",param);
+		
 		return "/pool/pool_list";
 	}
 
@@ -198,5 +218,30 @@ public class PoolController {
 
 		return "/pool/poolResvList";
 	}
+	
+	@RequestMapping(value = "poolCancleList.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public String poolCancleList(Model model, HttpSession session, poolParam param) {
+		memberDto mem = (memberDto) session.getAttribute("loginUser");
+		param.setMemSeq(mem.getMem_seq());
+
+		// paging 처리
+		int sn = param.getPageNumber(); // 0 1 2 현재 페이지
+		int start = sn * param.getRecordCountPerPage(); // 1, 11, 21
+		int end = (sn + 1) * param.getRecordCountPerPage(); // 10, 20, 30
+
+		param.setStart(start);
+		param.setEnd(end);
+
+		int totalRecordCount = poolService.getPoolCancleCount(param);
+		List<poolResvParam> poolList = poolService.poolCancleList(param);
+		model.addAttribute("poolList", poolList);
+		model.addAttribute("pageNumber", sn);
+		model.addAttribute("pageCountPerScreen", 10);
+		model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
+		model.addAttribute("totalRecordCount", totalRecordCount);
+
+		return "/pool/poolCancleList";
+	}
+	
 
 }

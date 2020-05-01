@@ -25,10 +25,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+import com.google.gson.Gson;
+
 import cd.com.a.goods.DetailService;
 import cd.com.a.goods.DetailServiceImpl;
 import cd.com.a.model.KakaoPayApproveDto;
 import cd.com.a.model.KakaoPayReadyDto;
+import cd.com.a.model.kakaoAmount;
+import cd.com.a.model.kakaoSelectDto;
 import cd.com.a.model.memberDto;
 import cd.com.a.model.order_PrdParamList;
 import cd.com.a.model.productDto;
@@ -121,6 +125,7 @@ public class orderController {
         params.add("quantity", getTotalAmount(saleList));  						//상품 수량 NOT NULL 
         params.add("total_amount", "" + totalPrice);  				//상품 총액 NOT NULL
         params.add("tax_free_amount", "0"); 				//상품 비과세 금액 NOT NULL
+        //34.64.221.161:8080
         params.add("approval_url", "http://localhost:8090/CaxiDogi/kakaoPaySuccess.do"); 	//결제 성공시 넘어갈 servlet Controller 주소 
         params.add("cancel_url", "http://localhost:8090/CaxiDogi/kakaoPayCancel.do");		//결제 취소시 넘어갈 servlet Controller 주소 
         params.add("fail_url", "http://localhost:8090/CaxiDogi/kakaoPaySuccessFail.do"); 	//결제 실패시 넘어갈 servlet Controller 주소
@@ -203,22 +208,42 @@ public class orderController {
 			e.printStackTrace();
 		}
 		
+		kakaoSelectDto kakaodto = selectKakao(saleDto.getKakao_tid());
+		model.addAttribute("kakaoDto", kakaodto);
+		
+		
 		return "kakao/success";
 	}
 	
 	@RequestMapping(value="kakaoPayCancel.do", method= {RequestMethod.GET,RequestMethod.POST})
-	public String kakaoPayCancel(Model model) {
+	public String kakaoPayCancel(Model model, HttpSession session) {
 		
 		System.out.println("orderController kakaoPayCancel()");
+		
+		
+		memberDto mem = (memberDto)session.getAttribute("loginUser");
+		productSaleDto saleDto = orderservice.getNowSaleing(mem.getMem_seq());
+		
+		
+		kakaoSelectDto kakaodto = selectKakao(saleDto.getKakao_tid());
+		model.addAttribute("kakaoDto", kakaodto);
+		
+		
 		
 		return "kakao/cancel";
 	}
 	
 	@RequestMapping(value="kakaoPaySuccessFail.do", method= {RequestMethod.GET,RequestMethod.POST})
-	public String kakaoPaySuccessFail(Model model) {
+	public String kakaoPaySuccessFail(Model model, HttpSession session) {
 		
 		System.out.println("orderController kakaoPaySuccessFail()");
 		
+		memberDto mem = (memberDto)session.getAttribute("loginUser");
+		productSaleDto saleDto = orderservice.getNowSaleing(mem.getMem_seq());
+		
+		
+		kakaoSelectDto kakaodto = selectKakao(saleDto.getKakao_tid());
+		model.addAttribute("kakaoDto", kakaodto);
 		
 		return "kakao/fail";
 	}
@@ -266,5 +291,54 @@ public class orderController {
 		System.out.println("총 갯수 == "  + totalAmount);
 		return String.valueOf(totalAmount);
 	}
+	
+	
+	
+	public kakaoSelectDto selectKakao(String tid) {
+		
+		//모델로 넘겨줌 
+		// 서버와 통신할 객체 생성
+		RestTemplate restTemplate = new RestTemplate();
+		
+		// 서버로 요청할 header
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", "KakaoAK " + "cbff925dffacd0e67ba93eed0db3a9a3");
+		headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
+		
+		// 서버로 요청할 Body
+		// 결제 정보를 넘겨줘야 한다
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		params.add("cid", "TC0ONETIME");
+		params.add("tid", tid );
+		
+		
+		HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
+		try {
+			
+			kakaoSelectDto kakaoPayDto = restTemplate.postForObject(new URI(HOST + "/v1/payment/order"), body,
+					kakaoSelectDto.class);
+
+			System.out.println(kakaoPayDto.toString());
+			Object obj = kakaoPayDto.getAmount();
+			Gson gson = new Gson();
+			
+			String stra = gson.toJson(obj);
+			kakaoAmount amount = gson.fromJson(stra, kakaoAmount.class);
+			System.out.println(amount.getTotal());
+			kakaoPayDto.setTotalPrice("" + amount.getTotal());
+			
+			return kakaoPayDto;
+			
+		} catch (RestClientException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+				
+		return null;
+	}
+	
 	
 }

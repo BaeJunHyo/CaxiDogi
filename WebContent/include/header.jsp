@@ -106,6 +106,7 @@ if(loginUser != null){
 				}else{
 			%>
 				<li><a href="#none" onclick="location.href='myPageMove.do'">마이페이지</a></li>
+				<li><a href="#none" onclick="location.href='orderBasket.do'">장바구니</a></li>
 			<%
 				}
 			%>

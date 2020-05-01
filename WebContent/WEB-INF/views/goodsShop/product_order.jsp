@@ -314,7 +314,6 @@
 </script>
 
 <script>
-	document.cookie = "SameSite=None;";
 	/* 수량&총가격 의 동적 변환 처리  */
 	$(document).on("click",".btnPlus", function (){
 

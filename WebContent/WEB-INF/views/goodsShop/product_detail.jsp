@@ -427,7 +427,7 @@
 
 					<p class="prdBtns clearfix">
 						<a href="#n" class="btn_green_l p0" id="nowPayment1">바로구매</a> <a
-							href="#n" class="btn_dark_l p0" onclick="">장바구니</a>
+							href="#n" class="btn_dark_l p0" id="saveBasket1">장바구니</a>
 						<!-- <span class="sign_soldout">일시품절인 상품입니다.</span> -->
 						<a href="#n" class="btn_line_l p0 btn_wishlist" alt="위시리스트"></a>
 					</p>
@@ -813,7 +813,7 @@
 					</p>
 					<p class="rightSec">
 						<a href="javascript:void(0);" class="btn_white_m" id="nowPayment2">바로구매</a>
-						<a href="javascript:void(0);" class="btn_dark_m" onclick="">장바구니</a>
+						<a href="javascript:void(0);" class="btn_dark_m" id="saveBasket2">장바구니</a>
 					</p>
 				</div>
 
@@ -959,6 +959,17 @@ $(document).on("click", "#nowPayment2", function() {
 		$('#frm').submit();
 	}
 });
+
+
+$("#saveBasket1").click(function (){
+	
+		
+})
+
+$("#saveBasket2").click(function (){
+	
+})
+
 /*
 //바로구매 버튼 클릭시 동작하는 함수
 function nowPaymentPage(){

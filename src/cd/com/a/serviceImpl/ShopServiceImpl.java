@@ -181,4 +181,9 @@ public class ShopServiceImpl implements ShopService {
 		return shopDao.adminShopNo(shop_seq);
 	}
 
+	@Override
+	public boolean checkDesigner(int shop_seq) {
+		return shopDao.checkDesigner(shop_seq);
+	}
+
 }

@@ -6,6 +6,23 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <link href="./css/layout.css" rel="stylesheet">
+<%
+if(loginUser != null){
+	if(loginUser.getUser_api()!=0){
+		if(loginUser.getUser_name() == null || loginUser.getUser_name().equals("") ||
+			loginUser.getNick_name() == null || loginUser.getNick_name().equals("") ||
+			loginUser.getPhone() == null || loginUser.getPhone().equals("") ||
+			loginUser.getBirthday()== null || loginUser.getBirthday().equals("") ||
+			loginUser.getAddress()== null || loginUser.getAddress().equals("")){
+%>
+<script>
+location.href="myPageMove.do";
+</script>
+<%
+		}
+	}
+}
+%>	
 <div class="category_dept">
 	<ul>
 		<li>HOME</li>

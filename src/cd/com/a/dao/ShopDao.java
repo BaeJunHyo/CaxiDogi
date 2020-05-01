@@ -53,4 +53,7 @@ public interface ShopDao {
 	public int adminShopListCount(adminShopParam param);
 	public boolean adminShopOk(int shop_seq);
 	public boolean adminShopNo(int shop_seq);
+	
+	//CheckDesigner
+	public boolean checkDesigner(int shop_seq);
 }

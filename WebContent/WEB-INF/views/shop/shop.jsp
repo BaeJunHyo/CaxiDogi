@@ -7,7 +7,23 @@
 <%@ include file="./../../../include/header.jsp"%>
 <link href="./css/layout.css" rel="stylesheet">
 <link href="./css/style.css" rel="stylesheet">
-
+<%
+if(loginUser != null){
+	if(loginUser.getUser_api()!=0){
+		if(loginUser.getUser_name() == null || loginUser.getUser_name().equals("") ||
+			loginUser.getNick_name() == null || loginUser.getNick_name().equals("") ||
+			loginUser.getPhone() == null || loginUser.getPhone().equals("") ||
+			loginUser.getBirthday()== null || loginUser.getBirthday().equals("") ||
+			loginUser.getAddress()== null || loginUser.getAddress().equals("")){
+%>
+<script>
+location.href="myPageMove.do";
+</script>
+<%
+		}
+	}
+}
+%>	
 <!-- container S : -->
 <div class="container container_subWrap" id="fixNextTag">
 <div class="total-sort">

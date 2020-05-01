@@ -113,6 +113,12 @@ where shop_auth=1;
 		<![CDATA[and shop_resv_rday >= curdate()]]>
 </select>
 
+<select id="checkDesigner" parameterType ="java.lang.Integer" resultType="java.lang.Integer">
+	select count(design_seq) 
+	from shop_designer
+	where shop_seq=#{shop_seq} and design_auth=0
+</select>
+
 
 <update id="adminShopOk" parameterType="java.lang.Integer">
 	update shop

@@ -86,17 +86,19 @@ public class LoginController {
 				System.out.println("snsDto="+snsDto.toString());
 				boolean result = memberService.newRegi(snsDto);
 				if(result) {
-					login = snsDto;
+					login = memberService.snsLogin(snsDto);
 				}
 			}
-			req.getSession().setAttribute("loginUser", login);
+			/* req.getSession().setAttribute("loginUser", login); */
+			req.getSession().setAttribute("loginUser", memberService.loginId(login.getMem_seq()));
 			req.getSession().setMaxInactiveInterval(60*60*365);
 			model.addAttribute("login", "success");
 			model.addAttribute("memberDetail",memberService.loginId(login.getMem_seq()));
 			return "/member/alertPage";
+		}else {
+			model.addAttribute("login", "fail");
+			return "/member/alertPage";
 		}
-		model.addAttribute("login", "fail");
-		return "/member/alertPage";
 	}
 	//네이버 로그인
 	@RequestMapping(value="/naverLogin.do",method= {RequestMethod.GET,RequestMethod.POST})
@@ -124,22 +126,27 @@ public class LoginController {
 				snsDto.setId((String)userInfo.get("id"));
 				snsDto.setNick_name((String)userInfo.get("nick_name"));
 				snsDto.setUser_name((String)userInfo.get("name"));
-				snsDto.setBirthday((String)userInfo.get("birthday"));
+				
+				if(userInfo.get("birthday")!=null) {
+					snsDto.setBirthday((String)userInfo.get("birthday"));
+				}
 				snsDto.setUser_api(2);
 				System.out.println("snsDto="+snsDto.toString());
 				boolean result = memberService.newRegi(snsDto);
 				if(result) {
-					login = snsDto;
+					login = memberService.snsLogin(snsDto);
 				}
 			}
-			req.getSession().setAttribute("loginUser", login);
+			/* req.getSession().setAttribute("loginUser", login); */
+			req.getSession().setAttribute("loginUser", memberService.loginId(login.getMem_seq()));
 			req.getSession().setMaxInactiveInterval(60*60*365);
 			model.addAttribute("login", "success");
 			model.addAttribute("memberDetail",memberService.loginId(login.getMem_seq()));
 			return "/member/alertPage";
+		}else {
+			model.addAttribute("login", "fail");
+			return "/member/alertPage";
 		}
-		model.addAttribute("login", "fail");
-		return "/member/alertPage";
 	}
 	// 구글 로그인
 	@RequestMapping(value="/googleLogin.do",method= {RequestMethod.GET,RequestMethod.POST})
@@ -170,16 +177,18 @@ public class LoginController {
 				System.out.println("snsDto="+snsDto.toString());
 				boolean result = memberService.newRegi(snsDto);
 				if(result) {
-					login = snsDto;
+					login = memberService.snsLogin(snsDto);
 				}
 			}
-			req.getSession().setAttribute("loginUser", login);
+			/* req.getSession().setAttribute("loginUser", login); */
+			req.getSession().setAttribute("loginUser", memberService.loginId(login.getMem_seq()));
 			req.getSession().setMaxInactiveInterval(60*60*365);
 			model.addAttribute("login", "success");
 			model.addAttribute("memberDetail",memberService.loginId(login.getMem_seq()));
 			return "/member/alertPage";
+		}else {
+			model.addAttribute("login", "fail");
+			return "/member/alertPage";
 		}
-		model.addAttribute("login", "fail");
-		return "/member/alertPage";
 	}
 }

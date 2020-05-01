@@ -211,4 +211,10 @@ public class ShopDaoImpl implements ShopDao {
 		int n = sqlSession.update(ns+"adminShopNo", shop_seq);
 		return n>0?true:false;
 	}
+
+	@Override
+	public boolean checkDesigner(int shop_seq) {
+		int result = sqlSession.selectOne(ns+"checkDesigner",shop_seq);
+		return result>0?true:false;
+	}
 }

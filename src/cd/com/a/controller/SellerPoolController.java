@@ -48,6 +48,7 @@ public class SellerPoolController {
 	public String poolList(HttpSession session, Model model, poolParam param) {
 		memberDto mem = (memberDto)session.getAttribute("loginUser");
 		param.setMemSeq(mem.getMem_seq());
+		
 		// paging 처리
 		int sn = param.getPageNumber();	// 0 1 2	현재 페이지
 		int start = sn * param.getRecordCountPerPage(); // 1, 11, 21
@@ -56,9 +57,10 @@ public class SellerPoolController {
 		param.setStart(start);
 		param.setEnd(end);
 		int totalRecordCount = poolService.getPoolResvCount(param);
-		System.out.println("totalRecordCount" + totalRecordCount);
+		
 		List<poolResvParam> list = poolService.getSellerResvList(param);
 		List<poolDto> poolList = poolService.getSellerPoolList(mem.getMem_seq());
+		
 		model.addAttribute("poolSellerResvList", list);
 		model.addAttribute("poolList", poolList);
 		model.addAttribute("pageNumber", sn);
@@ -66,13 +68,13 @@ public class SellerPoolController {
 		model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
 		model.addAttribute("totalRecordCount", totalRecordCount);
 		model.addAttribute("param",param);
+		
 		return "/smypage/pool/poolList";
 	}
 	
 	@RequestMapping(value="sellerPoolList.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public String sellerPoolList(HttpSession session, Model model) {
 		memberDto mem = (memberDto)session.getAttribute("loginUser");
-		System.out.println(mem.toString());
 		List<poolDto> list = poolService.getSellerPoolList(mem.getMem_seq());
 		model.addAttribute("poolList", list);
 		
@@ -82,7 +84,7 @@ public class SellerPoolController {
 	@RequestMapping(value="SellerResvDetail.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public String getSellerResvDetail(Model model, int pool_resv_seq) {
 		poolResvParam poolResv = poolService.getSellerResvDetail(pool_resv_seq);
-		System.out.println("poolResv"+poolResv);
+		
 		model.addAttribute("poolResv", poolResv);
 		
 		return "/smypage/pool/poolResvDetail";
@@ -99,6 +101,7 @@ public class SellerPoolController {
 		} else {
 			str = "no";
 		}
+		
 		return str;
 	}
 	
@@ -113,9 +116,54 @@ public class SellerPoolController {
 		} else {
 			str = "no";
 		}
+		
 		return str;
 	}	
 	
+		
+	@RequestMapping(value="poolTodayList.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String poolTodayList(HttpSession session, Model model, poolParam param) {
+		memberDto mem = (memberDto)session.getAttribute("loginUser");
+		param.setMemSeq(mem.getMem_seq());
+		
+		// paging 처리
+		int sn = param.getPageNumber();	// 0 1 2	현재 페이지
+		int start = sn * param.getRecordCountPerPage(); // 1, 11, 21
+		int end = (sn + 1) * param.getRecordCountPerPage();	// 10, 20, 30
+		
+		param.setStart(start);
+		param.setEnd(end);
+		int totalRecordCount = poolService.getTodayResvCount(param);
+		
+		List<poolResvParam> list = poolService.getTodayResvList(param);
+		List<poolDto> poolList = poolService.getSellerPoolList(mem.getMem_seq());
+		
+		model.addAttribute("poolSellerResvList", list);
+		model.addAttribute("poolList", poolList);
+		model.addAttribute("pageNumber", sn);
+		model.addAttribute("pageCountPerScreen", 10);
+		model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
+		model.addAttribute("totalRecordCount", totalRecordCount);
+		model.addAttribute("param",param);
+		
+		return "/smypage/pool/poolTodayList";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "poolUse.do",method=RequestMethod.POST)
+	public String poolUse(int pool_resv_seq){
+		String str = "";
+		boolean	status = poolService.poolUse(pool_resv_seq);
+		
+		if(status == true) {
+			str = "ok";
+		} else {
+			str = "no";
+		}
+		
+		return str;
+	}
+
 	/*  수영장 등록관련  */
 	
 	@RequestMapping(value="modifyPool.do",  method= {RequestMethod.GET,RequestMethod.POST})
@@ -147,6 +195,7 @@ public class SellerPoolController {
 		PrintWriter printWriter = null;
 		OutputStream out = null;
 		MultipartFile file = multiFile.getFile("upload");
+		
 		if(file != null){
 			if(file.getSize() > 0){
 				if(file.getContentType().toLowerCase().startsWith("image/")){
@@ -188,6 +237,7 @@ public class SellerPoolController {
 				}
 			}
 		}
+		
 		return null;
 	}	
 	
@@ -195,8 +245,6 @@ public class SellerPoolController {
 	@RequestMapping(value = "poolRegiAf.do",method=RequestMethod.POST)
 	   public String poolRegiAf(@ModelAttribute poolDto pool, @RequestParam(value="fileload")MultipartFile fileload, HttpServletRequest req){
 		String str = "";
-		
-		System.out.println(pool.toString());
 		
 		if(!fileload.isEmpty()) {
 			String fileUpload = req.getServletContext().getRealPath("/images/poolImg"); 
@@ -209,6 +257,7 @@ public class SellerPoolController {
 				filepost = fileName.substring(fileName.indexOf('.'));
 				saveFileName = new Date().getTime() + filepost;
 			} 
+			
 			pool.setPool_photo(saveFileName);
 			
 			File file = new File(fileUpload + "/" + saveFileName);

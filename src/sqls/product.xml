@@ -99,6 +99,26 @@ FROM product
 -->
 
 
+<!-- 상품리스트(페이징 - 관리자) -->
+<!-- <select id="getPrdCount" parameterType="cd.com.a.model.ProductParam" resultType="java.lang.Integer">
+SELECT NVL(COUNT(*), 0) AS CNT
+FROM product
+<where>
+    <if test="s_category != null and s_category != ''
+        and s_keyword != null and s_keyword != ''">
+        <if test="s_category == 'title'">
+            AND TITLE LIKE '%'||#{s_keyword}||'%'
+        </if>
+        <if test="s_category == 'contents'">
+            AND CONTENT LIKE '%'||#{s_keyword}||'%'
+        </if>
+        <if test="s_category == 'writer'">
+            AND ID=#{s_keyword}
+        </if>                
+    </if>
+</where>
+</select> -->
+
 <!-- 상품등록(관리자) -->
 <insert id="productInsert" parameterType="cd.com.a.model.productDto">
 	INSERT INTO product(
@@ -148,6 +168,7 @@ FROM product
 		   product_regi_date, product_del
 	FROM product
 </select>
+
 
 <!-- ========= 상품구매(client & 관리자) 상품상세 ======== -->
 <select id="getPrd" parameterType="java.lang.Integer" resultType="cd.com.a.model.productDto">

@@ -44,7 +44,8 @@
 .bigCate .prdSlide .prdView li{}
 
 /* �곹뭹 由ъ뒪�� 怨듯넻 */
-.prdArea {width: 800px; margin: 45px auto 100px;}
+/*  .prdArea {width: 800px; margin: 45px auto 100px;}*/
+.prdArea {width: 800px; margin: 45px;}
 .prdArea.sideArea {width: 800px; float: right;}
 .prdArea > li {position: relative; float: left; width: 258px; height: auto; margin: 0 0 25px 0; border: 1px solid #fff;}
 .prdArea > li:nth-child(3n+2) {margin: 0 10px;}
@@ -59,7 +60,6 @@
 .prdArea > li a .prdInfo_section .prdInfo_price {}
 .prdArea > li a .prdFlag {display: block; position: absolute; top: 0; right: 0;}
 .prdArea > li a .prdFlag img {display: block; margin: 0 0 3px 0;}
-
 .prdHover {display: none; position: absolute; width: 96px; height: 36px; top: 213px; left: 50%; margin: 0 0 0 -48px;}
 .prdHover a {position: relative; float: left; width: 48px; height: 36px; background: rgba(12,13,17,0.5);}
 .prdHover a:hover {background: #232a32;}

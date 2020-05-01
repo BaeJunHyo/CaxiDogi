@@ -158,7 +158,7 @@
 <!-- containerWrap E : -->
 
 
-	<script type="text/javascript">
+<script type="text/javascript">
 	$(document).ready(function() {
 			$("#prdRegi").click(
 					function() {
@@ -223,7 +223,7 @@
 
 
 			// select 그룹
-			$(.prd_group option).each(function(){
+			$(".prd_group option").each(function(){
 			    if($(this).val()=="${prddto.product_group }"){
 			      $(this).attr("selected","selected"); // attr & prop
 			    }
@@ -271,5 +271,5 @@
 	</script>
 
 
-	</body>
-	</html>
+</body>
+</html>

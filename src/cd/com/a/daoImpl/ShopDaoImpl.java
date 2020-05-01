@@ -7,10 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import cd.com.a.dao.ShopDao;
+import cd.com.a.model.adminShopParam;
 import cd.com.a.model.shopDesignerDto;
 import cd.com.a.model.shopDto;
+import cd.com.a.model.shopListParam;
 import cd.com.a.model.shopPagingParam;
 import cd.com.a.model.shopResvDto;
+import cd.com.a.model.shopSellerPagingParam;
+import cd.com.a.model.shopSellerResvParam;
 import cd.com.a.model.shopShowResvParam;
 
 @Repository
@@ -27,8 +31,8 @@ public class ShopDaoImpl implements ShopDao {
 	}
 	
 	@Override
-	public List<shopDto> getShopList() {
-		List<shopDto> list = sqlSession.selectList(ns +"getShopList");
+	public List<shopDto> getShopList(shopListParam param) {
+		List<shopDto> list = sqlSession.selectList(ns +"getShopList", param);
 		return list;
 	}
 
@@ -94,9 +98,6 @@ public class ShopDaoImpl implements ShopDao {
 		List<shopShowResvParam> list = sqlSession.selectList(ns+"showShopResv", param);
 		return list;
 	}
-
-	
-	
 	
 	@Override
 	public boolean shopModifyAf(shopDto shop) {
@@ -160,6 +161,54 @@ public class ShopDaoImpl implements ShopDao {
 		return sqlSession.selectOne(ns+"getShopResvCount", mem_seq);
 	}
 
+	@Override
+	public int getShopCount() {
+		return sqlSession.selectOne(ns+"getShopCount");
+	}
+
 	
 
+	@Override
+	public int getSellerResvCount(shopSellerPagingParam param) {
+		return sqlSession.selectOne(ns+"getSellerResvCount", param);
+	}
+
+	@Override
+	public List<shopSellerResvParam> getSellerShopResvList(shopSellerPagingParam param) {
+		return sqlSession.selectList(ns+"getSellerShopResvList", param);
+	}
+
+	@Override
+	public shopSellerResvParam getSellerResvDetail(int shop_resv_seq) {
+		return sqlSession.selectOne(ns+"getSellerShopResvDetail", shop_resv_seq);
+	}
+
+	@Override
+	public boolean shopResvUpdate(shopResvDto resv) {
+		int n = sqlSession.update(ns+"shopResvUpdate", resv);
+		return n>0?true:false; 
+	}
+	
+
+	
+	public List<shopDto> adminShopList(adminShopParam param) {
+		return sqlSession.selectList(ns+"adminShopList", param);
+	}
+
+	@Override
+	public int adminShopListCount(adminShopParam param) {
+		return sqlSession.selectOne(ns+"adminShopListCount", param);
+	}
+
+	@Override
+	public boolean adminShopOk(int shop_seq) {
+		int n = sqlSession.update(ns+"adminShopOk", shop_seq);
+		return n>0?true:false;
+	}
+
+	@Override
+	public boolean adminShopNo(int shop_seq) {
+		int n = sqlSession.update(ns+"adminShopNo", shop_seq);
+		return n>0?true:false;
+	}
 }

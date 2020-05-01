@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 
 
-<%@ include file="./../../../../include/bo/bo_header.jsp" %>
+<%@ include file="./../../../include/bo/bo_header.jsp" %>
 
 <!-- 로그인 시  -->
 

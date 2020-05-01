@@ -3,8 +3,10 @@
   "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
    <mapper namespace="Pool">
    <insert id="addPool" parameterType="cd.com.a.model.poolDto">
-   	insert into pool (pool_owner, pool_number, pool_addr, pool_tel, mem_seq, pool_auth, pool_name, pool_time, pool_price, pool_shower, pool_large, pool_parking, pool_content, pool_photo)
-   	values(#{pool_owner}, #{pool_number}, #{pool_addr}, #{pool_tel}, #{mem_seq}, 0, #{pool_name}, #{pool_time},#{pool_price}, #{pool_shower}, #{pool_large}, #{pool_parking}, #{pool_content}, #{pool_photo})
+   	insert into pool (pool_owner, pool_number, pool_addr, pool_tel, mem_seq, pool_auth, pool_name, pool_time, pool_price, pool_shower, 
+   					pool_large, pool_parking, pool_content, pool_photo)
+   	values(#{pool_owner}, #{pool_number}, #{pool_addr}, #{pool_tel}, #{mem_seq}, 0, #{pool_name}, #{pool_time}, #{pool_price}, 
+   			#{pool_shower}, #{pool_large}, #{pool_parking}, #{pool_content}, #{pool_photo})
    </insert>
    
    <update id="modifyPool" parameterType="cd.com.a.model.poolDto">
@@ -15,15 +17,44 @@
 	where pool_seq=#{pool_seq}
    	</update>
    	
-   <select id="getPoolList" resultType="cd.com.a.model.poolDto">
-   	select pool_seq, pool_owner, pool_number, pool_addr, pool_tel, mem_seq, pool_auth, pool_name, pool_time, pool_price, pool_shower, pool_large, 
-   	pool_parking,pool_content, pool_photo from pool
-   	where pool_auth=1
-   </select>
+   <select id="getPoolList" parameterType="cd.com.a.model.PoolListParam" resultType="cd.com.a.model.poolDto">
+
+	select @rownum:=@rownum+1 as rownum, pool_seq, pool_name, pool_addr, pool_auth, pool_photo, pool_price
+   from pool
+   where (@rownum:=0)=0 and pool_auth=1
+   <if test="poolAddr == 1">
+   		and pool_addr like concat('%',#{poolAddrSeo},'%')
+   </if>
+   <if test="poolAddr == 2">
+   		and pool_addr like concat('%',#{poolAddrKyeong},'%')
+   </if>
+   <if test="poolAddr == 3">
+   		and not pool_addr like concat('%',#{poolAddrSeo},'%') and not pool_addr like concat('%',#{poolAddrKyeong},'%')
+   </if>
+	order by pool_seq asc
+   limit #{start}, #{recordCountPerPage}
+</select>
+
+<select id="getPoolCount" resultType="java.lang.Integer" parameterType="cd.com.a.model.PoolListParam" >
+	select count(*)
+   from pool
+   where pool_auth=1
+   <if test="poolAddr == 1">
+   		and pool_addr like concat('%',#{poolAddrSeo},'%')
+   </if>
+   <if test="poolAddr == 2">
+   		and pool_addr like concat('%',#{poolAddrKyeong},'%')
+   </if>
+   <if test="poolAddr == 3">
+   		and not pool_addr like concat('%',#{poolAddrSeo},'%') and not pool_addr like concat('%',#{poolAddrKyeong},'%')
+   </if>
+</select>
    
    <select id ="getPoolDetail" parameterType="java.lang.Integer" resultType="cd.com.a.model.poolDto">
-   	select pool_seq, pool_owner, pool_number, pool_addr, pool_tel, mem_seq, pool_auth, pool_name, pool_time, pool_price, pool_shower, pool_large, 
-   	pool_parking,pool_content, pool_photo from pool where pool_seq = #{pool_seq}
+   	select pool_seq, pool_owner, pool_number, pool_addr, pool_tel, mem_seq, pool_auth, pool_name, pool_time, 
+   		   pool_price, pool_shower, pool_large, pool_parking,pool_content, pool_photo 
+   	from pool 
+   	where pool_seq = #{pool_seq}
    </select>
    
    <insert id ="resvPool" parameterType="cd.com.a.model.poolResvDto" useGeneratedKeys="true" keyProperty="pool_resv_seq">
@@ -46,69 +77,107 @@
    </select>
    
     <select id="getSellerPoolList" parameterType="java.lang.Integer" resultType="cd.com.a.model.poolDto">
-   	select pool_seq, pool_owner, pool_number, pool_addr, pool_tel, mem_seq, pool_auth, pool_name, pool_time, pool_price, pool_shower, pool_large, 
-   	pool_parking,pool_content, pool_photo from pool
+   	select pool_seq, pool_owner, pool_number, pool_addr, pool_tel, mem_seq, pool_auth, pool_name, pool_time, pool_price, 
+   		pool_shower, pool_large, pool_parking,pool_content, pool_photo 
+   	from pool
    	where mem_seq = #{mem_seq}
    </select>
-<!--    
-   <select id="getSellerResvList" parameterType="cd.com.a.model.poolResvParam" resultType="cd.com.a.model.poolResvParam">
-   	select resv.pool_resv_seq, resv.pool_seq, resv.pool_resv_user, resv.pool_resv_pet, resv.pool_resv_time,
-		resv.pool_resv_ydate, resv.pool_resv_sdate, resv.pool_resv_tel, resv.pool_resv_name, resv.pool_resv_payment,
-		resv.pool_resv_total_price, resv.mem_seq, resv.pool_resv_comment, resv.pool_resv_auth, pool.pool_name, pool.mem_seq as seller_seq
-	from pool_reservation as resv join pool
-		on resv.pool_seq = pool.pool_seq
-		and pool.mem_seq = #{mem_seq}
-	order by resv.pool_resv_payment, resv.pool_resv_sdate asc,resv.pool_resv_ydate desc
-   </select> -->
    
  <select id="getSellerResvList" parameterType="cd.com.a.model.poolParam" resultType="cd.com.a.model.poolResvParam">
    select * 
-from (select @finalnum:=@finalnum+1 as finalnum, sub.* from
-	(select @rownum:=@rownum+1 as rownum, resv.pool_resv_seq, resv.pool_seq, resv.pool_resv_user, resv.pool_resv_pet, resv.pool_resv_time,
-		resv.pool_resv_ydate, resv.pool_resv_sdate, resv.pool_resv_tel, resv.pool_resv_name, resv.pool_resv_payment,
-		resv.pool_resv_total_price, resv.mem_seq, resv.pool_resv_comment, resv.pool_resv_auth, pool.pool_name, pool.mem_seq as seller_seq
-	from pool_reservation as resv join pool
-		on resv.pool_seq = pool.pool_seq
-        and (@rownum:=0)=0
-		and pool.mem_seq = #{memSeq}
-		<if test = "poolSeq != null and poolSeq != 100">
-			and resv.pool_seq=#{poolSeq}	
-		</if>
-		<if test = "poolResvAuth != null and poolResvAuth != 100">
-			and resv.pool_resv_auth=#{poolResvAuth}
-		</if>
-	order by  resv.pool_resv_payment asc, resv.pool_resv_sdate asc,resv.pool_resv_ydate desc) sub, (select @finalnum:=0) ftmp
-    order by sub.rownum desc) fsub
-    order by fsub.finalnum desc
+		from (select @finalnum:=@finalnum+1 as finalnum, sub.* from
+					(select @rownum:=@rownum+1 as rownum, resv.pool_resv_seq, resv.pool_seq, resv.pool_resv_user, 
+							resv.pool_resv_pet, resv.pool_resv_time, resv.pool_resv_ydate, resv.pool_resv_sdate, 
+							resv.pool_resv_tel, resv.pool_resv_name, resv.pool_resv_payment, resv.pool_resv_total_price, 
+							resv.mem_seq, resv.pool_resv_comment, resv.pool_resv_auth, pool.pool_name, pool.mem_seq as seller_seq,pool.pool_photo
+					from pool_reservation as resv join pool
+					on resv.pool_seq = pool.pool_seq
+        			and (@rownum:=0)=0
+					and pool.mem_seq = #{memSeq}
+					<if test = "poolSeq != null and poolSeq != 100">
+						and resv.pool_seq=#{poolSeq}	
+					</if>
+					<if test = "poolResvAuth != null and poolResvAuth != 100">
+						and resv.pool_resv_auth=#{poolResvAuth}
+					</if>
+					order by  resv.pool_resv_ydate desc) sub, 
+			(select @finalnum:=0) ftmp order by sub.rownum desc) fsub
+    	order by fsub.finalnum desc
     limit #{start}, #{end}
     </select>
     
     
      <select id="getPoolResvCount" parameterType="cd.com.a.model.poolParam" resultType="java.lang.Integer">
    select count(*)
-	from (select @finalnum:=@finalnum+1 as finalnum, sub.* from
-	(select @rownum:=@rownum+1 as rownum, resv.pool_resv_seq, resv.pool_seq, resv.pool_resv_user, resv.pool_resv_pet, resv.pool_resv_time,
-		resv.pool_resv_ydate, resv.pool_resv_sdate, resv.pool_resv_tel, resv.pool_resv_name, resv.pool_resv_payment,
-		resv.pool_resv_total_price, resv.mem_seq, resv.pool_resv_comment, resv.pool_resv_auth, pool.pool_name, pool.mem_seq as seller_seq
-	from pool_reservation as resv join pool
-		on resv.pool_seq = pool.pool_seq
-        and (@rownum:=0)=0
-		and pool.mem_seq = #{memSeq}
-		<if test = "poolSeq != null and poolSeq != 100">
-			and resv.pool_seq=#{poolSeq}	
-		</if>
-		<if test = "poolResvAuth != null and poolResvAuth != 100">
-			and resv.pool_resv_auth=#{poolResvAuth}
-		</if>
-	order by  resv.pool_resv_payment asc, resv.pool_resv_sdate asc,resv.pool_resv_ydate desc) sub, (select @finalnum:=0) ftmp
-    order by sub.rownum desc) fsub
-    order by fsub.finalnum desc
+		from (select @finalnum:=@finalnum+1 as finalnum, sub.* from
+				(select @rownum:=@rownum+1 as rownum, resv.pool_resv_seq, resv.pool_seq, resv.pool_resv_user, resv.pool_resv_pet, 
+					resv.pool_resv_time, resv.pool_resv_ydate, resv.pool_resv_sdate, resv.pool_resv_tel, resv.pool_resv_name, 
+					resv.pool_resv_payment, resv.pool_resv_total_price, resv.mem_seq, resv.pool_resv_comment, resv.pool_resv_auth, 
+					pool.pool_name, pool.mem_seq as seller_seq
+				from pool_reservation as resv join pool
+				on resv.pool_seq = pool.pool_seq
+        		and (@rownum:=0)=0
+				and pool.mem_seq = #{memSeq}
+				<if test = "poolSeq != null and poolSeq != 100">
+					and resv.pool_seq=#{poolSeq}	
+				</if>
+				<if test = "poolResvAuth != null and poolResvAuth != 100">
+					and resv.pool_resv_auth=#{poolResvAuth}
+				</if>
+				order by  resv.pool_resv_ydate desc) sub, 
+				(select @finalnum:=0) ftmp order by sub.rownum desc) fsub
+    	order by fsub.finalnum desc
     </select>
+    
+<select id="getTodayResvList" parameterType="cd.com.a.model.poolParam" resultType="cd.com.a.model.poolResvParam">
+   select * 
+		from (select @finalnum:=@finalnum+1 as finalnum, sub.* from
+					(select @rownum:=@rownum+1 as rownum, resv.pool_resv_seq, resv.pool_seq, resv.pool_resv_user, 
+							resv.pool_resv_pet, resv.pool_resv_time, resv.pool_resv_ydate, resv.pool_resv_sdate, 
+							resv.pool_resv_tel, resv.pool_resv_name, resv.pool_resv_payment, resv.pool_resv_total_price, 
+							resv.mem_seq, resv.pool_resv_comment, resv.pool_resv_auth, pool.pool_name, pool.mem_seq as seller_seq
+					from pool_reservation as resv join pool
+					on resv.pool_seq = pool.pool_seq
+        			and (@rownum:=0)=0
+					and pool.mem_seq = #{memSeq}
+					and resv.pool_resv_auth=2
+					and resv.pool_resv_sdate = curdate()
+					order by  resv.pool_resv_payment asc, resv.pool_resv_sdate asc,resv.pool_resv_ydate desc) sub, 
+			(select @finalnum:=0) ftmp order by sub.rownum desc) fsub
+    	order by fsub.finalnum desc
+    limit #{start}, #{end}
+</select>
+
+<select id="getTodayResvCount" parameterType="cd.com.a.model.poolParam" resultType="java.lang.Integer">
+   select count(*)
+		from (select @finalnum:=@finalnum+1 as finalnum, sub.* from
+				(select @rownum:=@rownum+1 as rownum, resv.pool_resv_seq, resv.pool_seq, resv.pool_resv_user, resv.pool_resv_pet, 
+					resv.pool_resv_time, resv.pool_resv_ydate, resv.pool_resv_sdate, resv.pool_resv_tel, resv.pool_resv_name, 
+					resv.pool_resv_payment, resv.pool_resv_total_price, resv.mem_seq, resv.pool_resv_comment, resv.pool_resv_auth, 
+					pool.pool_name, pool.mem_seq as seller_seq
+				from pool_reservation as resv join pool
+				on resv.pool_seq = pool.pool_seq
+        		and (@rownum:=0)=0
+				and pool.mem_seq = #{memSeq}
+				and resv.pool_resv_auth=2
+				and resv.pool_resv_sdate = curdate()
+				order by  resv.pool_resv_payment asc, resv.pool_resv_sdate asc,resv.pool_resv_ydate desc) sub, 
+				(select @finalnum:=0) ftmp order by sub.rownum desc) fsub
+    	order by fsub.finalnum desc
+    </select>
+    
+    
+    <update id="poolUse" parameterType="java.lang.Integer">
+    	update pool_reservation
+    	set pool_resv_auth = 7
+    	where pool_resv_seq=#{pool_resv_seq}
+    </update>
+    
    
    <select id ="getSellerResvDetail" parameterType="java.lang.Integer" resultType="cd.com.a.model.poolResvParam">
 	select resv.pool_resv_seq, resv.pool_seq, resv.pool_resv_user, resv.pool_resv_pet, resv.pool_resv_time,
-	resv.pool_resv_ydate, resv.pool_resv_sdate, resv.pool_resv_tel, resv.pool_resv_name, resv.pool_resv_payment,
-	resv.pool_resv_total_price, resv.mem_seq, resv.pool_resv_comment, resv.pool_resv_auth, pool.pool_name, pool.mem_seq as seller_seq
+		resv.pool_resv_ydate, resv.pool_resv_sdate, resv.pool_resv_tel, resv.pool_resv_name, resv.pool_resv_payment,
+		resv.pool_resv_total_price, resv.mem_seq, resv.pool_resv_comment, resv.pool_resv_auth, pool.pool_name, pool.mem_seq as seller_seq, pool.pool_photo
 	from pool_reservation as resv join pool
 	on resv.pool_seq = pool.pool_seq
 	and resv.pool_resv_seq = #{pool_resv_seq}
@@ -125,39 +194,124 @@ from (select @finalnum:=@finalnum+1 as finalnum, sub.* from
    	set pool_resv_payment=1 , pool_resv_auth=2
    	where pool_resv_seq = #{pool_resv_seq}
    </update>
+   
+<update id="adminPoolOk" parameterType="java.lang.Integer">
+	update pool
+	set pool_auth=1
+	where pool_seq=#{pool_seq}
+</update>
+
+<update id="adminPoolNo" parameterType="java.lang.Integer">
+	update pool
+	set pool_auth=2
+	where pool_seq=#{pool_seq}
+</update>
+   
 
 	<select id="getPoolResvUserCount" parameterType="cd.com.a.model.poolParam" resultType="java.lang.Integer">
 	select count(*)
-from (select @finalnum:=@finalnum+1 as finalnum, sub.* from
-	(select @rownum:=@rownum+1 as rownum, resv.pool_resv_seq, resv.pool_seq, resv.pool_resv_user, resv.pool_resv_pet, resv.pool_resv_time,
-		resv.pool_resv_ydate, resv.pool_resv_sdate, resv.pool_resv_tel, resv.pool_resv_name, resv.pool_resv_payment,
-		resv.pool_resv_total_price, resv.mem_seq, resv.pool_resv_comment, resv.pool_resv_auth, pool.pool_name, pool.mem_seq as seller_seq
-	from pool_reservation as resv join pool
-		on resv.pool_seq = pool.pool_seq
-        and (@rownum:=0)=0
-		and resv.mem_seq = #{memSeq}
-		and resv.pool_resv_auth not in(3)
-	order by  resv.pool_resv_ydate desc) sub, (select @finalnum:=0) ftmp
-    order by sub.rownum desc) fsub
-    order by fsub.finalnum desc
+		from (select @finalnum:=@finalnum+1 as finalnum, sub.* from
+				(select @rownum:=@rownum+1 as rownum, resv.pool_resv_seq, resv.pool_seq, resv.pool_resv_user, 
+					resv.pool_resv_pet, resv.pool_resv_time, resv.pool_resv_ydate, resv.pool_resv_sdate, resv.pool_resv_tel, 
+					resv.pool_resv_name, resv.pool_resv_payment, resv.pool_resv_total_price, resv.mem_seq, resv.pool_resv_comment,
+					resv.pool_resv_auth, pool.pool_name, pool.mem_seq as seller_seq
+				from pool_reservation as resv join pool
+				on resv.pool_seq = pool.pool_seq
+        		and (@rownum:=0)=0
+				and resv.mem_seq = #{memSeq}
+				and resv.pool_resv_auth not in(3)
+				order by  resv.pool_resv_ydate desc) sub, 
+				(select @finalnum:=0) ftmp order by sub.rownum desc) fsub
+    	order by fsub.finalnum desc
 	
 	</select>
 	
-	 <select id="poolResvList" parameterType="cd.com.a.model.poolParam" resultType="cd.com.a.model.poolResvParam">
+	<select id="poolResvList" parameterType="cd.com.a.model.poolParam" resultType="cd.com.a.model.poolResvParam">
    select * 
-from (select @finalnum:=@finalnum+1 as finalnum, sub.* from
-	(select @rownum:=@rownum+1 as rownum, resv.pool_resv_seq, resv.pool_seq, resv.pool_resv_user, resv.pool_resv_pet, resv.pool_resv_time,
-		resv.pool_resv_ydate, resv.pool_resv_sdate, resv.pool_resv_tel, resv.pool_resv_name, resv.pool_resv_payment,
-		resv.pool_resv_total_price, resv.mem_seq, resv.pool_resv_comment, resv.pool_resv_auth, pool.pool_name, pool.mem_seq as seller_seq, pool.pool_photo
-	from pool_reservation as resv join pool
-		on resv.pool_seq = pool.pool_seq
-        and (@rownum:=0)=0
-		and resv.mem_seq = #{memSeq}
-		and resv.pool_resv_auth not in(3)
-	order by  resv.pool_resv_payment asc, resv.pool_resv_sdate asc,resv.pool_resv_ydate desc) sub, (select @finalnum:=0) ftmp
-    order by sub.rownum desc) fsub
+		from (select @finalnum:=@finalnum+1 as finalnum, sub.* from
+				(select @rownum:=@rownum+1 as rownum, resv.pool_resv_seq, resv.pool_seq, resv.pool_resv_user, 
+					resv.pool_resv_pet, resv.pool_resv_time, resv.pool_resv_ydate, resv.pool_resv_sdate, resv.pool_resv_tel, 
+					resv.pool_resv_name, resv.pool_resv_payment, resv.pool_resv_total_price, resv.mem_seq, 
+					resv.pool_resv_comment, resv.pool_resv_auth, pool.pool_name, pool.mem_seq as seller_seq, pool.pool_photo
+				from pool_reservation as resv join pool
+				on resv.pool_seq = pool.pool_seq
+        		and (@rownum:=0)=0
+				and resv.mem_seq = #{memSeq}
+				and resv.pool_resv_auth not in(3)
+				order by  resv.pool_resv_payment asc, resv.pool_resv_sdate asc,resv.pool_resv_ydate desc) sub,
+				(select @finalnum:=0) ftmp order by sub.rownum desc) fsub
+    	order by fsub.finalnum desc
+    limit #{start}, #{end}
+    </select>
+    
+    
+    	<select id="getPoolCancleCount" parameterType="cd.com.a.model.poolParam" resultType="java.lang.Integer">
+	select count(*)
+		from (select @finalnum:=@finalnum+1 as finalnum, sub.* from
+				(select @rownum:=@rownum+1 as rownum, resv.pool_resv_seq, resv.pool_seq, resv.pool_resv_user, 
+					resv.pool_resv_pet, resv.pool_resv_time, resv.pool_resv_ydate, resv.pool_resv_sdate, resv.pool_resv_tel, 
+					resv.pool_resv_name, resv.pool_resv_payment, resv.pool_resv_total_price, resv.mem_seq, resv.pool_resv_comment,
+					resv.pool_resv_auth, pool.pool_name, pool.mem_seq as seller_seq
+				from pool_reservation as resv join pool
+				on resv.pool_seq = pool.pool_seq
+        		and (@rownum:=0)=0
+				and resv.mem_seq = #{memSeq}
+				and resv.pool_resv_auth =3
+				order by  resv.pool_resv_ydate desc) sub, 
+				(select @finalnum:=0) ftmp order by sub.rownum desc) fsub
+    	order by fsub.finalnum desc
+	
+	</select>
+	
+	<select id="poolCancleList" parameterType="cd.com.a.model.poolParam" resultType="cd.com.a.model.poolResvParam">
+   select * 
+		from (select @finalnum:=@finalnum+1 as finalnum, sub.* from
+				(select @rownum:=@rownum+1 as rownum, resv.pool_resv_seq, resv.pool_seq, resv.pool_resv_user, 
+					resv.pool_resv_pet, resv.pool_resv_time, resv.pool_resv_ydate, resv.pool_resv_sdate, resv.pool_resv_tel, 
+					resv.pool_resv_name, resv.pool_resv_payment, resv.pool_resv_total_price, resv.mem_seq, 
+					resv.pool_resv_comment, resv.pool_resv_auth, pool.pool_name, pool.mem_seq as seller_seq, pool.pool_photo
+				from pool_reservation as resv join pool
+				on resv.pool_seq = pool.pool_seq
+        		and (@rownum:=0)=0
+				and resv.mem_seq = #{memSeq}
+				and resv.pool_resv_auth =3
+				order by  resv.pool_resv_payment asc, resv.pool_resv_sdate asc,resv.pool_resv_ydate desc) sub,
+				(select @finalnum:=0) ftmp order by sub.rownum desc) fsub
+    	order by fsub.finalnum desc
+    limit #{start}, #{end}
+    </select>
+    
+    
+    
+    <select id ="adminPoolList" parameterType="cd.com.a.model.AdminPoolParam" resultType="cd.com.a.model.poolDto">
+    select *
+		from (select @finalnum:=@finalnum+1 as finalnum, sub.* from
+				(select @rownum:=@rownum+1 as rownum, pool_seq, pool_owner, pool_number, pool_name, pool_addr, 
+						pool_tel, pool_auth, pool_time
+				from pool
+				where (@rownum:=0)=0
+				<if test = "pool_auth != null and pool_auth != 100">
+					and pool_auth=#{pool_auth}	
+				</if>
+				order by  pool_seq desc) sub, (select @finalnum:=0) ftmp
+			order by sub.rownum desc) fsub
     order by fsub.finalnum desc
     limit #{start}, #{end}
     </select>
-
+    
+        <select id ="adminPoolListCount" parameterType="cd.com.a.model.AdminPoolParam" resultType="java.lang.Integer">
+     select count(*)
+		from (select @finalnum:=@finalnum+1 as finalnum, sub.* from
+				(select @rownum:=@rownum+1 as rownum, pool_seq, pool_owner, pool_number, pool_name, pool_addr, 
+						pool_tel, pool_auth, pool_time
+				from pool
+				where (@rownum:=0)=0
+				<if test = "pool_auth != null and pool_auth != 100">
+					and pool_auth=#{pool_auth}	
+				</if>
+				order by  pool_seq desc) sub, (select @finalnum:=0) ftmp
+			order by sub.rownum desc) fsub
+    order by fsub.finalnum desc
+    </select>
+  
    </mapper>

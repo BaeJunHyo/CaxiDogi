@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cd.com.a.dao.PoolDao;
+import cd.com.a.model.AdminPoolParam;
+import cd.com.a.model.PoolListParam;
 import cd.com.a.model.poolDto;
 import cd.com.a.model.poolParam;
 import cd.com.a.model.poolResvDto;
@@ -23,8 +25,8 @@ public class PoolServiceImpl implements PoolService {
 	}
 
 	@Override
-	public List<poolDto> getPoolList() {
-		return poolDao.getPoolList();
+	public List<poolDto> getPoolList(PoolListParam param) {
+		return poolDao.getPoolList(param);
 	}
 
 	@Override
@@ -90,6 +92,56 @@ public class PoolServiceImpl implements PoolService {
 	@Override
 	public boolean poolCancleAf(int pool_resv_seq) {
 		return poolDao.poolCancleAf(pool_resv_seq);
+	}
+
+	@Override
+	public List<poolResvParam> getTodayResvList(poolParam param) {
+		return poolDao.getTodayResvList(param);
+	}
+
+	@Override
+	public int getTodayResvCount(poolParam param) {
+		return poolDao.getPoolResvUserCount(param);
+	}
+
+	@Override
+	public boolean poolUse(int pool_resv_seq) {
+		return poolDao.poolUse(pool_resv_seq);
+	}
+
+	@Override
+	public boolean adminPoolOk(int pool_seq) {
+		return poolDao.adminPoolOk(pool_seq);
+	}
+
+	@Override
+	public boolean adminPoolNo(int pool_seq) {
+		return poolDao.adminPoolNo(pool_seq);
+	}
+
+	@Override
+	public List<poolDto> adminPoolList(AdminPoolParam param) {
+		return poolDao.adminPoolList(param);
+	}
+
+	@Override
+	public int adminPoolListCount(AdminPoolParam param) {
+		return poolDao.adminPoolListCount(param);
+	}
+
+	@Override
+	public int getPoolCount(PoolListParam param) {
+		return poolDao.getPoolCount(param);
+	}
+
+	@Override
+	public int getPoolCancleCount(poolParam param) {
+		return poolDao.getPoolCancleCount(param);
+	}
+
+	@Override
+	public List<poolResvParam> poolCancleList(poolParam param) {
+		return poolDao.poolCancleList(param);
 	}
 
 }

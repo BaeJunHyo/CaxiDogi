@@ -1,18 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<%@ include file="./../../../include/header.jsp" %>
 <%
 String recovery = (String)request.getAttribute("recovery");
 if(recovery!=null && !recovery.equals("")){
 %>
 <script>
-alert("브라우저에서 팝업 차단 시 \n 팝업 허용을 해주셔야 원활한 복구 처리가 가능합니다.");
-window.open(<%=request.getContextPath()%>/+"recoveryId.do", '', 'status=no, height=400, width=500');
+
+<%-- alert("브라우저에서 팝업 차단 시 \n 팝업 허용을 해주셔야 원활한 복구 처리가 가능합니다.");
+window.open(<%=request.getContextPath()%>/+"recoveryId.do", '', 'status=no, height=400, width=500'); --%>
+Swal.fire({
+	  icon: 'info',
+	  text: '브라우저 팝업 허용을 해주셔야 원활한 복구 처리가 가능합니다.',
+	  showConfirmButton: true
+	}).then(function(){
+	window.open(<%=request.getContextPath()%>/+"recoveryId.do", '', 'status=no, height=400, width=500');
+});
 </script>
 <%
 }
 %>
-<%@ include file="./../../../include/header.jsp" %>
 <!-- container S : -->
 <div class="container">
 <div class = "container_subWrap">

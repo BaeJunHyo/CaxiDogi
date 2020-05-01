@@ -79,7 +79,6 @@ if(loginUser != null){
 			%>
 				<li><a href="loginView.do">로그인</a></li>
 				<li><a href="newAccount.do">회원가입</a></li>
-				<li><a href="test.do">고객센터</a></li>	
 			<%
 			}else{
 				// 세션 닉네임 없을시
@@ -101,7 +100,7 @@ if(loginUser != null){
 			<%		
 				}else if(loginUser.getAuth() == 4 || loginUser.getAuth() == 5){
 			%>
-				<li><a href="#n">관리자페이지</a></li>
+				<li><a href="productList.do">관리자페이지</a></li>
 				
 			<%
 				}else{
@@ -111,7 +110,6 @@ if(loginUser != null){
 				}
 			%>
 				<li><a href="#none" onclick="logout()">로그아웃</a></li>
-				<li><a href="#test.do">고객센터</a></li>
 			<%
 			} 
 			%>
@@ -163,9 +161,6 @@ if(loginUser != null){
                   <li class="ssub" onclick="location.href='getPoolList.do'">
                     	수영장
                   </li>
-                  <li class="ssub"onclick="location.href=''">
-                     	운동장
-                  </li>
                </ul>
             </li>
             <li class="subNav">
@@ -173,9 +168,6 @@ if(loginUser != null){
                <ul id="subCommu" class="submenu">
                   <li class="ssub">
                     	 공지사항
-                  </li>
-                  <li class="ssub">
-                     QnA
                   </li>
                </ul>
             </li>
@@ -199,11 +191,9 @@ if(loginUser != null){
                   <ul>
                      <li><a href="getShopList.do">미용</a></li>
                      <li><a href="getPoolList.do">수영장</a></li>
-                     <li><a href="#">운동장</a></li>
                   </ul>
                   <ul>
                      <li><a href="#">공지사항</a></li>
-                     <li><a href="#">QnA</a></li>
                   </ul>
                </div>
             </div>
@@ -229,9 +219,23 @@ if(loginUser != null){
 <script>
 <!-- Session logout  -->
 function logout(){
-	if(confirm("로그아웃하시겠습니까?")){
+	/* if(confirm("로그아웃하시겠습니까?")){
 		location.href="logout.do";
-	}
+	} */
+	
+	Swal.fire({
+		  title: '로그아웃하시겠습니까?',
+		  icon: 'question',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  cancelButtonText:'아니요',
+		  confirmButtonText: '예'
+		}).then((result) => {
+		  if (result.value) {
+	  		location.href="logout.do";
+	  	  }
+		});
 }
 
 </script>

@@ -40,16 +40,10 @@
 					<a href="#n">수영장 예약정보</a>
 					<ul>
 						<li><a href="poolResvList.do">수영장 예약 내역보기</a></li>
-						<li><a href="#n">취소 내역보기</a></li>
+						<li><a href="poolCancleList.do">취소 내역보기</a></li>
 					</ul>
 				</li>
-				<li>
-					<a href="#n">운동장 예약정보</a>
-					<ul>
-						<li><a href="#">운동장 예약 내역보기</a></li>
-						<li><a href="#n">취소 내역보기</a></li>
-					</ul>
-				</li>
+
 				<li>
 					<a href="#n">회원정보관리</a>
 					<ul>
@@ -63,29 +57,6 @@
 						<li><a href="#"onclick="sellerAccess()">판매자 등록하기</a></li>
 						</c:if>
 					</ul>
-				</li>
-				<li>
-					<a href="#n">서비스정보</a>
-					<ul>
-						<li><a href="#n">나의 상품평</a></li>
-						<li><a href="#n">나의 상품 Q&amp;A</a></li>
-						<li><a href="#n">1:1답변확인</a></li>
-						<li><a href="#n">이벤트참여내역</a></li>
-					</ul>
-				</li>
-			</ul>
-		</div>
-		<div class="customerMenu">
-			<h4>온라인 고객센터</h4>
-			<p class="csNumber">123-4567<img src="./images/mypage/ico_phone.gif" class="pl5"></p>
-			<ul class="csTime">
-				<li>
-					평일
-					<span class="c_gray">09:00 ~ 19:00</span>
-				</li>
-				<li>
-					토/일요일 및 공휴일
-					<span class="c_gray">09:00 ~ 17 :00</span>
 				</li>
 			</ul>
 		</div>
@@ -118,7 +89,37 @@ function sellerAccess(){
 		if(username == "null" || nickname == "null"){
 			location.href="myPageMove.do";
 		}else{
-			if(confirm("판매자 등록 요청을 원하시나요?")){
+			Swal.fire({
+				  title: '판매자 등록 요청을 원하시나요?',
+				  icon: 'question',
+				  showCancelButton: true,
+				  confirmButtonColor: '#3085d6',
+				  cancelButtonColor: '#d33',
+				  confirmButtonText: '예, 아니요'
+				}).then((result) => {
+				  if (result.value) {
+					  $.ajax({
+							url:"sellerAccess.do",
+							type: "post",
+							dataType:"text",
+							data: {"mem_seq":mem_seq},
+							success:function(data){
+								if(data === "success"){
+									Swal.fire({
+								    	  icon: 'success',
+								    	  title: '판매자 등록 요청이 완료 되었습니다',
+								    	  showConfirmButton: true
+								    	}).then(function(){
+									  location.reload();
+									  });
+								}
+							},
+							error:function(request,status,error){
+							}
+						});
+				  }
+				})
+			/* if(confirm("판매자 등록 요청을 원하시나요?")){
 				$.ajax({
 					url:"sellerAccess.do",
 					type: "post",
@@ -133,11 +134,17 @@ function sellerAccess(){
 					error:function(request,status,error){
 					}
 				});
-			}
+			} */
 		}
 	}else if(userAuth==2){
-		alert("관리자 승인 대기 중입니다.");
+		/* alert("관리자 승인 대기 중입니다."); */
+		Swal.fire({
+	    	  icon: 'info',
+	    	  title: '관리자 승인 대기 중입니다.',
+	    	  showConfirmButton: true
+	    	}).then(function(){
+		  return;
+		  });
 	} 
 }
-
 </script>

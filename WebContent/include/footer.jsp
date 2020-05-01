@@ -8,7 +8,7 @@
     <li><a href="#n"><img src="./images/ico_f_instagram.gif" at="인스타그램 아이콘"></a></li>
   </ul> -->
   <div class="footer">
-    <ul class="top_menu">
+<!--     <ul class="top_menu">
       <li><a href="#n">회사소개</a></li>
       <li><a href="#n">맴버십안내</a></li>
       <li><a href="#n">이용약관</a></li>
@@ -16,24 +16,22 @@
       <li><a href="#n">입점신청</a></li>
       <li><a href="#n">고객센터</a></li>
       <li><a href="#n">사이트맵</a></li>
-    </ul>
+    </ul> -->
     <div class="main_menu">
       <ul class="clearfix">
-        <li>111</li>
-        <li>서울특별시 강남구</li>
+        <li>CaxiDogi</li>
+        <li>서울 강남구 테헤란로5길 11</li>
         <li>대표 홍길동</li>
       </ul>
       <ul class="clearfix">
-        <li>사업자 등록번호 102-23-1111</li>
-        <li class="bg_none">통신판매업 신고번호 제 2020-서울강남-34535</li>
-        <li><a href="#n" class="btn_w_line">사업자정보확인</a></li>
+        <li>사업자 등록번호 214-85-24928</li>
+        <li class="bg_none">통신판매업 신고번호 : 제 서초-00098호</li>
       </ul>
       <ul class="clearfix">
-        <li>고객센터 : 1599-0000</li>
-        <li class="bg_none">FAX : 02-0000-1243</li>
-        <li><a href="#n" class="btn_w_line">서비스문의</a></li>
+        <li>문의 : 02-3453-5404</li>
+        <li class="bg_none">팩스 : 02-6007-1245</li>
       </ul>
-      <p>COPYRIGHT(c) 2020 <a href="<%=request.getContextPath() %>/productList.do">A</a>LL RIGHTS RESERVED</p>
+      <p>COPYRIGHT(c) 2020 CaxiDogi <a href="<%=request.getContextPath() %>/productList.do">ALL</a> RIGHTS RESERVED</p>
       <%-- <p>COPYRIGHT(c) 2020 <a href="<%=request.getContextPath() %>/admin/main.do">A</a>LL RIGHTS RESERVED</p> --%>
       <img src="images/img_f_logo.png" class="footer_logo" alt="로고">
     </div>

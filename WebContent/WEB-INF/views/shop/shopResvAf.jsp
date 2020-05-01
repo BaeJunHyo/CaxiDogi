@@ -102,6 +102,14 @@
 						</dd>
 					</dl>
 				</li>
+				<li>
+					<dl>
+						<dt>요청사항</dt>
+						<dd>
+							${shopResv.shop_resv_comment}
+						</dd>
+					</dl>
+				</li>
 
 			</ul>
 			<p class="poolBtns clearfix" align="center">

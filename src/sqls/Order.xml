@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//www.mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="productOrder"> 
+	
+	<select id="getDefultAddress" parameterType="java.lang.Integer" resultType="cd.com.a.model.memberDto">
+		select mem_seq, id, user_name, address, phone  
+		from member
+		where mem_seq = #{mem_seq}
+	</select>
+	
+	<insert id="crete_productOrder" parameterType="cd.com.a.model.productSaleDto">
+		insert into product_saleing(mem_seq, product_num, saleing_amount, saleing_addr, saleing_tel, saleing_date, saleing_option,
+				saleing_option_state, saleing_group, saleing_delivery, delivery_message, saleing_name)
+		values(#{mem_seq}, #{product_num}, #{saleing_amount}, #{saleing_addr}, #{saleing_tel}, sysdate(), 0, 0, #{saleing_group},
+			#{saleing_delivery}, #{delivery_message}, #{saleing_name})
+
+	</insert>
+	
+	<insert id="create_SaleGroup" parameterType="java.lang.Integer">
+		insert into saleing_groupseq(mem_seq)
+		values(#{mem_seq})
+	</insert>
+	
+	<select id="getSaleGroup" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select MAX(saleing_group) from saleing_groupseq
+		where mem_seq = #{mem_seq}
+	</select>
+	
+	<update id="kakaoUpdate" parameterType="cd.com.a.model.productSaleDto">
+		update product_saleing 
+		set kakao_tid = #{kakao_tid}, kakao_cid = #{kakao_cid}
+		where saleing_group = #{saleing_group}
+	</update>
+	
+	<select id="getNowSaleing" parameterType="java.lang.Integer" resultType="cd.com.a.model.productSaleDto">
+		select * from product_saleing
+		where mem_seq = #{mem_seq} and
+				saleing_group = ( select MAX(saleing_group)  from  product_saleing  where mem_seq = #{mem_seq} ) and
+				saleing_num = (select MAX(saleing_num) from product_saleing where mem_seq = #{mem_seq})
+	</select>
+	
+</mapper>

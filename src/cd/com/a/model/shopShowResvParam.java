@@ -15,7 +15,7 @@ public class shopShowResvParam implements Serializable {
 	private String shop_resv_name;			// 예약자명
 	private String shop_resv_tel;			// 예약자 연락처
 	private int shop_resv_price;			// 가금액
-	private int shop_resv_auth;				// 취소여부
+	private int shop_resv_auth;				// 취소여부, 이용여부
 	private String shop_resv_comment; 
 	
 	private String shop_name;				// 샵이름

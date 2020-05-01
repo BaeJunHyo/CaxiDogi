@@ -46,6 +46,7 @@ if(sessionUser == null){
 				<option value ="1">입금대기</option>
 				<option value ="2">예약완료</option>
 				<option value ="3">취소</option>
+				<option value ="7">사용완료</option>
 			</select>
 			</c:if>
 		</div>
@@ -69,7 +70,7 @@ if(sessionUser == null){
 		</c:if>
 		<c:if test="${fn:length(poolSellerResvList) !=0 }">
 			<c:forEach items="${poolSellerResvList }" var="resv" varStatus="sp">
-			<tr pool_resv_seq = "${resv.pool_resv_seq  }" class = "poolResv">
+			<tr pool_resv_seq = "${resv.pool_resv_seq  }" class = "poolResv" pool_resv_auth ="${resv.pool_resv_auth  }">
 				<th>${resv.pool_seq }</th>
 				<td>${resv.pool_name }</td>
 				<td>${resv.pool_resv_sdate }</td>
@@ -90,6 +91,9 @@ if(sessionUser == null){
 					</c:if>
 					<c:if test = "${resv.pool_resv_auth == 3 }">
 						<span style="color : red;">취소</span>
+					</c:if>
+					<c:if test = "${resv.pool_resv_auth == 7 }">
+						<span style="color : blue;">사용완료</span>
 					</c:if>
 				</td>
 				<td>
@@ -118,7 +122,10 @@ if(sessionUser == null){
 <script type="text/javascript">
 $(document).on("click",".poolResv", function(){
 	var pool_resv_seq = $(this).attr("pool_resv_seq");
-	location.href="SellerResvDetail.do?pool_resv_seq="+pool_resv_seq;
+	var pool_resv_auth = $(this).attr("pool_resv_auth");
+	if(pool_resv_auth!=7){
+		location.href="SellerResvDetail.do?pool_resv_seq="+pool_resv_seq;
+	}
 });
 
 $("#pool_seq").change(function(){

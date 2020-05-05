@@ -37,6 +37,8 @@ import cd.com.a.model.memberDto;
 import cd.com.a.model.order_PrdParamList;
 import cd.com.a.model.productDto;
 import cd.com.a.model.productSaleDto;
+import cd.com.a.model.saleBasketParam;
+import cd.com.a.service.basketService;
 import cd.com.a.service.orderService;
 import cd.com.a.util.orderUtil;
 
@@ -48,6 +50,10 @@ public class orderController {
 	
 	@Autowired
 	DetailService detailservice;
+	
+	@Autowired
+	basketService basketservice;
+	
 	private static final String HOST = "https://kapi.kakao.com";
 	
 	
@@ -73,7 +79,13 @@ public class orderController {
 		
 		memberDto mem = (memberDto)request.getSession().getAttribute("loginUser");
 		System.out.println(mem.toString());
-		System.out.println("memberSeq === " + mem.getMem_seq());
+		//System.out.println("memberSeq === " + mem.getMem_seq());
+		
+		for(int i = 0; i < acount.length; i++) {
+			System.out.println("acount[" + i +"] 번째 == " + acount[i]);
+			System.out.println("productSeq[" + i + "]번째 == " + productSeq[i]);
+		} 
+		
 		System.out.println("totalPrice == " + totalPrice);
 		// db 주문테이블 생성
 		// groupNum 생성
@@ -130,16 +142,16 @@ public class orderController {
         params.add("cancel_url", "http://localhost:8090/CaxiDogi/kakaoPayCancel.do");		//결제 취소시 넘어갈 servlet Controller 주소 
         params.add("fail_url", "http://localhost:8090/CaxiDogi/kakaoPaySuccessFail.do"); 	//결제 실패시 넘어갈 servlet Controller 주소
         
-		System.out.println("2222");
+		//System.out.println("2222");
 		
 
 		HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
-		System.out.println("333");
+		//System.out.println("333");
 		try {
 			
 			KakaoPayReadyDto kakaoPayDto = restTemplate.postForObject(new URI(HOST + "/v1/payment/ready"), body, KakaoPayReadyDto.class);
 			
-			System.out.println("4444");
+			//System.out.println("4444");
 			System.out.println(kakaoPayDto.toString());
 
 			// db 주문 테이블 update (tid 넣기)
@@ -183,6 +195,15 @@ public class orderController {
 		System.out.println(saleDto.toString());
 		
 		
+		//장바구니 삭제 처리 
+		List<productSaleDto> saleList = orderservice.getNowSaleingList(saleDto.getSaleing_group());
+		System.out.println("saleList size == " + saleList.size());
+		
+		for(productSaleDto dto : saleList) {
+			basketservice.saleBasket(new saleBasketParam(dto.getMem_seq(), dto.getProduct_num()));
+		}
+		
+		
 		// 서버로 요청할 Body
 		// 결제 정보를 넘겨줘야 한다
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
@@ -224,6 +245,8 @@ public class orderController {
 		memberDto mem = (memberDto)session.getAttribute("loginUser");
 		productSaleDto saleDto = orderservice.getNowSaleing(mem.getMem_seq());
 		
+		//제품구매 테이블 삭제 처리 
+		orderservice.FailOrder(saleDto.getSaleing_group());
 		
 		kakaoSelectDto kakaodto = selectKakao(saleDto.getKakao_tid());
 		model.addAttribute("kakaoDto", kakaodto);
@@ -249,6 +272,40 @@ public class orderController {
 	}
 	
 	
+	@RequestMapping(value="MyOrderList.do", method=RequestMethod.GET)
+	public String MyOrderList(Model model) {
+		
+		//db에서 그룹으로 묶어서 그룹번호만 받아온다 
+		/*
+		 	select saleing_group from product_saleing
+			where mem_seq = #{mem_seq} 
+			group by saleing_group
+			order by saleing_group desc;
+		 */
+		
+		//받아온 list.size() 만큼 for문 돌린다 
+		//그다음에는 changeOrderProductName() 사용해서 이름 바꾸어 놓고 
+		//saleing_num 만 String 으로 변형해서 모아준다   list[0] 에 
+		
+		return"";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	//util 함수
@@ -256,17 +313,17 @@ public class orderController {
 		System.out.println("orderUtil   changeOrderProductName()");
 		
 		
-		System.out.println("111");
+		//System.out.println("111");
 		System.out.println(orderList.get(0).getProduct_num());
 		
 		productDto prdDto = detailservice.getPrd(orderList.get(0).getProduct_num());
-		System.out.println("22");
+		//System.out.println("22");
 		
 		String result = "";
 		
 		
 		if(orderList.size() > 1 ) {
-			result = prdDto.getProduct_name() + "...외  " + orderList.size() + " 건";
+			result = prdDto.getProduct_name() + "...외  " + (orderList.size() - 1) + " 건";
 			System.out.println("여러건 === " + result);
 		}else if(orderList.size() == 1){
 			result = prdDto.getProduct_name();

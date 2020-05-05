@@ -50,7 +50,6 @@
 							<col width="120px">
 							<col width="120px">
 							<col width="200px">
-							<col width="80px">
 						</colgroup>
 						
 						<thead>
@@ -69,9 +68,16 @@
 						</thead>
 						
 						<tbody id="prd_list">
+							<c:if test="${basketList eq null }">
+								<tr style="border: 1px solid #c8c8c8;">
+									<td colspan="7">
+										현재 고객님의  장바구니는 비어있습니다.
+									</td>
+								</tr>
+							</c:if>
 							<c:forEach var="basketDto" items="${basketList }" varStatus="status">
 								<tr style="border: 1px solid #c8c8c8;">
-									<td><input type="checkbox" value="${basketDto.basket_num }"></td>
+									<td><input type="checkbox" class="basketCheck" value="${basketDto.basket_num }"></td>
 									<td><%-- 상품 이미지와 이름 정보 --%>
 										<div style="padding: 10px 10px 10px 10px;">
 											<div class="이미지" style="width:30%; height:100%; float:left; margin-bottom: 10px;">
@@ -88,8 +94,8 @@
 										<span class="counter" id="counter">
 		                              		<input type="text" value="${basketDto.basket_amount}" class="tCount" readonly="readonly">
 		                              		<span class="counterBtn">
-		                                 		<a href="javascript:void(0)" class="btnPlus"></a>
-		                                 		<a href="javascript:void(0)" class="btnMinus"></a>
+		                                 		<a href="javascript:void(0)" index="${basketDto.basket_num }" class="btnPlus"></a>
+		                                 		<a href="javascript:void(0)" index="${basketDto.basket_num }" class="btnMinus"></a>
 		                             	 	</span>
 		                           		</span>
 									</td>
@@ -137,7 +143,8 @@
 		</div>
 	</div>
 </div>
-<form>
+
+<form id="orderForm" name="orderForm" method="post" action="productOrder.do">
 
 </form>
 
@@ -194,6 +201,24 @@
 
 		$('#prd_list').children().last().children('td').children('.total_Price_Sum').text(total_price_sum);
 		
+		//DB 업데이트 
+		//alert($(this).attr('index'));
+		
+		$.ajax({
+			url:"amountUpdate.do",
+			type:"post",
+			data:{
+				basket_num:$(this).attr('index'),
+				state:"+"
+			},
+			success: function ( result ){
+				alert("연결성공");
+				alert(result);
+			},
+			error: function (){
+				alert("연결실패");
+			}
+		})
 	});
 	
 	$(document).on("click",".btnMinus", function (){
@@ -244,32 +269,88 @@
 
 		$('#prd_list').children().last().children('td').children('.total_Price_Sum').text(total_price_sum);
 		
+		//DB 업데이트 
+		//alert($(this).attr('index'));
+		
+		$.ajax({
+			url:"amountUpdate.do",
+			type:"post",
+			data:{
+				basket_num:$(this).attr('index'),
+				state:"-"
+			},
+			success: function ( result ){
+				alert("연결성공");
+				alert(result);
+			},
+			error: function (){
+				alert("연결실패");
+			}
+		})
+		
+		
 	});
 
 </script>
 
 <%-- 버튼 동작 처리  --%>
 <script type="text/javascript">
-
-$(document).on("click", "#all_check", function (){
-	if($(this).is(":checked")){
-		$("input[type='checkbox']").prop('checked',true);
-	}else{
-		$("input[type='checkbox']").prop('checked',false);
-	}
-})
-
-/*  
-$(document).on("click", "input[type='checkbox']", function (){
-	if($(this).is(":checked")){
-		$(this).prop('checked',true);
-	}else{
-		$(this).prop('checked',false);
-	}
-})*/
+		
+	$(document).on("click", "#all_check", function (){
+		if($(this).is(":checked")){
+			$("input[type='checkbox']").prop('checked',true);
+		}else{
+			$("input[type='checkbox']").prop('checked',false);
+		}
+	})
+	
+	
+	//form 안에 데이터 동적생성
+	$(document).on("click",".basketCheck", function (){
+		
+		//모든자식제거
+		$("#orderForm").empty();
+		
+		var checkbox = $("input[type='checkbox']");
+		var index = 0;
+		
+		for(i=1; i <= checkbox.length-1; i++){
+			if($(checkbox[i]).is(":checked")){
+				//alert("체크");
+				//alert($(checkbox[i]).val());
+				$.ajax({
+					url:"getBasketDto.do",
+					type:"post",
+					data:{
+						basket_num:$(checkbox[i]).val()
+					},
+					success: function ( dto ){
+						//alert("통신성공");
+						console.log(dto);
+						//여기서 form 내에 input 태그 생성 
+						var inputStr = "<input type='text'";
+						inputStr += " name='orderList[" + index + "].product_num'";
+						inputStr += " value='" + dto.product_num + "'>";
+					
+						$("#orderForm").append(inputStr);
+						
+						inputStr = "<input type='hidden'";
+						inputStr += " name='orderList[" + index + "].acount'";
+						inputStr += " value='" + dto.basket_amount + "'>";
+						
+						$("#orderForm").append(inputStr);
+						
+						index++;
+					},
+					error: function (){
+						alert("통신실패");
+					}
+				})//ajax	
+			}//if
+		}//for
+	})
 
 </script>
-
 
 <%-- 삭제 처리  --%>
 <script>
@@ -315,9 +396,29 @@ $(document).on("click", "input[type='checkbox']", function (){
 		
 	});
 </script>
-<%--    --%>
+
+
+
+
+
+<%-- 결재 처리   --%>
 <script>
+
+$(document).on('click', "#btn_payment", function (){
+	alert("주");
+	
+	var ok = confirm("선택한 상품을 주문하시겠습니까??");
+	
+	if(ok){
+		$("#orderForm").submit();	
+	}
+	
+	
+})
+
 </script>
+
+
 
 
 

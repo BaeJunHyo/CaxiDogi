@@ -49,6 +49,20 @@ public class orderDaoImpl implements orderDao {
 	public productSaleDto getNowSaleing(int mem_seq) {
 		return sqlSession.selectOne(ns + "getNowSaleing", mem_seq);
 	}
+
+	@Override
+	public boolean FailOrder(int saleing_group) {
+		
+		return sqlSession.delete(ns + "FailOrder", saleing_group)>0?true:false;
+	}
+
+	@Override
+	public List<productSaleDto> getNowSaleingList(int saleing_group) {
+		
+		return sqlSession.selectList(ns + "getNowSaleingList", saleing_group);
+	}
+
+	
 	
 	
 	

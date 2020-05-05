@@ -42,4 +42,14 @@
 				saleing_num = (select MAX(saleing_num) from product_saleing where mem_seq = #{mem_seq})
 	</select>
 	
+	<delete id="FailOrder" parameterType="java.lang.Integer">
+		delete from product_saleing
+		where saleing_group = #{saleing_group}
+	</delete>
+	
+	<select id="getNowSaleingList" parameterType="java.lang.Integer" resultType="cd.com.a.model.productSaleDto">
+		select * from product_saleing
+		where saleing_group = #{saleing_group}
+	</select>
+	
 </mapper>

@@ -202,7 +202,7 @@ if(loginUser != null){
       </nav>
 		<!-- //inner -->
 	</div>
-		
+<%-- 		
 <c:if test="${loginUser eq null }">
 <script>
 $(document).ready(function(){
@@ -229,7 +229,7 @@ $(document).ready(function(){
 		})
 })
 </script>
-</c:if>	
+</c:if>--%>	
 	
 	
 	

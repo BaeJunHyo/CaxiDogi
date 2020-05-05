@@ -24,5 +24,13 @@
 		<p>결제금액:</p>
 	</div>
 </div>
+
+<script type="text/javascript">
+	$("#closeBtn").click(function () {
+		opener.parent.paymentConfirm();
+		close();
+	});
+	
+</script>
 </body>
 </html>

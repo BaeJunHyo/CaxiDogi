@@ -45,6 +45,18 @@ public class orderServiceImpl implements orderService {
 	public productSaleDto getNowSaleing(int mem_seq) {
 		return orderdao.getNowSaleing(mem_seq);
 	}
+
+	@Override
+	public boolean FailOrder(int saleing_group) {
+		
+		return orderdao.FailOrder(saleing_group);
+	}
+
+	@Override
+	public List<productSaleDto> getNowSaleingList(int saleing_group) {
+		
+		return orderdao.getNowSaleingList(saleing_group);
+	}
 	
 	
 	

@@ -1,3 +1,4 @@
+
 <!DOCTYPE mapper
   PUBLIC "-//www.mybatis.org//DTD Mapper 3.0//EN"
   "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -24,5 +25,29 @@
 		where basket_num = #{basket_num}
 	</delete>
 	
+	<update id="amountUpdate" parameterType="cd.com.a.model.amountParam">
+		update orderBasket
+		set 
+		<choose>
+			<when test='state == "+"'>
+				basket_amount = basket_amount + 1
+			</when>
+			<otherwise>
+				basket_amount = basket_amount - 1
+			</otherwise>
+		</choose>
+		where basket_num = #{basket_num}
+	</update>
+	
+	<select id="getBasketDto" parameterType="java.lang.Integer" resultType="cd.com.a.model.basketDto">
+		select * from orderBasket
+		where basket_num = #{basket_num}
+	</select>
+	
+	<delete id="saleBasket" parameterType="cd.com.a.model.saleBasketParam">
+		delete from orderBasket
+		where mem_seq = #{mem_seq} and
+				product_num = #{product_num}
+	</delete>
 	
 </mapper>

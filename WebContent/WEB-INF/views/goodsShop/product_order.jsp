@@ -60,6 +60,7 @@
 											<a href="productDetail.do?product_num=${productDto.product_num }">${productDto.product_name }</a>
 										</div>
 									</div>
+									<input type="hidden" value="${productDto.product_num }"> 
 								</td>
 								<td>
 									<span class="counter" id="counter">
@@ -584,11 +585,13 @@
 			alert("통과");
 
 			var acount = $("#prd_list input[type='text']");
+			var prdNum = $("#prd_list input[type='hidden']");
 			var acountArr = new Array();
 			var prdArr = new Array();
 			for(i=0; i < acount.length; i++){
 				acountArr[i] = $(acount[i]).val();
-				prdArr[i] = ${prd_list.get(i).product_num};
+				prdArr[i] = $(prdNum[i]).val();
+				//console.log(prdArr[i]);
 			}
 
 			var phoneNum = "" + $('#phone_top').val() +"-"+ $('#phone_middle').val() +"-"+ $('#phone_bottom').val();
@@ -632,5 +635,12 @@
 	});
 	
 </script>
+
+<script>
+	function paymentConfirm(){
+		location.href="myPageMove.do";
+	}
+</script>
+
 
 <%@ include file="./../../../include/footer.jsp"%>

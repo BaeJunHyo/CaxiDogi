@@ -13,5 +13,6 @@ public interface orderDao {
 	public int getSaleGroup(int mem_seq);
 	public boolean kakaoUpdate(productSaleDto saleDto);
 	public productSaleDto getNowSaleing(int mem_seq);
-	
+	public List<productSaleDto> getNowSaleingList(int saleing_group);
+	public boolean FailOrder(int saleing_group);
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cd.com.a.goods.DetailService;
+import cd.com.a.model.amountParam;
 import cd.com.a.model.basketDto;
 import cd.com.a.model.memberDto;
 import cd.com.a.model.productDto;
@@ -35,7 +36,7 @@ public class basketController {
 		
 		List<basketDto> list = service.getMyBasketList(mem.getMem_seq());
 
-		
+		System.out.println("listSize == " + list.size());
 		System.out.println("================== 가져온 장바구니 리스트  ==================");
 		for(basketDto dto : list) {
 			System.out.println(dto.toString());
@@ -43,8 +44,11 @@ public class basketController {
 			
 		}
 		
-		model.addAttribute("basketList", list);
-		
+		if(list.size() == 0) {
+			model.addAttribute("basketList", null);
+		}else {
+			model.addAttribute("basketList", list);
+		}
 		return "basket/order_basket";
 	}
 	
@@ -73,6 +77,30 @@ public class basketController {
 		boolean is = service.deleteMyBasket(basket_num);
 		
 		return String.valueOf(is);
+	}
+	
+	
+	@RequestMapping(value="amountUpdate.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String amountUpdate(amountParam param) {
+		
+		System.out.println("basketController amountUpdate()");
+		System.out.println(param.toString());
+		
+		boolean is = service.amountUpdate(param);
+		
+		return String.valueOf(is);
+	}
+	
+	
+	@RequestMapping(value="getBasketDto.do", method=RequestMethod.POST)
+	@ResponseBody
+	public basketDto getBasketDto(int basket_num) {
+		System.out.println("getBasketDto()");
+		basketDto dto = service.getBasketDto(basket_num);
+		
+		System.out.println(dto.toString());
+		return dto;
 	}
 	
 }

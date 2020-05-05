@@ -38,6 +38,7 @@ p{color: #7d7d7d;}
 
 <script type="text/javascript">
 	$("#closeBtn").click(function () {
+		opener.parent.paymentConfirm();
 		close();
 	});
 	

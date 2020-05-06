@@ -25,14 +25,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+import com.google.gson.Gson;
+
 import cd.com.a.goods.DetailService;
 import cd.com.a.goods.DetailServiceImpl;
 import cd.com.a.model.KakaoPayApproveDto;
 import cd.com.a.model.KakaoPayReadyDto;
+import cd.com.a.model.kakaoAmount;
+import cd.com.a.model.kakaoSelectDto;
 import cd.com.a.model.memberDto;
+import cd.com.a.model.myBuyParam;
+import cd.com.a.model.orderDetailParam;
 import cd.com.a.model.order_PrdParamList;
 import cd.com.a.model.productDto;
 import cd.com.a.model.productSaleDto;
+import cd.com.a.model.saleBasketParam;
+import cd.com.a.service.basketService;
 import cd.com.a.service.orderService;
 import cd.com.a.util.orderUtil;
 
@@ -44,6 +52,10 @@ public class orderController {
 	
 	@Autowired
 	DetailService detailservice;
+	
+	@Autowired
+	basketService basketservice;
+	
 	private static final String HOST = "https://kapi.kakao.com";
 	
 	
@@ -69,7 +81,13 @@ public class orderController {
 		
 		memberDto mem = (memberDto)request.getSession().getAttribute("loginUser");
 		System.out.println(mem.toString());
-		System.out.println("memberSeq === " + mem.getMem_seq());
+		//System.out.println("memberSeq === " + mem.getMem_seq());
+		
+		for(int i = 0; i < acount.length; i++) {
+			System.out.println("acount[" + i +"] 번째 == " + acount[i]);
+			System.out.println("productSeq[" + i + "]번째 == " + productSeq[i]);
+		} 
+		
 		System.out.println("totalPrice == " + totalPrice);
 		// db 주문테이블 생성
 		// groupNum 생성
@@ -121,20 +139,21 @@ public class orderController {
         params.add("quantity", getTotalAmount(saleList));  						//상품 수량 NOT NULL 
         params.add("total_amount", "" + totalPrice);  				//상품 총액 NOT NULL
         params.add("tax_free_amount", "0"); 				//상품 비과세 금액 NOT NULL
+        //34.64.221.161:8080
         params.add("approval_url", "http://localhost:8090/CaxiDogi/kakaoPaySuccess.do"); 	//결제 성공시 넘어갈 servlet Controller 주소 
         params.add("cancel_url", "http://localhost:8090/CaxiDogi/kakaoPayCancel.do");		//결제 취소시 넘어갈 servlet Controller 주소 
         params.add("fail_url", "http://localhost:8090/CaxiDogi/kakaoPaySuccessFail.do"); 	//결제 실패시 넘어갈 servlet Controller 주소
         
-		System.out.println("2222");
+		//System.out.println("2222");
 		
 
 		HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
-		System.out.println("333");
+		//System.out.println("333");
 		try {
 			
 			KakaoPayReadyDto kakaoPayDto = restTemplate.postForObject(new URI(HOST + "/v1/payment/ready"), body, KakaoPayReadyDto.class);
 			
-			System.out.println("4444");
+			//System.out.println("4444");
 			System.out.println(kakaoPayDto.toString());
 
 			// db 주문 테이블 update (tid 넣기)
@@ -178,6 +197,15 @@ public class orderController {
 		System.out.println(saleDto.toString());
 		
 		
+		//장바구니 삭제 처리 
+		List<productSaleDto> saleList = orderservice.getNowSaleingList(saleDto.getSaleing_group());
+		System.out.println("saleList size == " + saleList.size());
+		
+		for(productSaleDto dto : saleList) {
+			basketservice.saleBasket(new saleBasketParam(dto.getMem_seq(), dto.getProduct_num()));
+		}
+		
+		
 		// 서버로 요청할 Body
 		// 결제 정보를 넘겨줘야 한다
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
@@ -203,51 +231,190 @@ public class orderController {
 			e.printStackTrace();
 		}
 		
+		kakaoSelectDto kakaodto = selectKakao(saleDto.getKakao_tid());
+		model.addAttribute("kakaoDto", kakaodto);
+		
+		
 		return "kakao/success";
 	}
 	
 	@RequestMapping(value="kakaoPayCancel.do", method= {RequestMethod.GET,RequestMethod.POST})
-	public String kakaoPayCancel(Model model) {
+	public String kakaoPayCancel(Model model, HttpSession session) {
 		
 		System.out.println("orderController kakaoPayCancel()");
+		
+		
+		memberDto mem = (memberDto)session.getAttribute("loginUser");
+		productSaleDto saleDto = orderservice.getNowSaleing(mem.getMem_seq());
+		
+		//제품구매 테이블 삭제 처리 
+		orderservice.FailOrder(saleDto.getSaleing_group());
+		
+		kakaoSelectDto kakaodto = selectKakao(saleDto.getKakao_tid());
+		model.addAttribute("kakaoDto", kakaodto);
+		
+		
 		
 		return "kakao/cancel";
 	}
 	
 	@RequestMapping(value="kakaoPaySuccessFail.do", method= {RequestMethod.GET,RequestMethod.POST})
-	public String kakaoPaySuccessFail(Model model) {
+	public String kakaoPaySuccessFail(Model model, HttpSession session) {
 		
 		System.out.println("orderController kakaoPaySuccessFail()");
 		
+		memberDto mem = (memberDto)session.getAttribute("loginUser");
+		productSaleDto saleDto = orderservice.getNowSaleing(mem.getMem_seq());
+		
+		
+		kakaoSelectDto kakaodto = selectKakao(saleDto.getKakao_tid());
+		model.addAttribute("kakaoDto", kakaodto);
 		
 		return "kakao/fail";
 	}
+	
+	
+	@RequestMapping(value="MyOrderList.do", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Integer> MyOrderList(Model model, HttpSession session) {
+		
+		//db에서 그룹으로 묶어서 그룹번호만 받아온다 
+		/*
+		 	select saleing_group from product_saleing
+			where mem_seq = #{mem_seq} 
+			group by saleing_group
+			order by saleing_group desc;
+		 */
+		memberDto mem = (memberDto)session.getAttribute("loginUser");
+		List<Integer> saleSeqList = orderservice.myOrderList_group(mem.getMem_seq());
+		
+		int fsize = 0; //for문 돌아갈 사이즈 
+		if(saleSeqList.size() >= 5) {fsize = 5;}
+		else {fsize = saleSeqList.size();}
+		
+		List<Integer> result = new ArrayList<Integer>();
+		
+		for(int i = 0; i < fsize; i++) {
+			System.out.print("넘어온 saleing_num["+ i +"]  == ");
+			System.out.println(saleSeqList.get(i));
+			
+			result.add(saleSeqList.get(i));
+		}
+		
+		//받아온 list.size() 만큼 for문 돌린다 
+		//그다음에는 changeOrderProductName() 사용해서 이름 바꾸어 놓고 
+		//saleing_num 만 String 으로 변형해서 모아준다   list[0] 에 
+		
+		return result;
+	}
+	
+	@RequestMapping(value="myBuyDetail.do", method=RequestMethod.GET)
+	public String myBuyDetail(Model model, @RequestParam(value = "index") String index) {
+		
+		System.out.println("index == " + index);
+		List<orderDetailParam> detailList = orderservice.myOrderDetail(Integer.parseInt(index));
+		
+		model.addAttribute("detailList", detailList);
+		return "mypage/myBuyDetail";
+	}
+	
+	@RequestMapping(value="myBuyListAll.do", method=RequestMethod.GET)
+	public String myBuyListAll(Model model, HttpSession session) {
+		
+		//최근 나의 구매 내역 
+		memberDto mem = (memberDto)session.getAttribute("loginUser");
+		List<Integer> saleGroupList = orderservice.myOrderList_group(mem.getMem_seq());
+		
+		List<myBuyParam> myBuyList = new ArrayList<myBuyParam>(); 
+		
+		if(saleGroupList.size() > 0) {
+			//saleGroupList 만큼 돌리면서 paramList 생성 
+			for(int i = 0; i < saleGroupList.size(); i++) {
+				//System.out.print("넘어온 saleing_num["+ i +"]  == ");
+				//System.out.println(saleGroupList.get(i));
+				
+				List<productSaleDto> saleList = orderservice.getNowSaleingList(saleGroupList.get(i));
+				
+				String myOrderName = changeOrderProductName(saleList);
+				String saleing_numStr = "" + saleList.get(0).getSaleing_num();
+				int amount = saleList.get(0).getSaleing_amount();
+				
+				int price = detailservice.getPrd(saleList.get(0).getProduct_num()).getProduct_price() * amount;
+				
+				String strDate = saleList.get(0).getSaleing_date();
+		
+				String[] strDate2 = strDate.split("\\s");
+				//System.out.println(strDate2[0]);
+				//System.out.println(strDate2[1]);
+				strDate = strDate2[0] + "/";
+				
+				strDate2[1] = strDate2[1].substring(0, 8);
+				strDate += strDate2[1];
+				
+				//System.out.println("완성 === " + strDate);
+				productDto prdDto = null;
+				
+				if(saleList.size() > 1) {
+					for(int j = 1; j < saleList.size(); j++) {
+						saleing_numStr += "/" + saleList.get(j).getSaleing_num();
+						amount += saleList.get(j).getSaleing_amount();
+						//가격
+						prdDto = detailservice.getPrd(saleList.get(j).getProduct_num());
+						price += prdDto.getProduct_price() * saleList.get(j).getSaleing_amount();
+						
+					}
+				}else {
+					prdDto = detailservice.getPrd(saleList.get(0).getProduct_num());
+				}
+				//System.out.println(prdDto.getProduct_img());
+				myBuyList.add(new myBuyParam(saleing_numStr, myOrderName, strDate, prdDto.getProduct_img(), amount, price, saleGroupList.get(i) , saleList.get(0).getProduct_delivery_state()));
+				
+			}
+		}else {
+			return null;
+		}
+		
+		model.addAttribute("myBuyList", myBuyList);
+		
+		return "mypage/myBuyListAll";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
 	
 	//util 함수
 	public String changeOrderProductName(List<productSaleDto> orderList) {
-		System.out.println("orderUtil   changeOrderProductName()");
+		//System.out.println("orderUtil   changeOrderProductName()");
 		
 		
-		System.out.println("111");
-		System.out.println(orderList.get(0).getProduct_num());
+		//System.out.println("111");
+		//System.out.println(orderList.get(0).getProduct_num());
 		
 		productDto prdDto = detailservice.getPrd(orderList.get(0).getProduct_num());
-		System.out.println("22");
+		//System.out.println("22");
 		
 		String result = "";
 		
 		
 		if(orderList.size() > 1 ) {
-			result = prdDto.getProduct_name() + "...외  " + orderList.size() + " 건";
-			System.out.println("여러건 === " + result);
+			result = prdDto.getProduct_name() + "...외  " + (orderList.size() - 1) + " 건";
+			//System.out.println("여러건 === " + result);
 		}else if(orderList.size() == 1){
 			result = prdDto.getProduct_name();
 		}
 		
-		System.out.println("result == " + result);
+		//System.out.println("result == " + result);
 		
 		return result;
 	}
@@ -266,5 +433,54 @@ public class orderController {
 		System.out.println("총 갯수 == "  + totalAmount);
 		return String.valueOf(totalAmount);
 	}
+	
+	
+	
+	public kakaoSelectDto selectKakao(String tid) {
+		
+		//모델로 넘겨줌 
+		// 서버와 통신할 객체 생성
+		RestTemplate restTemplate = new RestTemplate();
+		
+		// 서버로 요청할 header
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", "KakaoAK " + "cbff925dffacd0e67ba93eed0db3a9a3");
+		headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
+		
+		// 서버로 요청할 Body
+		// 결제 정보를 넘겨줘야 한다
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		params.add("cid", "TC0ONETIME");
+		params.add("tid", tid );
+		
+		
+		HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
+		try {
+			
+			kakaoSelectDto kakaoPayDto = restTemplate.postForObject(new URI(HOST + "/v1/payment/order"), body,
+					kakaoSelectDto.class);
+
+			System.out.println(kakaoPayDto.toString());
+			Object obj = kakaoPayDto.getAmount();
+			Gson gson = new Gson();
+			
+			String stra = gson.toJson(obj);
+			kakaoAmount amount = gson.fromJson(stra, kakaoAmount.class);
+			System.out.println(amount.getTotal());
+			kakaoPayDto.setTotalPrice("" + amount.getTotal());
+			
+			return kakaoPayDto;
+			
+		} catch (RestClientException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+				
+		return null;
+	}
+	
 	
 }

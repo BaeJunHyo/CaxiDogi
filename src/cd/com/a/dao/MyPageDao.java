@@ -17,5 +17,6 @@ public interface MyPageDao {
 	List<poolResvParam> sellerPoolResvList(int mem_seq);
 
 	List<shopShowResvParam> sellerShopResvList(int mem_seq);
+	
 
 }

@@ -1,0 +1,53 @@
+
+<!DOCTYPE mapper
+  PUBLIC "-//www.mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="orderBasket">
+	
+	<insert id="Basket_create" parameterType="cd.com.a.model.basketDto">
+		insert into orderBasket(mem_seq, product_num, basket_amount)
+		values(#{mem_seq}, #{product_num}, #{basket_amount})
+	</insert>
+	
+	<select id="getMyBasketList" parameterType="java.lang.Integer" resultType="cd.com.a.model.basketDto">
+		select b.basket_num, b.mem_seq, b.product_num, b.basket_amount,
+				p.product_name, p.product_img, p.product_price, p.product_group, 
+				p.product_sub_group, p.product_brand, p.product_hidden, p.product_stock, 
+				p.product_sale, p.product_del
+		from orderBasket b , product p
+		where b.product_num = p.product_num  and
+				b.mem_seq = #{mem_seq}  
+	</select>
+	
+	<delete id="deleteMyBasket" parameterType="java.lang.Integer">
+		delete from orderBasket
+		where basket_num = #{basket_num}
+	</delete>
+	
+	<update id="amountUpdate" parameterType="cd.com.a.model.amountParam">
+		update orderBasket
+		set 
+		<choose>
+			<when test='state == "+"'>
+				basket_amount = basket_amount + 1
+			</when>
+			<otherwise>
+				basket_amount = basket_amount - 1
+			</otherwise>
+		</choose>
+		where basket_num = #{basket_num}
+	</update>
+	
+	<select id="getBasketDto" parameterType="java.lang.Integer" resultType="cd.com.a.model.basketDto">
+		select * from orderBasket
+		where basket_num = #{basket_num}
+	</select>
+	
+	<delete id="saleBasket" parameterType="cd.com.a.model.saleBasketParam">
+		delete from orderBasket
+		where mem_seq = #{mem_seq} and
+				product_num = #{product_num}
+	</delete>
+	
+</mapper>

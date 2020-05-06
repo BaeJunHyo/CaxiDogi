@@ -47,6 +47,7 @@ public class productSaleDto implements Serializable {
 	private int saleing_group;
 	private int saleing_delivery;
 	private String delivery_message;
+	private int product_delivery_state;
 	
 	public productSaleDto() {
 		super();
@@ -56,7 +57,7 @@ public class productSaleDto implements Serializable {
 	public productSaleDto(int saleing_num, int mem_seq, int product_num, int saleing_amount, String saleing_addr,
 			String saleing_tel, String saleing_date, String saleing_name, int saleing_option, int saleing_option_state,
 			String kakao_tid, String kakao_cid, int saleing_group, int saleing_delivery,
-			String delivery_message) {
+			String delivery_message, int product_delivery_state) {
 		super();
 		this.saleing_num = saleing_num;
 		this.mem_seq = mem_seq;
@@ -73,6 +74,7 @@ public class productSaleDto implements Serializable {
 		this.saleing_group = saleing_group;
 		this.saleing_delivery = saleing_delivery;
 		this.delivery_message = delivery_message;
+		this.product_delivery_state = product_delivery_state;
 	}
 
 	public productSaleDto(int mem_seq, int product_num, int saleing_amount, String saleing_addr, String saleing_tel,
@@ -208,6 +210,15 @@ public class productSaleDto implements Serializable {
 	public void setDelivery_message(String delivery_message) {
 		this.delivery_message = delivery_message;
 	}
+	
+	
+	public int getProduct_delivery_state() {
+		return product_delivery_state;
+	}
+
+	public void setProduct_delivery_state(int product_delivery_state) {
+		this.product_delivery_state = product_delivery_state;
+	}
 
 	@Override
 	public String toString() {
@@ -215,10 +226,11 @@ public class productSaleDto implements Serializable {
 				+ ", saleing_amount=" + saleing_amount + ", saleing_addr=" + saleing_addr + ", saleing_tel="
 				+ saleing_tel + ", saleing_date=" + saleing_date + ", saleing_name=" + saleing_name
 				+ ", saleing_option=" + saleing_option + ", saleing_option_state=" + saleing_option_state
-				+ ", kakao_tid=" + kakao_tid + ", kakao_cid=" + kakao_cid
-				+ ", saleing_group=" + saleing_group + ", saleing_delivery=" + saleing_delivery + ", delivery_message="
-				+ delivery_message + "]";
+				+ ", kakao_tid=" + kakao_tid + ", kakao_cid=" + kakao_cid + ", saleing_group=" + saleing_group
+				+ ", saleing_delivery=" + saleing_delivery + ", delivery_message=" + delivery_message
+				+ ", product_delivery_state=" + product_delivery_state + "]";
 	}
+	
 	
 	
 }

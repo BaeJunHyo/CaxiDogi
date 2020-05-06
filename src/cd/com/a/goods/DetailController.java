@@ -93,7 +93,8 @@ public class DetailController {
 		List<productDto> list = new ArrayList<productDto>();
 		
 		for(int i = 0; i < orderList.getOrderList().size(); i++) {
-			productDto dto = detailService.getPrd(orderList.getOrderList().get(i).getProduct_num()); 
+			productDto dto = detailService.getPrd(orderList.getOrderList().get(i).getProduct_num());
+			System.out.println(dto.toString());
 			list.add(dto);
 		}
 		

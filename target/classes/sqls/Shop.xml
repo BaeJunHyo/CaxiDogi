@@ -6,15 +6,16 @@
 
 <insert id="addShop" parameterType="cd.com.a.model.shopDto">
    insert into shop (shop_owner, shop_number, shop_name, shop_addr, shop_tel, shop_auth, mem_seq, shop_time, shop_photo, shop_etc, 
-   shop_small_price, shop_medium_price, shop_large_price, shop_content)
+   					shop_small_price, shop_medium_price, shop_large_price, shop_content)
    values (#{shop_owner}, #{shop_number}, #{shop_name}, #{shop_addr}, #{shop_tel}, 0, #{mem_seq}, #{shop_time}, #{shop_photo}, #{shop_etc}, 
-   #{shop_small_price}, #{shop_medium_price}, #{shop_large_price}, #{shop_content})
+   			#{shop_small_price}, #{shop_medium_price}, #{shop_large_price}, #{shop_content})
 </insert>
 
 <update id="shopModifyAf" parameterType="cd.com.a.model.shopDto">
    update shop 
-   set shop_owner=#{shop_owner}, shop_number=#{shop_number}, shop_name=#{shop_name}, shop_addr=#{shop_addr}, shop_tel=#{shop_tel}, shop_time=#{shop_time}, shop_photo=#{shop_photo}, shop_etc=#{shop_etc}, 
-   shop_small_price=#{shop_small_price}, shop_medium_price=#{shop_medium_price}, shop_large_price=#{shop_large_price}, shop_content=#{shop_content}, shop_auth=#{shop_auth}
+   set shop_owner=#{shop_owner}, shop_number=#{shop_number}, shop_name=#{shop_name}, shop_addr=#{shop_addr}, shop_tel=#{shop_tel}, 
+   		shop_time=#{shop_time}, shop_photo=#{shop_photo}, shop_etc=#{shop_etc}, shop_small_price=#{shop_small_price}, 
+   		shop_medium_price=#{shop_medium_price}, shop_large_price=#{shop_large_price}, shop_content=#{shop_content}, shop_auth=#{shop_auth}
    where shop_seq=#{shop_seq}
 </update>
 
@@ -24,18 +25,44 @@
    where shop_seq=#{shop_seq}
 </update>
 
-<select id="getShopList" resultType="cd.com.a.model.shopDto">
+<!-- <select id="getShopList" resultType="cd.com.a.model.shopDto">
    select shop_seq, shop_owner, shop_number, shop_name, shop_addr, shop_tel, shop_auth,
+   		mem_seq, shop_time, shop_photo, shop_etc, shop_small_price, shop_medium_price, 
+   		shop_large_price, shop_content 
+   from shop
+   where shop_auth=1
+</select> -->
+
+<select id="getShopList" parameterType="cd.com.a.model.shopListParam" resultType="cd.com.a.model.shopDto">
+
+select @rownum:=@rownum+1 as rownum, shop_seq, shop_owner, shop_number, shop_name, shop_addr, shop_tel, shop_auth,
    mem_seq, shop_time, shop_photo, shop_etc, shop_small_price, shop_medium_price, 
    shop_large_price, shop_content 
    from shop
-   where shop_auth=1
+   where (@rownum:=0)=0 and shop_auth=1
+   <if test="shopAddr == 1">
+   		and shop_addr like concat('%',#{shopAddrSeo},'%')
+   </if>
+   <if test="shopAddr == 2">
+   		and shop_addr like concat('%',#{shopAddrKyeong},'%')
+   </if>
+   <if test="shopAddr == 3">
+   		and not shop_addr like concat('%',#{shopAddrSeo},'%') and not shop_addr like concat('%',#{shopAddrKyeong},'%')
+   </if>
+	order by shop_seq asc
+   limit #{start}, #{recordCountPerPage}
 </select>
+
+<select id="getShopCount" resultType="java.lang.Integer">
+select ifnull(count(*),0) from shop
+where shop_auth=1;
+</select>
+
+
    
 <select id="getSellerShopList" parameterType="java.lang.Integer" resultType="cd.com.a.model.shopDto">
-   select shop_seq, shop_owner, shop_number, shop_name, shop_addr, shop_tel, shop_auth,
-   mem_seq, shop_time, shop_photo, shop_etc, shop_small_price, shop_medium_price, 
-   shop_large_price, shop_content 
+   select shop_seq, shop_owner, shop_number, shop_name, shop_addr, shop_tel, shop_auth, mem_seq, shop_time, 
+   		shop_photo, shop_etc, shop_small_price, shop_medium_price, shop_large_price, shop_content 
    from shop
    where mem_seq = #{mem_seq}
 </select>
@@ -61,7 +88,7 @@
  <!-- designer -->
 <insert id = "addDesigner" parameterType = "cd.com.a.model.shopDesignerDto">
    insert into shop_designer (shop_seq, design_price, design_name, design_time, design_auth)
-   values(#{shop_seq}, #{design_price}, #{design_name}, #{design_time}, 0)
+   	values(#{shop_seq}, #{design_price}, #{design_name}, #{design_time}, 0)
 </insert>
  <select id="getDesignerInfo" parameterType="cd.com.a.model.shopDesignerDto" resultType="cd.com.a.model.shopDesignerDto">
     select shop_seq, design_seq, design_price, design_name, design_time, design_auth
@@ -69,45 +96,58 @@
     where shop_seq = #{shop_seq} and design_seq=#{design_seq}
  </select>
  <select id="getDesignerInfo2" parameterType="java.lang.Integer" resultType="cd.com.a.model.shopDesignerDto">
-select * from shop_designer where design_seq = #{design_seq}
+	select * from shop_designer where design_seq = #{design_seq}
 </select>
  
  <select id="getShopDetail" resultType="cd.com.a.model.shopDto">
-    select shop_seq, shop_owner, shop_number, shop_name, shop_addr, shop_tel, shop_auth,
-    mem_seq, shop_time, shop_photo, shop_etc, shop_small_price, shop_medium_price, 
-    shop_large_price, shop_content 
+    select shop_seq, shop_owner, shop_number, shop_name, shop_addr, shop_tel, shop_auth, mem_seq, shop_time, 
+    	shop_photo, shop_etc, shop_small_price, shop_medium_price, shop_large_price, shop_content 
     from shop
     where shop_seq = #{shop_seq}
 </select>
 
 <select id="checkDesign" parameterType ="cd.com.a.model.shopDesignerDto" resultType="java.lang.Integer">
-select count(shop_resv_rday) from shop_reservation 
-where shop_seq=#{shop_seq} and design_seq=#{design_seq} and shop_resv_auth=0
-<![CDATA[and shop_resv_rday >= curdate()]]>
+	select count(shop_resv_rday) 
+	from shop_reservation 
+	where shop_seq=#{shop_seq} and design_seq=#{design_seq} and shop_resv_auth=0
+		<![CDATA[and shop_resv_rday >= curdate()]]>
 </select>
 
+
+<update id="adminShopOk" parameterType="java.lang.Integer">
+	update shop
+	set shop_auth=1
+	where shop_seq=#{shop_seq}
+</update>
+
+<update id="adminShopNo" parameterType="java.lang.Integer">
+	update shop
+	set shop_auth=2
+	where shop_seq=#{shop_seq}
+</update>
+
 <update id ="designModify" parameterType ="cd.com.a.model.shopDesignerDto">
-update shop_designer
-set design_price=#{design_price}, design_name=#{design_name}, design_time=#{design_time}
-where shop_seq=#{shop_seq} and design_seq=#{design_seq}
+	update shop_designer
+	set design_price=#{design_price}, design_name=#{design_name}, design_time=#{design_time}
+	where shop_seq=#{shop_seq} and design_seq=#{design_seq}
 </update>
 
 <update id="stopDesignAf" parameterType = "cd.com.a.model.shopDesignerDto">
-update shop_designer
-set design_auth = 2
-where shop_seq=#{shop_seq} and design_seq=#{design_seq}
+	update shop_designer
+	set design_auth = 2
+	where shop_seq=#{shop_seq} and design_seq=#{design_seq}
 </update>
 
 <update id="playDesignAf" parameterType = "cd.com.a.model.shopDesignerDto">
-update shop_designer
-set design_auth = 0
-where shop_seq=#{shop_seq} and design_seq=#{design_seq}
+	update shop_designer
+	set design_auth = 0
+	where shop_seq=#{shop_seq} and design_seq=#{design_seq}
 </update>
 
 <update id="delDesignAf" parameterType = "cd.com.a.model.shopDesignerDto">
-update shop_designer
-set design_auth = 1
-where shop_seq=#{shop_seq} and design_seq=#{design_seq}
+	update shop_designer
+	set design_auth = 1
+	where shop_seq=#{shop_seq} and design_seq=#{design_seq}
 </update>
 
 <insert id="resvShop" parameterType="cd.com.a.model.shopResvDto" useGeneratedKeys="true" keyProperty="shop_resv_seq">
@@ -118,22 +158,167 @@ where shop_seq=#{shop_seq} and design_seq=#{design_seq}
 </insert>
 
 <select id="getShopResvInfo" parameterType ="java.lang.Integer" resultType="cd.com.a.model.shopResvDto">
-select * from shop_reservation
-where shop_resv_seq=#{shop_resv_seq}
+	select * from shop_reservation
+	where shop_resv_seq=#{shop_resv_seq}
 </select>
 
 
-<select id="showShopResv" parameterType="java.lang.Integer" resultType="cd.com.a.model.shopShowResvParam">
-select r.*,s.shop_name, s.shop_addr, s.shop_tel, s.shop_time, d.design_name
+<!-- <select id="showShopResv" parameterType="java.lang.Integer" resultType="cd.com.a.model.shopShowResvParam">
+select r.*,s.shop_name, s.shop_addr, s.shop_tel, s.shop_time,s.shop_photo, d.design_name
 from shop_reservation r
 inner join shop s on r.shop_seq = s.shop_seq
 inner join shop_designer d on r.design_seq = d.design_seq
 where shop_resv_auth=0 and r.mem_seq=#{mem_seq}
-order by shop_resv_rday desc;
+order by shop_resv_rday asc
+</select> -->
+
+<select id="showShopResv" parameterType="cd.com.a.model.shopPagingParam" resultType="cd.com.a.model.shopShowResvParam">
+select @rownum:=@rownum+1 as rownum, r.*, s.shop_name, s.shop_addr, s.shop_tel, s.shop_time, s.shop_photo, d.design_name
+from shop_reservation r
+join shop s on r.shop_seq = s.shop_seq
+join shop_designer d on r.design_seq = d.design_seq
+where (@rownum:=0)=0 and shop_resv_auth=0 and r.mem_seq=#{mem_seq}
+order by shop_resv_rday asc
+limit #{start},#{recordCountPerPage}
 </select>
 
-  
-  </mapper>
+
+
+<update id="cancelShopResv" parameterType="cd.com.a.model.shopResvDto">
+	update shop_reservation
+	set shop_resv_auth=1
+	where shop_resv_seq=#{shop_resv_seq}
+</update>
+
+<select id="shopCalcelTimeCheck" parameterType="cd.com.a.model.shopResvDto" resultType="java.lang.Integer">
+	select count(shop_resv_rday) from shop_reservation
+	where shop_seq=#{shop_seq} and shop_resv_auth=0 and shop_resv_seq=#{shop_resv_seq}
+		<![CDATA[and shop_resv_rday > curdate()+ INTERVAL 2 day]]>
+
+</select>
+
+<select id="getShopResvCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+select ifnull(count(*),0) from shop_reservation
+where shop_resv_auth=0 and mem_seq=#{mem_seq}
+</select>
+
+<select id="adminShopList" parameterType="cd.com.a.model.adminShopParam" resultType="cd.com.a.model.shopDto" >
+    select *
+		from (select @finalnum:=@finalnum+1 as finalnum, sub.* from
+				(select @rownum:=@rownum+1 as rownum, shop_seq, shop_owner, shop_number, shop_name, shop_addr, 
+						shop_tel, shop_auth, mem_seq, shop_time
+				from shop
+				where (@rownum:=0)=0
+				<if test = "shop_auth != null and shop_auth != 100">
+					and shop_auth=#{shop_auth}	
+				</if>
+				order by  shop_seq desc) sub, (select @finalnum:=0) ftmp
+			order by sub.rownum desc) fsub
+    order by fsub.finalnum desc
+    limit #{start}, #{end}
+
+</select>
+
+<select id="adminShopListCount" parameterType="cd.com.a.model.adminShopParam" resultType="java.lang.Integer" >
+    select count(*)
+		from (select @finalnum:=@finalnum+1 as finalnum, sub.* from
+				(select @rownum:=@rownum+1 as rownum, shop_seq, shop_owner, shop_number, shop_name, shop_addr, 
+						shop_tel, shop_auth, mem_seq, shop_time
+				from shop
+				where (@rownum:=0)=0
+				<if test = "shop_auth != null and shop_auth != 100">
+					and shop_auth=#{shop_auth}	
+				</if>
+				order by  shop_seq desc) sub, (select @finalnum:=0) ftmp
+			order by sub.rownum desc) fsub
+    order by fsub.finalnum desc
+
+</select>
+
+<!-- <select id="getSellerShopList" parameterType="cd.com.a.model.shopSellerPagingParam" resultMap="cd.com.a.model.shopSellerResvParam">
+select * from(
+		select @rownum:=@rownum+1 as rownum, r.*, s.shop_name, s.shop_addr, s.shop_tel, s.shop_time, s.shop_photo, d.design_name
+		from shop_reservation r
+		join shop s on r.shop_seq = s.shop_seq
+		join shop_designer d on r.design_seq = d.design_seq
+where (@rownum:=0)=0 and shop_resv_auth=0 or shop_resv_auth=7 and r.mem_seq=#{mem_seq})fsub
+
+<where>
+	<if test="shopSeq != null and shopSeq != -1">
+		and  fsub.shop_seq=#{shop_seq}
+	</if>
+	<if test="shopResvAuth != null and shopResvAuth != -1">
+		and fsub.shop_resv_auth=#{shop_resv_auth}
+	</if>
+	<if test="shopDesignerSeq != null shopDesignerSeq != -1">
+		and fsub.design_seq=#{design_seq}
+	</if>
+</where>
+order by shop_resv_day desc
+limit #{start}, #{recordCountPerPage}
+
+
+
+
+
+</select> -->
+
+
+
+<select id="getSellerShopResvList" parameterType="cd.com.a.model.shopSellerPagingParam" resultType="cd.com.a.model.shopSellerResvParam" >
+select * from(
+	select @rownum:=@rownum+1 as rownum, r.*, d.design_name, s.shop_name, s.shop_addr, s.shop_tel, s.shop_time, s.shop_photo, s.mem_seq as seller_seq
+	from shop_reservation r
+	join shop s on r.shop_seq = s.shop_seq
+	join shop_designer d on r.design_seq = d.design_seq
+	where (@rownum:=0)=0  and s.mem_seq=#{memSeq}
+	<if test="shopSeq != null and shopSeq != -1">
+		and r.shop_seq=#{shopSeq}
+	</if>
+	
+	<if test="shopResvAuth != null and shopResvAuth != -1">
+		and r.shop_resv_auth=#{shopResvAuth}
+	</if>
+	
+	)fsub
+order by fsub.shop_resv_day desc
+limit #{start}, #{recordCountPerPage}
+</select>
+
+<select id="getSellerResvCount" parameterType="cd.com.a.model.shopSellerPagingParam"  resultType="java.lang.Integer">
+select count(*) from(
+	select @rownum:=@rownum+1 as rownum, r.*, d.design_name, s.shop_name, s.shop_addr, s.shop_tel, s.shop_time, s.shop_photo, s.mem_seq as seller_seq
+	from shop_reservation r
+	join shop s on r.shop_seq = s.shop_seq
+	join shop_designer d on r.design_seq = d.design_seq
+	where (@rownum:=0)=0  and s.mem_seq=#{memSeq}
+	<if test="shopSeq != null and shopSeq != -1">
+		and r.shop_seq=#{shopSeq}
+	</if>
+	<if test="shopResvAuth != null and shopResvAuth != -1">
+		and r.shop_resv_auth=#{shopResvAuth}
+	</if>
+	
+	)fsub
+order by fsub.shop_resv_day desc
+</select>
+
+<select id="getSellerShopResvDetail" parameterType="java.lang.Integer" resultType="cd.com.a.model.shopSellerResvParam" >
+select r.*,d.design_name, s.shop_name, s.shop_addr, s.shop_tel, s.shop_time, s.shop_photo, s.mem_seq as seller_seq
+from shop_reservation r
+join shop s on r.shop_seq = s.shop_seq
+join shop_designer d on r.design_seq = d.design_seq
+where r.shop_resv_seq = #{shop_resv_seq}
+</select>
+
+<update id="shopResvUpdate" parameterType="cd.com.a.model.shopResvDto">
+update shop_reservation
+set shop_resv_name=#{shop_resv_name}, shop_resv_tel=#{shop_resv_tel}, shop_resv_size=#{shop_resv_size},
+shop_resv_comment=#{shop_resv_comment}
+where shop_resv_seq=#{shop_resv_seq}
+</update>
+
+ </mapper>
   
   
   

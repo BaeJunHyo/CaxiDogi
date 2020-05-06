@@ -11,7 +11,11 @@ import cd.com.a.serviceImpl.orderServiceImpl;
 
 public class orderUtil {
 
-	
+	public static String getMemberAuth(int mem_auth) {
+		String[] strAuth = {"탈퇴회원","일반회원","일반회원","업체회원","관리자","관리자"};
+		
+		return strAuth[mem_auth];
+	}
 	
 	
 }

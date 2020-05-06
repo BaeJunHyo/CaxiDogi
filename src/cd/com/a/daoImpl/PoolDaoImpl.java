@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import cd.com.a.dao.PoolDao;
 import cd.com.a.model.AdminPoolParam;
+import cd.com.a.model.PoolListParam;
 import cd.com.a.model.poolDto;
 import cd.com.a.model.poolParam;
 import cd.com.a.model.poolResvDto;
@@ -28,8 +29,8 @@ public class PoolDaoImpl implements PoolDao{
 	}
 
 	@Override
-	public List<poolDto> getPoolList() {
-		return sqlSession.selectList(namespace+"getPoolList");
+	public List<poolDto> getPoolList(PoolListParam param) {
+		return sqlSession.selectList(namespace+"getPoolList", param);
 	}
 
 	@Override
@@ -142,8 +143,22 @@ public class PoolDaoImpl implements PoolDao{
 
 	@Override
 	public int adminPoolListCount(AdminPoolParam param) {
-		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace+"adminPoolListCount", param);
+	}
+
+	@Override
+	public int getPoolCount(PoolListParam param) {
+		return sqlSession.selectOne(namespace+"getPoolCount", param);
+	}
+
+	@Override
+	public int getPoolCancleCount(poolParam param) {
+		return sqlSession.selectOne(namespace+"getPoolCancleCount", param);
+	}
+
+	@Override
+	public List<poolResvParam> poolCancleList(poolParam param) {
+		return sqlSession.selectList(namespace+"poolCancleList", param);
 	}
 
 }

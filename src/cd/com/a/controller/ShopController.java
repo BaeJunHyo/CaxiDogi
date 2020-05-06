@@ -1,10 +1,13 @@
 package cd.com.a.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -463,11 +466,23 @@ public class ShopController {
 		param.setEnd(end);
 		
 		List<shopDto> shoplist = shopService.getShopList(param);
+		List<shopDto> shopSuccessList = new ArrayList<shopDto>();
+		if(shoplist.size()!=0) {
+			for(int i = 0; i< shoplist.size(); i++) {
+				shopDto shopDesignDto = new shopDto();
+				shopDesignDto = shoplist.get(i);
+				if(shopService.checkDesigner(shopDesignDto.getShop_seq())) {
+					shopSuccessList.add(shopDesignDto);
+				}
+			}
+			
+		}
 		
 		//글의 총수
 		int totalRecordCount = shopService.getShopCount();
 		
-		model.addAttribute("shoplist", shoplist);
+		/* model.addAttribute("shoplist", shoplist); */
+		model.addAttribute("shoplist", shopSuccessList);
 		model.addAttribute("pageNumber", pageNumber);
 		model.addAttribute("pageCountPerScreen", 10);
 		model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
@@ -758,6 +773,8 @@ public class ShopController {
 		return str;
 		
 	}
+	
+	
 	
 	
 }

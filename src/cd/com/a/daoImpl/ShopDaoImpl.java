@@ -223,4 +223,8 @@ public class ShopDaoImpl implements ShopDao {
 		return sqlSession.selectOne(ns+"getShopCancelResvCount", mem_seq);
 	}
 	
+	public boolean checkDesigner(int shop_seq) {
+		int result = sqlSession.selectOne(ns+"checkDesigner",shop_seq);
+		return result>0?true:false;
+	}
 }

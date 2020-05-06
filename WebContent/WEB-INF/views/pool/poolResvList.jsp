@@ -7,7 +7,23 @@
 <link href="./css/showShopResv.css" rel="stylesheet">
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css'>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
-
+<%
+if(loginUser != null){
+	if(loginUser.getUser_api()!=0){
+		if(loginUser.getUser_name() == null || loginUser.getUser_name().equals("") ||
+			loginUser.getNick_name() == null || loginUser.getNick_name().equals("") ||
+			loginUser.getPhone() == null || loginUser.getPhone().equals("") ||
+			loginUser.getBirthday()== null || loginUser.getBirthday().equals("") ||
+			loginUser.getAddress()== null || loginUser.getAddress().equals("")){
+%>
+<script>
+location.href="myPageMove.do";
+</script>
+<%
+		}
+	}
+}
+%>	
 <div class="cusSec_right">
 		<div class="cusSec_tableWrap tw_wFull">
 			<h3>
@@ -108,7 +124,7 @@
 
 <script>
 function goPage( pageNumber ){
-	location.href = "adminShopList.do?pageNumber="+pageNumber;
+	location.href = "poolResvList.do?pageNumber="+pageNumber;
 }
 
 $(document).on("click", ".poolResv", function(){

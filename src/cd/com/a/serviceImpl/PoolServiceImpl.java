@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import cd.com.a.dao.PoolDao;
 import cd.com.a.model.AdminPoolParam;
+import cd.com.a.model.PoolListParam;
 import cd.com.a.model.poolDto;
 import cd.com.a.model.poolParam;
 import cd.com.a.model.poolResvDto;
@@ -24,8 +25,8 @@ public class PoolServiceImpl implements PoolService {
 	}
 
 	@Override
-	public List<poolDto> getPoolList() {
-		return poolDao.getPoolList();
+	public List<poolDto> getPoolList(PoolListParam param) {
+		return poolDao.getPoolList(param);
 	}
 
 	@Override
@@ -126,6 +127,21 @@ public class PoolServiceImpl implements PoolService {
 	@Override
 	public int adminPoolListCount(AdminPoolParam param) {
 		return poolDao.adminPoolListCount(param);
+	}
+
+	@Override
+	public int getPoolCount(PoolListParam param) {
+		return poolDao.getPoolCount(param);
+	}
+
+	@Override
+	public int getPoolCancleCount(poolParam param) {
+		return poolDao.getPoolCancleCount(param);
+	}
+
+	@Override
+	public List<poolResvParam> poolCancleList(poolParam param) {
+		return poolDao.poolCancleList(param);
 	}
 
 }

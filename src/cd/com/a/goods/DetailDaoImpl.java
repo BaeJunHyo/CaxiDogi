@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import cd.com.a.model.ProductParam;
 import cd.com.a.model.productDto;
 
 @Repository
@@ -16,11 +17,16 @@ public class DetailDaoImpl implements DetailDao {
 	String ns = "Product.";
 	
 	@Override
-	public List<productDto> getPrdList() {
-		List<productDto> prdList = sqlSession.selectList(ns + "getPrdList");
-		return prdList;
+	public List<productDto> getPrdList(ProductParam prdparam) {
+		//List<productDto> prdList = sqlSession.selectList(ns + "getPrdList");
+		//return prdList;
+		return sqlSession.selectList(ns + "getPrdList", prdparam);
 	}
 
+	@Override
+	public int getPrdPageCount(ProductParam prdparam) {
+		return sqlSession.selectOne(ns + "getPrdPageCount", prdparam);
+	}
 	
 	@Override
 	public productDto getPrd(int product_num) {
@@ -37,6 +43,13 @@ public class DetailDaoImpl implements DetailDao {
 		
 		return list;
 	}
+
+
+	
+
+
+	
+	
 	
 	
 }

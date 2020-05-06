@@ -446,6 +446,7 @@ WRITER : 理쒖삁吏�
 .prdSubMenu {min-width: 1069px;height: 34px;border-bottom: 1px solid #efefef;width: 100%}
 .prdSubMenu li {list-style-type: none; float: left; margin-left: 30px;}
 .prdSubMenu li:last-child {border-right: none;}
+.prdSubMenu li:after{}
 .prdSubMenu li a {height: auto;}
 .prdSubMenu li a:hover,
 .prdSubMenu li a.current {text-decoration: underline;}

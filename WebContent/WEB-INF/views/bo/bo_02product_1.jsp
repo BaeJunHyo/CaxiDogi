@@ -27,7 +27,7 @@ $(document).ready(function () {
 });
 </script>
 
-<%@ include file="/include/bo_leftNav.jsp"  %>
+<%@ include file="/include/bo/bo_leftNav_product.jsp"  %>
 
 <div class="containerWrap">
 	<ul class="gnb">

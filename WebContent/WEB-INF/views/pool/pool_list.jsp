@@ -28,7 +28,7 @@
 		<c:forEach items="${poollist }" var="pool" varStatus="sp">
 		<c:if test="${pool.pool_auth == 1 }">
 				<li><a
-					href="getPoolDetail.do?pool_seq=${pool.pool_seq }"
+					href="poolDetail.do?pool_seq=${pool.pool_seq }"
 					class="box">
 						<div class="img">
 						<c:if test="${pool.pool_photo == 'default' }">

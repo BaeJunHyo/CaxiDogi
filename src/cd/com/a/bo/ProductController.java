@@ -67,9 +67,9 @@ public class ProductController {
 		
 		model.addAttribute("s_category", prdparam.getS_category());
 		model.addAttribute("s_keyword", prdparam.getS_keyword());
-		model.addAttribute("product_group", prdparam.getProduct_group());
-		model.addAttribute("product_sub_group", prdparam.getProduct_sub_group());
-		model.addAttribute("s_soldState", prdparam.getS_soldState());
+		//model.addAttribute("product_group", prdparam.getProductGroup());
+		//model.addAttribute("product_sub_group", prdparam.getProductSubGroup());
+		//model.addAttribute("s_soldState", prdparam.getS_soldState());
 		model.addAttribute("sorting", prdparam.getSorting());
 		model.addAttribute("countList", prdparam.getCountList());
 		model.addAttribute("prdparam", prdparam);
@@ -216,7 +216,6 @@ public class ProductController {
 	public String productUpdateAf(@ModelAttribute productDto product, Model model, 
 			@RequestParam(value="fileUpload", required=false)MultipartFile fileUpload,
 			HttpServletRequest req) {
-		
 		String str = "";
 		System.out.println("pro : " + product.toString());
 		

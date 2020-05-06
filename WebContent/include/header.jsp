@@ -23,6 +23,13 @@ if(loginUser != null){
 <script src="<%=request.getContextPath() %>/js/jquery.bxslider.js"></script>
 <script src="<%=request.getContextPath() %>/js/common.js"></script>
 
+<!-- favicon 16, 24, 32, 64, 152 -->
+<link rel="shortcut icon" href="<%=request.getContextPath() %>/images/ico/favicon.ico">
+<link rel="apple-touch-icon" href="<%=request.getContextPath() %>/images/ico/icon_57.png">
+<link rel="apple-touch-icon" sizes="72x72" href="<%=request.getContextPath() %>/images/ico/icon_72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="<%=request.getContextPath() %>/images/ico/icon_114.png">
+<link rel="apple-touch-icon" sizes="144x144" href="<%=request.getContextPath() %>/images/ico/icon_144.png">
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <link href="<%=request.getContextPath() %>/css/order.css" rel="stylesheet">
 <!--   <script type="text/javascript">

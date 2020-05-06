@@ -452,7 +452,7 @@ public class ShopController {
 	@RequestMapping(value="getShopList.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public String getShopList(Model model, shopListParam param) {
 		
-		System.out.println(param.toString());
+		System.out.println("shoplist Param ========================== "+param.toString());
 		// paging 처리
 		int pageNumber = param.getPageNumber();	// 0 1 2	현재 페이지
 		int start = pageNumber * param.getRecordCountPerPage(); // 0, 10, 21

@@ -181,4 +181,14 @@ public class ShopServiceImpl implements ShopService {
 		return shopDao.adminShopNo(shop_seq);
 	}
 
+	@Override
+	public List<shopShowResvParam> shopShopCancelResv(shopPagingParam param) {
+		return shopDao.shopShopCancelResv(param);
+	}
+
+	@Override
+	public int getShopCancelResvCount(int mem_seq) {
+		return shopDao.getShopCancelResvCount(mem_seq);
+	}
+
 }

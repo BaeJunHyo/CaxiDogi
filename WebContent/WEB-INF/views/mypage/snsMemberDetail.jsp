@@ -235,6 +235,184 @@ memberDto memberDetail = (memberDto)request.getAttribute("memberDetail");
 	         </div>
 		</form>
 	</div><!-- // frm_wrap -->
+	
+	<div class="cusSec_tableWrap tw_wFull">
+         <h3>
+            <span class="t_sbj">기본 정보</span>
+            <span class="c_gray">*는 필수 입력입니다.</span>
+         </h3>
+         <table class="basic_tableStyle basic_tableStyle_vert td_p0">
+            <colgroup>
+               <col width="140px">
+               <col width="*">
+            </colgroup>
+            <tbody>
+               <tr>
+                  <th>이름 *</th>
+                  <td class="tl">
+                  <%
+					// SNS로 첫로그인시 초기setting
+					if(memberDetail.getUser_name() == null || memberDetail.getUser_name().equals("")){
+					%>
+						<input class="memberName" type="text" maxlength="4" name="user_name" id="name" value="" placeholder="한글만 입력가능">
+					<%
+					// 초기세팅 이후
+					}else{
+					%>
+						<input type="text" class="memberName" name="user_name" value="${memberDetail.user_name}" readonly="readonly">
+					<%	
+					}
+					%>
+					<span class="nameCheck"></span>
+                  </td>
+               </tr>
+               <tr>
+                  <th>아이디 *</th>
+                  <td class="tl">
+                  	<input type="text" name="id" value="${loginUser.id}" readonly="readonly">
+					<input type="hidden" name="mem_seq" value="${loginUser.mem_seq}">
+                  </td>
+               </tr>
+               <tr>
+                  <th>닉네임*</th>
+                  <td class="tl">
+                  	<%
+					// SNS로 첫로그인시 초기setting
+					if(memberDetail.getNick_name() == null || memberDetail.getNick_name().equals("")){
+					%>
+						<input class="memberNick" type="text" maxlength="10" name="nick_name" id="nick_name" value="" placeholder="최대10글자">
+			            <button type="button" onclick="nickCheck()" class="frm_adr_btn" style="width:80px;height:40px; background: #f2f2f2; margin-top: 10px;">중복체크</button>
+					<%
+					// 초기세팅 이후
+					}else{
+					%>
+						<input type="text" class="memberNick" name="nick_name" value="${memberDetail.nick_name}" readonly="readonly">
+					<%	
+					}
+					%>
+				<span class="nickCheck"></span>
+                  </td>
+               </tr>
+              
+               <tr>
+                  <th>휴대폰 *</th>
+                  <td class="tl">
+                     	<%
+						// SNS로 첫로그인시 초기setting
+						if(memberDetail.getPhone() == null || memberDetail.getPhone().equals("")){
+						%>
+							<input class="memberPhone" type="text" maxlength="11" name="phone" placeholder="(-)하이픈 제외하고 입력">
+						<%
+						// 초기세팅 이후
+						}else{
+						%>
+							<input type="text" class="memberPhone" name="phone" value="${memberDetail.phone}" readonly="readonly">
+						<%	
+						}
+						%>
+				<span class="phoneCheck"></span>
+                  </td>
+               </tr>
+               <tr>
+                  <th>주소 *</th>
+                  <td class="tl">
+                  <label class="dis_inline" style="width: 80px;">도로명주소</label>
+                  <%
+			
+			if(memberDetail.getAddress()== null || memberDetail.getAddress().equals("")){
+			%>
+	               <input type="text" id="kakao_postcode" name="memberPostCode" readonly="readonly" placeholder="우편번호"> 
+	                <button type="button" onclick="DaumPostcode()" class="frm_adr_btn" style="width:80px;height:40px; background: #f2f2f2; margin-top: 10px;">주소검색</button><br>
+	                <input type="text" class="mt08" id="kakao_roadAddress" name="memberStreetName" placeholder="도로명주소" readonly="readonly">
+	                <input type="text" style="display:none;" id="kakao_jibunAddress" placeholder="지번주소">
+	                <span id="guide" style="color:#999;display:none"></span>
+	                <input type="text"  class="mt08" id="kakao_detailAddress" name="memberDetailStreetName" placeholder="상세주소">
+	                <input type="text" style="display:none;" id="kakao_extraAddress" placeholder="참고항목">
+	                <input type="hidden" name="address" id="address" value="">
+	        <%
+			}else{
+			String[] addr = memberDetail.getAddress().split("/");
+	        %>
+					<input type="text" id="kakao_postcode" name="memberPostCode" readonly="readonly" value="<%=addr[0]%>">
+					<input type="text" id="kakao_roadAddress" name="memberStreetName" readonly="readonly" value="<%=addr[1]%>">
+					<input type="text" id="kakao_detailAddress" name="memberDetailStreetName" readonly="readonly" value="<%=addr[2]%>">
+	            	<input type="hidden" name="address" id="address" value="${memberDetail.address}">
+			<%
+			}
+			%>
+				</div>
+			</div>
+			<%
+			if(memberDetail.getUser_name() == null || memberDetail.getUser_name().equals("") ||
+				memberDetail.getNick_name() == null || memberDetail.getNick_name().equals("") ||
+				memberDetail.getPhone() == null || memberDetail.getPhone().equals("") ||
+				memberDetail.getBirthday()== null || memberDetail.getBirthday().equals("") ||
+				memberDetail.getAddress()== null || memberDetail.getAddress().equals("")){
+			%>
+				<div>
+ 	         		<button type="button" class="reserv_btn sBtn" style="width:80px;height:40px; background: #f2f2f2; margin-top: 10px;" >적용</button> 
+	         	</div>
+	         	<script>
+	         	Swal.fire({
+		        	  icon: 'info',
+		        	  title: '원활한 이용을 위해',
+		        	  text:'미입력된 회원정보를 입력해주세요.',
+		        	  showConfirmButton: true
+		        	}).then(function(){
+		        	});
+				</script>
+			<%
+			}else{
+			%>	
+				<div>
+		         	<button type="button" class="reserv_btn sBtn2" style="width:80px;height:40px; background: #f2f2f2; margin-top: 10px;">변경</button>
+		        </div>
+		    <%
+			}
+		    %>
+		    	<input type="hidden" name="user_api" value="${memberDetail.user_api }">		
+                  </td>
+               </tr>
+               
+               <tr>
+               <th>생일</th>
+               <td class="tl">
+                  <span class="inputWrap">
+                     <span class="pr0"><input type="radio" name=""><label>양력</label></span>
+                     <span><input type="radio" name=""><label>음력</label></span>
+                  </span>
+               </td>
+            </tr>
+            <tr>
+               <th>비밀번호 찾기 질문 *</th>
+               <td class="tl">
+	               	<input type="text" value="${memberDetail.pass_hint }" readonly="readonly">
+               </td>
+            </tr>
+             <tr>
+               <th>비밀번호</th>
+               <td class="tl">
+	               	<input type="password" id="pwdCheck" name="pwdCheck" value="">
+               </td>
+            </tr>
+            <tr>
+               <th>개인정보 유효기간</th>
+               <td class="tl">
+                  개인정보를 파기 또는 분리 저장ㆍ관리하여야 하는 서비스 미 이용 기간을 선택하세요.
+                  <p class="c_gray">(별도의 요청이 없을 경우 서비스 미이용 기간은 1년 입니다)</p>
+                  <p class="inputWrap tl pt10">
+                     <span class="pl0"><input type="radio" name=""><label>1년</label></span>
+                     <span><input type="radio" name="1"><label>2년</label></span>
+                     <span><input type="radio" name="1"><label>3년</label></span>
+                     <span><input type="radio" name="1"><label>회원탈퇴시</label></span>
+                  </p>
+               </td>
+            </tr>
+            </tbody>
+         </table>
+      </div>
+			<button type="button" onclick="memberUpdate()" style="width: 80px; height: 40px; background: #000000;ma rgin-top: 10px; color: #fff;">변경하기</button>
+	      <button type="button" onclick="memberEscape()" style="width:80px;height:40px; background: #f2f2f2; margin-top: 10px;">탈퇴하기</button>
 	</div><!-- //cusSec_right -->
 </div> <!-- // include left_frm  -->
 

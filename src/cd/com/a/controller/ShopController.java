@@ -633,20 +633,7 @@ public class ShopController {
 		
 		// 글의 총수
 		int totalRecordCount = shopService.getShopResvCount(loginUser.getMem_seq());
-		
-		
-		//List<shopResvDto> showShopList = shopService.showShopResv(loginUser.getMem_seq());
-		//shopResvDto shopResv = (shopResvDto) shopService.showShopResv(loginUser.getMem_seq());
-		
-		
-		/*
-		 * for(int i = 0; i<showShopList.size(); i++) { shopResvDto dto =
-		 * showShopList.get(i); if(dto.getMem_seq() == loginUser.getMem_seq()) {
-		 * List<shopResvDto> list = shopService.showShopResv(loginUser.getMem_seq());
-		 * model.addAttribute("showShopList2", list); }
-		 * //System.out.println("==========resvdto:" + dto.getShop_resv_time()); }
-		 */
-		//shopResvDto dto = shopService.getShopResv(shop_resv_seq)
+
 		model.addAttribute("showShopList", showShopList);
 		System.out.println("size=====" + showShopList.size());
 		
@@ -656,6 +643,36 @@ public class ShopController {
 		model.addAttribute("totalRecordCount", totalRecordCount);
 	
 		return "/shop/showShopResv";
+	}
+	
+	// 유저 미용 예약 취소 리스트 
+	@RequestMapping(value="shopResvCancelList.do",  method= {RequestMethod.GET,RequestMethod.POST})
+	public String shopResvCancelList(Model model, HttpSession session, shopPagingParam param) {
+		memberDto loginUser = (memberDto)session.getAttribute("loginUser");
+		// paging 처리
+		int pageNumber = param.getPageNumber();	// 0 1 2	현재 페이지
+		int start = pageNumber * param.getRecordCountPerPage(); // 0, 10, 21
+		
+		int end = (pageNumber + 1) * param.getRecordCountPerPage();	// 10, 20, 30
+		
+		param.setStart(start);
+		param.setEnd(end);
+		param.setMem_seq(loginUser.getMem_seq());
+		
+		List<shopShowResvParam> cancelShopList = shopService.shopShopCancelResv(param);
+		
+		int totalRecordCount = shopService.getShopCancelResvCount(loginUser.getMem_seq());
+		System.out.println("================================================cancelseq+" +loginUser.getMem_seq());
+		
+		model.addAttribute("cancelShopList", cancelShopList);
+		
+		model.addAttribute("pageNumber", pageNumber);
+		model.addAttribute("pageCountPerScreen", 10);
+		model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
+		model.addAttribute("totalRecordCount", totalRecordCount);
+		
+		return "/shop/showShopCancelResv";
+		
 	}
 	
 	// 유저 미용 예약 취소

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,19 +8,21 @@
 <title>아이디찾기</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<style>
+<link href="./css/login.css" rel="stylesheet">
+<!-- <style>
 .findId{width:300px;margin:0 auto;}
 .findId ul{list-style: none;margin:0 auto;}
 .findId li{width:250px;}
 .findId input{width:200px;margin-bottom: 10px;background: #f2f2f2;border:none;outlin:none;padding:10px;color:black;}
 .findId button{width:150px;height:50px; margin-left: 35px; margin-top: 10px}
-</style>
+</style> -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 </head>
 <body>
 
 <div class="findId">
-	<h2>아이디찾기</h2>
-    <form method="post" action="">
+	<!-- <h2>아이디찾기</h2> -->
+<!--     <form method="post" action="">
 	    <ul>
 		    <li>
 			     <label>이름</label>
@@ -33,7 +36,29 @@
       			<button type="button" onclick="findId()">아이디 찾기</button>
     		</li>
       	</ul>
-    </form>
+    </form> -->
+    
+    		<form action="#" method="post">
+				  <h2>아이디 찾기</h2>
+						<p>
+							<label for="Name" class="floatLabel">이름</label>
+							<input  type="text" class="user_name" name="name" id="name" maxlength="4" required="required" />
+						</p>
+						<p>
+							<label for="password" class="floatLabel">연락처</label>
+							<input type="text" class="user_phone"name="phone" id="phone" maxlength="11" placeholder="(-)하이픈 제외한 숫자" required="required" />
+						</p>
+						
+						<div class="login_sorting">
+							<button type="button" onclick="findId()"><i class="xi-search"></i>아이디 찾기</button>
+					    </div>
+		       	
+						<!-- <p>
+					        <button type="button"  onclick="login()">Login</button>
+					        <button type="button"  onclick="newAccount()">Join us</button>
+						</p> -->
+			</form>
+    
 </div>
 </body>
 </html>

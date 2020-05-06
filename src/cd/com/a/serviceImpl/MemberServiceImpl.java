@@ -149,7 +149,8 @@ public class MemberServiceImpl implements MemberService {
             sb.append("grant_type=authorization_code");
 	            if(loginApi.equals("kakao")) {
 	            	sb.append("&client_id=954754c02265363c5d9a6b60519b14d3");
-	            	sb.append("&redirect_uri=http://192.168.2.85:8080/CaxiDogi/kakaoLogin.do");
+	            	//sb.append("&redirect_uri=http://192.168.2.85:8080/CaxiDogi/kakaoLogin.do");
+	            	sb.append("&redirect_uri=http://192.168.2.88:8090/CaxiDogi/kakaoLogin.do");
 		   		}else if(loginApi.equals("naver")) {
 		   			sb.append("&client_id=i11QdJzq8f_afJodIjCw");
 		   			sb.append("&client_secret=QRK9UbfQ8z");

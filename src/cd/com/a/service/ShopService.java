@@ -45,6 +45,8 @@ public interface ShopService {
 	//paging
 	public List<shopShowResvParam> showShopResv(shopPagingParam param);
 	public int getShopResvCount(int mem_seq);
+	public List<shopShowResvParam> shopShopCancelResv(shopPagingParam param);
+	public int getShopCancelResvCount(int mem_seq);
 	
 	public boolean cancelShopResv(shopResvDto shopresv);
 	public int shopCalcelTimeCheck(shopResvDto shopresv);

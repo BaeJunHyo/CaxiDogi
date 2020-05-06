@@ -38,7 +38,7 @@
 	
 	<!-- WHERE RNUM BETWEEN ${start} AND ${end} -->
 	ORDER BY product_num
-	
+	LIMIT #{start} , #{recordCountPerPage}
 		   
 </select>
 
@@ -70,7 +70,7 @@ SELECT IFNULL(COUNT(*), 0) FROM product
 	</where>
 	
 	ORDER BY product_num
-	LIMIT #{start} , #{recordCountPerPage}
+	
 	
 </select>
 

@@ -54,8 +54,18 @@ select @rownum:=@rownum+1 as rownum, shop_seq, shop_owner, shop_number, shop_nam
 </select>
 
 <select id="getShopCount" resultType="java.lang.Integer">
-select ifnull(count(*),0) from shop
-where shop_auth=1;
+select count(*) from shop
+where shop_auth=1
+	<if test="shopAddr == 1">
+		and shop_addr like concat('%',#{shopAddrSeo},'%')
+	</if>
+	<if test="shopAddr == 2">
+   		and shop_addr like concat('%',#{shopAddrKyeong},'%')
+   </if>
+   <if test="shopAddr == 3">
+   		and not shop_addr like concat('%',#{shopAddrSeo},'%') and not shop_addr like concat('%',#{shopAddrKyeong},'%')
+   </if>
+
 </select>
 
 
@@ -182,6 +192,17 @@ order by shop_resv_rday asc
 limit #{start},#{recordCountPerPage}
 </select>
 
+<select id="shopResvCancelList" parameterType="cd.com.a.model.shopPagingParam" resultType="cd.com.a.model.shopShowResvParam">
+select @rownum:=@rownum+1 as rownum, r.*, s.shop_name, s.shop_addr, s.shop_tel, s.shop_time, s.shop_photo, d.design_name
+from shop_reservation r
+join shop s on r.shop_seq = s.shop_seq
+join shop_designer d on r.design_seq = d.design_seq
+where (@rownum:=0)=0 and shop_resv_auth=1 and r.mem_seq=#{mem_seq}
+order by shop_resv_rday asc
+limit #{start},#{recordCountPerPage}
+
+</select>
+
 
 
 <update id="cancelShopResv" parameterType="cd.com.a.model.shopResvDto">
@@ -200,6 +221,11 @@ limit #{start},#{recordCountPerPage}
 <select id="getShopResvCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
 select ifnull(count(*),0) from shop_reservation
 where shop_resv_auth=0 and mem_seq=#{mem_seq}
+</select>
+
+<select id="getShopCancelResvCount"  parameterType="java.lang.Integer" resultType="java.lang.Integer">
+select ifnull(count(*),0) from shop_reservation
+where shop_resv_auth=1 and mem_seq=#{mem_seq}
 </select>
 
 <select id="adminShopList" parameterType="cd.com.a.model.adminShopParam" resultType="cd.com.a.model.shopDto" >

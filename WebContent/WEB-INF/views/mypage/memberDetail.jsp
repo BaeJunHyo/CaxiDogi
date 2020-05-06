@@ -65,7 +65,7 @@ if(sessionUser == null){
 	<!-- detail main -->
 	<div class="cusSec_right">
 	<div class="member_detail">
-	      <div class="frm_cont border-btm">
+	      <%-- <div class="frm_cont border-btm">
 	      
 	         <div class="frm_line clfix">
 		         <div class ="company_regi" style="margin-top: 10px;">
@@ -131,9 +131,120 @@ if(sessionUser == null){
 	         </div>      
 	      <button type="button" onclick="memberUpdate()" style="width:80px;height:40px; background: #f2f2f2; margin-top: 10px;">변경하기</button>
 	      <button type="button" onclick="memberEscape()" style="width:80px;height:40px; background: #f2f2f2; margin-top: 10px;">탈퇴하기</button>
-	</div><!--// contents -->
+	</div><!--// contents --> --%>
 	</div><!-- //cusSec_right -->
+	
+	
+	
+	
+	
+	<!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  -->
+    
+
+      <div class="cusSec_tableWrap tw_wFull">
+         <h3>
+            <span class="t_sbj">기본 정보</span>
+            <span class="c_gray">*는 필수 입력입니다.</span>
+         </h3>
+         <table class="basic_tableStyle basic_tableStyle_vert td_p0">
+            <colgroup>
+               <col width="140px">
+               <col width="*">
+            </colgroup>
+            <tbody>
+               <tr>
+                  <th>이름 *</th>
+                  <td class="tl"><input class="memberName" type="text" maxlength="4" name="user_name" id="name" value="${memberDetail.user_name }" readonly="readonly"></td>
+               </tr>
+               <tr>
+                  <th>아이디 *</th>
+                  <td class="tl">
+                  	<input class="ttext memberId" type="text" maxlength="30" name="id" id="id" value="${memberDetail.id }" readonly="readonly">
+                  	<input type="hidden" id="mem_seq" value="${memberDetail.mem_seq }">
+                  </td>
+               </tr>
+               <tr>
+                  <th>닉네임*</th>
+                  <td class="tl">
+                  	<input class="memberNick" type="text" maxlength="10" name="nick_name" id="nick_name" value="${memberDetail.nick_name }" readonly="readonly">
+                  </td>
+               </tr>
+              
+               <tr>
+                  <th>휴대폰 *</th>
+                  <td class="tl">
+                     <input class="memberPhone" type="text" maxlength="11" name="phone" value="${memberDetail.phone }" readonly="readonly">
+                     <p class="inputWrap tl pt10 pl0">
+                     </p>
+                  </td>
+               </tr>
+               <tr>
+                  <th>주소 *</th>
+                  <td class="tl">
+                  <label class="dis_inline" style="width: 80px;">도로명주소</label>
+                     <input type="text" id="kakao_postcode" name="memberPostCode" readonly="readonly" value="<%=addr[0]%>">
+					<input type="text" id="kakao_roadAddress" name="memberStreetName" readonly="readonly" value="<%=addr[1]%>">
+					<input type="text" id="kakao_detailAddress" name="memberDetailStreetName" readonly="readonly" value="<%=addr[2]%>">
+                  </td>
+               </tr>
+               
+               <tr>
+               <th>생일</th>
+               <td class="tl">
+                   <input type="text" value="<%=birthday %>" readonly="readonly">
+                  <span class="inputWrap">
+                     <span class="pr0"><input type="radio" name=""><label>양력</label></span>
+                     <span><input type="radio" name=""><label>음력</label></span>
+                  </span>
+               </td>
+            </tr>
+            <tr>
+               <th>비밀번호 찾기 질문 *</th>
+               <td class="tl">
+                 <input type="text" value="<%=question %>" readonly="readonly">
+	               	<input type="text" value="${memberDetail.pass_hint }" readonly="readonly">
+               </td>
+            </tr>
+             <tr>
+               <th>비밀번호</th>
+               <td class="tl">
+	               	<input type="password" id="pwdCheck" name="pwdCheck" value="">
+               </td>
+            </tr>
+            <tr>
+               <th>개인정보 유효기간</th>
+               <td class="tl">
+                  개인정보를 파기 또는 분리 저장ㆍ관리하여야 하는 서비스 미 이용 기간을 선택하세요.
+                  <p class="c_gray">(별도의 요청이 없을 경우 서비스 미이용 기간은 1년 입니다)</p>
+                  <p class="inputWrap tl pt10">
+                     <span class="pl0"><input type="radio" name=""><label>1년</label></span>
+                     <span><input type="radio" name="1"><label>2년</label></span>
+                     <span><input type="radio" name="1"><label>3년</label></span>
+                     <span><input type="radio" name="1"><label>회원탈퇴시</label></span>
+                  </p>
+               </td>
+            </tr>
+            </tbody>
+         </table>
+      </div>
+			<button type="button" onclick="memberUpdate()" style="width: 80px; height: 40px; background: #000000;ma rgin-top: 10px; color: #fff;">변경하기</button>
+	      <button type="button" onclick="memberEscape()" style="width:80px;height:40px; background: #f2f2f2; margin-top: 10px;">탈퇴하기</button>
+     <!--  <p class="btns_right">
+         <a href="#n" class="btn_gray">회원탈퇴</a>
+      </p>
+
+      <p class="btnWrap">
+         <a href="#n" class="btn_red_l">확인</a>
+         <a href="#n" class="btn_dark_l">취소</a>
+      </p> -->
+	
 </div><!-- //include left_frm  -->
+
+
+
+
+
+
 
 <%@ include file="./../../../include/footer.jsp" %>
 <script>

@@ -33,7 +33,7 @@
 					<a href="#n">미용 예약정보</a>
 					<ul>
 						<li><a href="showShopResv.do">미용 예약 내역보기</a></li>
-						<li><a href="#n">취소 내역보기</a></li>
+						<li><a href="shopResvCancelList.do">취소 내역보기</a></li>
 					</ul>
 				</li>
 				<li>

@@ -236,9 +236,10 @@ $(document).ready(function () {
 			</div>
 		</div><!--// container -->
 		
+		<form id="paging" method="post">
 		<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?0:recordCountPerPage }">
  		<input type="hidden" name="pageNumber" id="_pageNumber" value="${(empty pageNumber)?0:pageNumber }">	
-		
+		</form>
 </div><!--// containerWrap -->
 
 <script>

@@ -93,54 +93,57 @@
 				<input type="hidden" name="shop_seq" id="shop_seq" value="${shopDetail.shop_seq }">
 				<input type="hidden" name="shop_name" id="shop_name" value="${shopDetail.shop_name }">
 				
-					<strong>${shopDetail.shop_name}</strong>
 					<ul>
 
-						<li>
-							<dl>
-								<dt>소개글</dt>
-								<dd class="c_green">
-									<span class="fs20">${shopDetail.shop_etc}</span>
+						<li class="shop_li">
+							<dl class="shop_dl">
+								<dt class="shop_dt">소개글</dt>
+								<dd class="c_green shop_dd">
+									${shopDetail.shop_etc}
 								</dd>
 							</dl>
 						</li>
-						<li>
-							<dl>
-								<dt>기본미용 가격</dt>
-								<dd class="price-red">
-									<span>소형 : ${shopDetail.shop_small_price}</span>원
-									<span>중형 : ${shopDetail.shop_medium_price}</span>원
-									<span>대형 : ${shopDetail.shop_large_price}</span>원
+						<li class="shop_li">
+							<dl class="shop_dl">
+								<dt class="shop_dt">기본미용 가격</dt>
+								<dd class="price-red shop_dd">
+									<span>소형 : <fmt:formatNumber value="${shopDetail.shop_small_price}" pattern="###,###,###"/>원</span>
+									<span>중형 : <fmt:formatNumber value="${shopDetail.shop_medium_price}" pattern="###,###,###"/></span>원
+									<span>대형 : <fmt:formatNumber value="${shopDetail.shop_large_price}" pattern="###,###,###"/></span>원
 								</dd>
 							</dl>
 						</li>
-						<li>
-							<dl>
-								<dt>영업시간</dt>
-								<dd>
-									<strong>${shopDetail.shop_time}</strong>
+						
+						<li class="shop_li">
+							<dl class="shop_dl">
+								<dt class="shop_dt">영업시간</dt>
+								<dd class="shop_dd">
+									${shopDetail.shop_time}
 								</dd>
 							</dl>
 						</li>
-							<li>
-							<dl>
-								<dt>전화번호</dt>
-								<dd>
-									<strong>${shopDetail.shop_tel}</strong>
+						
+						<li class="shop_li">
+							
+							<dl class="shop_dl">
+								<dt class="shop_dt">전화번호</dt>
+								<dd class="shop_dd" id="tel">
+									
 								</dd>
 							</dl>
 						</li>
-						<li>
-							<dl>
-								<dt>주소</dt>
-								<dd>
-									<strong>${fn:split(shopDetail.shop_addr, '/')[1]}</strong>
+						
+						<li class="shop_li">
+							<dl class="shop_dl">
+								<dt class="shop_dt">주소</dt>
+								<dd class="shop_dd">
+									${fn:split(shopDetail.shop_addr, '/')[1]}
 							
 								</dd>
 							</dl>
 							<hr class="mt15">
-
 						</li>
+
 						<li>
 						
 						<div  id="datepicker" align="center"></div>
@@ -185,7 +188,6 @@
 					</ul>
 				</div>
 					<p class="prdBtns clearfix">
-						<a href="#n" class="btn_green_l p0">바로구매</a>
 						<a href="#" class="btn_dark_l p0" id="resvwriteBtn">예약하기</a>
 						<!-- <span class="sign_soldout">일시품절인 상품입니다.</span> -->
 						<a href="#n" class="btn_line_l p0 btn_wishlist" alt="위시리스트"></a>
@@ -271,6 +273,10 @@
 </div>
 <!-- container E : -->
  <script>
+	var tel = "${shopDetail.shop_tel}";
+	tel = tel.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3");
+	document.querySelector("#tel").innerText = tel;
+ 
  $(document).ready(function(){
 	$("#desginerName").hide();
 	
@@ -299,6 +305,8 @@
  });
   
 $(document).ready(function(){
+
+	
 $("#sel").on('change', function(){
 	//alert("seq" + $("#sel").val());
 	var design_time = $('option:selected', this).attr('design_time');

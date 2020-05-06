@@ -172,15 +172,34 @@
 .zoom_viewBox {position: absolute; width: 550px; height: 637px; top: 0; right: -550px; z-index: 100; background: #efefef;}
 
 .prd_infoWrap .prdInfo_section .col2 .prdBtns a {width: 227px;}
-.prd_infoWrap .prdInfo_section .col2 .prdBtns a.btn_dark_l {margin: 0 9px;}
+.prd_infoWrap .prdInfo_section .col2 .prdBtns a.btn_dark_l {margin: 0 9px; margin-left: 235px;}
 .prd_infoWrap .prdInfo_section .col2 .prdBtns a:last-child {width: 55px; background: url(../images/ico_wish_l.png) no-repeat center;}
 
 .prdCounter_wrap {width: 100%; height: auto; overflow-y: auto;}
 
 .bttm_optionLayer {width: 650px;}
 
-
-
+/* 추가 */
+/* .prd_infoWrap .prdInfo_section .col2 .info > ul li {
+    clear: both;
+    position: relative;
+    padding-bottom: 12px;
+}
+.prd_infoWrap .prdInfo_section .col2 .info > ul li dl {
+    font-size: 14px;
+    margin-top: 15px;
+}
+.prd_infoWrap .prdInfo_section .col2 .info > ul li dt {
+    display: inline-block;
+    vertical-align: top;
+    width: 150px;
+    color: #858586;
+    font-weight: bold;
+}
+.prd_infoWrap .poolInfo_section .col2 .info > ul li dd {
+    display: inline-block;
+}
+ */
 /*
 @DATE : 2017-04-18
 @USE : �쇱떆�덉젅
@@ -190,6 +209,27 @@
 .prdArea > li.prd_soldout a .prdImg_section img {opacity: 0.5;}
 .prdArea > li a .prdImg_section img.sign_prdSoldout {display: block; position: absolute; width: 154px; height: 26px; top: 35%; left: 50%; margin: -13px 0 0 -77px; opacity: 1;}
 
+.shop_li{
+	clear: both;
+    position: relative;
+    padding-bottom: 12px;
+
+}
+.shop_dl{
+	font-size: 14px;
+    margin-top: 15px;
+}
+
+.shop_dt{
+	display: inline-block;
+    vertical-align: top;
+    width: 150px;
+    color: #858586;
+    font-weight: bold;
+}
+.shop_dd{
+	display: inline-block;
+}
 /* 예약 버튼*/
 #dtime .timeBtn {/* width: 50% */}
 #dtime .timeBtn button{
@@ -209,6 +249,8 @@
    width: 60%;
    
 }
+
+
 
 /* 이미지 사이즈 */
 img.MS_prod_img_m{

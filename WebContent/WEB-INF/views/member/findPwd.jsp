@@ -7,19 +7,20 @@
 <title>패스워드찾기</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<style>
+<link href="./css/login.css" rel="stylesheet">
+<!-- <style>
 .findPwd{width:300px;margin:0 auto;}
 .findPwd ul{list-style: none;margin:0 auto;}
 .findPwd li{width:250px;}
 .findPwd input{width:200px;margin-top: 5px;margin-bottom: 5px;background: #f2f2f2;border:none;outlin:none;padding:10px;color:black;}
 .findPwd button{width:150px;height:50px; margin-left: 35px; margin-top: 10px}
-</style>
+</style> -->
 </head>
 <body>
 
 <div class="findPwd">
 	<h2>패스워드찾기</h2>
-    <form method="post" action="">
+<!--     <form method="post" action="">
 	    <ul>
 		    <li>
 			     <label>아이디</label>
@@ -51,6 +52,44 @@
     		</li>
       	</ul>
     </form>
+ -->    
+    <form action="#" method="post" class="findpw">
+		  <h2>비밀번호 찾기</h2>
+				<p>
+					<label for="Name" class="floatLabel">아이디</label>
+					<input  type="text" class="user_id" name="id" id="id" maxlength="30" required="required" placeholder="example@caxidogi.com"/>
+				</p>
+				<p>
+					<label for="password" class="floatLabel">연락처</label>
+					<input type="text" class="user_phone"name="phone" id="phone" maxlength="11" placeholder="(-)하이픈 제외한 숫자" required="required" />
+				</p>
+				<p>
+					<label for="password" class="floatLabel">이름</label>
+					<input type="text"  class="user_name" name="name" id="name" maxlength="4" required="required" />
+				</p>
+				
+				<p>
+					<label>패스워드찾기 질문</label>
+		    		<select class="" name="pass_question" id="pass_question">
+	                  <option value="1" selected>기억에 남는 추억의 장소는?</option>
+	                  <option value="2">나의 보물 1호는?</option>
+	                  <option value="3">나의 출신 초등학교는?</option>
+	                  <option value="4">가장 좋아하는 색깔은?</option>
+	                  <option value="5">아버지 성함은?</option>
+	               </select>
+	               <input type="text" class="txt-hint" name="pass_hint" id="pass_hint" value="" placeholder="회원가입시 기입한 내용">
+				</p>
+				
+				<div class="login_sorting">
+					<button type="button" onclick="findId()"><i class="xi-search"></i>아이디 찾기</button>
+					<button type="button" onclick="findPwd()"><i class="xi-search"></i>패스워드 찾기</button>
+			    </div>
+       	
+				<!-- <p>
+			        <button type="button"  onclick="login()">Login</button>
+			        <button type="button"  onclick="newAccount()">Join us</button>
+				</p> -->
+	</form>
 </div>
 </body>
 </html>

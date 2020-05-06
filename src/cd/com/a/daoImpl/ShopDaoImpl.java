@@ -211,4 +211,16 @@ public class ShopDaoImpl implements ShopDao {
 		int n = sqlSession.update(ns+"adminShopNo", shop_seq);
 		return n>0?true:false;
 	}
+
+	@Override
+	public List<shopShowResvParam> shopShopCancelResv(shopPagingParam param) {
+		List<shopShowResvParam> list = sqlSession.selectList(ns+"shopResvCancelList", param);
+		return list;
+	}
+
+	@Override
+	public int getShopCancelResvCount(int mem_seq) {
+		return sqlSession.selectOne(ns+"getShopCancelResvCount", mem_seq);
+	}
+	
 }

@@ -48,7 +48,7 @@
     <div class="child2" style="display:none;">
      <ul class="child_ul_1">
     	<li>예약자 명: ${showList.shop_resv_name}</li>
-    	<li id="userTel" h_user_tel="${showList.shop_resv_tel}">예약자 연락처: ${showList.shop_resv_tel}</li>
+    	<li id="userTel" class="userTel" h_user_tel="${showList.shop_resv_tel}">예약자 연락처: ${showList.shop_resv_tel}</li>
     	<li>예약시간 : ${showList.shop_resv_time }</li>
     	<li>예약날짜 : ${showList.shop_resv_rday }</li>
     	<li>요청사항 : ${showList.shop_resv_comment }</li>
@@ -85,7 +85,7 @@
     </div>   
   </div> <!-- List 2 -->
    <div class="booking_list3">    
-     <a href="#"><button>Book Now</button></a>
+     <!-- <a href="#"><button>Book Now</button></a> -->
    </div>
    <div class="booking_list3">
    <a href="#"><input type="button" shop_seq="${showList.shop_seq }" shop_resv_seq="${showList.shop_resv_seq }" class="btn_line_s updateResvBtn" value="예약변경"></a>
@@ -115,18 +115,28 @@
  <script src="<%=request.getContextPath() %>/js/showShopResv.js"></script>
 
 <script>
+
 // 전화번호들 수정해야함  포멧넘버 쓰기---------------------------------------------------------------------------
 //var tel = $(".tel").val();
-var tel ="${showList.shop_tel}"
-var userTel = $("#h_user_tel").val();
-//var tel = $('li').attr('h_shop_tel');
+//var tel ="${showList.shop_tel}"
+//var userTel = $(".h_user_tel").val();
+$(document).ready(function(){
+var uesrTel = $('li').attr('h_user_tel');
+//var userTel = document.body.getAttribute('h_user_tel');
+//alert("us" +userTel);
+})
 //var tel = $("li#tel").val();
 
+var tel = "${showList.shop_tel}";
+//alert("tel" + tel);
+	tel = tel.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3");
+	document.querySelector(".tel").innerText = tel;
 
-tel = tel.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3");
+
+//tel = tel.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3");
 userTel = userTel.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3");
-document.querySelector("#tel").innerText = '가게전화: '+ tel;
-document.querySelector("#userTel").innerText = '예약자 연락처: '+userTel;
+//document.querySelector("#tel").innerText = '가게전화: '+ tel;
+document.querySelector(".userTel").innerText = '예약자 연락처: '+userTel;
 
 </script>
 <script>
@@ -197,13 +207,13 @@ $(".cancelShopResv").click(function(){
 	var shop_resv_auth = $(this).attr("shop_resv_auth");
 	var shop_resv_seq = $(this).attr("shop_resv_seq");
 	Swal.fire({
-		  title: 'Are you sure?',
-		  text: "You won't be able to revert this!",
+		  title: '취소하시겠습니까?',
+		  text: "",
 		  icon: 'warning',
 		  showCancelButton: true,
 		  confirmButtonColor: '#3085d6',
 		  cancelButtonColor: '#d33',
-		  confirmButtonText: 'Yes, delete it!'
+		  confirmButtonText: '취소'
 		}).then((result) => {
 		  if (result.value) {
 			  $.ajax({
@@ -216,11 +226,11 @@ $(".cancelShopResv").click(function(){
 						//alert("success");
 						if(data == 'ok'){
 							Swal.fire(
-								      'Deleted!',
-								      'Your file has been deleted.',
+								      '취소되었습니다!',
+								      '',
 								      'success'
 								   ).then(function(){
-							        	  window.location="getShopList.do"});
+							        	  window.location="showShopResv.do"});
 						}else if(data == 'no'){
 							
 							alert("예약 날짜로부터 이틀전은 취소가 불가능합니다");

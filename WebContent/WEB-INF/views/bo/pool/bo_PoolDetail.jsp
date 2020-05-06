@@ -123,7 +123,7 @@
 </div>
 <script>
 	$("#poolOkBtn").click(function(){
-		alert("클릭");
+		//alert("클릭");
 		Swal.fire({
 	        title: '${pool.pool_name}'+' 승인',
 	        text: "수영장정보 확인하셨나요?",

@@ -103,7 +103,7 @@
 </div>
 <script>
 	$("#shopOkBtn").click(function(){
-		alert("클릭");
+		//alert("클릭");
 		Swal.fire({
 	        title: '${shop.shop_name}'+' 승인',
 	        text: "Shop정보 확인하셨나요?",

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import cd.com.a.dao.orderDao;
 import cd.com.a.model.memberDto;
+import cd.com.a.model.orderDetailParam;
 import cd.com.a.model.productSaleDto;
 
 @Repository
@@ -62,6 +63,18 @@ public class orderDaoImpl implements orderDao {
 		return sqlSession.selectList(ns + "getNowSaleingList", saleing_group);
 	}
 
+	@Override
+	public List<Integer> myOrderList_group(int mem_seq) {
+		
+		return sqlSession.selectList(ns + "myOrderList_group", mem_seq);
+	}
+
+	@Override
+	public List<orderDetailParam> myOrderDetail(int saleing_group) {
+		
+		return sqlSession.selectList(ns + "myOrderDetail", saleing_group);
+	}
+	
 	
 	
 	

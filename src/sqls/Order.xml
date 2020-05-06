@@ -13,10 +13,9 @@
 	
 	<insert id="crete_productOrder" parameterType="cd.com.a.model.productSaleDto">
 		insert into product_saleing(mem_seq, product_num, saleing_amount, saleing_addr, saleing_tel, saleing_date, saleing_option,
-				saleing_option_state, saleing_group, saleing_delivery, delivery_message, saleing_name)
+				saleing_option_state, saleing_group, saleing_delivery, delivery_message, saleing_name, product_delivery_state)
 		values(#{mem_seq}, #{product_num}, #{saleing_amount}, #{saleing_addr}, #{saleing_tel}, sysdate(), 0, 0, #{saleing_group},
-			#{saleing_delivery}, #{delivery_message}, #{saleing_name})
-
+			#{saleing_delivery}, #{delivery_message}, #{saleing_name}, 0)
 	</insert>
 	
 	<insert id="create_SaleGroup" parameterType="java.lang.Integer">
@@ -51,5 +50,23 @@
 		select * from product_saleing
 		where saleing_group = #{saleing_group}
 	</select>
+	
+	<select id="myOrderList_group" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select saleing_group 
+		from product_saleing 
+		where mem_seq = #{mem_seq} 	
+		group by saleing_group
+		order by saleing_group desc	
+	</select>
+	
+	<select id="myOrderDetail" parameterType="java.lang.Integer" resultType="cd.com.a.model.orderDetailParam">
+		select p.product_name, p.product_code, p.product_brand, p.product_price,
+			p.product_img , ps.saleing_group, ps.saleing_amount
+			
+		from product_saleing ps , product p 
+		where ps.product_num = p.product_num  and
+			ps.saleing_group = #{saleing_group}  
+	</select>
+	
 	
 </mapper>

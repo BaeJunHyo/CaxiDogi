@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import cd.com.a.dao.orderDao;
 import cd.com.a.model.memberDto;
+import cd.com.a.model.orderDetailParam;
 import cd.com.a.model.productSaleDto;
 import cd.com.a.service.orderService;
 
@@ -56,6 +57,18 @@ public class orderServiceImpl implements orderService {
 	public List<productSaleDto> getNowSaleingList(int saleing_group) {
 		
 		return orderdao.getNowSaleingList(saleing_group);
+	}
+
+	@Override
+	public List<Integer> myOrderList_group(int mem_seq) {
+		
+		return orderdao.myOrderList_group(mem_seq);
+	}
+
+	@Override
+	public List<orderDetailParam> myOrderDetail(int saleing_group) {
+	
+		return orderdao.myOrderDetail(saleing_group);
 	}
 	
 	

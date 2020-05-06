@@ -3,6 +3,7 @@ package cd.com.a.service;
 import java.util.List;
 
 import cd.com.a.model.memberDto;
+import cd.com.a.model.orderDetailParam;
 import cd.com.a.model.productSaleDto;
 
 public interface orderService {
@@ -15,4 +16,6 @@ public interface orderService {
 	public productSaleDto getNowSaleing(int mem_seq);
 	public List<productSaleDto> getNowSaleingList(int saleing_group);
 	public boolean FailOrder(int saleing_group);
+	public List<Integer>myOrderList_group(int mem_seq);
+	public List<orderDetailParam>myOrderDetail(int saleing_group);
 }

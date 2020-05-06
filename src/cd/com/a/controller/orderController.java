@@ -34,6 +34,8 @@ import cd.com.a.model.KakaoPayReadyDto;
 import cd.com.a.model.kakaoAmount;
 import cd.com.a.model.kakaoSelectDto;
 import cd.com.a.model.memberDto;
+import cd.com.a.model.myBuyParam;
+import cd.com.a.model.orderDetailParam;
 import cd.com.a.model.order_PrdParamList;
 import cd.com.a.model.productDto;
 import cd.com.a.model.productSaleDto;
@@ -273,7 +275,8 @@ public class orderController {
 	
 	
 	@RequestMapping(value="MyOrderList.do", method=RequestMethod.GET)
-	public String MyOrderList(Model model) {
+	@ResponseBody
+	public List<Integer> MyOrderList(Model model, HttpSession session) {
 		
 		//db에서 그룹으로 묶어서 그룹번호만 받아온다 
 		/*
@@ -282,17 +285,99 @@ public class orderController {
 			group by saleing_group
 			order by saleing_group desc;
 		 */
+		memberDto mem = (memberDto)session.getAttribute("loginUser");
+		List<Integer> saleSeqList = orderservice.myOrderList_group(mem.getMem_seq());
+		
+		int fsize = 0; //for문 돌아갈 사이즈 
+		if(saleSeqList.size() >= 5) {fsize = 5;}
+		else {fsize = saleSeqList.size();}
+		
+		List<Integer> result = new ArrayList<Integer>();
+		
+		for(int i = 0; i < fsize; i++) {
+			System.out.print("넘어온 saleing_num["+ i +"]  == ");
+			System.out.println(saleSeqList.get(i));
+			
+			result.add(saleSeqList.get(i));
+		}
 		
 		//받아온 list.size() 만큼 for문 돌린다 
 		//그다음에는 changeOrderProductName() 사용해서 이름 바꾸어 놓고 
 		//saleing_num 만 String 으로 변형해서 모아준다   list[0] 에 
 		
-		return"";
+		return result;
 	}
 	
+	@RequestMapping(value="myBuyDetail.do", method=RequestMethod.GET)
+	public String myBuyDetail(Model model, @RequestParam(value = "index") String index) {
+		
+		System.out.println("index == " + index);
+		List<orderDetailParam> detailList = orderservice.myOrderDetail(Integer.parseInt(index));
+		
+		model.addAttribute("detailList", detailList);
+		return "mypage/myBuyDetail";
+	}
 	
-	
-	
+	@RequestMapping(value="myBuyListAll.do", method=RequestMethod.GET)
+	public String myBuyListAll(Model model, HttpSession session) {
+		
+		//최근 나의 구매 내역 
+		memberDto mem = (memberDto)session.getAttribute("loginUser");
+		List<Integer> saleGroupList = orderservice.myOrderList_group(mem.getMem_seq());
+		
+		List<myBuyParam> myBuyList = new ArrayList<myBuyParam>(); 
+		
+		if(saleGroupList.size() > 0) {
+			//saleGroupList 만큼 돌리면서 paramList 생성 
+			for(int i = 0; i < saleGroupList.size(); i++) {
+				//System.out.print("넘어온 saleing_num["+ i +"]  == ");
+				//System.out.println(saleGroupList.get(i));
+				
+				List<productSaleDto> saleList = orderservice.getNowSaleingList(saleGroupList.get(i));
+				
+				String myOrderName = changeOrderProductName(saleList);
+				String saleing_numStr = "" + saleList.get(0).getSaleing_num();
+				int amount = saleList.get(0).getSaleing_amount();
+				
+				int price = detailservice.getPrd(saleList.get(0).getProduct_num()).getProduct_price() * amount;
+				
+				String strDate = saleList.get(0).getSaleing_date();
+		
+				String[] strDate2 = strDate.split("\\s");
+				//System.out.println(strDate2[0]);
+				//System.out.println(strDate2[1]);
+				strDate = strDate2[0] + "/";
+				
+				strDate2[1] = strDate2[1].substring(0, 8);
+				strDate += strDate2[1];
+				
+				//System.out.println("완성 === " + strDate);
+				productDto prdDto = null;
+				
+				if(saleList.size() > 1) {
+					for(int j = 1; j < saleList.size(); j++) {
+						saleing_numStr += "/" + saleList.get(j).getSaleing_num();
+						amount += saleList.get(j).getSaleing_amount();
+						//가격
+						prdDto = detailservice.getPrd(saleList.get(j).getProduct_num());
+						price += prdDto.getProduct_price() * saleList.get(j).getSaleing_amount();
+						
+					}
+				}else {
+					prdDto = detailservice.getPrd(saleList.get(0).getProduct_num());
+				}
+				//System.out.println(prdDto.getProduct_img());
+				myBuyList.add(new myBuyParam(saleing_numStr, myOrderName, strDate, prdDto.getProduct_img(), amount, price, saleGroupList.get(i) , saleList.get(0).getProduct_delivery_state()));
+				
+			}
+		}else {
+			return null;
+		}
+		
+		model.addAttribute("myBuyList", myBuyList);
+		
+		return "mypage/myBuyListAll";
+	}
 	
 	
 	
@@ -310,11 +395,11 @@ public class orderController {
 	
 	//util 함수
 	public String changeOrderProductName(List<productSaleDto> orderList) {
-		System.out.println("orderUtil   changeOrderProductName()");
+		//System.out.println("orderUtil   changeOrderProductName()");
 		
 		
 		//System.out.println("111");
-		System.out.println(orderList.get(0).getProduct_num());
+		//System.out.println(orderList.get(0).getProduct_num());
 		
 		productDto prdDto = detailservice.getPrd(orderList.get(0).getProduct_num());
 		//System.out.println("22");
@@ -324,12 +409,12 @@ public class orderController {
 		
 		if(orderList.size() > 1 ) {
 			result = prdDto.getProduct_name() + "...외  " + (orderList.size() - 1) + " 건";
-			System.out.println("여러건 === " + result);
+			//System.out.println("여러건 === " + result);
 		}else if(orderList.size() == 1){
 			result = prdDto.getProduct_name();
 		}
 		
-		System.out.println("result == " + result);
+		//System.out.println("result == " + result);
 		
 		return result;
 	}

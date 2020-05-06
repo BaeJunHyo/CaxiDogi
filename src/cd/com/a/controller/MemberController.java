@@ -1,6 +1,8 @@
 package cd.com.a.controller;
 
 
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,9 +16,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cd.com.a.goods.DetailService;
 import cd.com.a.model.groundResvParam;
 import cd.com.a.model.memberDto;
+import cd.com.a.model.myBuyParam;
 import cd.com.a.model.poolResvParam;
+import cd.com.a.model.productDto;
+import cd.com.a.model.productSaleDto;
 import cd.com.a.model.shopShowResvParam;
 import cd.com.a.service.MemberService;
 import cd.com.a.service.MyPageService;
@@ -28,7 +34,11 @@ public class MemberController {
 	MemberService memberService;
 	@Autowired
 	MyPageService mypageService;
-
+	
+	@Autowired
+	DetailService detailService;
+	
+	
 	//회원가입 페이지 이동
 	@RequestMapping(value = "/newAccount.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public String newAccount() {
@@ -124,17 +134,80 @@ public class MemberController {
 
 	// 마이페이지 이동
 	@RequestMapping(value="/myPage.do", method= {RequestMethod.GET,RequestMethod.POST})
-	public String myPage(Model model, HttpServletRequest req) {
+	public String myPage(Model model, HttpServletRequest req, HttpSession session) {
 		int mem_seq = ((memberDto)req.getSession().getAttribute("loginUser")).getMem_seq();
 		List<poolResvParam> myPoolResvList = mypageService.getPoolResvList(mem_seq);
 		List<groundResvParam> myGroundResvList = mypageService.getGroundResvList(mem_seq);
 		List<shopShowResvParam> myShopResvList = mypageService.getShopResvList(mem_seq);
-
+		
+		//최근 나의 구매 내역 
+		memberDto mem = (memberDto)session.getAttribute("loginUser");
+		List<Integer> saleGroupList = mypageService.myOrderList_group(mem.getMem_seq());
+		
+		int fsize = 0; //for문 돌아갈 사이즈 
+		if(saleGroupList.size() >= 5) {fsize = 5;}
+		else {fsize = saleGroupList.size();}
+		
+		List<myBuyParam> myBuyList = new ArrayList<myBuyParam>(); 
+		
+		
+		//saleGroupList 만큼 돌리면서 paramList 생성 
+		for(int i = 0; i < fsize; i++) {
+			System.out.print("넘어온 saleing_num["+ i +"]  == ");
+			System.out.println(saleGroupList.get(i));
+			
+			List<productSaleDto> saleList = mypageService.myOrderList(saleGroupList.get(i));
+			
+			String myOrderName = changeOrderProductName(saleList);
+			String saleing_numStr = "" + saleList.get(0).getSaleing_num();
+			int amount = saleList.get(0).getSaleing_amount();
+			
+			int price = detailService.getPrd(saleList.get(0).getProduct_num()).getProduct_price() * amount;
+			
+			String strDate = saleList.get(0).getSaleing_date();
+	
+			String[] strDate2 = strDate.split("\\s");
+			System.out.println(strDate2[0]);
+			System.out.println(strDate2[1]);
+			strDate = strDate2[0] + "/";
+			
+			strDate2[1] = strDate2[1].substring(0, 8);
+			strDate += strDate2[1];
+			
+			System.out.println("완성 === " + strDate);
+			productDto prdDto = null;
+			
+			if(saleList.size() > 1) {
+				for(int j = 1; j < saleList.size(); j++) {
+					saleing_numStr += "/" + saleList.get(j).getSaleing_num();
+					amount += saleList.get(j).getSaleing_amount();
+					//가격
+					prdDto = detailService.getPrd(saleList.get(j).getProduct_num());
+					price += prdDto.getProduct_price() * saleList.get(j).getSaleing_amount();
+					
+				}
+			}else {
+				prdDto = detailService.getPrd(saleList.get(0).getProduct_num());
+			}
+			System.out.println(prdDto.getProduct_img());
+			myBuyList.add(new myBuyParam(saleing_numStr, myOrderName, strDate, prdDto.getProduct_img(), amount, price, saleGroupList.get(i) , saleList.get(0).getProduct_delivery_state()));
+			
+			
+		}
+		
+		for(myBuyParam param : myBuyList) {
+			System.out.println(param.toString());
+		}
+			
+		
+		
 		//최근 나의 구매,예약 리스트
 		//model.addAttribute("myBuyList",myBuyList);
 		model.addAttribute("myGroundResvList",myGroundResvList);
 		model.addAttribute("myPoolResvList",myPoolResvList);
 		model.addAttribute("myShopResvList",myShopResvList);
+		model.addAttribute("myBuyList", myBuyList);
+		
 		return "/mypage/mypage_main";
 	}
 
@@ -324,4 +397,48 @@ public class MemberController {
 		   model.addAttribute("sellerAccessList",sellerAccessList);
 	      return "/mypage/sellerAccessMgmt";
 	   }
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	 //util 함수
+		public String changeOrderProductName(List<productSaleDto> orderList) {
+			System.out.println("orderUtil   changeOrderProductName()");
+			
+			
+			//System.out.println("111");
+			System.out.println(orderList.get(0).getProduct_num());
+			
+			productDto prdDto = detailService.getPrd(orderList.get(0).getProduct_num());
+			//System.out.println("22");
+			
+			String result = "";
+			
+			
+			if(orderList.size() > 1 ) {
+				result = prdDto.getProduct_name() + "...외  " + (orderList.size() - 1) + " 건";
+				System.out.println("여러건 === " + result);
+			}else if(orderList.size() == 1){
+				result = prdDto.getProduct_name();
+			}
+			
+			System.out.println("result == " + result);
+			
+			return result;
+		}
+	   
+	   
+	   
+	   
+	   
+	   
+	   
 }

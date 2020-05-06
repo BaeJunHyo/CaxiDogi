@@ -140,9 +140,9 @@ public class orderController {
         params.add("total_amount", "" + totalPrice);  				//상품 총액 NOT NULL
         params.add("tax_free_amount", "0"); 				//상품 비과세 금액 NOT NULL
         //34.64.221.161:8080
-        params.add("approval_url", "http://localhost:8090/CaxiDogi/kakaoPaySuccess.do"); 	//결제 성공시 넘어갈 servlet Controller 주소 
-        params.add("cancel_url", "http://localhost:8090/CaxiDogi/kakaoPayCancel.do");		//결제 취소시 넘어갈 servlet Controller 주소 
-        params.add("fail_url", "http://localhost:8090/CaxiDogi/kakaoPaySuccessFail.do"); 	//결제 실패시 넘어갈 servlet Controller 주소
+        params.add("approval_url", "http://34.64.221.161:8080/CaxiDogi/kakaoPaySuccess.do"); 	//결제 성공시 넘어갈 servlet Controller 주소 
+        params.add("cancel_url", "http://34.64.221.161:8080/CaxiDogi/kakaoPayCancel.do");		//결제 취소시 넘어갈 servlet Controller 주소 
+        params.add("fail_url", "http://34.64.221.161:8080/CaxiDogi/kakaoPaySuccessFail.do"); 	//결제 실패시 넘어갈 servlet Controller 주소
         
 		//System.out.println("2222");
 		

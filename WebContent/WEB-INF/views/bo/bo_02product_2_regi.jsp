@@ -5,7 +5,7 @@
 <%@ include file="./../../../include/bo_header.jsp"%>
 <script src="<%=request.getContextPath()%>/js/ckeditor/ckeditor.js"></script>
 
-<%@ include file="./../../../include/bo_leftNav.jsp"%>
+<%@ include file="./../../../include/bo/bo_leftNav_product.jsp"%>
 
 <div class="containerWrap productRegi">
 	<ul class="gnb">

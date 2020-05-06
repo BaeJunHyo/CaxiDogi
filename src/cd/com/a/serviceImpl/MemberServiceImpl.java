@@ -150,11 +150,11 @@ public class MemberServiceImpl implements MemberService {
 	            if(loginApi.equals("kakao")) {
 	            	sb.append("&client_id=954754c02265363c5d9a6b60519b14d3");
 	            	//sb.append("&redirect_uri=http://192.168.2.85:8080/CaxiDogi/kakaoLogin.do");
-	            	sb.append("&redirect_uri=http://192.168.2.88:8090/CaxiDogi/kakaoLogin.do");
+	            	sb.append("&redirect_uri=http://34.64.221.161:8080/CaxiDogi/kakaoLogin.do");
 		   		}else if(loginApi.equals("naver")) {
 		   			sb.append("&client_id=i11QdJzq8f_afJodIjCw");
 		   			sb.append("&client_secret=QRK9UbfQ8z");
-		   			sb.append("&redirect_uri=http://192.168.2.85:8080/CaxiDogi/naverLogin.do");
+		   			sb.append("&redirect_uri=http://34.64.221.161:8080/CaxiDogi/naverLogin.do");
 		   		}else if(loginApi.equals("google")) {
 		   			sb.append("&client_id=957946411907-ufnltniu55q10le4b4io0tmrqgsbk8v1.apps.googleusercontent.com");
 		   			sb.append("&client_secret=PEiSHOoKNHyUJyEel5J-eJwI");

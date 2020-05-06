@@ -98,7 +98,7 @@ Swal.fire({
 		      <div class="snsicon" align="center" >
 		       <a href="https://kauth.kakao.com/oauth/authorize
 							?client_id=954754c02265363c5d9a6b60519b14d3
-							&redirect_uri=http://192.168.2.88:8090/CaxiDogi/kakaoLogin.do
+							&redirect_uri=http://34.64.221.161:8080/CaxiDogi/kakaoLogin.do
 							&response_type=code" id="_btnKakao" title="카카오">
 		         <img alt="" src="./images/kakao_login.png">
 		       </a>
@@ -108,7 +108,7 @@ Swal.fire({
 		      <div class="snsicon" align="center" >
 		       <a href="https://nid.naver.com/oauth2.0/authorize
 							?client_id=i11QdJzq8f_afJodIjCw
-							&redirect_uri=http://192.168.2.85:8080/CaxiDogi/naverLogin.do
+							&redirect_uri=http://34.64.221.161:8080/CaxiDogi/naverLogin.do
 							&response_type=code" id="_btnNaver" title="네이버">
 		         <img alt="" src="./images/naver__login.png">
 		       </a>

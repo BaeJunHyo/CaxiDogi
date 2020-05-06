@@ -189,6 +189,8 @@ public class ShopServiceImpl implements ShopService {
 	@Override
 	public int getShopCancelResvCount(int mem_seq) {
 		return shopDao.getShopCancelResvCount(mem_seq);
+	}
+	@Override
 	public boolean checkDesigner(int shop_seq) {
 		return shopDao.checkDesigner(shop_seq);
 	}

@@ -24,7 +24,7 @@
 			<li><a href="prdListSnack.do" class="product_sub_group" value="2">간식</a></li>
 			<li><a href="prdListBowel.do" class="product_sub_group selectMenu" value="3">배변용품</a></li>
 			<li><a href="prdListPlay.do" class="product_sub_group" value="4">놀이용품</a></li>
-			<li><a href="prdListBeuty.do" class="product_sub_group" value="5">미용용품</a></li>
+			<li><a href="prdListBeauty.do" class="product_sub_group" value="5">미용용품</a></li>
 			<input type="hidden" value="product_sub_group">
 		</ul><!--// gnb -->
 	</div>

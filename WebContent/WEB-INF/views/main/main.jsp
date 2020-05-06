@@ -55,16 +55,16 @@
   <div class="bigCate new_product w1100">
     <h3 class="objTit"><span class="font_noto">PRODUCT</span></h3>
     <ul class="prdArea prdView clearfix">
-    <c:forEach items="${poolList }" var="pool">
+    <c:forEach items="${prdlist }" var="prd" begin="0" end="3" varStatus="status">
       <li>
-        <a href="poolDetail.do?pool_seq=${pool.pool_seq }">
+        <a href="productDetail.do?product_num=${prd.product_num }">
           <span class="prdImg_section">
-            <img src="<%=request.getContextPath() %>/images/poolImg/${pool.pool_photo}">
+            <img src="<%=request.getContextPath() %>/images/goodsImg/${prd.product_img }">
           </span>
           <span class="prdInfo_section">
-            <strong>${pool.pool_name }</strong>
-            <span class="prdInfo_name">${fn:split(pool.pool_addr, '/')[1] }</span>
-            <span class="prdInfo_price"><fmt:formatNumber value="${pool.pool_price}" pattern="###,###,###"/>원</span>
+            <span class="prdInfo_name">${prd.product_name }</span>
+            <%-- <span class="prdInfo_name">${fn:split(pool.pool_addr, '/')[1] }</span> --%>
+            <span class="prdInfo_price"><fmt:formatNumber value="${prd.product_price}" pattern="###,###,###"/>원</span>
           </span>
         </a>
       </li>

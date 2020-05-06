@@ -19,46 +19,23 @@
 	
 	<div style="margin-top: 100px; padding: 20px;">
 		<ul class="prdSubMenu" id="product_sub_group"> <!-- #BEF781 -->
-			<li><a href="prdList.do" class="product_sub_group selectMenu" value="-1">전체</a></li>
+			<li><a href="prdList.do" class="product_sub_group" value="-1">전체</a></li>
 			<li><a href="prdListFeed.do" class="product_sub_group" value="1">사료</a></li>
 			<li><a href="prdListSnack.do" class="product_sub_group" value="2">간식</a></li>
 			<li><a href="prdListBowel.do" class="product_sub_group" value="3">배변용품</a></li>
-			<li><a href="prdListPlay.do" class="product_sub_group" value="4">놀이용품</a></li>
+			<li><a href="prdListPlay.do" class="product_sub_group selectMenu" value="4">놀이용품</a></li>
 			<li><a href="prdListBeauty.do" class="product_sub_group" value="5">미용용품</a></li>
-			<input type="hidden" value="product_sub_group" id="prdGroup">
+			<input type="hidden" value="product_sub_group">
 		</ul><!--// gnb -->
 	</div>
 	
-	<%-- 
-	<div class="total-sort" style="margin-top: 100px;">
-		<!--<dl class="total">
-                                    <dt>total:</dt>
-                                    <dd>29</dd>
-                                </dl>-->
-		<p class="total" style="color: #a2a2a2;">
-			In this category are <strong>${totalRecordCount }</strong> products.
-		</p>						<!-- 여기에 제품 수량 넣어줘야됨  -->
-		<dl class="sort">
-			<dt class="blind">검색결과 정렬</dt>
-			<dd>
-				<ul>
-					<li><a href="javascript:sendsort('sellcnt')">인기순</a></li>
-					<li><a href="javascript:sendsort('regdate')">최신순</a></li>
-					<li><a href="javascript:sendsort('price')">낮은가격순</a></li>
-				</ul>
-			</dd>
-		</dl>
-	</div> 
-	--%>
-
-
 	<div class="prdlist_default" style="margin-top: 20px;">
 
 		<!-- 상품추출 -->
 		<div class="mproduct_area">
 			<ul>
 				<c:forEach items="${prdlist }" var="prd" varStatus="pr">
-					<c:if test="${prd.product_hidden == 0 }">
+					<c:if test="${prd.product_hidden == 0 && prd.product_sub_group == 4 }">
 						
 						<li>
 							<!-- 상품 재고가 없을 때 -->
@@ -157,9 +134,8 @@ $(".product_sub_group").click(function(){
 });
 
 function goPage(pageNumber){
-	//var product_sub_group = $(".selectMenu").val();
-	//var prdGroup = $("#prdGroup").val();
-	location.href="prdList.do?pageNumber="+pageNumber; 
+	var product_sub_group = $(".selectMenu").val();
+	location.href="prdListPlay.do?pageNumber="+pageNumber;
 }
 
 </script>

@@ -50,7 +50,7 @@
 .prdArea > li {position: relative; float: left; width: 258px; height: auto; margin: 0 0 25px 0; border: 1px solid #fff;}
 .prdArea > li:nth-child(3n+2) {margin: 0 10px;}
 .prdArea > li:hover {border: 1px solid #152735;}
-.prdArea > li a {}
+.prdArea > li a {width: 100%;}
 .prdArea > li a .prdImg_section {display: block; width: 258px;}
 .prdArea > li a .prdImg_section img {width: 100%;}
 .prdArea > li a .prdInfo_section {text-align: center; line-height: 21px; font-size: 14px;}

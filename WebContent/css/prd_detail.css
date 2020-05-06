@@ -199,5 +199,11 @@
     font-weight: normal;
 }
 
+.detailPrdSize{
+	width: 500px;
+    height: 500px;
+}
+
 .prdCounter_wrap table td .counter{float: right;}
 
+.detailView.move01 p img {width: 100% !important;}

@@ -146,7 +146,7 @@
 
 				<div style="margin-top: 10px;" align="center">
 					<input name="updateHidden" type="hidden" value="">
-					<input class="btn_line_m" type="submit" id="prdUpdate" value="등록">
+					<input class="btn_line_m" type="button" id="prdUpdateBtn" value="등록">
 					<input class="btn_line_m" type="button" id="prdUpdateCancle" value="취소" onclick="location.href='productList.do'">
 				</div>
 			</form>
@@ -159,116 +159,123 @@
 
 
 <script type="text/javascript">
-	$(document).ready(function() {
-			$("#prdRegi").click(
-					function() {
-						//alert("등록버튼");
-						
-
-						if (($("#_prdDivision").val() == "" || $("#_prdDivision").val() == null 
-								|| $( "#_prdDivision").val() == undefined)) {
-							alert("상품 구분을 선택해 주세요.");
-							$("#_prdDivision").focus();
-							System.out.println("상품 구분을 선택해 주세요.");
-						}
-
-						else if ($("#_prdKinds").val() == "" || $("#_prdKinds").val() == null
-								|| $("#_prdKinds").val() == undefined) {
-							alert("상품 종류를 선택해 주세요.");
-							$("#_prdKindse").focus();
-						}
-
-						else if ($("#_prdBrand").val() == "" || $("#_prdBrand").val() == null
-								|| $("#_prdBrand").val() == undefined) {
-							alert("상호명을 입력해 주세요.");
-							$("#_prdBrand").focus();
-						}
-
-						else if ($("#_prdCode").val() == ""
-								|| $("#_prdCode").val() == null
-								|| $("#_prdCode").val() == undefined) {
-							alert("상품 코드를 입력해 주세요.");
-							$("#_prdCode").focus();
-						}
-
-						else if ($("#_prdPrice").val() == ""
-								|| $("#_prdPrice").val() == null
-								|| $("#_prdPrice").val() == undefined) {
-							alert("상품 가격을 입력해 주세요.");
-							$("#_prdPrice").focus();
-						}
-
-						else if ($("#_prdStock").val() == ""
-								|| $("#_prdStock").val() == null
-								|| $("#_prdStock").val() == undefined) {
-							alert("재고 수량을 입력해 주세요.");
-							$("#_prdStock").focus();
-						}
-						
-						else if ($("#_prdName").val() == ""
-								|| $("#_prdName").val() == null
-								|| $("#_prdName").val() == undefined) {
-							alert("상품명을 입력해 주세요.");
-							$("#_prdName").focus();
-						}
-
-						else {
-							var content = CKEDITOR.instances.content.getData();
-							$("#product_content").val(content);
-							alert("상품등록이 완료되었습니다.")
-							$("#_prdForm").submit();
-						}
-
-					});
-
-
-			// select 그룹
-			$(".prd_group option").each(function(){
-			    if($(this).val()=="${prddto.product_group }"){
-			      $(this).attr("selected","selected"); // attr & prop
-			    }
-		  	}); 
-
-			
-			$("#prdUpdate").click(function(){
+$(document).ready(function() {
+	$("#prdRegi").click(
+			function() {
+				//alert("등록버튼");
 				
-				$.ajax({
-					url: "./productUpdateAf.do",
-					type: "post",
-					data: formData,
-					enctype:'multipart/form-data',
-					processData: false,
-			        contentType: false,
-			        cache: false,
-			        timeout: 600000,
-					success: function(data){
-						Swal.fire({
-			            	 icon: 'success',
-			            	 title: '상품 수정 성공!',
-			            	 showConfirmButton: true
-			            	}).then(function(){
-			        	  window.location="productList.do";});
-					},
-					error: function(e){
-						alert("통신실패");
-					}
-				})
+
+				if (($("#_prdDivision").val() == "" || $("#_prdDivision").val() == null 
+						|| $( "#_prdDivision").val() == undefined)) {
+					alert("상품 구분을 선택해 주세요.");
+					$("#_prdDivision").focus();
+					System.out.println("상품 구분을 선택해 주세요.");
+				}
+
+				else if ($("#_prdKinds").val() == "" || $("#_prdKinds").val() == null
+						|| $("#_prdKinds").val() == undefined) {
+					alert("상품 종류를 선택해 주세요.");
+					$("#_prdKindse").focus();
+				}
+
+				else if ($("#_prdBrand").val() == "" || $("#_prdBrand").val() == null
+						|| $("#_prdBrand").val() == undefined) {
+					alert("상호명을 입력해 주세요.");
+					$("#_prdBrand").focus();
+				}
+
+				else if ($("#_prdCode").val() == ""
+						|| $("#_prdCode").val() == null
+						|| $("#_prdCode").val() == undefined) {
+					alert("상품 코드를 입력해 주세요.");
+					$("#_prdCode").focus();
+				}
+
+				else if ($("#_prdPrice").val() == ""
+						|| $("#_prdPrice").val() == null
+						|| $("#_prdPrice").val() == undefined) {
+					alert("상품 가격을 입력해 주세요.");
+					$("#_prdPrice").focus();
+				}
+
+				else if ($("#_prdStock").val() == ""
+						|| $("#_prdStock").val() == null
+						|| $("#_prdStock").val() == undefined) {
+					alert("재고 수량을 입력해 주세요.");
+					$("#_prdStock").focus();
+				}
 				
-			}); 
-			
-			
+				else if ($("#_prdName").val() == ""
+						|| $("#_prdName").val() == null
+						|| $("#_prdName").val() == undefined) {
+					alert("상품명을 입력해 주세요.");
+					$("#_prdName").focus();
+				}
+
+				else {
+					var content = CKEDITOR.instances.content.getData();
+					$("#product_content").val(content);
+					alert("상품등록이 완료되었습니다.")
+					$("#_prdForm").submit();
+				}
+
+			});
+
+
+	// select 그룹
+	$(".prd_group option").each(function(){
+	    if($(this).val()=="${prddto.product_group }"){
+	      $(this).attr("selected","selected"); // attr & prop
+	    }
+  	}); 
+  	
+
+	
+	$("#prdUpdateBtn").click(function(){
+
+		var content = CKEDITOR.instances.content.getData();
+		$("#product_content").val(content);
+		var form = $('#_prdUpdeteForm')[0];
+		var formData = new FormData(form);
+		
+		
+		
+		$.ajax({
+	        url:"./productUpdateAf.do",
+	        type:'post',
+	        data: formData,
+	        enctype:'multipart/form-data',
+	        processData: false,
+	        contentType: false,
+	        cache: false,
+	        timeout: 600000,
+	        //datatype:'text',
+	        success: function (data){
+	      	  Swal.fire({
+	          	  icon: 'success',
+	          	  title: '상품 수정에 성공하셨습니다.',
+	          	  showConfirmButton: true
+	          	}).then(function(){
+	      	  window.location="productList.do";});
+	        },
+	        error: function (e){
+	           alert("통신실패");
+	   	}
 		});
+		
+	});
+});
 
 
 
-	//var opt = document.querySelectorAll("select.prd_group option");
-	//for (var i = 0; i < c_opt.length; i++) {
-	//	if (opt[i].value == '${prddto.product_group}') {
-	//		$(".prd_group option:eq("+i+")").attr("selected","selected");	
-	//		break;
-	//	}
-	//}
-	</script>
+//var opt = document.querySelectorAll("select.prd_group option");
+//for (var i = 0; i < c_opt.length; i++) {
+//	if (opt[i].value == '${prddto.product_group}') {
+//		$(".prd_group option:eq("+i+")").attr("selected","selected");	
+//		break;
+//	}
+//}
+</script>
 
 
 </body>

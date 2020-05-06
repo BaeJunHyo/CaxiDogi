@@ -46,6 +46,7 @@ public class productSaleDto implements Serializable {
 	
 	private int saleing_group;
 	private int saleing_delivery;
+	private int product_delivery_state;	// 발송여부
 	private String delivery_message;
 	private int product_delivery_state;
 	
@@ -53,6 +54,8 @@ public class productSaleDto implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+	
 
 	public productSaleDto(int saleing_num, int mem_seq, int product_num, int saleing_amount, String saleing_addr,
 			String saleing_tel, String saleing_date, String saleing_name, int saleing_option, int saleing_option_state,
@@ -73,9 +76,12 @@ public class productSaleDto implements Serializable {
 		this.kakao_cid = kakao_cid;
 		this.saleing_group = saleing_group;
 		this.saleing_delivery = saleing_delivery;
+		this.product_delivery_state = product_delivery_state;
 		this.delivery_message = delivery_message;
 		this.product_delivery_state = product_delivery_state;
 	}
+
+
 
 	public productSaleDto(int mem_seq, int product_num, int saleing_amount, String saleing_addr, String saleing_tel,
 			String saleing_name, int saleing_group, int saleing_delivery, String delivery_message) {
@@ -171,6 +177,20 @@ public class productSaleDto implements Serializable {
 		this.saleing_option_state = saleing_option_state;
 	}
 
+	
+	
+	public int getProduct_delivery_state() {
+		return product_delivery_state;
+	}
+
+
+
+	public void setProduct_delivery_state(int product_delivery_state) {
+		this.product_delivery_state = product_delivery_state;
+	}
+
+
+
 	public String getKakao_tid() {
 		return kakao_tid;
 	}
@@ -220,6 +240,8 @@ public class productSaleDto implements Serializable {
 		this.product_delivery_state = product_delivery_state;
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "productSaleDto [saleing_num=" + saleing_num + ", mem_seq=" + mem_seq + ", product_num=" + product_num
@@ -227,9 +249,15 @@ public class productSaleDto implements Serializable {
 				+ saleing_tel + ", saleing_date=" + saleing_date + ", saleing_name=" + saleing_name
 				+ ", saleing_option=" + saleing_option + ", saleing_option_state=" + saleing_option_state
 				+ ", kakao_tid=" + kakao_tid + ", kakao_cid=" + kakao_cid + ", saleing_group=" + saleing_group
+<<<<<<< HEAD
 				+ ", saleing_delivery=" + saleing_delivery + ", delivery_message=" + delivery_message
 				+ ", product_delivery_state=" + product_delivery_state + "]";
+=======
+				+ ", saleing_delivery=" + saleing_delivery + ", product_delivery_state=" + product_delivery_state
+				+ ", delivery_message=" + delivery_message + "]";
+>>>>>>> origin/NewKyeongRyul
 	}
+
 	
 	
 	

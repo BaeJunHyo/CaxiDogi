@@ -207,25 +207,7 @@ function goPage(pageNumber){
 }
 
 </script>
-	$(".subMenuBtn").click(function (){
-		
-		//alert("a");
-		if(${loginUser eq null}){
-			Swal.fire({
-				  icon: 'info',
-				  title: "로그인해주세요",
-				  text: '로그인을 하셔야 장바구니 기능을 사용하실 수 있습니다.',
-				  closeOnClickOutside : false,
-				  showConfirmButton: ["YES", "NO"]
-				}).then(function(){
-					
-				}
-			});
-		}
-		
-		
-	})
-</script>
+	
 
 
 

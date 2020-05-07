@@ -6,7 +6,7 @@
 	<h2>상품관리</h2>
 	<ul class="lnb">
 		<li class="lnb_sbj"><a href="#n">상품관리</a>
-			<ul class="sub_lnbmenu" style="display: block;">
+			<ul class="sub_lnbmenu">
 				<li><a href="productList.do">상품리스트</a></li>
 				<li><a href="productInsert.do">상품 등록</a></li>
 				<!-- 
@@ -42,15 +42,14 @@
 			</ul></li>
 			
 		<li class="lnb_sbj"><a href="#n">주문 관리</a>
-			<ul class="sub_lnbmenu">
+			<ul class="sub_lnbmenu"  style="display: block;">
 				<li><a href="adminOrderList.do">교환/반품/환불</a></li>
-			</ul></li>
-			
+			</ul></li>	
 		<li class="lnb_sbj"><a href="adminNotice.do">공지 관리</a>
 			<ul class="sub_lnbmenu">
 				<li><a href="adminOrderList.do">관리자공지</a></li>
 				<li><a href="adminOrderList.do">셀러공지</a></li>
-			</ul></li>			
+			</ul></li>		
 	</ul>
 </div>
 <!--// lnbWrap -->

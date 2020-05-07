@@ -29,8 +29,10 @@ import com.google.gson.Gson;
 
 import cd.com.a.goods.DetailService;
 import cd.com.a.goods.DetailServiceImpl;
+import cd.com.a.model.KakaoCancelDto;
 import cd.com.a.model.KakaoPayApproveDto;
 import cd.com.a.model.KakaoPayReadyDto;
+import cd.com.a.model.amountParam;
 import cd.com.a.model.kakaoAmount;
 import cd.com.a.model.kakaoSelectDto;
 import cd.com.a.model.memberDto;
@@ -285,6 +287,7 @@ public class orderController {
 			group by saleing_group
 			order by saleing_group desc;
 		 */
+		
 		memberDto mem = (memberDto)session.getAttribute("loginUser");
 		List<Integer> saleSeqList = orderservice.myOrderList_group(mem.getMem_seq());
 		
@@ -300,7 +303,9 @@ public class orderController {
 			
 			result.add(saleSeqList.get(i));
 		}
-		
+		if(saleSeqList.size() == 0 || saleSeqList == null) {
+			result = null;
+		}
 		//받아온 list.size() 만큼 for문 돌린다 
 		//그다음에는 changeOrderProductName() 사용해서 이름 바꾸어 놓고 
 		//saleing_num 만 String 으로 변형해서 모아준다   list[0] 에 
@@ -378,6 +383,75 @@ public class orderController {
 		
 		return "mypage/myBuyListAll";
 	}
+	
+	
+	
+	@RequestMapping(value="orderCancel.do", method= {RequestMethod.GET,RequestMethod.POST})
+	public String orderCancel(Model	model, @RequestParam(value="index") int saleing_num) {
+		
+		System.out.println("seleing_num ===" + saleing_num);
+		
+		List<productSaleDto> list = orderservice.getNowSaleingList(saleing_num);
+		
+		kakaoSelectDto dto = selectKakao(list.get(0).getKakao_tid());
+		model.addAttribute("kakaoDto", dto);
+		model.addAttribute("saleing_num", saleing_num);
+		
+		return"kakao/order_cancel";
+	}
+	
+	
+	@RequestMapping(value="kakaoOrderCancel.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String kakaoOrderCancel(String tid, String cancel_amount, String cancel_vat_amount) {
+		
+		//모델로 넘겨줌 
+		// 서버와 통신할 객체 생성
+		RestTemplate restTemplate = new RestTemplate();
+		
+		// 서버로 요청할 header
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", "KakaoAK " + "cbff925dffacd0e67ba93eed0db3a9a3");
+		headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
+		
+		// 서버로 요청할 Body
+		// 결제 정보를 넘겨줘야 한다
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		params.add("cid", "TC0ONETIME");
+		params.add("tid", tid );
+		params.add("cancel_amount", cancel_amount); //취소금액
+		params.add("cancel_tax_free_amount", "0"); //취소 비과세금액
+		params.add("cancel_vat_amount", cancel_vat_amount);
+		
+		HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
+		try {
+			
+			KakaoCancelDto kakaoPayDto = restTemplate.postForObject(new URI(HOST + "/v1/payment/cancel"), body,
+					KakaoCancelDto.class);
+			
+			System.out.println(kakaoPayDto.toString());
+			
+		} catch (RestClientException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}/**/
+		
+		
+		
+		return "";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -468,7 +542,7 @@ public class orderController {
 			kakaoAmount amount = gson.fromJson(stra, kakaoAmount.class);
 			System.out.println(amount.getTotal());
 			kakaoPayDto.setTotalPrice("" + amount.getTotal());
-			
+			kakaoPayDto.setVat(amount.getVat());
 			return kakaoPayDto;
 			
 		} catch (RestClientException e) {

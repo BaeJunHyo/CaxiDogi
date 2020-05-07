@@ -36,4 +36,14 @@ public class DetailServiceImpl implements DetailService {
 	}
 
 	
+	@Override
+	public boolean readcountPlus(int product_num) {
+		// TODO Auto-generated method stub
+		return detailDao.readcountPlus(product_num);
+	}
+	
+	
+	
+	
+	
 }

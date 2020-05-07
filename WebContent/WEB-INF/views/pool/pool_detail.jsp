@@ -91,10 +91,10 @@
 								<dt>대형견 이용</dt>
 								<dd>
 								<c:if test="${pool.pool_large == 1 }">
-									이용가능
+								<span class="c_red">이용불가</span>
 								</c:if>
 								<c:if test="${pool.pool_large == 0 }">
-								<span class="c_red">이용불가</span>
+									이용가능
 
 								</c:if>
 								</dd>
@@ -105,10 +105,10 @@
 								<dt>샤워실</dt>
 								<dd>
 								<c:if test="${pool.pool_shower == 1 }">
-									이용가능
+									<span class="c_red">없음</span>
 								</c:if>
 								<c:if test="${pool.pool_shower == 0 }">
-									<span class="c_red">없음</span>
+									<span>이용가능</span>
 								</c:if>
 								</dd>
 							</dl>
@@ -118,10 +118,10 @@
 								<dt>주차장</dt>
 								<dd>
 								<c:if test="${pool.pool_parking == 1 }">
-									이용가능
+									<span  class="c_red">없음</span>
 								</c:if>
 								<c:if test="${pool.pool_parking == 0 }">
-									<span class="c_red">없음</span>
+									<span>이용가능</span>
 								</c:if>
 								</dd>
 							</dl>

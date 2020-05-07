@@ -141,28 +141,5 @@ public class noticeController {
 	}
 
 
-	@GetMapping(value="ajaxTest.do")
-	@ResponseBody
-	public Map<Integer, Object> ajaxTest(){
 
-		List<admin_noticeDto> list = new ArrayList<admin_noticeDto>();
-		list.add(new admin_noticeDto(44, "44", "44","44", "44"));
-		list.add(new admin_noticeDto(55, "55", "55","55", "555"));
-
-		Map<Integer, Object> map = new HashMap<Integer, Object>();
-		map.put(1, list);
-
-		return map;
-	}
-
-	@RequestMapping(value="main.do", method=RequestMethod.GET)
-	public String notice() {
-		//공지사항 메인페이지 이동 
-		return "admin/notice/notice_main";
-	}
-
-	@RequestMapping(value="notice.do", method=RequestMethod.GET)
-	public String userNotice() {
-		return "/notice/notice";
-	}
 }

@@ -37,7 +37,7 @@
 </head>
 <body>
 <div>
-	<div class="notice_header">
+	<div class="notice_header" align="center">
 		글작성 페이지 
 	</div>
 	
@@ -63,7 +63,7 @@
 					<p>내용</p>
 				</div>
 				<div>
-					<textarea rows="" cols="80" ></textarea>
+					<textarea class="ckeditor" id="contents" name="notice_content"></textarea>
 				</div>
 			</form>
 	</div>

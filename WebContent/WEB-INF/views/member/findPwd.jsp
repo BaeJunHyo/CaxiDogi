@@ -5,9 +5,23 @@
 <head>
 <meta charset="UTF-8">
 <title>패스워드찾기</title>
+<style>
+.qpwd{
+   	top: -39px;
+    margin-left: -18px;
+}
+.spwd{
+	width: 200px;
+    height: 40px;
+}
+.txt-hint{
+	margin-top: 10px;
+}
+</style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <link href="./css/login.css" rel="stylesheet">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 <!-- <style>
 .findPwd{width:300px;margin:0 auto;}
 .findPwd ul{list-style: none;margin:0 auto;}
@@ -19,7 +33,6 @@
 <body>
 
 <div class="findPwd">
-	<h2>패스워드찾기</h2>
 <!--     <form method="post" action="">
 	    <ul>
 		    <li>
@@ -69,8 +82,8 @@
 				</p>
 				
 				<p>
-					<label>패스워드찾기 질문</label>
-		    		<select class="" name="pass_question" id="pass_question">
+					<label class="qpwd">패스워드찾기 질문</label>
+		    		<select class="spwd" name="pass_question" id="pass_question">
 	                  <option value="1" selected>기억에 남는 추억의 장소는?</option>
 	                  <option value="2">나의 보물 1호는?</option>
 	                  <option value="3">나의 출신 초등학교는?</option>

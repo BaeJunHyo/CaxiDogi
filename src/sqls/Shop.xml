@@ -49,7 +49,7 @@ select @rownum:=@rownum+1 as rownum, shop_seq, shop_owner, shop_number, shop_nam
    <if test="shopAddr == 3">
    		and not shop_addr like concat('%',#{shopAddrSeo},'%') and not shop_addr like concat('%',#{shopAddrKyeong},'%')
    </if>
-	order by shop_seq asc
+	order by shop_seq desc
    limit #{start}, #{recordCountPerPage}
 </select>
 

@@ -200,7 +200,6 @@
 		</div>
 		<!--// prdInfo_section -->
 	</div>
-	<!--// prd_infoWrap -->
 	<div class="prd_detail_infoWrap">
 		<ul class="detailTab">
 			<li><a href=".move01" class="current">상품설명<img
@@ -214,57 +213,30 @@
 			<li><a href=".move05">배송/교환/반품<img
 					src="./images/ico_arrow_prdDetail.gif"></a></li>
 		</ul>
-		<div class="detailView move01">
+	<%-- 	<div class="detailView move01">
 			<span>
 				${shopDetail.shop_content }
 			</span>
-		</div>
+		</div> --%>
 
-
-		<!-- 상품 옵션 선택 하단 레이어 S : -->
-		<div class="bttm_optionLayer">
-			<div class="optionBox clearfix">
-				<p class="leftSec">
-					옵션선택 <img src="./images/ico_arr_open_w.png" class="open_btn"><img
-						src="./images/ico_arr_close_w.png" style="display: none;"
-						class="close_btn">
-				</p>
-				<p class="rightSec">
-					<a href="#n" class="btn_white_m">바로구매</a>
-					<a href="#n" class="btn_dark_m">장바구니</a>
-				</p>
-			</div>
-			<div class="optionView">
-				<p class="prd_name">힐링 관절용사료</p>
-				<a href="#n" class="btn_close_optionView"><img
-					src="./images/btn_close_m.png"></a>
-				<!-- 일반상품 선택시 -->
-				<div class="prdCounter_wrap normalPrd_option">
-					<table class="border_none">
-						<tbody>
-							<tr>
-								<td>
-									<span class="counter">
-										<input type="text" value="1">
-										<span class="counterBtn">
-											<a href="#n" class="btnPlus"></a>
-											<a href="#n" class="btnMinus"></a>
-										</span>
-									</span>
-								</td>
-								<td></td>
-								<td class="total_price">1,000,000원</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-
-				
-
-				<p class="total_price tr">
-					총 합계금액 <span class="c_red"><strong>1,000,000</strong>원</span>
-				</p>
-			</div>
+	<!--// prdInfo_section -->
+		<div class="detailView move05">
+			<table class="basic_tableStyle">
+				<colgroup>
+					<col width="190px">
+					<col width="*">
+				</colgroup>
+				<tbody>
+					<tr>
+						<td>${shopDetail.shop_content }</td>
+					</tr>
+					<tr>
+						<td>
+							<div id="map" style="width:100%;height:350px;"></div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 		<!-- 상품 옵션 선택 하단 레이어 E : -->
 	</div>
@@ -423,6 +395,46 @@ $("#resvwriteBtn").click(function(){
 	
 });
   
+</script>
+<!-- services 라이브러리 불러오기 -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6b6d03d1753756cedf57a2334d3164d8&libraries=services"></script>
+<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };  
+
+// 지도를 생성합니다    
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+
+// 주소로 좌표를 검색합니다
+geocoder.addressSearch("${fn:split(shopDetail.shop_addr, '/')[1] }", function(result, status) {
+
+    // 정상적으로 검색이 완료됐으면 
+     if (status === kakao.maps.services.Status.OK) {
+
+        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: coords
+        });
+
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        var infowindow = new kakao.maps.InfoWindow({
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">${shopDetail.shop_name}</div>'
+        });
+        infowindow.open(map, marker);
+
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+    } 
+});    
 </script>
 
 

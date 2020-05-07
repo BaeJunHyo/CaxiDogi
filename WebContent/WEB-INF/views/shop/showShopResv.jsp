@@ -39,7 +39,11 @@ location.href="myPageMove.do";
 <li data-cat="item1">미용 예약 내역</li>
 </ul>
 <div class="mind_wrap">
+
+	
+
   
+  <c:if test = "${fn:length(showShopList) != 0 }">
  <c:forEach items="${showShopList }" var="showList">
  <input type="hidden" value="${showList.shop_resv_tel}" id="h_user_tel">
 
@@ -55,16 +59,16 @@ location.href="myPageMove.do";
 								src="<%=request.getContextPath() %>/images/shopImg/${showList.shop_photo }" alt="">
 						</c:if>
   </div><!-- List 1 -->
-  <div class="booking_list2">
+  <div class="booking_list2 booking_tel">
     <div class="child1">
       <h2>${showList.shop_name }<i class="fa fa-angle-down" aria-hidden="true"></i>
  </h2>
       <h5> </h5>
     </div>
-    <div class="child2" style="display:none;">
+    <div class="child2S" style="display:none;">
      <ul class="child_ul_1">
     	<li>예약자 명: ${showList.shop_resv_name}</li>
-    	<li id="userTel" class="userTel" h_user_tel="${showList.shop_resv_tel}">예약자 연락처: ${showList.shop_resv_tel}</li>
+    	<li class="userTel">예약자 연락처: <span>${showList.shop_resv_tel}</span></li>
     	<li>예약시간 : ${showList.shop_resv_time }</li>
     	<li>예약날짜 : ${showList.shop_resv_rday }</li>
     	<li>요청사항 : ${showList.shop_resv_comment }</li>
@@ -88,7 +92,7 @@ location.href="myPageMove.do";
     </ul>
     <ul class="child_ul_2">
     	<li>가게 주소: ${showList.shop_addr}</li>
-    	<li id="tel" class="tel" value="${showList.shop_tel}">${showList.shop_tel}</li>
+    	<li class="tel" >가게 전화: <span>${showList.shop_tel}</span></li>
     	 <%-- <input type="hidden" value="${showList.shop_tel}" id="h_shop_tel"> --%>
     	 <%-- <input type="text" value="${showList.shop_tel}" id="h_shop_tel" class="h_shop_tel"> --%>
     	<li>영업 시간: ${showList.shop_time}</li>
@@ -111,6 +115,18 @@ location.href="myPageMove.do";
   </ul>
   <input type="hidden" id="">
 </c:forEach>
+</c:if>
+<c:if test = "${fn:length(showShopList) == 0 }">
+	<ul class="mind_booking_listings">
+    	<li> 
+    		<div class="booking_list2 booking_tel">
+    			<div class="child1">
+    				<h2>예약내역이 없습니다.<i class="fa fa-angle-down" aria-hidden="true"></i></h2>
+    			</div>
+   			</div>
+    	</li>
+  </ul>
+</c:if>
 <form name="frmForm1" id="_frmFormSearch" method="post">
 
  <input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?0:recordCountPerPage }">
@@ -131,28 +147,20 @@ location.href="myPageMove.do";
  <script src="<%=request.getContextPath() %>/js/showShopResv.js"></script>
 
 <script>
-
-// 전화번호들 수정해야함  포멧넘버 쓰기---------------------------------------------------------------------------
-//var tel = $(".tel").val();
-//var tel ="${showList.shop_tel}"
-//var userTel = $(".h_user_tel").val();
-$(document).ready(function(){
-var uesrTel = $('li').attr('h_user_tel');
-//var userTel = document.body.getAttribute('h_user_tel');
-//alert("us" +userTel);
-})
-//var tel = $("li#tel").val();
-
-var tel = "${showList.shop_tel}";
-//alert("tel" + tel);
+// 가제 전화 하이픈(-) 삽입
+$('.booking_tel').click(function(){
+	// 가게 전화
+	var tel = $(this).find('li.tel span').text();
 	tel = tel.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3");
-	document.querySelector(".tel").innerText = tel;
+	$(this).find('li.tel span').text(tel);
 
+	// 예약자 연락처
+	var userTel = $(this).find('li.userTel span').text();
+	userTel = userTel.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3");
+	$(this).find('li.userTel span').text(userTel);
+	
+});
 
-//tel = tel.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3");
-userTel = userTel.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3");
-//document.querySelector("#tel").innerText = '가게전화: '+ tel;
-document.querySelector(".userTel").innerText = '예약자 연락처: '+userTel;
 
 </script>
 <script>

@@ -48,8 +48,8 @@
 							<img alt="이미지 없음" src="/images/${orderDetail.product_img }" width="120" height="120"/>
 						</td>
 						<td>
-							<p style="font-size: 12px; font-color: #ccc">[주문번호 : ${orderDetail.saleing_group } ]</p>
-							<p><strong>${orderDetail.product_name} / </strong><font class="amount">${orderDetail.saleing_amount }개</font></p>
+							<p style="font-size: 12px; color: #999">[주문번호 : ${orderDetail.saleing_group } ]</p>
+							<p><strong>${orderDetail.product_name} / </strong><font class="amount" style="color:#999">${orderDetail.saleing_amount }개</font></p>
 							<p style="font-size: 13px;">${orderDetail.product_brand }</p>
 							<p>
 								<strong class="orderPrice"><fmt:formatNumber type="number" value="${orderDetail.product_price * orderDetail.saleing_amount }"/>원</strong>
@@ -76,7 +76,7 @@
 					<strong>합계금액</strong>
 				</td>
 				<td>
-					<strong class="totalAmount" style="color: #ccc;">${totalAmount }개</strong>
+					<strong class="totalAmount" style="color: #999;">${totalAmount }개</strong>
 				</td>
 				<td>
 					<strong class="totalPrice"><fmt:formatNumber type="number" value="${totalPrice }"/>원</strong>

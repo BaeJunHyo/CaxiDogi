@@ -140,12 +140,6 @@ public class noticeController {
 		return String.valueOf(isError);
 	}
 
-	@RequestMapping(value="main.do", method=RequestMethod.GET)
-	public String notice() {
-		//공지사항 메인페이지 이동 
-		return "admin/notice/notice_main";
-	}
-	
 	
 	
 }

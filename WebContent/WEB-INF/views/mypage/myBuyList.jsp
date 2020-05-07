@@ -49,14 +49,14 @@
 									발송중
 								</c:when>
 								<c:otherwise>
-									발송완료
+									<font style="color: #red;">발송완료</font>
 								</c:otherwise>
 							</c:choose>
 						</p>
 						<c:if test="${myBuyParam.product_delivery_state eq 1 }">
 							<br><a href="productReview.do?order_num=${myBuyParam.order_number }" class="btn_line_s">상품평작성</a><br><br>
-							<a href="#" class="btn_line_s">교환</a>
-							<a href="#" class="btn_line_s">반품</a>
+							<a href="javascript:openChenge(${myBuyParam.order_number})" class="btn_line_s">교환</a>
+							<a href="javascript:openCancel(${myBuyParam.order_number})" class="btn_line_s">반품</a>
 						</c:if>
 					</td>
 				</tr>
@@ -64,19 +64,27 @@
 			</c:if>
 			<c:if test="${myBuyList eq null }">
 				<tr>
-					<td colspan="5">최근 구매하신 내역이 없습니다.</td>
+					<td colspan="5">최근 1개월 동안 구매하신 내역이 없습니다.</td>
 				</tr>
 			</c:if>	
 		</tbody>
 	</table>
 </div>
 
+
 <script>
 	function openPopup( StrNum ){
 		//console.log(StrNum);
 		window.open("myBuyDetail.do?index="+ StrNum, "주문 상세보기", "top:200px, left:400px, height=600px, width=600px, scrollbar= yes");
 	}
-	
+
+	function openCancel( index ){
+		window.open("orderCancel.do?index="+ index, "주문 취소 요청","top:200px, left:600px, height=600px, width=600px, scrollbar= yes");
+	}
+
+	function openChange( index ){
+		window.open("orderChange.do?index="+ index, "주문 교환 요청","top:200px, left:600px, height=600px, width=600px, scrollbar= yes");
+	} 
 </script>
 
 

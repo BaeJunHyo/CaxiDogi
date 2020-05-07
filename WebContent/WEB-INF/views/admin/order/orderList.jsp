@@ -3,32 +3,29 @@
     
 <%@ include file="./../../../../include/bo/bo_header.jsp" %>
 
-<style>
-.btn22{display: inline-block;
-    height: 24px;
-    line-height: 24px;
-    padding: 0 15px;
-    font-size: 13px;
-    color: #fff;
-    border-radius: 12px;
-    background: #000;float:right;}
-</style>
+<%
+String category = (String)request.getAttribute("s_category");
+if(category == null) category = "";
+	
+String keyword = (String)request.getAttribute("s_keyword");
+if(keyword == null) keyword = "";
+%>
+
+<script>
+var category = "<%=category %>";
+var keyword = "<%=keyword %>";
+$(document).ready(function () {
+	$("#_s_category").val( category );
+	$("#_s_keyword").val( keyword );
+	
+	document.prdSrchFrm.s_keyword.value = keyword;
+});
+</script>
 
 <%@ include file="/include/bo/bo_leftNav_order.jsp"%>
 
 <div class="containerWrap">
-	<ul class="gnb">
-		<!-- <li><a href="#n">기본설정</a></li> -->
-		<li><a href="productList.do" class="current">상품관리</a></li>
-		<li><a href="orderList.do">주문/배송</a></li>
-		<!-- 
-		<li><a href="#n">회원</a></li>
-		<li><a href="#n">게시판</a></li>
-		<li><a href="#n">프로모션</a></li>
-		<li><a href="#n">디자인</a></li>
-		<li><a href="#n">통계</a></li> 
-		-->
-	</ul><!--// gnb -->
+	<%@ include file="/include/bo/bo_gnb_order.jsp"%>
 
 	<form name="serchForm" id="serchForm" method="post">
 		<div class="container">
@@ -49,8 +46,7 @@
 		
 			<div class="cn_wrap">
 				<div class="table_top">
-					<span class="table_sbj">공지 사항 검색</span>
-					<a href="javascript:openWrite()" class="btn22">+ 글등록</a>
+					<span class="table_sbj">주문 요청 검색</span>
 				</div><!--// table_top -->
 				
 				<!-- 검색 -->
@@ -67,8 +63,9 @@
 							<td colspan="3">
 								<select id="_s_category" name="s_category">
 									<option value="0" selected>통합검색</option>
-									<option value="title">제목</option>
-									<option value="content">내용</option>
+									<option value="주문번호">주문번호</option>
+									<option value="ID">회원ID</option>
+									<option value="회원이름">회원이름</option>
 								</select>
 								<input type="text" id="_s_keyword" name="s_keyword">
 							</td>
@@ -81,13 +78,13 @@
 						            <label>전체</label>
 						            
 						            <input type="radio" name="s_soldState" value="1">
-						            <label>회원</label>
+						            <label>교환</label>
 						            
 						            <input type="radio" name="s_soldState" value="2">
-						            <label>셀러</label>
+						            <label>반품</label>
 						            
 						            <input type="radio" name="s_soldState" value="3">
-						            <label>관리자</label>
+						            <label>환불</label>
 						        </span>
 						        <!-- <span class="select_wrap">
 						            
@@ -107,74 +104,20 @@
 			</div><!-- //cn_wrap -->
 			
 			<div>
-			<!-- width : 1198 -->
-				<table style="width: 1198px;">
+				<table>
 					<colgroup>
-						<col width="100px">
-						<col width="*">
-						<col width="150px">
-						<col width="150px">
+						<col width="">
+						<col width="">
+						<col width="">
 					</colgroup>
 					<thead>
-						<tr>
-							<th>구분</th>
-							<th>글제목</th>
-							<th>작성일</th>
-							<th>작성자</th>
-						</tr>
+						
 					</thead>
 					<tbody>
-						<tr>
-						
-						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>	
 	</form>
 </div>
-<div id="WritePopUp">
-	<div class="notice_header" align="center">
-		글작성 페이지 
-	</div>
-	
-	<div class="notice_container">
-			<form action="writeAf.do" method="post" id="frm" enctype="multipart/form-data">
-				<div>
-					<strong>제목</strong>
-				</div>
-				<div>
-					<input type="text" style="width: 550px;">
-				</div>
-				<div>
-					<p>구분</p>
-				</div>
-				<div>
-					<select>
-						<option>회원</option>
-						<option>셀러</option>
-						<option>관리자</option>
-					</select>
-				</div>
-				<div>
-					<p>내용</p>
-				</div>
-				<div>
-					<textarea class="ckeditor" id="contents" name="notice_content"></textarea>
-				</div>
-			</form>
-	</div>
-</div>
-
-<script>
-	$(document).ready(function (){
-		$("#WritePopUp").hide();
-	})
-	function openWrite(){
-		//window.open("adminNoticeWrite.do","관리자 글 작성","top:200px, left:400px, height=500px, width=800px, scrollbar=yes, location=no,status=no,menubar=no")
-		console.log("누름");
-		$("#WritePopUp").show();
-	}
-</script>
 		
-					

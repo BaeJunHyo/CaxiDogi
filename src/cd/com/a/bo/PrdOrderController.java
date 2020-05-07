@@ -14,8 +14,8 @@ public class PrdOrderController {
 	PrdOrderService orderService;
 	SqlSession sqlSession;
 	
-	@RequestMapping(value="orderList.do", method= {RequestMethod.GET,RequestMethod.POST})
-	public String orderlist(Model model) {
+	@RequestMapping(value="adminOrderList.do", method=RequestMethod.GET)
+	public String adminOrderList(Model model){
 		
 		return "/bo/order/bo_01order_1";
 	}

@@ -153,8 +153,8 @@ public class MemberController {
 		
 		//saleGroupList 만큼 돌리면서 paramList 생성 
 		for(int i = 0; i < fsize; i++) {
-			System.out.print("넘어온 saleing_num["+ i +"]  == ");
-			System.out.println(saleGroupList.get(i));
+			//System.out.print("넘어온 saleing_num["+ i +"]  == ");
+			//System.out.println(saleGroupList.get(i));
 			
 			List<productSaleDto> saleList = mypageService.myOrderList(saleGroupList.get(i));
 			
@@ -167,14 +167,14 @@ public class MemberController {
 			String strDate = saleList.get(0).getSaleing_date();
 	
 			String[] strDate2 = strDate.split("\\s");
-			System.out.println(strDate2[0]);
-			System.out.println(strDate2[1]);
+			//System.out.println(strDate2[0]);
+			//System.out.println(strDate2[1]);
 			strDate = strDate2[0] + "/";
 			
 			strDate2[1] = strDate2[1].substring(0, 8);
 			strDate += strDate2[1];
 			
-			System.out.println("완성 === " + strDate);
+			//System.out.println("완성 === " + strDate);
 			productDto prdDto = null;
 			
 			if(saleList.size() > 1) {
@@ -194,9 +194,8 @@ public class MemberController {
 			
 			
 		}
-		
-		for(myBuyParam param : myBuyList) {
-			System.out.println(param.toString());
+		if(saleGroupList.size() == 0 || saleGroupList == null) {
+			myBuyList = null;
 		}
 			
 		

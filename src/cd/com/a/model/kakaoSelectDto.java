@@ -5,28 +5,52 @@ import java.util.Date;
 
 public class kakaoSelectDto implements Serializable {
 
+	private String tid;
+	private String cid;
 	private String status;
 	private String item_name;
 	private int quantity;
 	private Date created_at;
 	private Date approved_at;
 	private Date canceled_at;
+	private Object SelectedCardInfo;
 	private Object Amount;
 	private String totalPrice;
+	private int vat;
 	
 	public kakaoSelectDto()	{
 	}
 
-	public kakaoSelectDto(String status, String item_name, int quantity, Date created_at, Date approved_at,
-			Date canceled_at, Object amount) {
-		super();
+	public kakaoSelectDto(String tid, String cid, String status, String item_name, int quantity, Date created_at, Date approved_at,
+			Date canceled_at, Object amount, Object SelectedCardInfo,int vat) {
+		
+		this.tid = tid;
+		this.cid = cid;
 		this.status = status;
 		this.item_name = item_name;
 		this.quantity = quantity;
 		this.created_at = created_at;
 		this.approved_at = approved_at;
 		this.canceled_at = canceled_at;
-		Amount = amount;
+		this.SelectedCardInfo = SelectedCardInfo;
+		this.Amount = amount;
+		this.vat = vat;
+	}
+	
+	public String getTid() {
+		return tid;
+	}
+
+	public void setTid(String tid) {
+		this.tid = tid;
+	}
+
+	public String getCid() {
+		return cid;
+	}
+
+	public void setCid(String cid) {
+		this.cid = cid;
 	}
 
 	public String getStatus() {
@@ -93,11 +117,31 @@ public class kakaoSelectDto implements Serializable {
 		this.totalPrice = totalPrice;
 	}
 
+	public Object getSelectedCardInfo() {
+		return SelectedCardInfo;
+	}
+
+	public void setSelectedCardInfo(Object selectedCardInfo) {
+		SelectedCardInfo = selectedCardInfo;
+	}
+
+	public int getVat() {
+		return vat;
+	}
+
+	public void setVat(int vat) {
+		this.vat = vat;
+	}
+
 	@Override
 	public String toString() {
-		return "kakaoSelectDto [status=" + status + ", item_name=" + item_name + ", quantity=" + quantity
-				+ ", created_at=" + created_at + ", approved_at=" + approved_at + ", canceled_at=" + canceled_at
-				+ ", Amount=" + Amount + "]";
+		return "kakaoSelectDto [tid=" + tid + ", cid=" + cid + ", status=" + status + ", item_name=" + item_name
+				+ ", quantity=" + quantity + ", created_at=" + created_at + ", approved_at=" + approved_at
+				+ ", canceled_at=" + canceled_at + ", SelectedCardInfo=" + SelectedCardInfo + ", Amount=" + Amount
+				+ ", totalPrice=" + totalPrice + ", vat=" + vat + "]";
 	}
+	
+	
+	
 	
 }

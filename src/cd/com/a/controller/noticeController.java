@@ -30,17 +30,24 @@ import cd.com.a.service.admin_noticeService;
 import cd.com.a.util.FileUploadUtil;
 
 @Controller
-@RequestMapping(value="/notice")
 public class noticeController {
 	
 	@Autowired
 	admin_noticeService noticeService;
 	
 	
-	@GetMapping(value="write.do")
+	@RequestMapping(value="adminNotice.do", method=RequestMethod.GET)
+	public String adminNotice(Model model)	{
+		
+		return "admin/notice/notice_main";
+	}
+	
+	
+	
+	@GetMapping(value="adminNoticeWrite.do")
 	public String write_get() {
 		//
-		return "admin/notice/notice_insert";
+		return "admin/notice/notice_insert2";
 	}
 	
 	@PostMapping(value="writeAf.do", consumes ={"multipart/form-data"})
@@ -132,30 +139,7 @@ public class noticeController {
 		
 		return String.valueOf(isError);
 	}
+
 	
 	
-	@GetMapping(value="ajaxTest.do")
-	@ResponseBody
-	public Map<Integer, Object> ajaxTest(){
-		
-		List<admin_noticeDto> list = new ArrayList<admin_noticeDto>();
-		list.add(new admin_noticeDto(44, "44", "44","44", "44"));
-		list.add(new admin_noticeDto(55, "55", "55","55", "555"));
-		
-		Map<Integer, Object> map = new HashMap<Integer, Object>();
-		map.put(1, list);
-		
-		return map;
-	}
-	
-	@RequestMapping(value="main.do", method=RequestMethod.GET)
-	public String notice() {
-		//공지사항 메인페이지 이동 
-		return "admin/notice/notice_main";
-	}
-	
-	@RequestMapping(value="notice.do", method=RequestMethod.GET)
-	public String userNotice() {
-		return "/notice/notice";
-	}
 }

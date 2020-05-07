@@ -29,25 +29,11 @@ if(loginUser != null){
 <link rel="apple-touch-icon" sizes="72x72" href="<%=request.getContextPath() %>/images/ico/icon_72.png">
 <link rel="apple-touch-icon" sizes="114x114" href="<%=request.getContextPath() %>/images/ico/icon_114.png">
 <link rel="apple-touch-icon" sizes="144x144" href="<%=request.getContextPath() %>/images/ico/icon_144.png">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <link href="<%=request.getContextPath() %>/css/order.css" rel="stylesheet">
-<!--   <script type="text/javascript">
-   $(document).ready(function (){
-	   var jbOffset = $( '.nav' ).offset();
-	   $( window ).scroll(function (){
-		   if ( $( document ).scrollTop() > jbOffset.top ) {
-			   $( '.nav' ).addClass( 'jbFixed' );
-		   }
-		   else {
-			   $( '.nav' ).removeClass( 'jbFixed' );
-		   }
-	   });
-	   
-   });
-  
-  </script> -->
-  
+
 <!-- 코어태그 -->
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>

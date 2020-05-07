@@ -68,6 +68,9 @@ public class DetailController {
 		System.out.println("prd_num="+product_num);
 		productDto produc = detailService.getPrd(product_num);
 		
+		//클릭한 제품의 readcount를 증가시키는 작업
+		detailService.readcountPlus(product_num);
+		
 		//옵션 상품(이름이 비슷한)를 가져올 list 생성 
 		List<productDto> list = new ArrayList<productDto>();
 		String product_name = produc.getProduct_name();

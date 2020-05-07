@@ -13,20 +13,58 @@
 <%@ taglib prefix = "fn"  uri = "http://java.sun.com/jsp/jstl/functions" %>
 <fmt:requestEncoding value="utf-8"/>
 
+<div class="category_dept">
+	<ul>
+		<li>HOME</li>
+		<li>PET GOODS</li>
+		<c:if test="${prdlistparam.product_group == -1}">
+			<li>전체</li>
+		</c:if>
+		<c:if test="${prdlistparam.product_group == 1}">
+			<li>강아지</li>
+		</c:if>
+		<c:if test="${prdlistparam.product_group == 2}">
+			<li>고양이</li>
+		</c:if>
+		<c:if test="${prdlistparam.product_group == 3}">
+			<li>공용</li>
+		</c:if>
+		<c:if test="${prdlistparam.product_sub_group == -1}">
+			<li>전체</li>
+		</c:if>
+		<c:if test="${prdlistparam.product_sub_group == 1}">
+			<li>사료</li>
+		</c:if>
+		<c:if test="${prdlistparam.product_sub_group == 2}">
+			<li>간식</li>
+		</c:if>
+		<c:if test="${prdlistparam.product_sub_group == 3}">
+			<li>배변용품</li>
+		</c:if>
+		
+		<c:if test="${prdlistparam.product_sub_group == 4}">
+			<li>놀이용품</li>
+		</c:if>
+		<c:if test="${prdlistparam.product_sub_group == 5}">
+			<li>미용용품</li>
+		</c:if>
+	</ul>
+</div>
 
 <!-- container S : -->
 <div class="container container_subWrap" id="fixNextTag">
 	
-	<div style="margin-top: 100px; padding: 20px;">
-		<ul class="prdSubMenu" id="product_sub_group"> <!-- #BEF781 -->
-			<li><a href="prdList.do" class="product_sub_group selectMenu" value="-1">전체</a></li>
-			<li><a href="prdListFeed.do" class="product_sub_group" value="1">사료</a></li>
-			<li><a href="prdListSnack.do" class="product_sub_group" value="2">간식</a></li>
-			<li><a href="prdListBowel.do" class="product_sub_group" value="3">배변용품</a></li>
-			<li><a href="prdListPlay.do" class="product_sub_group" value="4">놀이용품</a></li>
-			<li><a href="prdListBeauty.do" class="product_sub_group" value="5">미용용품</a></li>
-			<input type="hidden" value="product_sub_group" id="prdGroup">
+	<div style="margin-top: 43px; margin-bottom: 50px; padding: 20px;">
+		<ul class="prdSubMenu"> <!-- #BEF781 -->
+			<li><a href="#none" class="product_sub_group ${prdlistparam.product_sub_group == -1?'selectMenu': '' }" value="-1">전체</a></li>
+			<li><a href="#none" class="product_sub_group ${prdlistparam.product_sub_group == 1?'selectMenu': '' }" value="1">사료</a></li>
+			<li><a href="#none" class="product_sub_group ${prdlistparam.product_sub_group == 2?'selectMenu': '' }" value="2">간식</a></li>
+			<li><a href="#none" class="product_sub_group ${prdlistparam.product_sub_group == 3?'selectMenu': '' }" value="3">배변용품</a></li>
+			<li><a href="#none" class="product_sub_group ${prdlistparam.product_sub_group == 4?'selectMenu': '' }" value="4">놀이용품</a></li>
+			<li><a href="#none" class="product_sub_group ${prdlistparam.product_sub_group == 5?'selectMenu': '' }" value="5">미용용품</a></li>
 		</ul><!--// gnb -->
+		<input type="hidden" value="${prdlistparam.product_group }" id="product_group">
+		<input type="hidden" value="${prdlistparam.product_sub_group }" id="product_sub_group">
 	</div>
 	
 	<%-- 
@@ -59,7 +97,6 @@
 			<ul>
 				<c:forEach items="${prdlist }" var="prd" varStatus="pr">
 					<c:if test="${prd.product_hidden == 0 }">
-						
 						<li>
 							<!-- 상품 재고가 없을 때 -->
 							<c:if test="${prd.product_stock == 0 }">
@@ -144,22 +181,29 @@
 
 <script>
 
+var product_group = $(this).attr('value');
+
+
+/* 
+$(".product_group").click(function(){
+	location.href="prdList.do?product_group="+product_group;
+}); 
+*/
+
 $(".product_sub_group").click(function(){
-	$(".product_sub_group").removeClass('selectMenu');
-	$(this).addClass('selectMenu');
-
-	// a태그 value 갖고 오기
-	var product_sub_group = $(this).attr('value');  
-
+	//$(".product_sub_group").removeClass('selectMenu');
+	//$(this).addClass('selectMenu');
 	//alert("product_sub_group : "+product_sub_group);
 	
-	location.href="prdList.do?product_sub_group="+product_sub_group;
+	var product_group = $("#product_group").val();
+	var product_sub_group = $(this).attr('value');  // a value 갖고 오기
+	location.href="prdList.do?product_sub_group="+product_sub_group+"&product_group="+product_group;
 });
 
 function goPage(pageNumber){
-	//var product_sub_group = $(".selectMenu").val();
-	//var prdGroup = $("#prdGroup").val();
-	location.href="prdList.do?pageNumber="+pageNumber; 
+	var product_group = $("#product_group").val();
+	var product_sub_group = $("#product_sub_group").val();
+	location.href="prdList.do?product_group="+product_group+"&product_sub_group="+product_sub_group+"&pageNumber="+pageNumber;  
 }
 
 </script>

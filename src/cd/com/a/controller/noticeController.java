@@ -154,6 +154,8 @@ public class noticeController {
 		return "admin/notice/notice_main";
 	}
 	
-	
-	
+	@RequestMapping(value="notice.do", method=RequestMethod.GET)
+	public String userNotice() {
+		return "/notice/notice";
+	}
 }

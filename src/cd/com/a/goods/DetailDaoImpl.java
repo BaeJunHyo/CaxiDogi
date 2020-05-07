@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import cd.com.a.model.ProductParam;
+import cd.com.a.model.ProductListParam;
 import cd.com.a.model.productDto;
 
 @Repository
@@ -17,15 +17,15 @@ public class DetailDaoImpl implements DetailDao {
 	String ns = "Product.";
 	
 	@Override
-	public List<productDto> getPrdList(ProductParam prdparam) {
+	public List<productDto> getPrdList(ProductListParam prdlistparam) {
 		//List<productDto> prdList = sqlSession.selectList(ns + "getPrdList");
 		//return prdList;
-		return sqlSession.selectList(ns + "getPrdList", prdparam);
+		return sqlSession.selectList(ns + "getPrdList", prdlistparam);
 	}
 
 	@Override
-	public int getPrdPageCount(ProductParam prdparam) {
-		return sqlSession.selectOne(ns + "getPrdPageCount", prdparam);
+	public int getPrdPageCount(ProductListParam prdlistparam) {
+		return sqlSession.selectOne(ns + "getPrdPageCount", prdlistparam);
 	}
 	
 	@Override

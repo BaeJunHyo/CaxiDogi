@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import cd.com.a.model.ProductParam;
+import cd.com.a.model.ProductListParam;
 import cd.com.a.model.productDto;
 
 @Service
@@ -15,13 +15,13 @@ public class DetailServiceImpl implements DetailService {
 	DetailDao detailDao;
 
 	@Override
-	public List<productDto> getPrdList(ProductParam prdparam) {
-		return detailDao.getPrdList(prdparam);
+	public List<productDto> getPrdList(ProductListParam prdlistparam) {
+		return detailDao.getPrdList(prdlistparam);
 	}
 
 	@Override
-	public int getPrdPageCount(ProductParam prdparam) {
-		return detailDao.getPrdPageCount(prdparam);
+	public int getPrdPageCount(ProductListParam prdlistparam) {
+		return detailDao.getPrdPageCount(prdlistparam);
 	}
 	
 	@Override

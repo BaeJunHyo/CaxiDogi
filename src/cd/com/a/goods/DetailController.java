@@ -9,15 +9,12 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import cd.com.a.bo.ProductService;
-import cd.com.a.model.ProductParam;
-import cd.com.a.model.order_PrdParam;
+import cd.com.a.model.ProductListParam;
 import cd.com.a.model.order_PrdParamList;
 import cd.com.a.model.productDto;
 
@@ -29,202 +26,40 @@ public class DetailController {
 	SqlSession sqlSession;
 	
 	@RequestMapping(value="prdList.do", method= {RequestMethod.GET,RequestMethod.POST})
-	public String prdList(Model model, ProductParam prdparam) {
+	public String prdList(Model model, ProductListParam prdlistparam) {
+
 		// paging 처리
-		int pageNumber = prdparam.getPageNumber();	// 0 1 2	현재 페이지
-		int start = pageNumber * prdparam.getRecordCountPerPage(); // 0, 10, 21
+		int pageNumber = prdlistparam.getPageNumber();	// 0 1 2	현재 페이지
+		int start = pageNumber * prdlistparam.getRecordCountPerPage(); // 0, 10, 21
+		int end = (pageNumber + 1) * prdlistparam.getRecordCountPerPage();	// 10, 20, 30
 		
-		int end = (pageNumber + 1) * prdparam.getRecordCountPerPage();	// 10, 20, 30
+		prdlistparam.setStart(start);
+		prdlistparam.setEnd(end);
 		
-		prdparam.setStart(start);
-		prdparam.setEnd(end);
+		System.out.println("prdlistparam = " + prdlistparam.toString());
+		List<productDto> prdlist = detailService.getPrdList(prdlistparam);
 		
+//		for(int i=0; i < prdlist.size(); i++) {
+//			productDto dto = prdlist.get(i);
+//			//System.out.println("====dto.img" + dto.getProduct_img());
+//			
+//		}
 		
-		List<productDto> prdlist = detailService.getPrdList(prdparam);
-		
-		for(int i=0; i < prdlist.size(); i++) {
-			productDto dto = prdlist.get(i);
-			System.out.println("====dto.img" + dto.getProduct_img());
-			
-		}
+		System.out.println("================ prdlist =================  " + prdlist.size());
 		
 		//글의 총수
-		int totalRecordCount = detailService.getPrdPageCount(prdparam);
-		
+		int totalRecordCount = detailService.getPrdPageCount(prdlistparam);
 		
 		model.addAttribute("prdlist", prdlist);
 		model.addAttribute("pageNumber", pageNumber);
 		model.addAttribute("pageCountPerScreen", 10);
-		model.addAttribute("recordCountPerPage", prdparam.getRecordCountPerPage());
+		model.addAttribute("recordCountPerPage", prdlistparam.getRecordCountPerPage());
 		model.addAttribute("totalRecordCount", totalRecordCount);
-		model.addAttribute("prdparam",prdparam);
+		model.addAttribute("prdlistparam",prdlistparam);
+		
+		System.out.println("totalRecordCount === " +  totalRecordCount);
 		
 		return "/goodsShop/productList";
-	}
-	
-	@RequestMapping(value="prdListFeed.do", method= {RequestMethod.GET,RequestMethod.POST})
-	public String prdListFeed(Model model, ProductParam prdparam) {
-		// paging 처리
-		int pageNumber = prdparam.getPageNumber();	// 0 1 2	현재 페이지
-		int start = pageNumber * prdparam.getRecordCountPerPage(); // 0, 10, 21
-		
-		int end = (pageNumber + 1) * prdparam.getRecordCountPerPage();	// 10, 20, 30
-		
-		prdparam.setStart(start);
-		prdparam.setEnd(end);
-		
-		
-		List<productDto> prdlist = detailService.getPrdList(prdparam);
-		
-		for(int i=0; i < prdlist.size(); i++) {
-			productDto dto = prdlist.get(i);
-			System.out.println("====dto.img" + dto.getProduct_img());
-			
-		}
-		
-		//글의 총수
-		int totalRecordCount = detailService.getPrdPageCount(prdparam);
-		
-		model.addAttribute("prdlist", prdlist);
-		model.addAttribute("pageNumber", pageNumber);
-		model.addAttribute("pageCountPerScreen", 10);
-		model.addAttribute("recordCountPerPage", prdparam.getRecordCountPerPage());
-		model.addAttribute("totalRecordCount", totalRecordCount);
-		model.addAttribute("prdparam",prdparam);
-		
-		return "/goodsShop/productList_feed";
-	}
-	
-	@RequestMapping(value="prdListSnack.do", method= {RequestMethod.GET,RequestMethod.POST})
-	public String prdListSnack(Model model, ProductParam prdparam) {
-		// paging 처리
-		int pageNumber = prdparam.getPageNumber();	// 0 1 2	현재 페이지
-		int start = pageNumber * prdparam.getRecordCountPerPage(); // 0, 10, 21
-		
-		int end = (pageNumber + 1) * prdparam.getRecordCountPerPage();	// 10, 20, 30
-		
-		prdparam.setStart(start);
-		prdparam.setEnd(end);
-		
-		
-		List<productDto> prdlist = detailService.getPrdList(prdparam);
-		
-		for(int i=0; i < prdlist.size(); i++) {
-			productDto dto = prdlist.get(i);
-			System.out.println("====dto.img" + dto.getProduct_img());
-			
-		}
-		
-		//글의 총수
-		int totalRecordCount = detailService.getPrdPageCount(prdparam);
-		
-		model.addAttribute("prdlist", prdlist);
-		model.addAttribute("pageNumber", pageNumber);
-		model.addAttribute("pageCountPerScreen", 10);
-		model.addAttribute("recordCountPerPage", prdparam.getRecordCountPerPage());
-		model.addAttribute("totalRecordCount", totalRecordCount);
-		model.addAttribute("prdparam",prdparam);
-		
-		return "/goodsShop/productList_snack";
-	}
-	
-	@RequestMapping(value="prdListBowel.do", method= {RequestMethod.GET,RequestMethod.POST})
-	public String prdListBowel(Model model, ProductParam prdparam) {
-		// paging 처리
-		int pageNumber = prdparam.getPageNumber();	// 0 1 2	현재 페이지
-		int start = pageNumber * prdparam.getRecordCountPerPage(); // 0, 10, 21
-		
-		int end = (pageNumber + 1) * prdparam.getRecordCountPerPage();	// 10, 20, 30
-		
-		prdparam.setStart(start);
-		prdparam.setEnd(end);
-		
-		
-		List<productDto> prdlist = detailService.getPrdList(prdparam);
-		
-		for(int i=0; i < prdlist.size(); i++) {
-			productDto dto = prdlist.get(i);
-			System.out.println("====dto.img" + dto.getProduct_img());
-			
-		}
-		
-		//글의 총수
-		int totalRecordCount = detailService.getPrdPageCount(prdparam);
-		
-		model.addAttribute("prdlist", prdlist);
-		model.addAttribute("pageNumber", pageNumber);
-		model.addAttribute("pageCountPerScreen", 10);
-		model.addAttribute("recordCountPerPage", prdparam.getRecordCountPerPage());
-		model.addAttribute("totalRecordCount", totalRecordCount);
-		model.addAttribute("prdparam",prdparam);
-		
-		return "/goodsShop/productList_bowel";
-	}
-	
-	@RequestMapping(value="prdListPlay.do", method= {RequestMethod.GET,RequestMethod.POST})
-	public String prdListPlay(Model model, ProductParam prdparam) {
-		// paging 처리
-		int pageNumber = prdparam.getPageNumber();	// 0 1 2	현재 페이지
-		int start = pageNumber * prdparam.getRecordCountPerPage(); // 0, 10, 21
-		
-		int end = (pageNumber + 1) * prdparam.getRecordCountPerPage();	// 10, 20, 30
-		
-		prdparam.setStart(start);
-		prdparam.setEnd(end);
-		
-		
-		List<productDto> prdlist = detailService.getPrdList(prdparam);
-		
-		for(int i=0; i < prdlist.size(); i++) {
-			productDto dto = prdlist.get(i);
-			System.out.println("====dto.img" + dto.getProduct_img());
-			
-		}
-		
-		//글의 총수
-		int totalRecordCount = detailService.getPrdPageCount(prdparam);
-		
-		model.addAttribute("prdlist", prdlist);
-		model.addAttribute("pageNumber", pageNumber);
-		model.addAttribute("pageCountPerScreen", 10);
-		model.addAttribute("recordCountPerPage", prdparam.getRecordCountPerPage());
-		model.addAttribute("totalRecordCount", totalRecordCount);
-		model.addAttribute("prdparam",prdparam);
-		
-		return "/goodsShop/productList_play";
-	}
-	
-	@RequestMapping(value="prdListBeauty.do", method= {RequestMethod.GET,RequestMethod.POST})
-	public String prdListBeauty(Model model, ProductParam prdparam) {
-		// paging 처리
-		int pageNumber = prdparam.getPageNumber();	// 0 1 2	현재 페이지
-		int start = pageNumber * prdparam.getRecordCountPerPage(); // 0, 10, 21
-		
-		int end = (pageNumber + 1) * prdparam.getRecordCountPerPage();	// 10, 20, 30
-		
-		prdparam.setStart(start);
-		prdparam.setEnd(end);
-		
-		
-		List<productDto> prdlist = detailService.getPrdList(prdparam);
-		
-		for(int i=0; i < prdlist.size(); i++) {
-			productDto dto = prdlist.get(i);
-			System.out.println("====dto.img" + dto.getProduct_img());
-			
-		}
-		
-		//글의 총수
-		int totalRecordCount = detailService.getPrdPageCount(prdparam);
-		
-		model.addAttribute("prdlist", prdlist);
-		model.addAttribute("pageNumber", pageNumber);
-		model.addAttribute("pageCountPerScreen", 10);
-		model.addAttribute("recordCountPerPage", prdparam.getRecordCountPerPage());
-		model.addAttribute("totalRecordCount", totalRecordCount);
-		model.addAttribute("prdparam",prdparam);
-		
-		return "/goodsShop/productList_beauty";
 	}
 	
 	@RequestMapping(value="productDetail.do",  method = {RequestMethod.POST, RequestMethod.GET})
@@ -260,7 +95,6 @@ public class DetailController {
 		
 		return "goodsShop/product_detail";
 	}
-	
 	
 	@PostMapping(value="productOrder.do")
 	public String productOrder(HttpServletRequest request, Model model, @ModelAttribute order_PrdParamList orderList) {

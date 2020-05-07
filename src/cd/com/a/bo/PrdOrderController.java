@@ -17,6 +17,6 @@ public class PrdOrderController {
 	@RequestMapping(value="orderList.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public String orderlist(Model model) {
 		
-		return "/bo/order/bo_01order_1.jsp";
+		return "/bo/order/bo_01order_1";
 	}
 }

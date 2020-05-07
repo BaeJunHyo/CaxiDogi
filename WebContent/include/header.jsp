@@ -148,14 +148,14 @@ if(loginUser != null){
             </li>
             <li class="subNav">
                <a href="prdList.do" class="pet">PET GOODS</a>
-               <ul id="subGoods" class="submenu">
-                  <li class="ssub" onclick="location.href('');">
+               <ul id="subGoods" class="product_group submenu">
+                  <li class="product_group ssub" value="1" onclick="location.href='prdList.do?product_group=1&product_sub_group=-1'">
                      	강아지
                   </li>
-                  <li class="ssub">
+                  <li class="product_group ssub" value="2" onclick="location.href='prdList.do?product_group=2&product_sub_group=-1'">
                      	고양이
                   </li>
-                  <li class="ssub">
+                  <li class="product_group ssub" value="3" onclick="location.href='prdList.do?product_group=3&product_sub_group=-1'">
                     	 공용
                   </li>
                </ul>
@@ -172,9 +172,9 @@ if(loginUser != null){
                </ul>
             </li>
             <li class="subNav">
-               <a href="#" class="commu">COMMUNITY</a>
+               <a href="notice.do" class="commu">COMMUNITY</a>
                <ul id="subCommu" class="submenu">
-                  <li class="ssub">
+                  <li class="ssub" onclick="location.href='notice.do'">
                     	 공지사항
                   </li>
                </ul>

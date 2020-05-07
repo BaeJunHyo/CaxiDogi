@@ -13,29 +13,39 @@
 <%@ taglib prefix = "fn"  uri = "http://java.sun.com/jsp/jstl/functions" %>
 <fmt:requestEncoding value="utf-8"/>
 
+<div class="category_dept">
+	<ul>
+		<li>HOME</li>
+		<li>PET GOODS</li>
+		<li>강아지용품</li>
+		<li>전체</li>
+	</ul>
+</div>
 
 <!-- container S : -->
 <div class="container container_subWrap" id="fixNextTag">
 	
 	<div style="margin-top: 100px; padding: 20px;">
 		<ul class="prdSubMenu" id="product_sub_group"> <!-- #BEF781 -->
-			<li><a href="prdList.do" class="product_sub_group" value="-1">전체</a></li>
+			<li><a href="prdList.do" class="product_sub_group selectMenu" value="-1">전체</a></li>
 			<li><a href="prdListFeed.do" class="product_sub_group" value="1">사료</a></li>
-			<li><a href="prdListSnack.do" class="product_sub_group selectMenu" value="2">간식</a></li>
+			<li><a href="prdListSnack.do" class="product_sub_group" value="2">간식</a></li>
 			<li><a href="prdListBowel.do" class="product_sub_group" value="3">배변용품</a></li>
 			<li><a href="prdListPlay.do" class="product_sub_group" value="4">놀이용품</a></li>
 			<li><a href="prdListBeauty.do" class="product_sub_group" value="5">미용용품</a></li>
-			<input type="hidden" value="product_sub_group">
+			<input type="hidden" value="product_sub_group" id="prdGroup">
 		</ul><!--// gnb -->
 	</div>
 	
+
+
 	<div class="prdlist_default" style="margin-top: 20px;">
 
 		<!-- 상품추출 -->
 		<div class="mproduct_area">
 			<ul>
 				<c:forEach items="${prdlist }" var="prd" varStatus="pr">
-					<c:if test="${prd.product_hidden == 0 && prd.product_sub_group == 2 }">
+					<c:if test="${prd.product_hidden == 0 && product_group == 1 }">
 						
 						<li>
 							<!-- 상품 재고가 없을 때 -->
@@ -130,12 +140,13 @@ $(".product_sub_group").click(function(){
 
 	//alert("product_sub_group : "+product_sub_group);
 	
-	location.href="prdList.do?product_sub_group="+product_sub_group;
+	location.href="productListDog.do?product_sub_group="+product_sub_group;
 });
 
 function goPage(pageNumber){
-	var product_sub_group = $(".selectMenu").val();
-	location.href="prdListSnack.do?pageNumber="+pageNumber;
+	//var product_sub_group = $(".selectMenu").val();
+	//var prdGroup = $("#prdGroup").val();
+	location.href="productListDog.do?pageNumber="+pageNumber; 
 }
 
 </script>

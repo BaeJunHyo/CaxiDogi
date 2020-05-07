@@ -136,7 +136,7 @@ SELECT IFNULL(COUNT(*), 0) FROM product
 
 
 <!-- ========= 상품리스트(client)  ======== -->
-<select id="getPrdList" parameterType="cd.com.a.model.ProductParam" resultType="cd.com.a.model.productDto">
+<select id="getPrdList" parameterType="cd.com.a.model.ProductListParam" resultType="cd.com.a.model.productDto">
    SELECT @rownum:=@rownum+1 as rownum, 
       product_group, product_sub_group,
       product_num, product_code, product_img, product_name, product_price, 
@@ -144,31 +144,64 @@ SELECT IFNULL(COUNT(*), 0) FROM product
       product_regi_date, product_del
    FROM product
    WHERE (@rownum:=0)=0 and product_hidden=0
+   <if test="product_group == 1">
+		AND product_group = 1
+   </if>
+   <if test="product_group == 2">
+		AND product_group = 2
+   </if>
+   <if test="product_group == 3">
+		AND product_group = 3
+   </if>
+
    <if test="product_sub_group == 1">
-      AND product_sub_group like concat('%',#{product_sub_group},'%')
+      AND product_sub_group = 1
    </if>
    <if test="product_sub_group == 2">
-      AND product_sub_group like concat('%',#{product_sub_group},'%')
+      AND product_sub_group  = 2
    </if>
    <if test="product_sub_group == 3">
-      AND product_sub_group like concat('%',#{product_sub_group},'%')
+      AND product_sub_group  = 3
    </if>
+   <if test="product_sub_group == 4">
+      AND product_sub_group  = 4
+   </if>
+   <if test="product_sub_group == 5">
+      AND product_sub_group  = 5
+   </if>
+
    ORDER BY product_num
    LIMIT #{start} , #{recordCountPerPage} 
 </select>
 
 <!-- ========= 상품리스트페이징(client)  ======== -->
-<select id="getPrdPageCount" resultType="java.lang.Integer" parameterType="cd.com.a.model.ProductParam">
+<select id="getPrdPageCount" resultType="java.lang.Integer" parameterType="cd.com.a.model.ProductListParam">
    SELECT COUNT(*) FROM product
    WHERE product_hidden = 0
+   <if test="product_group == 1">
+		AND product_group = 1
+   </if>
+   <if test="product_group == 2">
+		AND product_group = 2
+   </if>
+   <if test="product_group == 3">
+		AND product_group = 3
+   </if>
+
    <if test="product_sub_group == 1">
-      AND product_sub_group like concat('%',#{product_sub_group},'%')
+      AND product_sub_group = 1
    </if>
    <if test="product_sub_group == 2">
-      AND product_sub_group like concat('%',#{product_sub_group},'%')
+      AND product_sub_group  = 2
    </if>
    <if test="product_sub_group == 3">
-      AND product_sub_group like concat('%',#{product_sub_group},'%')
+      AND product_sub_group  = 3
+   </if>
+   <if test="product_sub_group == 4">
+      AND product_sub_group  = 4
+   </if>
+   <if test="product_sub_group == 5">
+      AND product_sub_group  = 5
    </if>
 </select>
 

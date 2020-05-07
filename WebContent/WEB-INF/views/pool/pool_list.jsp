@@ -98,7 +98,7 @@ $("#pool_sel").val(${param.poolAddr}).prop("selected", true);
 
 function goPage(pageNumber){
 	var poolAddr = $("#pool_sel option:selected").val();
-	location.href="getPoolList.do?poolAddr="+poolAddr;
+	location.href="getPoolList.do?poolAddr="+poolAddr+"&pageNumber="+pageNumber;
 }
 </script>
 <%@ include file="./../../../include/footer.jsp"%>

@@ -120,7 +120,8 @@ $("#shop_sel").val(<%=param.getShopAddrEtc()%>).prop('selected',true); --%>
 
 function goPage(pageNumber){
 	var shopAddr = $("#shop_sel option:selected").val();
-	location.href="getShopList.do?shopAddr="+shopAddr;
+	location.href="getShopList.do?shopAddr="+shopAddr+"&pageNumber="+pageNumber;
+	
 }
 </script>
 

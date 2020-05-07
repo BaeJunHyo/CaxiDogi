@@ -11,7 +11,7 @@ public class PoolListParam implements Serializable {
 	
 	// paging
 	private int pageNumber = 0;	// 현재 페이지
-	private int recordCountPerPage = 10;	// 표현할 페이지의 글수
+	private int recordCountPerPage = 9;	// 표현할 페이지의 글수
 	// DB
 	private int start = 0;
 	private int end = 10;

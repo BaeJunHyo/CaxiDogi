@@ -17,10 +17,10 @@
 	
 	<div style="margin-top: 100px; background-color: #86B404; padding: 20px;">
 		<ul class="prdSubMenu"> <!-- #BEF781 -->
-			<li><a href="#n" class="selectMenu">전체</a></li>
-			<li><a href="#n">사료</a></li>
-			<li><a href="#n">놀이용품</a></li>
-			<li><a href="#n">간식</a></li>
+			<li><a href="#n" class="subMenuBtn">전체</a></li>
+			<li><a href="#n" class="subMenuBtn">사료</a></li>
+			<li><a href="#n" class="subMenuBtn">놀이용품</a></li>
+			<li><a href="#n" class="subMenuBtn">간식</a></li>
 		</ul><!--// gnb -->
 	</div>
 	
@@ -108,5 +108,28 @@
 
 </div>
 <!-- container E : -->
+
+<script>
+	$(".subMenuBtn").click(function (){
+		
+		//alert("a");
+		if(${loginUser eq null}){
+			Swal.fire({
+				  icon: 'info',
+				  title: "로그인해주세요",
+				  text: '로그인을 하셔야 장바구니 기능을 사용하실 수 있습니다.',
+				  closeOnClickOutside : false,
+				  showConfirmButton: ["YES", "NO"]
+				}).then(function(){
+					
+				}
+			});
+		}
+		
+		
+	})
+</script>
+
+
 
 <%@ include file="./../../../include/footer.jsp"%>

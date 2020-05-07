@@ -37,6 +37,23 @@ public class DetailDaoImpl implements DetailDao {
 		
 		return list;
 	}
+
+
+	@Override
+	public boolean readcountPlus(int product_num) {
+		
+		return sqlSession.update(ns + "readCountPlus", product_num)>0?true:false;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

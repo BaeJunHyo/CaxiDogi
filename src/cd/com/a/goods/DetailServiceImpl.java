@@ -29,6 +29,12 @@ public class DetailServiceImpl implements DetailService {
 		return detailDao.getOptionProduct(product_name);
 	}
 	
+	@Override
+	public boolean readcountPlus(int product_num) {
+		// TODO Auto-generated method stub
+		return detailDao.readcountPlus(product_num);
+	}
+	
 	
 	
 	

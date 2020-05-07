@@ -44,6 +44,12 @@ public class DetailDaoImpl implements DetailDao {
 		
 		return sqlSession.update(ns + "readCountPlus", product_num)>0?true:false;
 	}
+
+
+	@Override
+	public List<productDto> getOption_productList(String option) {
+		return sqlSession.selectList(ns + "getOption_ProductList", option);
+	}
 	
 	
 	

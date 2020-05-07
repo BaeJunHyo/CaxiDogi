@@ -133,47 +133,12 @@
 		</div>	
 	</form>
 </div>
-<div id="WritePopUp">
-	<div class="notice_header" align="center">
-		글작성 페이지 
-	</div>
-	
-	<div class="notice_container">
-			<form action="writeAf.do" method="post" id="frm" enctype="multipart/form-data">
-				<div>
-					<strong>제목</strong>
-				</div>
-				<div>
-					<input type="text" style="width: 550px;">
-				</div>
-				<div>
-					<p>구분</p>
-				</div>
-				<div>
-					<select>
-						<option>회원</option>
-						<option>셀러</option>
-						<option>관리자</option>
-					</select>
-				</div>
-				<div>
-					<p>내용</p>
-				</div>
-				<div>
-					<textarea class="ckeditor" id="contents" name="notice_content"></textarea>
-				</div>
-			</form>
-	</div>
-</div>
 
 <script>
-	$(document).ready(function (){
-		$("#WritePopUp").hide();
-	})
+
 	function openWrite(){
-		//window.open("adminNoticeWrite.do","관리자 글 작성","top:200px, left:400px, height=500px, width=800px, scrollbar=yes, location=no,status=no,menubar=no")
-		console.log("누름");
-		$("#WritePopUp").show();
+		window.open("adminNoticeWrite.do","관리자 글 작성","top:200px, left:400px, height=500px, width=800px, scrollbar=yes, location=no,status=no,menubar=no")
+		//console.log("누름");
 	}
 </script>
 		

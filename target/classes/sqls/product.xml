@@ -198,9 +198,8 @@ FROM product
 
 
 <!-- 인기순 / 최신순  / 낮은 가격순 뽑아오는  쿼리문 -->
-<select id="getOption_ProductList" parameterType="java.lang.Integer" resultType="cd.com.a.model.productDto">
-	select * from product
-	<!--  
+<select id="getOption_ProductList" parameterType="java.lang.String" resultType="cd.com.a.model.productDto">
+	select * from product  
 	<choose>
 		<when test='option == "readcount"'>
 			order by product_readcount desc;	
@@ -211,7 +210,7 @@ FROM product
 		<when test='option == "row_price"'>
 			order by product_price asc;
 		</when>
-	</choose>--> 
+	</choose>
 </select>
 
 

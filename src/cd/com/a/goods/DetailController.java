@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import cd.com.a.model.order_PrdParam;
 import cd.com.a.model.order_PrdParamList;
@@ -30,11 +32,12 @@ public class DetailController {
 	public String prdList(Model model) {
 		List<productDto> prdlist = detailService.getPrdList();
 		
+		/*
 		for(int i=0; i<prdlist.size(); i++) {
 			productDto dto = prdlist.get(i);
 			System.out.println("====dto.img" + dto.getProduct_img());
 			
-		}
+		}/**/
 		model.addAttribute("prdlist", prdlist);
 		
 		
@@ -44,6 +47,8 @@ public class DetailController {
 	
 	@RequestMapping(value="productDetail.do",  method = {RequestMethod.POST, RequestMethod.GET})
 	public String getPrd(int product_num, Model model) {
+		System.out.println("DetailController  productDetail()");
+		
 		
 		System.out.println("prd_num="+product_num);
 		productDto produc = detailService.getPrd(product_num);
@@ -51,6 +56,7 @@ public class DetailController {
 		//클릭한 제품의 readcount를 증가시키는 작업
 		detailService.readcountPlus(product_num);
 		
+		/*
 		//옵션 상품(이름이 비슷한)를 가져올 list 생성 
 		List<productDto> list = new ArrayList<productDto>();
 		String product_name = produc.getProduct_name();
@@ -62,6 +68,9 @@ public class DetailController {
 		}
 		
 		list = detailService.getOptionProduct(product_name);
+		/**/
+		
+		
 		
 		model.addAttribute("prddetail", produc);
 		
@@ -69,12 +78,12 @@ public class DetailController {
 		for(int i = 0; i < list.size(); i++) {
 			System.out.println(list.get(i).toString());
 		}*/
-		System.out.println("num" + produc.toString());
+		//System.out.println("num" + produc.toString());
 		
-		model.addAttribute("OptionProduct", list);
+		//model.addAttribute("OptionProduct", list);
 		model.addAttribute("prddetail", produc);
 		
-		System.out.println("num" + produc.toString());
+		//System.out.println("num" + produc.toString());
 		
 		return "goodsShop/product_detail";
 	}
@@ -106,5 +115,19 @@ public class DetailController {
 		
 		return "goodsShop/product_order";
 	}
+	
+	
+	@RequestMapping(value="option_prdList.do", method= {RequestMethod.GET,RequestMethod.POST})
+	public String option_prdList(Model model, @RequestParam(value="option") String option) {
+		System.out.println("DetailController option_prdList()");
+		//System.out.println(option);
+		
+		List<productDto> prdList = detailService.getOption_productList(option);
+		model.addAttribute("prdlist", prdList);
+		model.addAttribute("sortSend", option);
+		return "/goodsShop/productList";
+	}
+	
+	
 	
 }

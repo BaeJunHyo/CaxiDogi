@@ -36,9 +36,9 @@
 			<dt class="blind">검색결과 정렬</dt>
 			<dd>
 				<ul>
-					<li><a href="javascript:sendsort('sellcnt')">인기순</a></li>
-					<li><a href="javascript:sendsort('regdate')">최신순</a></li>
-					<li><a href="javascript:sendsort('price')">낮은가격순</a></li>
+					<li><a href="javascript:sendsort('readcount')">인기순</a></li>
+					<li><a href="javascript:sendsort('regi_date')">최신순</a></li>
+					<li><a href="javascript:sendsort('row_price')">낮은가격순</a></li>
 				</ul>
 			</dd>
 		</dl>
@@ -50,7 +50,7 @@
 
 		<!-- 상품추출 -->
 		<div class="mproduct_area">
-			<ul>
+			<ul id="prdListWrap">
 				<c:forEach items="${prdlist }" var="prd" varStatus="pr">
 					<c:if test="${prd.product_hidden == 0 }">
 						<li>
@@ -108,28 +108,19 @@
 
 </div>
 <!-- container E : -->
-
+<%-- 인기순 / 최신순 / 낮은 가격순 클릭시 List바꿔 가져오기 --%>
 <script>
-	$(".subMenuBtn").click(function (){
-		
-		//alert("a");
-		if(${loginUser eq null}){
-			Swal.fire({
-				  icon: 'info',
-				  title: "로그인해주세요",
-				  text: '로그인을 하셔야 장바구니 기능을 사용하실 수 있습니다.',
-				  closeOnClickOutside : false,
-				  showConfirmButton: ["YES", "NO"]
-				}).then(function(){
-					
-				}
-			});
-		}
-		
-		
-	})
+	function sendsort(sortsend){
+		//console.log(sortsend);
+		location.href="option_prdList.do?option=" + sortsend;
+	}
 </script>
-
-
+<%-- 인기순 / 최신순 / 낮은 가격순 클릭 후 새로고침시 화면 이동 처리  --%>
+<script>
+	if(${sortSend ne null}){
+		var offset = $(".prdSubMenu").offset();
+        $('html, body').animate({scrollTop : offset.top}, 400);
+	}else{}
+</script>
 
 <%@ include file="./../../../include/footer.jsp"%>

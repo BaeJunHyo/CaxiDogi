@@ -34,49 +34,94 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix = "fn"  uri = "http://java.sun.com/jsp/jstl/functions" %>
 <fmt:requestEncoding value="utf-8"/>
+
+<style>
+.btn22{display: inline-block; text-align: center; width: 70px; height: 24px; line-height: 24px; padding: 0 15px; font-size: 13px; color: #fff; border-radius: 12px; background: #000;}
+.bodyWrap{width: 800px; height: 700px;}
+.notice_header{width: 800px; height: 100px;}
+.notice_container{width: 730px; margin: auto;}
+.titleDiv{margin-top: 30px;}
+.inputDiv{margin-top: 15px;}
+.fileDiv{margin-top: 15px;}
+.btn_del{ margin-top:10px; margin-bottom: 30px; display: inline-block; height: 30px; padding: 0 40px; text-align: center; font-size: 12px; line-height: 50px; font-weight: bold; color: #fff; background: #000; text-decoration:none;}
+.btn_close{ margin-top:60px; margin-bottom: 40px; display: inline-block; height: 50px; padding: 0 40px; text-align: center; font-size: 12px; line-height: 50px; font-weight: bold; color: #fff; background: #000; text-decoration:none;}
+</style>
+
 </head>
 <body>
-<div>
+<div class="bodyWrap">
 	<div class="notice_header" align="center">
 		글작성 페이지 
 	</div>
 	
 	<div class="notice_container">
 			<form action="writeAf.do" method="post" id="frm" enctype="multipart/form-data">
-				<div>
+				<div class="titleDiv">
 					<p>제목</p>
 				</div>
-				<div>
+				<div class="inputDiv">
 					<input type="text" style="width: 550px;">
 				</div>
-				<div>
+				<div class="titleDiv">
 					<p>구분</p>
 				</div>
-				<div>
+				<div class="inputDiv">
 					<select>
 						<option>회원</option>
 						<option>셀러</option>
 						<option>관리자</option>
 					</select>
 				</div>
-				<div>
+				<div class="titleDiv">
+					<p>파일 업로드</p>
+				</div>
+				<div class="inputDiv">
+					<a><label class="btn22" for="file0" id="upload_button">Upload</label></a>
+				</div>
+				<div class="fileDiv">
+					<div id="flieList_div" style="display:none;">
+						<table border="1">
+							<colgroup>
+								<col width="50">
+								<col width="200">
+								<col width="100">
+							</colgroup>
+							<thead>
+								<tr>
+									<th><input type="checkbox" id="allCheck">전체</th>
+									<th>파일명</th>
+									<th>파일 크기</th>
+								</tr>
+							</thead>
+							<tbody id="fileList">
+							</tbody>
+						</table>
+					</div>
+					<input type="button" value="삭제" id="del_button">
+				</div>
+				<div class="titleDiv">
 					<p>내용</p>
 				</div>
-				<div>
+				<div class="inputDiv">
 					<textarea class="ckeditor" id="contents" name="notice_content"></textarea>
 				</div>
+				<input type="file" name="files" id="file0" style="display:none;"><br> 
+				<input type="file" name="files" id="file1" style="display:none;"><br> 
+				<input type="file" name="files" id="file2" style="display:none;"><br>
+				<input type="file" name="files" id="file3" style="display:none;"><br> 
+				<input type="file" name="files" id="file4" style="display:none;"><br> 
+				<input type="file" name="files" id="file5" style="display:none;">
 			</form>
 	</div>
-</div>			
+</div>
+			
 <script>
-
 	//label for를 바꾸어 주기 위한 변수 
 	var file_num = 1;
 
 	// [input 'file'] 에 데이터가 비어있는지 판단하려고 만든 변수
 	// true -> fileupload 가능    |  false -> fileupload 불가능
 	var confirmFileTag = [true,true,true,true,true,true];
-
 
 	// byte 단위를 바꾸어 주는 함수
 	function byteChange( data ){
@@ -182,8 +227,8 @@
 		$('#fileList').append(fileListStr);
 
 		//파일이 올라오면 숨겨져 있던 fileList를 보여준다 
-		$('#flieList_div').css('display','block');
-		
+		$('#fileDiv').css("display","block");
+		$('#flieList_div').css("display","block");
 		//파일이 있는지 없는지 판단하는 배열에 파일업로드 표시 
 		confirmFileTag[labelFor] = false;
 		//alert("배열 확인 = " + confirmFileTag[labelFor]);

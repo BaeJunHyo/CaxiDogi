@@ -30,6 +30,7 @@
 						<li><a href="#n">영수증신청/발급</a></li>
 					</ul>
 				</li>
+				
 				<li>
 					<a href="#n">미용 예약정보</a>
 					<ul>
@@ -96,7 +97,8 @@ function sellerAccess(){
 				  showCancelButton: true,
 				  confirmButtonColor: '#3085d6',
 				  cancelButtonColor: '#d33',
-				  confirmButtonText: '예, 아니요'
+				  confirmButtonText: '예',
+				  cancelButtonText:'아니요'
 				}).then((result) => {
 				  if (result.value) {
 					  $.ajax({

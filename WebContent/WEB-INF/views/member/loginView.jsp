@@ -100,6 +100,10 @@ Swal.fire({
 							?client_id=954754c02265363c5d9a6b60519b14d3
 							&redirect_uri=http://34.64.221.161:8080/CaxiDogi/kakaoLogin.do
 							&response_type=code" id="_btnKakao" title="카카오">
+			   <!-- <a href="https://kauth.kakao.com/oauth/authorize
+							?client_id=954754c02265363c5d9a6b60519b14d3
+							&redirect_uri=http://192.168.2.85:8080/CaxiDogi/kakaoLogin.do
+							&response_type=code" id="_btnKakao" title="카카오"> -->
 		         <img alt="" src="./images/kakao_login.png">
 		       </a>
 		       

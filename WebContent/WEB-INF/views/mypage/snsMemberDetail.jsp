@@ -36,205 +36,6 @@ memberDto memberDetail = (memberDto)request.getAttribute("memberDetail");
 	
 	<!--  detail main -->
 	<div class="cusSec_right">
-	<div class="snsMemberDetail">	
-	   <form method="post" action="">
-	      <div class="frm_cont border-btm">
-			<div>
-				<div class ="company_regi">
-				<label>아이디</label>
-					<input type="text" name="id" value="${loginUser.id}" readonly="readonly">
-					<input type="hidden" name="mem_seq" value="${loginUser.mem_seq}">
-				</div>
-			</div>
-			
-			<div class="frm_line clfix">
-				<div class ="company_regi" style="margin-top: 10px;">
-	            <div class="cont nameComentColor">
-	            <label>이름</label>
-			<%
-			// SNS로 첫로그인시 초기setting
-			if(memberDetail.getUser_name() == null || memberDetail.getUser_name().equals("")){
-			%>
-				<input class="memberName" type="text" maxlength="4" name="user_name" id="name" value="" placeholder="한글만 입력가능">
-			<%
-			// 초기세팅 이후
-			}else{
-			%>
-				<input type="text" class="memberName" name="user_name" value="${memberDetail.user_name}" readonly="readonly">
-			<%	
-			}
-			%>
-				<span class="nameCheck"></span>
-				</div>
-				</div>
-			</div>
-			
-			<div class="frm_line clfix">
-	            <div class ="company_regi" style="margin-top: 10px;">
-	            <div class="cont nickComentColor">
-	            <label>닉네임</label>
-			<%
-			// SNS로 첫로그인시 초기setting
-			if(memberDetail.getNick_name() == null || memberDetail.getNick_name().equals("")){
-			%>
-				<input class="memberNick" type="text" maxlength="10" name="nick_name" id="nick_name" value="" placeholder="최대10글자">
-	            <button type="button" onclick="nickCheck()" class="frm_adr_btn" style="width:80px;height:40px; background: #f2f2f2; margin-top: 10px;">중복체크</button>
-			<%
-			// 초기세팅 이후
-			}else{
-			%>
-				<input type="text" class="memberNick" name="nick_name" value="${memberDetail.nick_name}" readonly="readonly">
-			<%	
-			}
-			%>
-				<span class="nickCheck"></span>
-				</div>
-				</div>
-			</div>
-			
-			<div class="frm_line clfix">
-	            <div class ="company_regi" style="margin-top: 10px;">
-	            <div class="cont phoneComentColor">
-	            <label>연락처</label>
-			<%
-			// SNS로 첫로그인시 초기setting
-			if(memberDetail.getPhone() == null || memberDetail.getPhone().equals("")){
-			%>
-				<input class="memberPhone" type="text" maxlength="11" name="phone" placeholder="(-)하이픈 제외하고 입력">
-			<%
-			// 초기세팅 이후
-			}else{
-			%>
-				<input type="text" class="memberPhone" name="phone" value="${memberDetail.phone}" readonly="readonly">
-			<%	
-			}
-			%>
-				<span class="phoneCheck"></span>
-				</div>
-				</div>
-			</div>
-			
-			<div class="frm_line clfix">
-				<div class ="company_regi" style="margin-top: 10px;">
-	           <label>생년월일</label>
-			<%
-			// SNS로 첫로그인시 초기setting
-			if(memberDetail.getBirthday()== null || memberDetail.getBirthday().equals("")){
-			%>
-	            <!-- <div class="cont">
-				<input class="byear" type="text" name="memberYear" value="" maxlength="4" placeholder="년(4자)">
-			    </div>  -->
-				<div class="cont">
-					<select class="select-month" name="memberMonth" id="month">
-	                  <option value="월">월</option>
-	                  <option value="01">1</option>
-	                  <option value="02">2</option>
-	                  <option value="03">3</option>
-	                  <option value="04">4</option>
-	                  <option value="05">5</option>
-	                  <option value="06">6</option>
-	                  <option value="07">7</option>
-	                  <option value="08">8</option>
-	                  <option value="09">9</option>
-	                  <option value="10">10</option>
-	                  <option value="11">11</option>
-	                  <option value="12">12</option>
-	               </select>
-				</div>
-				
-				<div class="frm_line clfix">
-		            <div class="tit"></div>
-		            <div class="cont dayComentColor">
-		               <input class="memberDay" type="text" maxlength="2" name="memberDate" id="day" value="" placeholder="일(01~31)">
-		               <span class="dayCheck"></span>
-		            </div>            
-	         	</div>                           
-	            <input type="hidden" name="birthday" id="birthday" value="">
-			<%
-			// 초기세팅 이후
-			}else{
-				String month = memberDetail.getBirthday().substring(0,2);
-				String day = memberDetail.getBirthday().substring(2);
-				String birth = month + "-"+day;
-			%>
-				<div>
-					<input type="text" id="birth" value="<%=birth %>" readonly="readonly">
-					<input type="hidden" id="day"class="memberDay" value=<%=day %>>
-					<input type="hidden" id="month"class="memberMonth" value=<%=month %>>
-					<input type="hidden" id="birthday" name="birthday" value=<%=memberDetail.getBirthday() %>>
-					<input type="hidden" class="memberYear" name="memberYear" value="00000">
-					<span class="dayCheck">
-						<input type="hidden" class="alert-green">
-					</span>
-				</div>
-			<%	
-			}
-			%>
-			</div>
-			</div>
-			
-			<div class="frm_line clfix">
-				<div class ="company_regi" style="margin-top: 10px;">
-	           <div class="cont">
-	           <label>주소</label>
-			<%
-			
-			if(memberDetail.getAddress()== null || memberDetail.getAddress().equals("")){
-			%>
-	               <input type="text" id="kakao_postcode" name="memberPostCode" readonly="readonly" placeholder="우편번호"> 
-	                <button type="button" onclick="DaumPostcode()" class="frm_adr_btn" style="width:80px;height:40px; background: #f2f2f2; margin-top: 10px;">주소검색</button><br>
-	                <input type="text" class="mt08" id="kakao_roadAddress" name="memberStreetName" placeholder="도로명주소" readonly="readonly">
-	                <input type="text" style="display:none;" id="kakao_jibunAddress" placeholder="지번주소">
-	                <span id="guide" style="color:#999;display:none"></span>
-	                <input type="text"  class="mt08" id="kakao_detailAddress" name="memberDetailStreetName" placeholder="상세주소">
-	                <input type="text" style="display:none;" id="kakao_extraAddress" placeholder="참고항목">
-	                <input type="hidden" name="address" id="address" value="">
-	        <%
-			}else{
-			String[] addr = memberDetail.getAddress().split("/");
-	        %>
-					<input type="text" id="kakao_postcode" name="memberPostCode" readonly="readonly" value="<%=addr[0]%>">
-					<input type="text" id="kakao_roadAddress" name="memberStreetName" readonly="readonly" value="<%=addr[1]%>">
-					<input type="text" id="kakao_detailAddress" name="memberDetailStreetName" readonly="readonly" value="<%=addr[2]%>">
-	            	<input type="hidden" name="address" id="address" value="${memberDetail.address}">
-			<%
-			}
-			%>
-				</div>
-			</div>
-			<%
-			if(memberDetail.getUser_name() == null || memberDetail.getUser_name().equals("") ||
-				memberDetail.getNick_name() == null || memberDetail.getNick_name().equals("") ||
-				memberDetail.getPhone() == null || memberDetail.getPhone().equals("") ||
-				memberDetail.getBirthday()== null || memberDetail.getBirthday().equals("") ||
-				memberDetail.getAddress()== null || memberDetail.getAddress().equals("")){
-			%>
-				<div>
- 	         		<button type="button" class="reserv_btn sBtn" style="width:80px;height:40px; background: #f2f2f2; margin-top: 10px;" >적용</button> 
-	         	</div>
-	         	<script>
-	         	Swal.fire({
-		        	  icon: 'info',
-		        	  title: '원활한 이용을 위해',
-		        	  text:'미입력된 회원정보를 입력해주세요.',
-		        	  showConfirmButton: true
-		        	}).then(function(){
-		        	});
-				</script>
-			<%
-			}else{
-			%>	
-				<div>
-		         	<button type="button" class="reserv_btn sBtn2" style="width:80px;height:40px; background: #f2f2f2; margin-top: 10px;">변경</button>
-		        </div>
-		    <%
-			}
-		    %>
-		    	<input type="hidden" name="user_api" value="${memberDetail.user_api }">			
-	         </div>
-	         </div>
-		</form>
-	</div><!-- // frm_wrap -->
 	
 	<div class="cusSec_tableWrap tw_wFull">
          <h3>
@@ -341,34 +142,6 @@ memberDto memberDetail = (memberDto)request.getAttribute("memberDetail");
 			<%
 			}
 			%>
-			<%
-			if(memberDetail.getUser_name() == null || memberDetail.getUser_name().equals("") ||
-				memberDetail.getNick_name() == null || memberDetail.getNick_name().equals("") ||
-				memberDetail.getPhone() == null || memberDetail.getPhone().equals("") ||
-				memberDetail.getBirthday()== null || memberDetail.getBirthday().equals("") ||
-				memberDetail.getAddress()== null || memberDetail.getAddress().equals("")){
-			%>
-				<div>
- 	         		<button type="button" class="reserv_btn sBtn" style="width:80px;height:40px; background: #f2f2f2; margin-top: 10px;" >적용</button> 
-	         	</div>
-	         	<script>
-	         	Swal.fire({
-		        	  icon: 'info',
-		        	  title: '원활한 이용을 위해',
-		        	  text:'미입력된 회원정보를 입력해주세요.',
-		        	  showConfirmButton: true
-		        	}).then(function(){
-		        	});
-				</script>
-			<%
-			}else{
-			%>	
-				<div>
-		         	<button type="button" class="reserv_btn sBtn2" style="width:80px;height:40px; background: #f2f2f2; margin-top: 10px;">변경</button>
-		        </div>
-		    <%
-			}
-		    %>
 		    	<input type="hidden" name="user_api" value="${memberDetail.user_api }">		
                   </td>
                </tr>
@@ -432,41 +205,30 @@ memberDto memberDetail = (memberDto)request.getAttribute("memberDetail");
 			%>
                </td>
             </tr>
-            <tr>
-               <th>주소</th>
-               <td class="tl">
-	               	<%
-			
-			if(memberDetail.getAddress()== null || memberDetail.getAddress().equals("")){
-			%>
-	               <input type="text" id="kakao_postcode" name="memberPostCode" readonly="readonly" placeholder="우편번호"> 
-	                <button type="button" onclick="DaumPostcode()" class="frm_adr_btn" style="width:80px;height:40px; background: #f2f2f2; margin-top: 10px;">주소검색</button><br>
-	                <input type="text" class="mt08" id="kakao_roadAddress" name="memberStreetName" placeholder="도로명주소" readonly="readonly">
-	                <input type="text" style="display:none;" id="kakao_jibunAddress" placeholder="지번주소">
-	                <span id="guide" style="color:#999;display:none"></span>
-	                <input type="text"  class="mt08" id="kakao_detailAddress" name="memberDetailStreetName" placeholder="상세주소">
-	                <input type="text" style="display:none;" id="kakao_extraAddress" placeholder="참고항목">
-	                <input type="hidden" name="address" id="address" value="">
-	        <%
-			}else{
-			String[] addr = memberDetail.getAddress().split("/");
-	        %>
-					<input type="text" id="kakao_postcode" name="memberPostCode" readonly="readonly" value="<%=addr[0]%>">
-					<input type="text" id="kakao_roadAddress" name="memberStreetName" readonly="readonly" value="<%=addr[1]%>">
-					<input type="text" id="kakao_detailAddress" name="memberDetailStreetName" readonly="readonly" value="<%=addr[2]%>">
-	            	<input type="hidden" name="address" id="address" value="${memberDetail.address}">
-			<%
-			}
-			%>
-				</div>
-			</div>
-			<%
+
+
+         <%
 			if(memberDetail.getUser_name() == null || memberDetail.getUser_name().equals("") ||
 				memberDetail.getNick_name() == null || memberDetail.getNick_name().equals("") ||
 				memberDetail.getPhone() == null || memberDetail.getPhone().equals("") ||
 				memberDetail.getBirthday()== null || memberDetail.getBirthday().equals("") ||
 				memberDetail.getAddress()== null || memberDetail.getAddress().equals("")){
 			%>
+           	<tr>
+               <th>개인정보 유효기간</th>
+               <td class="tl">
+                  개인정보를 파기 또는 분리 저장ㆍ관리하여야 하는 서비스 미 이용 기간을 선택하세요.
+                  <p class="c_gray">(별도의 요청이 없을 경우 서비스 미이용 기간은 1년 입니다)</p>
+                  <p class="inputWrap tl pt10">
+                     <span class="pl0"><input type="radio" name=""><label>1년</label></span>
+                     <span><input type="radio" name="1"><label>2년</label></span>
+                     <span><input type="radio" name="1"><label>3년</label></span>
+                     <span><input type="radio" name="1"><label>회원탈퇴시</label></span>
+                  </p>
+               </td>
+            </tr>
+         	</tbody>
+         </table>
 				<div>
  	         		<button type="button" class="reserv_btn sBtn" style="width:80px;height:40px; background: #f2f2f2; margin-top: 10px;" >적용</button> 
 	         	</div>
@@ -481,37 +243,16 @@ memberDto memberDetail = (memberDto)request.getAttribute("memberDetail");
 				</script>
 			<%
 			}else{
-			%>	
-				<div>
-		         	<button type="button" class="reserv_btn sBtn2" style="width:80px;height:40px; background: #f2f2f2; margin-top: 10px;">변경</button>
-		        </div>
+			%>
+			</tbody>
+         </table>	
+	         <div>
+	         	<button type="button" class="reserv_btn sBtn2" style="width:80px;height:40px; background: #f2f2f2; margin-top: 10px;" >변경</button> 
+	        </div>
+				
 		    <%
 			}
 		    %>
-		    	<input type="hidden" name="user_api" value="${memberDetail.user_api }">			
-               </td>
-            </tr>
-             <tr>
-               <th>비밀번호</th>
-               <td class="tl">
-	               	<input type="password" id="pwdCheck" name="pwdCheck" value="">
-               </td>
-            </tr>
-            <tr>
-               <th>개인정보 유효기간</th>
-               <td class="tl">
-                  개인정보를 파기 또는 분리 저장ㆍ관리하여야 하는 서비스 미 이용 기간을 선택하세요.
-                  <p class="c_gray">(별도의 요청이 없을 경우 서비스 미이용 기간은 1년 입니다)</p>
-                  <p class="inputWrap tl pt10">
-                     <span class="pl0"><input type="radio" name=""><label>1년</label></span>
-                     <span><input type="radio" name="1"><label>2년</label></span>
-                     <span><input type="radio" name="1"><label>3년</label></span>
-                     <span><input type="radio" name="1"><label>회원탈퇴시</label></span>
-                  </p>
-               </td>
-            </tr>
-            </tbody>
-         </table>
          </form>
       </div>
 	</div><!-- //cusSec_right -->

@@ -208,7 +208,7 @@ function goPage(pageNumber){
 
 </script>
 	
-
+<script>
 
 	function sendsort(sortsend){
 		//console.log(sortsend);

@@ -480,10 +480,10 @@ ProductListParam prdlistparam = (ProductListParam)request.getAttribute("prdlistp
 						src="./images/ico_arrow_prdDetail.gif"></a></li>
 				<li><a href=".move02">상품정보<img
 						src="./images/ico_arrow_prdDetail.gif"></a></li>
-				<li><a href=".move03">상품평(0)<img
+				<!-- <li><a href=".move03">상품평(0)<img
 						src="./images/ico_arrow_prdDetail.gif"></a></li>
 				<li><a href=".move04">상품Q&amp;A<img
-						src="./images/ico_arrow_prdDetail.gif"></a></li>
+						src="./images/ico_arrow_prdDetail.gif"></a></li> -->
 				<li><a href=".move05">배송/교환/반품<img
 						src="./images/ico_arrow_prdDetail.gif"></a></li>
 			</ul>

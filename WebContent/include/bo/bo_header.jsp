@@ -28,10 +28,10 @@
 	<h1><a href="main.do" class="logo"><img src="./images/img_logo_bo.png"></a></h1>
 	<a href="#n" class="btn_menu"><img src="./images/ico_hamburger.png"></a>
 	<div class="m_right">
-		<a href="#n" class="btn_user">로그인</a>
+		<!-- <a href="#n" class="btn_user">로그인</a>
 		<ul>
-			<!-- <li><a href="#n">사이트맵</a></li> -->
+			<li><a href="#n">사이트맵</a></li>
 			<li><a href="#n">회원가입</a></li>
-		</ul>
+		</ul> -->
 	</div>
 </div><!--// header -->

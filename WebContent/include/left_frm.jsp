@@ -49,7 +49,6 @@
 					<a href="#n">회원정보관리</a>
 					<ul>
 						<li><a href="memberDetail.do">회원 정보</a></li>
-						<li><a href="testBJH.do" >배송지 정보</a></li>
 						<c:set var="auth" value="${loginUser.auth }"/>
 						<c:if test="${auth == 1 }">
 						<li><a href="#"onclick="sellerAccess()">판매자 등록하기</a></li>

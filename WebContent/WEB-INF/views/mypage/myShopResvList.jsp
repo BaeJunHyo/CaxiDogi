@@ -10,7 +10,7 @@ List<shopShowResvParam> myShopResvList = (List<shopShowResvParam>)request.getAtt
 	<h3>
 		<span class="t_sbj">최근 미용 예약내역</span>
 		<span class="c_gray">(최근 예약 5건 / 1개월 내)</span>
-		<a href="#n" class="btn_dark_s fr">더보기</a>
+		<a href="showShopResv.do" class="btn_dark_s fr">더보기</a>
 	</h3>
 	<table class="basic_tableStyle">
 		<colgroup>
@@ -53,15 +53,14 @@ List<shopShowResvParam> myShopResvList = (List<shopShowResvParam>)request.getAtt
 				</a></td>
 				<td class="tl" >
 					<!-- <a href="#n" class="tableThumb_small"><img src="./images/mypage/img_prdBigThumb.jpg"></a> -->
-					<a href="#n" class="tableThumb_small"><img src="<%=request.getContextPath()%>/upload/${shopResv.photo}"></a>
+					<a href="#n" class="tableThumb_small"><img src="<%=request.getContextPath()%>/images/shopImg/<%=shopResv.getShop_photo()%>"></a>
 					<div class="prdInfo">
-						<a href="#n">
+						<a href="shopResvAf.do?shop_resv_seq=<%=shopResv.getShop_resv_seq() %>">
 							<p class="c_gray">[<%=shopResv.getShop_name() %>-<%=shopResv.getDesign_name() %>]</p>
 							<p class="pt5">고객명 : <Strong><%=shopResv.getShop_resv_name()%></Strong>  ( <%=shopResv.getShop_resv_tel() %> ) </p>
 							<p class="pt5">예약일 : <%=shopResv.getShop_resv_rday() %></p>
 							<p class="pt5">예약시간 : <%=shopResv.getShop_resv_time() %></p>
-						</a>
-					
+							</a>
 					</div>
 				</td>
 				
@@ -83,16 +82,15 @@ List<shopShowResvParam> myShopResvList = (List<shopShowResvParam>)request.getAtt
 				<%
 				String resvStatus ="";
 				switch(shopResv.getShop_resv_auth()){
-				case 0: resvStatus="[예약대기]";
+				case 0: resvStatus="[예약]";
 						break;
-				case 1: resvStatus="[결재대기]";
+				case 1: resvStatus="[취소]";
 						break;
-				case 2: resvStatus="[결재완료]";
+				case 7: resvStatus="[이용완료]";
 						break;
 				}
 				%>
 					<p><%=resvStatus %></p>
-					<a href="#n" class="btn_line_s">상품평작성</a>
 				</td>
 			</tr>
 		<%

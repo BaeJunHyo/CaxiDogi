@@ -13,7 +13,7 @@ List<poolResvParam> myPoolResvList = (List<poolResvParam>)request.getAttribute("
 		<span class="c_gray">(최근 예약 5건 / 1개월 내)</span>
 		
 		<!-- 더보기 Link 넣을것 -->
-		<a href="#n" class="btn_dark_s fr">더보기</a>
+		<a href="poolResvList.do" class="btn_dark_s fr">더보기</a>
 	</h3>
 	<table class="basic_tableStyle">
 		<colgroup>
@@ -57,9 +57,9 @@ List<poolResvParam> myPoolResvList = (List<poolResvParam>)request.getAttribute("
 				</a></td>
 				<td class="tl">
 					<!-- <a href="#n" class="tableThumb_small"><img src="./images/mypage/img_prdBigThumb.jpg"></a> -->
-					<a href="#n" class="tableThumb_small"><img src="<%=request.getContextPath()%>/upload/#"></a>
+					<a href="poolDetail.do?pool_seq=<%=poolResv.getPool_seq() %>" class="tableThumb_small"><img src="<%=request.getContextPath()%>/images/poolImg/<%=poolResv.getPool_photo()%>"></a>
 					<div class="prdInfo">
-						<a href="#n">
+						<a href="pool_reservation.do?pool_resv_seq=<%=poolResv.getPool_resv_seq() %>">
 							<p class="c_gray">[<%=poolResv.getPool_name() %>]</p>
 							<p class="pt5">고객명 : <Strong><%=poolResv.getPool_resv_name()%></Strong>  ( <%=poolResv.getPool_resv_tel() %> ) </p>
 							<p class="pt5">예약일 : <%=poolResv.getPool_resv_sdate() %></p>
@@ -76,14 +76,17 @@ List<poolResvParam> myPoolResvList = (List<poolResvParam>)request.getAttribute("
 				switch(poolResv.getPool_resv_auth()){
 				case 0: resvStatus="[예약대기]";
 						break;
-				case 1: resvStatus="[결재대기]";
+				case 1: resvStatus="[결제대기]";
 						break;
-				case 2: resvStatus="[결재완료]";
+				case 2: resvStatus="[예약완료]";
+						break;
+				case 3: resvStatus="[취소]";
+						break;
+				case 7: resvStatus="[이용완료]";
 						break;
 				}
 				%>
 					<p><%=resvStatus %></p>
-					<a href="#n" class="btn_line_s">상품평작성</a>
 				</td>
 			</tr>
 			

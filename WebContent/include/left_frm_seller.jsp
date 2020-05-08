@@ -31,7 +31,6 @@
 				<li>
 					<a href="#n">오늘 예약 현황</a>
 					<ul>
-						<li><a href="#n">Shop</a></li>
 						<li><a href="poolTodayList.do">Pool</a></li>
 					</ul>
 				</li>

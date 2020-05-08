@@ -43,7 +43,7 @@ location.href="myPageMove.do";
 	
 
   
-  <c:if test = "${fn:length(showShopList) != 0 }">
+   <c:if test = "${fn:length(showShopList) != 0 }">
  <c:forEach items="${showShopList }" var="showList">
  <input type="hidden" value="${showList.shop_resv_tel}" id="h_user_tel">
 
@@ -65,7 +65,7 @@ location.href="myPageMove.do";
  </h2>
       <h5> </h5>
     </div>
-    <div class="child2S" style="display:none;">
+    <div class="child2" style="display:none;">
      <ul class="child_ul_1">
     	<li>예약자 명: ${showList.shop_resv_name}</li>
     	<li class="userTel">예약자 연락처: <span>${showList.shop_resv_tel}</span></li>
@@ -91,7 +91,7 @@ location.href="myPageMove.do";
     	</li>
     </ul>
     <ul class="child_ul_2">
-    	<li>가게 주소: ${showList.shop_addr}</li>
+    	<li>가게 주소:  ${fn:split(showList.shop_addr, '/')[1] } </li>
     	<li class="tel" >가게 전화: <span>${showList.shop_tel}</span></li>
     	 <%-- <input type="hidden" value="${showList.shop_tel}" id="h_shop_tel"> --%>
     	 <%-- <input type="text" value="${showList.shop_tel}" id="h_shop_tel" class="h_shop_tel"> --%>
@@ -105,7 +105,7 @@ location.href="myPageMove.do";
     </div>   
   </div> <!-- List 2 -->
    <div class="booking_list3">    
-     <!-- <a href="#"><button>Book Now</button></a> -->
+     <a href="shopDetail.do?shop_seq=${showList.shop_seq }"><button>shop</button></a>
    </div>
    <div class="booking_list3">
    <a href="#"><input type="button" shop_seq="${showList.shop_seq }" shop_resv_seq="${showList.shop_resv_seq }" class="btn_line_s updateResvBtn" value="예약변경"></a>
@@ -116,7 +116,8 @@ location.href="myPageMove.do";
   <input type="hidden" id="">
 </c:forEach>
 </c:if>
-<c:if test = "${fn:length(showShopList) == 0 }">
+
+ <c:if test = "${fn:length(showShopList) == 0 }">
 	<ul class="mind_booking_listings">
     	<li> 
     		<div class="booking_list2 booking_tel">
@@ -161,8 +162,8 @@ $('.booking_tel').click(function(){
 	
 });
 
-
 </script>
+
 <script>
 /* $(".cancelShopResv").click(function(){
 	var shop_seq = $(this).attr("shop_seq");
@@ -237,7 +238,7 @@ $(".cancelShopResv").click(function(){
 		  showCancelButton: true,
 		  confirmButtonColor: '#3085d6',
 		  cancelButtonColor: '#d33',
-		  confirmButtonText: '취소'
+		  confirmButtonText: '네'
 		}).then((result) => {
 		  if (result.value) {
 			  $.ajax({

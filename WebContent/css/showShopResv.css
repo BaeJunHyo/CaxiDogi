@@ -71,11 +71,11 @@
   text-align: justify;
 }
 .mind_wrap ul.mind_booking_listings li .booking_list3 {
-  width: 20%;
-  display: flex;
-  padding: 15px;
-  justify-content: center;
-  align-items: center;
+     width: 16%;
+    display: flex;
+    /* padding: 15px; */
+    justify-content: center;
+    align-items: center;
 }
 .mind_wrap ul.mind_booking_listings li .booking_list3 button {
   background: #000;

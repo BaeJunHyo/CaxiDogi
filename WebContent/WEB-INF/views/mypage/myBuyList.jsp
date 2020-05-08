@@ -31,17 +31,7 @@
 					<td>${myBuyParam.order_date.split("/")[0] }<a href="javascript:openPopup(${myBuyParam.order_number })" class="prdNum">${myBuyParam.order_date.split("/")[1] }</a></td>
 					<td class="tl">
 						<a href="javascript:openPopup('${myBuyParam.order_number }')" class="tableThumb_small">
-							<c:choose>
-								<c:when test="${myBuyParam.product_group eq 1 }">
-									<img alt="" src="<%=request.getContextPath() %>/WebContent/images/goodsImg/dog/${myBuyParam.order_img }" width="70" height="50">		
-								</c:when>
-								<c:when test="${myBuyParam.product_group eq 2 }">
-									<img alt="" src="<%=request.getContextPath() %>/WebContent/images/goodsImg/cat/${myBuyParam.order_img }" width="70" height="50">		
-								</c:when>
-								<c:when test="${myBuyParam.product_group eq 3 }">
-									<img alt="" src="<%=request.getContextPath() %>/WebContent/images/goodsImg/public/${myBuyParam.order_img }" width="70" height="50">		
-								</c:when>
-							</c:choose>
+							<img alt="" src="<%=request.getContextPath() %>/images/goodsImg/${myBuyParam.order_img }" width="70" height="50">
 						</a>
 						<div class="prdInfo">
 							<a href="javascript:openPopup(${myBuyParam.order_number })">

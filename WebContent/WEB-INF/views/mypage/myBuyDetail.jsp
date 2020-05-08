@@ -45,17 +45,7 @@
 				<c:forEach var="orderDetail" items="${detailList }" varStatus="status">
 					<tr>
 						<td>
-							<c:choose>
-								<c:when test="${orderDetail.product_group eq 1 }">
-									<img alt="" src="<%=request.getContextPath() %>/images/goodsImg/dog/${orderDetail.product_img }" width="70" height="50">		
-								</c:when>
-								<c:when test="${orderDetail.product_group eq 2 }">
-									<img alt="" src="<%=request.getContextPath() %>/images/goodsImg/cat/${orderDetail.product_img }" width="70" height="50">		
-								</c:when>
-								<c:when test="${orderDetail.product_group eq 3 }">
-									<img alt="" src="<%=request.getContextPath() %>/images/goodsImg/public/${orderDetail.product_img }" width="70" height="50">		
-								</c:when>
-							</c:choose>
+							<img alt="" src="<%=request.getContextPath() %>/images/goodsImg/dog/${orderDetail.product_img }" width="70" height="50">
 						</td>
 						<td>
 							<p style="font-size: 12px; color: #999">[주문번호 : ${orderDetail.saleing_group } ]</p>

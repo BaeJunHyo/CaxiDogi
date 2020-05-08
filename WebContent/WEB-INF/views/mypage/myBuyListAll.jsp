@@ -55,7 +55,7 @@
 						<td>${myBuyParam.order_date.split("/")[0] }<a href="javascript:openPopup('${myBuyParam.order_number }')" class="prdNum">${myBuyParam.order_date.split("/")[1] }</a></td>
 						<td class="tl">
 							<a href="javascript:openPopup('${myBuyParam.order_number }')" class="tableThumb_small">
-								<img src="./images/mypage/img_prdBigThumb.jpg">
+								<img alt="" src="<%=request.getContextPath() %>/images/goodsImg/${myBuyParam.order_img }" width="70" height="50">
 							</a>
 							<div class="prdInfo">
 								<a href="javascript:openPopup('${myBuyParam.order_number }')">

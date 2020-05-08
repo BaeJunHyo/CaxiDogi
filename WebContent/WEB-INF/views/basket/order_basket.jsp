@@ -82,17 +82,7 @@
 										<div style="padding: 10px 10px 10px 10px;">
 											<div class="이미지" style="width:30%; height:100%; float:left; margin-bottom: 10px;">
 												<a href="productDetail.do?product_num=${basketDto.product_num }">
-													<c:choose>
-														<c:when test="${basketDto.product_group eq 1 }">
-															<img alt="" src="<%=request.getContextPath() %>/images/goodsImg/dog/${basketDto.product_img }" width="70" height="50">		
-														</c:when>
-														<c:when test="${basketDto.product_group eq 2 }">
-															<img alt="" src="<%=request.getContextPath() %>/images/goodsImg/cat/${basketDto.product_img }" width="70" height="50">		
-														</c:when>
-														<c:when test="${basketDto.product_group eq 3 }">
-															<img alt="" src="<%=request.getContextPath() %>/images/goodsImg/public/${basketDto.product_img }" width="70" height="50">		
-														</c:when>
-													</c:choose>
+													<img alt="" src="<%=request.getContextPath() %>/images/goodsImg/${basketDto.product_img }" width="70" height="50">	
 												</a>
 											</div>
 											<div style="width:70%; float:left; text-align: left; align-content: center; padding-top: 12px;">
@@ -548,21 +538,31 @@
 
 $(document).on('click', "#btn_payment", function (){
 	//alert("주");
-	Swal.fire({
-		  title: '선택 상품으로 주문을 하시겠습니까?',
-		  text: "주문 페이지에서 수량은 변경이 가능합니다",
-		  icon: 'info',
-		  showCancelButton: true,
-		  confirmButtonColor: '#3085d6',
-		  cancelButtonColor: '#d33',
-		  confirmButtonText: '주문하기',
-		  cancelButtonText: '뒤로가기'
-		}).then((result) => {
-		  if (result.value) {
-			  $("#orderForm").submit();	
-		  }
-	})
-	
+	var order = $("#orderForm").children();
+	//console.log(order.length);
+	if(order.length == 0){
+		Swal.fire({
+			  icon: 'warning',
+			  title: '선택된 제품이 없습니다',
+			  showConfirmButton: false,
+			  timer: 1000
+		})
+	}else{
+		Swal.fire({
+			  title: '선택 상품으로 주문을 하시겠습니까?',
+			  text: "주문 페이지에서 수량은 변경이 가능합니다",
+			  icon: 'info',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: '주문하기',
+			  cancelButtonText: '뒤로가기'
+			}).then((result) => {
+			  if (result.value) {
+				  $("#orderForm").submit();	
+			  }
+		})	
+	}
 })
 
 </script>

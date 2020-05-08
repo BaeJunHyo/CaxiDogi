@@ -169,9 +169,9 @@
 .prd_infoWrap .prdInfo_section .col1 {position: relative;}
 .zoom_viewBox {position: absolute; width: 550px; height: 637px; top: 0; right: -550px; z-index: 100; background: #efefef;}
 
-.prd_infoWrap .prdInfo_section .col2 .prdBtns a {width: 227px;}
+.prd_infoWrap .prdInfo_section .col2 .prdBtns a {/* width: 227px; */ width: 48.3%;}
 .prd_infoWrap .prdInfo_section .col2 .prdBtns a.btn_dark_l {margin: 0 9px;}
-.prd_infoWrap .prdInfo_section .col2 .prdBtns a:last-child {width: 55px; background: url(../images/ico_wish_l.png) no-repeat center;}
+.prd_infoWrap .prdInfo_section .col2 .prdBtns a.btn_wishlist {width: 55px; background: url(../images/ico_wish_l.png) no-repeat center;}
 
 .prdCounter_wrap {width: 100%; height: auto; overflow-y: auto;}
 

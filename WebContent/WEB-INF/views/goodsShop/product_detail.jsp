@@ -462,10 +462,10 @@ ProductListParam prdlistparam = (ProductListParam)request.getAttribute("prdlistp
 					</p>
 
 					<p class="prdBtns clearfix">
-						<a href="#n" class="btn_green_l p0" id="nowPayment1">바로구매</a> <a
-							href="#n" class="btn_dark_l p0" id="saveBasket1">장바구니</a>
+						<a href="#n" class="btn_green_l p0" id="nowPayment1">바로구매</a> 
+						<a href="#n" class="btn_dark_l p0" id="saveBasket1">장바구니</a>
 						<!-- <span class="sign_soldout">일시품절인 상품입니다.</span> -->
-						<a href="#n" class="btn_line_l p0 btn_wishlist" alt="위시리스트"></a>
+						<!-- <a href="#n" class="btn_line_l p0 btn_wishlist" alt="위시리스트"></a> -->
 					</p>
 					<!-- </div> -->
 				</div>
@@ -891,19 +891,21 @@ ProductListParam prdlistparam = (ProductListParam)request.getAttribute("prdlistp
 	<!-- container E : -->
 
 
-	<!-- <div class="lp_bg"></div>
-<div class="lp_box lp_box_s">
-	<a href="#n" class="btn_close_lp"><img src="images/btn_close_m.png" alt="팝업창닫기"></a>
-
-	<h3 class="lp_title_center">위시리스트 담기</h3>
-	<strong>위시리스트에 담기가 완료되업습니다.</strong><br/>
-	<span class="fs14">지금 위시리스트를 확인하시겠습니까?</span>
-
-	<p class="btns_center mt30">
-		<a href="#" class="btn_red_m">확인</a>
-		<a href="#" class="btn_dark_m">닫기</a>
-	</p>
-</div> -->
+<!-- 
+	<div class="lp_bg"></div>
+	<div class="lp_box lp_box_s">
+		<a href="#n" class="btn_close_lp"><img src="images/btn_close_m.png" alt="팝업창닫기"></a>
+	
+		<h3 class="lp_title_center">위시리스트 담기</h3>
+		<strong>위시리스트에 담기가 완료되었습니다.</strong><br/>
+		<span class="fs14">지금 위시리스트를 확인하시겠습니까?</span>
+	
+		<p class="btns_center mt30">
+			<a href="#" class="btn_red_m">확인</a>
+			<a href="#" class="btn_dark_m">닫기</a>
+		</p>
+	</div> 
+ -->	
 </form>
 <input type="text" id="qty" vlaue="0" style="display: none;">
 

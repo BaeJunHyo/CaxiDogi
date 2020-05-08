@@ -933,93 +933,163 @@ function calc(){
 $(document).on("click", "#nowPayment1", function() {
 	//로그인 상태 판단 
 	if($("#login_find").val() == -1){
-		var islogin = confirm("구매를 위해서는 로그인이 필요합니다\n로그인페이지으로 이동하시겠습니까?");
-		if(islogin){
-			location.href="loginView.do";
-		}else{
-			return;
-		}
+		Swal.fire({
+			  title: '로그인이 필요합니다',
+			  text: "로그인을 위해 이동하시겠습니까??",
+			  icon: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: '이동하기',
+			  cancelButtonText: '머물기',
+			}).then((result) => {
+			  if (result.value) {
+				  location.href="loginView.do";
+			  }
+			})
 	}else{
 		var str = $('#frm').serializeArray();
 		$('#frm').submit();
 	}
 	
 });
+
 $(document).on("click", "#nowPayment2", function() {
 	//로그인 상태 판단 
 	if($("#login_find").val() == -1){
-		var islogin = confirm("구매를 위해서는 로그인이 필요합니다\n로그인페이지으로 이동하시겠습니까?");
-		if(islogin){
-			location.href="loginView.do";
-		}else{
-			return;
-		}
+		Swal.fire({
+			  title: '로그인이 필요합니다',
+			  text: "로그인을 위해 이동하시겠습니까??",
+			  icon: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: '이동하기',
+			  cancelButtonText: '머물기',
+			}).then((result) => {
+			  if (result.value) {
+				  location.href="loginView.do";
+			  }
+			})
 	}else{
 		var str = $('#frm').serializeArray();
 		$('#frm').submit();
 	}
 });
 
-
+/* 장바구니 기능 */
 $("#saveBasket1").click(function (){
 	//로그인 상태 판단 
 	if($("#login_find").val() == -1){
-		var islogin = confirm("구매를 위해서는 로그인이 필요합니다\n로그인페이지으로 이동하시겠습니까?");
-		if(islogin){
-			location.href="loginView.do";
-		}else{
-			return;
-		}
+		Swal.fire({
+			  title: '로그인이 필요합니다',
+			  text: "로그인을 위해 이동하시겠습니까??",
+			  icon: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: '이동하기',
+			  cancelButtonText: '머물기',
+			}).then((result) => {
+			  if (result.value) {
+				  location.href="loginView.do";
+			  }
+			})
 	}else{
-		$.ajax({
-			url:"createBasket.do",
-			type:"post",
-			data:{
-				mem_seq:"${loginUser.mem_seq}",
-				product_num:${prddetail.product_num},
-				basket_amount: $('#acount1').val()
-			},
-			success: function (result){
-				alert("성공");
-				alert(result);
-			},
-			error: function (){
-				alert("실패");
-			}
-		})
+		Swal.fire({
+			  title: '장바구니에 담으시겠습니까?',
+			  text: "장바구니 기능은 Mypage에서 확인 가능합니다 ",
+			  icon: 'question',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: '상품 담기'
+			}).then((result) => {
+			  if (result.value) {
+				//담기 클릭시 
+				  $.ajax({
+						url:"createBasket.do",
+						type:"post",
+						data:{
+							mem_seq:"${loginUser.mem_seq}",
+							product_num:${prddetail.product_num},
+							basket_amount: $('#acount1').val()
+						},
+						success: function (result){
+
+							if(result == 'true'){
+								Swal.fire(
+									      '장바구니에 추가되었습니다',
+									      'Mypage에서 추가 및 변경도 가능합니다',
+									      'success'
+								);
+							}
+						},
+						error: function (){
+							alert("실패");
+						}
+					})
+			  }
+		})	
 	}	
 		
 })
 
+/* 아래 장바구니 기능 */
 $("#saveBasket2").click(function (){
 	//로그인 상태 판단 
 	if($("#login_find").val() == -1){
 		Swal.fire({
-			  icon: 'info',
-			  title: "로그인을 하셔야 장바구니 기능을 사용하실 수 있습니다.",
-			  text: '로그인 하시겠습니까 ????',
-			  showConfirmButton: true
-			}).then(function(){
-			location.href="loginView.do";
-		});
+			  title: '로그인이 필요합니다',
+			  text: "로그인을 위해 이동하시겠습니까??",
+			  icon: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: '이동하기',
+			  cancelButtonText: '머물기',
+			}).then((result) => {
+			  if (result.value) {
+				  location.href="loginView.do";
+			  }
+			})
 	}else{
-		$.ajax({
-			url:"createBasket.do",
-			type:"post",
-			data:{
-				mem_seq:"${loginUser.mem_seq}",
-				product_num:${prddetail.product_num},
-				basket_amount: $('#acount1').val()
-			},
-			success: function (result){
-				alert("성공");
-				alert(result);
-			},
-			error: function (){
-				alert("실패");
-			}
-		})
-	}	
+		Swal.fire({
+			  title: '장바구니에 담으시겠습니까?',
+			  text: "장바구니 기능은 Mypage에서 확인 가능합니다 ",
+			  icon: 'question',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: '상품 담기'
+			}).then((result) => {
+			  if (result.value) {
+				//담기 클릭시 
+				  $.ajax({
+						url:"createBasket.do",
+						type:"post",
+						data:{
+							mem_seq:"${loginUser.mem_seq}",
+							product_num:${prddetail.product_num},
+							basket_amount: $('#acount1').val()
+						},
+						success: function (result){
+
+							if(result == 'true'){
+								Swal.fire(
+									      '장바구니에 추가되었습니다',
+									      'Mypage에서 추가 및 변경도 가능합니다',
+									      'success'
+								);
+							}
+						},
+						error: function (){
+							alert("실패");
+						}
+					})
+			  }
+		})	
+	}		
 			
 })
 

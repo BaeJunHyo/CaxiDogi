@@ -92,6 +92,7 @@ public class DetailController {
 	@PostMapping(value="productOrder.do")
 	public String productOrder(HttpServletRequest request, Model model, @ModelAttribute order_PrdParamList orderList) {
 		System.out.println("DetailController   productOrder()");
+		
 		//넘어온 파라미터 확인 
 		if(orderList.getOrderList() == null) {
 			System.out.println("param == NULL");

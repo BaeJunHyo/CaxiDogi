@@ -27,7 +27,7 @@
 
 <script type="text/javascript">
 	$("#closeBtn").click(function () {
-		opener.parent.paymentConfirm();
+		opener.parent.paymentConfirm(2);
 		close();
 	});
 	

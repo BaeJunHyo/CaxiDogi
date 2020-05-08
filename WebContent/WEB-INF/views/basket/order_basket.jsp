@@ -82,7 +82,17 @@
 										<div style="padding: 10px 10px 10px 10px;">
 											<div class="이미지" style="width:30%; height:100%; float:left; margin-bottom: 10px;">
 												<a href="productDetail.do?product_num=${basketDto.product_num }">
-													<img alt="" src="${basketDto.product_img }" width="70" height="50">
+													<c:choose>
+														<c:when test="${basketDto.product_group eq 1 }">
+															<img alt="" src="<%=request.getContextPath() %>/images/goodsImg/dog/${basketDto.product_img }" width="70" height="50">		
+														</c:when>
+														<c:when test="${basketDto.product_group eq 2 }">
+															<img alt="" src="<%=request.getContextPath() %>/images/goodsImg/cat/${basketDto.product_img }" width="70" height="50">		
+														</c:when>
+														<c:when test="${basketDto.product_group eq 3 }">
+															<img alt="" src="<%=request.getContextPath() %>/images/goodsImg/public/${basketDto.product_img }" width="70" height="50">		
+														</c:when>
+													</c:choose>
 												</a>
 											</div>
 											<div style="width:70%; float:left; text-align: left; align-content: center; padding-top: 12px;">
@@ -119,9 +129,7 @@
 							<tr>
 								<th colspan="6" style="background-color: #FAFAFA"><p id="test">합계 금액</p></th>
 								<td>
-									<strong class="total_Price_Sum">
-											${total_Price_Sum }
-									</strong>
+									<strong class="total_Price_Sum">0</strong>
 									<strong>원</strong>
 								</td>
 							</tr>
@@ -168,7 +176,7 @@
 		//예외처리
 		if(acount > 99){
 			acount = 99;
-			alert("최대 수량입니다. 대량구매는 관리자에게 문의 부탁드립니다.");
+			Swal.fire({ icon: 'info', title: '최대 수량입니다', text: '대량구매는 관리자에게 문의 부탁드립니다.',})
 			return;
 		}
 		
@@ -194,12 +202,15 @@
 		$(tr).children().last().children('.total_Price').text(total_price);
 		
 		console.log($(tr).children().last().children('.total_Price').html()); //총가격 
+		var checkbox = $(tr).children().first().children();
 
-		//합계 금액 처리 
-		var total_price_sum = $('#prd_list').children().last().children('td').children('.total_Price_Sum').text();
-		total_price_sum = Number(total_price_sum) + price;
+		if($(checkbox).is(":checked")){
+			//합계 금액 처리 
+			var total_price_sum = $('#prd_list').children().last().children('td').children('.total_Price_Sum').text();
+			total_price_sum = Number(total_price_sum) + price;
 
-		$('#prd_list').children().last().children('td').children('.total_Price_Sum').text(total_price_sum);
+			$('#prd_list').children().last().children('td').children('.total_Price_Sum').text(total_price_sum);					
+		}
 		
 		//DB 업데이트 
 		//alert($(this).attr('index'));
@@ -212,11 +223,11 @@
 				state:"+"
 			},
 			success: function ( result ){
-				alert("연결성공");
-				alert(result);
+				//alert("연결성공");
+				//alert(result);
 			},
 			error: function (){
-				alert("연결실패");
+				//alert("연결실패");
 			}
 		})
 	});
@@ -257,18 +268,25 @@
 		//console.log(price);
 
 		var total_price = (acount * price);
+
 		
 		//총가격 처리 
 		$(tr).children().last().children('.total_Price').text(total_price);
 		
-		console.log($(tr).children().last().children('.total_Price').html()); //총가격 
+		//console.log($(tr).children().last().children('.total_Price').html()); //총가격 
 
-		//합계 금액 처리 
-		var total_price_sum = $('#prd_list').children().last().children('td').children('.total_Price_Sum').text();
-		total_price_sum = Number(total_price_sum) - price;
+		//console.log("버튼 의 tr == ");
+		var checkbox = $(tr).children().first().children();
 
-		$('#prd_list').children().last().children('td').children('.total_Price_Sum').text(total_price_sum);
+		if($(checkbox).is(":checked")){
+			//합계 금액 처리 
+			var total_price_sum = $('#prd_list').children().last().children('td').children('.total_Price_Sum').text();
+			total_price_sum = Number(total_price_sum) - price;
+
+			$('#prd_list').children().last().children('td').children('.total_Price_Sum').text(total_price_sum);					
+		}
 		
+				
 		//DB 업데이트 
 		//alert($(this).attr('index'));
 		
@@ -280,11 +298,11 @@
 				state:"-"
 			},
 			success: function ( result ){
-				alert("연결성공");
-				alert(result);
+				//alert("연결성공");
+				//alert(result);
 			},
 			error: function (){
-				alert("연결실패");
+				//alert("연결실패");
 			}
 		})
 		
@@ -298,8 +316,86 @@
 		
 	$(document).on("click", "#all_check", function (){
 		if($(this).is(":checked")){
+			var checkbox = $("input[type='checkbox']");
+			
+			for(i = 1; i <= checkbox.length; i++){
+				
+				if($(checkbox[i]).is(":checked")){		
+				}else{
+					//console.log($(this).parent().parent().children().last().children().text());
+					var totalPrice = $(checkbox[i]).parent().parent().children().last().children('.total_Price').text();
+					console.log($.trim(totalPrice));
+					//합계 금액 처리 
+					var total_price_sum = $('#prd_list').children().last().children('td').children('.total_Price_Sum').text();
+					total_price_sum = Number(total_price_sum) + Number(totalPrice);
+
+					$('#prd_list').children().last().children('td').children('.total_Price_Sum').text(total_price_sum);
+				}
+				
+			}
+			
+			
 			$("input[type='checkbox']").prop('checked',true);
+			//모든자식제거
+			$("#orderForm").empty();
+			
+			var index = 0;
+			for(i=1; i <= checkbox.length-1; i++){
+				if($(checkbox[i]).is(":checked")){
+					//alert("체크");
+					//alert($(checkbox[i]).val());
+					$.ajax({
+						url:"getBasketDto.do",
+						type:"post",
+						data:{
+							basket_num:$(checkbox[i]).val()
+						},
+						success: function ( dto ){
+							//alert("통신성공");
+							console.log(dto);
+							//여기서 form 내에 input 태그 생성 
+							var inputStr = "<input type='hidden'";
+							inputStr += " name='orderList[" + index + "].product_num'";
+							inputStr += " value='" + dto.product_num + "'>";
+						
+							$("#orderForm").append(inputStr);
+							
+							inputStr = "<input type='hidden'";
+							inputStr += " name='orderList[" + index + "].acount'";
+							inputStr += " value='" + dto.basket_amount + "'>";
+							
+							$("#orderForm").append(inputStr);
+							
+							index++;
+						},
+						error: function (){
+							//alert("통신실패");
+						}
+					})//ajax	
+				}//if
+			}//for
 		}else{
+			
+			//모든자식제거
+			$("#orderForm").empty();
+
+			var checkbox = $("input[type='checkbox']");
+			
+			for(i = 1; i <= checkbox.length-1; i++){
+
+				if($(checkbox[i]).is(":checked")){
+					//console.log($(this).parent().parent().children().last().children().text());
+					var totalPrice = $(checkbox[i]).parent().parent().children().last().children('.total_Price').text();
+					console.log($.trim(totalPrice));
+					//합계 금액 처리 
+					var total_price_sum = $('#prd_list').children().last().children('td').children('.total_Price_Sum').text();
+					total_price_sum = Number(total_price_sum) - Number(totalPrice);
+
+					$('#prd_list').children().last().children('td').children('.total_Price_Sum').text(total_price_sum);
+				}	
+				
+			}
+			
 			$("input[type='checkbox']").prop('checked',false);
 		}
 	})
@@ -307,12 +403,36 @@
 	
 	//form 안에 데이터 동적생성
 	$(document).on("click",".basketCheck", function (){
+
+		if($(this).is(":checked")){
+			//console.log($(this).parent().parent().children().last().children().text());
+			var totalPrice = $(this).parent().parent().children().last().children('.total_Price').text();
+			console.log($.trim(totalPrice));
+			//합계 금액 처리 
+			var total_price_sum = $('#prd_list').children().last().children('td').children('.total_Price_Sum').text();
+			total_price_sum = Number(total_price_sum) + Number(totalPrice);
+
+			$('#prd_list').children().last().children('td').children('.total_Price_Sum').text(total_price_sum);
+		}else{
+			//console.log($(this).parent().parent().children().last().children().text());
+			var totalPrice = $(this).parent().parent().children().last().children('.total_Price').text();
+			console.log($.trim(totalPrice));
+			//합계 금액 처리 
+			var total_price_sum = $('#prd_list').children().last().children('td').children('.total_Price_Sum').text();
+			total_price_sum = Number(total_price_sum) - Number(totalPrice);
+
+			$('#prd_list').children().last().children('td').children('.total_Price_Sum').text(total_price_sum);
+		}
+		
+		
+
 		
 		//모든자식제거
 		$("#orderForm").empty();
 		
 		var checkbox = $("input[type='checkbox']");
 		var index = 0;
+		
 		
 		for(i=1; i <= checkbox.length-1; i++){
 			if($(checkbox[i]).is(":checked")){
@@ -328,7 +448,7 @@
 						//alert("통신성공");
 						console.log(dto);
 						//여기서 form 내에 input 태그 생성 
-						var inputStr = "<input type='text'";
+						var inputStr = "<input type='hidden'";
 						inputStr += " name='orderList[" + index + "].product_num'";
 						inputStr += " value='" + dto.product_num + "'>";
 					
@@ -343,7 +463,7 @@
 						index++;
 					},
 					error: function (){
-						alert("통신실패");
+						//alert("통신실패");
 					}
 				})//ajax	
 			}//if
@@ -357,42 +477,64 @@
 	//선택삭제 클릭시
 	$("#delBtn").click(function (){
 		//	alert("삭제 클릭");
-		var checkboxTag = $("input[type='checkbox']");
+		Swal.fire({
+		  title: '선택한 장바구니를 삭제하시겠습니까?',
+		  text: "",
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  confirmButtonText: '삭제하기',
+		  cancelButtonText: '뒤로가기',	  	  
+		}).then((result) => {
 
-		for(i=1; i < checkboxTag.length; i++){
+			if (result.value) {
 
-			if($(checkboxTag[i]).is(":checked")){
-				//선택되어 있으면 
-				var seq = $(checkboxTag[i]).val();
-				alert(seq); 
-				console.log($(checkboxTag[i]).parent().parent());
-				var target = $(checkboxTag[i]).parent().parent();
-				//$(checkboxTag[i]).parent().parent().remove();
+				var checkboxTag = $("input[type='checkbox']");
 
-				$.ajax({
-					url:"deleteBasket.do",
-					type:"post",
-					data:{
-						basket_num:seq
-					},
-					success: function (result){
-						console.log("deleteBasket.do 성공");
-						//alert(result);
-						if(result == 'true'){
-							alert("실행");
-							console.log(target);
-							$(target).remove();
-						}else{
-							alert("안실행");
-							return;
-						}
-					},
-					error: function (){
-						console.log("deleteBasket.do 실패");
-					}	
-				})	
-			}
-		}
+				for(i=1; i < checkboxTag.length; i++){
+
+					if($(checkboxTag[i]).is(":checked")){
+						//선택되어 있으면 
+						var seq = $(checkboxTag[i]).val();
+						//alert(seq); 
+						console.log($(checkboxTag[i]).parent().parent());
+						var target = $(checkboxTag[i]).parent().parent();
+						//$(checkboxTag[i]).parent().parent().remove();
+
+						$.ajax({
+							url:"deleteBasket.do",
+							type:"post",
+							data:{
+								basket_num:seq
+							},
+							success: function (result){
+								console.log("deleteBasket.do 성공");
+								//alert(result);
+								if(result == 'true'){
+									//alert("실행");
+									console.log(target);
+									$(target).remove();
+								}else{
+									//alert("안실행");
+									return;
+								}
+							},
+							error: function (){
+								console.log("deleteBasket.do 실패");
+							}	
+						})	
+					}
+				}
+			Swal.fire({
+				  icon: 'success',
+				  title: '선택 삭제처리가 완료되었습니다',
+				  showConfirmButton: false,
+				  timer: 1000
+			})
+		  }
+		})
+		
 		
 	});
 </script>
@@ -405,14 +547,21 @@
 <script>
 
 $(document).on('click', "#btn_payment", function (){
-	alert("주");
-	
-	var ok = confirm("선택한 상품을 주문하시겠습니까??");
-	
-	if(ok){
-		$("#orderForm").submit();	
-	}
-	
+	//alert("주");
+	Swal.fire({
+		  title: '선택 상품으로 주문을 하시겠습니까?',
+		  text: "주문 페이지에서 수량은 변경이 가능합니다",
+		  icon: 'info',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  confirmButtonText: '주문하기',
+		  cancelButtonText: '뒤로가기'
+		}).then((result) => {
+		  if (result.value) {
+			  $("#orderForm").submit();	
+		  }
+	})
 	
 })
 

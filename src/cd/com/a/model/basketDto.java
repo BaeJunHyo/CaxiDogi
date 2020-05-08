@@ -21,6 +21,8 @@ public class basketDto implements Serializable {
 	private int product_sale;
 	private int product_del;
 	
+	
+	
 	public basketDto() {
 	}
 

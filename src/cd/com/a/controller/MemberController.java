@@ -165,7 +165,7 @@ public class MemberController {
 			int price = detailService.getPrd(saleList.get(0).getProduct_num()).getProduct_price() * amount;
 			
 			String strDate = saleList.get(0).getSaleing_date();
-	
+			
 			String[] strDate2 = strDate.split("\\s");
 			//System.out.println(strDate2[0]);
 			//System.out.println(strDate2[1]);
@@ -190,7 +190,7 @@ public class MemberController {
 				prdDto = detailService.getPrd(saleList.get(0).getProduct_num());
 			}
 			System.out.println(prdDto.getProduct_img());
-			myBuyList.add(new myBuyParam(saleing_numStr, myOrderName, strDate, prdDto.getProduct_img(), amount, price, saleGroupList.get(i) , saleList.get(0).getProduct_delivery_state()));
+			myBuyList.add(new myBuyParam(saleing_numStr, myOrderName, strDate, prdDto.getProduct_img(), amount, price, saleGroupList.get(i) , saleList.get(0).getProduct_delivery_state(), Integer.parseInt(prdDto.getProduct_group()), Integer.parseInt(prdDto.getProduct_sub_group())));
 			
 			
 		}

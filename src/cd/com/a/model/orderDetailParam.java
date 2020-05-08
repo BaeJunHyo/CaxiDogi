@@ -11,12 +11,14 @@ public class orderDetailParam implements Serializable {
 	private int saleing_amount;
 	private int product_price;
 	private String product_img;
+	private int product_group;
+	private int product_sub_group;
 	
 	public orderDetailParam() {
 	}
 
 	public orderDetailParam(int saleing_group, String product_name, String product_code, String product_brand,
-			int saleing_amount, int product_price, String product_img) {
+			int saleing_amount, int product_price, String product_img, int product_group, int product_sub_group) {
 		super();
 		this.saleing_group = saleing_group;
 		this.product_name = product_name;
@@ -25,6 +27,8 @@ public class orderDetailParam implements Serializable {
 		this.saleing_amount = saleing_amount;
 		this.product_price = product_price;
 		this.product_img = product_img;
+		this.product_group = product_group;
+		this.product_sub_group = product_sub_group;
 	}
 
 	public int getSaleing_group() {
@@ -82,13 +86,31 @@ public class orderDetailParam implements Serializable {
 	public void setProduct_img(String product_img) {
 		this.product_img = product_img;
 	}
+	
+	public int getProduct_group() {
+		return product_group;
+	}
+
+	public void setProduct_group(int product_group) {
+		this.product_group = product_group;
+	}
+
+	public int getProduct_sub_group() {
+		return product_sub_group;
+	}
+
+	public void setProduct_sub_group(int product_sub_group) {
+		this.product_sub_group = product_sub_group;
+	}
 
 	@Override
 	public String toString() {
 		return "orderDetailParam [saleing_group=" + saleing_group + ", product_name=" + product_name + ", product_code="
 				+ product_code + ", product_brand=" + product_brand + ", saleing_amount=" + saleing_amount
-				+ ", product_price=" + product_price + ", product_img=" + product_img + "]";
+				+ ", product_price=" + product_price + ", product_img=" + product_img + ", product_group="
+				+ product_group + ", product_sub_group=" + product_sub_group + "]";
 	}
+
 	
 	
 	

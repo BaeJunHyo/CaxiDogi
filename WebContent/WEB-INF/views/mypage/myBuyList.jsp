@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
 
 <div class="cusSec_tableWrap tw_wFull">
 	<h3>
@@ -31,7 +30,19 @@
 				<tr>
 					<td>${myBuyParam.order_date.split("/")[0] }<a href="javascript:openPopup(${myBuyParam.order_number })" class="prdNum">${myBuyParam.order_date.split("/")[1] }</a></td>
 					<td class="tl">
-						<a href="javascript:openPopup('${myBuyParam.order_number }')" class="tableThumb_small"><img src="./images/mypage/img_prdBigThumb.jpg"></a>
+						<a href="javascript:openPopup('${myBuyParam.order_number }')" class="tableThumb_small">
+							<c:choose>
+								<c:when test="${myBuyParam.product_group eq 1 }">
+									<img alt="" src="<%=request.getContextPath() %>/images/goodsImg/dog/${myBuyParam.order_img }" width="70" height="50">		
+								</c:when>
+								<c:when test="${myBuyParam.product_group eq 2 }">
+									<img alt="" src="<%=request.getContextPath() %>/images/goodsImg/cat/${myBuyParam.order_img }" width="70" height="50">		
+								</c:when>
+								<c:when test="${myBuyParam.product_group eq 3 }">
+									<img alt="" src="<%=request.getContextPath() %>/images/goodsImg/public/${myBuyParam.order_img }" width="70" height="50">		
+								</c:when>
+							</c:choose>
+						</a>
 						<div class="prdInfo">
 							<a href="javascript:openPopup(${myBuyParam.order_number })">
 								<p class="c_gray">[ 주문번호 : ${myBuyParam.order_number } ]</p>

@@ -113,8 +113,8 @@ td{padding:15px;}
 				cancel_amount:"${kakaoDto.totalPrice}",
 				cancel_vat_amount:"${kakaoDto.vat}"
 				},
-			success: function (data){alert("통신 성공");},
-			error: function (){alert("통신실패");}
+			success: function (data){//alert("통신 성공");},
+			error: function (){//alert("통신실패");}
 		})
 	})	
 </script>

@@ -147,7 +147,7 @@ if(loginUser != null){
                </ul>
             </li>
             <li class="subNav">
-               <a href="#" class="active">ACTIVE</a>
+               <a href="getShopList.do" class="active">ACTIVE</a>
                <ul id="subActive" class="submenu">
                   <li class="ssub" onclick="location.href='getShopList.do'">
                      	미용 
@@ -173,14 +173,14 @@ if(loginUser != null){
             <div class="row">
                <div class="nav">
                	  <ul class="clearfix">
-                     <li><a href="#">[Product]</a></li>
-                     <li><a href="#">[Location]</a></li>
+                     <!-- <li><a href="#">[Product]</a></li>
+                     <li><a href="#">[Location]</a></li> -->
                      <li><a href="searchHospital.do">24시 동물병원 찾기</a></li>
                   </ul>
                   <ul class="clearfix">
-                     <li><a href="#">강아지</a></li>
-                     <li><a href="#">고양이</a></li>
-                     <li><a href="#">공용</a></li>
+                     <li><a href="prdList.do?product_group=1&product_sub_group=-1">강아지</a></li>
+                     <li><a href="prdList.do?product_group=2&product_sub_group=-1">고양이</a></li>
+                     <li><a href="location.href='prdList.do?product_group=3&product_sub_group=-1">공용</a></li>
                   </ul>
                   <ul>
                      <li><a href="getShopList.do">미용</a></li>

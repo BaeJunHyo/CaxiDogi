@@ -63,7 +63,7 @@ location.href="myPageMove.do";
 								<p>
 									<span class="price">${shop.shop_small_price }</span>
 								</p>
-								<span class="rev">Review</span>
+								<span class="rev">더보기</span>
 							</dd>
 						</dl>
 				</a></li>

@@ -376,7 +376,7 @@ public class orderController {
 				
 			}
 		}else {
-			return null;
+			myBuyList = null;	
 		}
 		
 		model.addAttribute("myBuyList", myBuyList);

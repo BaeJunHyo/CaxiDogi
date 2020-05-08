@@ -31,7 +31,7 @@
    <if test="poolAddr == 3">
    		and not pool_addr like concat('%',#{poolAddrSeo},'%') and not pool_addr like concat('%',#{poolAddrKyeong},'%')
    </if>
-	order by pool_seq asc
+	order by pool_seq desc
    limit #{start}, #{recordCountPerPage}
 </select>
 

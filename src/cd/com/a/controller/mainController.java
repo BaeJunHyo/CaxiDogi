@@ -13,6 +13,7 @@ import cd.com.a.bo.ProductService;
 import cd.com.a.model.ProductParam;
 import cd.com.a.model.poolDto;
 import cd.com.a.model.productDto;
+import cd.com.a.model.shopDto;
 import cd.com.a.service.PoolService;
 import cd.com.a.service.ShopService;
 
@@ -29,15 +30,20 @@ public class mainController {
 	public String main(Model model, ProductParam prdparam) {
 		List<poolDto> poolList = new ArrayList<poolDto>();
 		poolList.add(poolService.getPoolDetail(4));
-		poolList.add(poolService.getPoolDetail(8));
+		poolList.add(poolService.getPoolDetail(17));
 		poolList.add(poolService.getPoolDetail(9));
 		poolList.add(poolService.getPoolDetail(12));
 		
+		List<shopDto> shopList = new ArrayList<shopDto>();
+		shopList.add(shopService.getShopDetail(18));
+		shopList.add(shopService.getShopDetail(21));
+		shopList.add(shopService.getShopDetail(17));
+		shopList.add(shopService.getShopDetail(15));
 		
 		List<productDto> prdlist = prdService.prdSearchList(prdparam);
 		model.addAttribute("prdlist", prdlist);
-		
 		model.addAttribute("poolList", poolList);
+		model.addAttribute("shopList", shopList);
 		
 		return "/main/main";
 	}

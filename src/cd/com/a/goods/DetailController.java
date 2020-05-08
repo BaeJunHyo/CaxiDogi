@@ -126,4 +126,9 @@ public class DetailController {
 		return "goodsShop/product_order";
 	}
 	
+	
+	@RequestMapping(value="notice.do",  method = {RequestMethod.POST, RequestMethod.GET})
+	public String communityNotice() {
+		return "notice/notice";
+	}
 }

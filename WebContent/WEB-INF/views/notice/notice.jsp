@@ -15,19 +15,17 @@
 <div class="container_subWrap clearfix">
 	<div class="cusSec_left">
 		<div class="customerMenu">
-			<h3>고객센터</h3>
+			<h3>공지사항</h3>
 			<ul class="csSubmenu">
-				<li>
+				<!-- <li>
 					<a href="#n">FAQ</a>
 					<ul>
 						<li><a href="#n">주문/결제</a></li>
 						<li><a href="#n">취소/교환/반품</a></li>
 						<li><a href="#n">회원안내</a></li>
 					</ul>
-				</li>
-				<li><a href="#n">공지사항</a></li>
-				<li><a href="#n">1:1 문의하기</a></li>
-				<li><a href="#n">1:1 답변하기</a></li>
+				</li> -->
+				<li><a href="notice.do">공지사항</a></li>
 			</ul>
 		</div>
 		<div class="customerMenu">
@@ -68,55 +66,55 @@
 				<tr class="view_tableTit">
 					<td>3</td>
 					<td class="tl"><a href="#n">시스템 점검 사항</a></td>
-					<td>2015-08-08</td>
+					<td>2020-05-08</td>
 				</tr>
 				<tr class="view_tableCn02">
 					<td></td>
 					<td class="tl">
 						아래와 같이 98마켓 시스템을 점검 하오니 이용에 착오 없으시기 바랍니다.<br/><br/>
 						<span class="sub_t_sbj"><시스템 점검 일자></span><br/>
-						2016년 8월 10일 ~ 24:00 ~ 07:00
+						2020년 4월 10일 ~ 24:00 ~ 07:00
 					</td>
 					<td></td>
 				</tr>
 				<tr class="view_tableTit">
 					<td>2</td>
 					<td class="tl"><a href="#n">시스템 점검 사항</a></td>
-					<td>2015-08-08</td>
+					<td>2020-05-08</td>
 				</tr>
 				<tr class="view_tableCn02">
 					<td></td>
 					<td class="tl">
 						아래와 같이 98마켓 시스템을 점검 하오니 이용에 착오 없으시기 바랍니다.<br/><br/>
 						<span class="sub_t_sbj"><시스템 점검 일자></span><br/>
-						2016년 8월 10일 ~ 24:00 ~ 07:00
+						2020년 4월 10일 ~ 24:00 ~ 07:00
 					</td>
 					<td></td>
 				</tr>
 				<tr class="view_tableTit">
 					<td>1</td>
 					<td class="tl"><a href="#n">시스템 점검 사항</a></td>
-					<td>2015-08-08</td>
+					<td>2020-05-08</td>
 				</tr>
 				<tr class="view_tableCn02">
 					<td></td>
 					<td class="tl">
 						아래와 같이 98마켓 시스템을 점검 하오니 이용에 착오 없으시기 바랍니다.<br/><br/>
 						<span class="sub_t_sbj"><시스템 점검 일자></span><br/>
-						2016년 8월 10일 ~ 24:00 ~ 07:00
+						2020년 4월 10일 ~ 24:00 ~ 07:00
 					</td>
 					<td></td>
 				</tr>
 			</tbody>
 		</table>
 
-		<p class="pagination">
+		<!-- <p class="pagination">
 			<a href="#n" class="btn_table_prev">
 			</a><a href="#n" class="current">
 			1</a><a href="#n">
 			2</a><a href="#n" class="btn_table_next">
 			</a>
-		</p>
+		</p> -->
 	</div><!--// contents -->
 </div>
 <!-- container E : -->

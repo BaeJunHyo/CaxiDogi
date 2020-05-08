@@ -103,7 +103,7 @@
 					order by  resv.pool_resv_ydate desc) sub, 
 			(select @finalnum:=0) ftmp order by sub.rownum desc) fsub
     	order by fsub.finalnum desc
-    limit #{start}, #{end}
+    limit #{start}, #{recordCountPerPage}
     </select>
     
     
@@ -145,7 +145,7 @@
 					order by  resv.pool_resv_payment asc, resv.pool_resv_sdate asc,resv.pool_resv_ydate desc) sub, 
 			(select @finalnum:=0) ftmp order by sub.rownum desc) fsub
     	order by fsub.finalnum desc
-    limit #{start}, #{end}
+    limit #{start}, #{recordCountPerPage}
 </select>
 
 <select id="getTodayResvCount" parameterType="cd.com.a.model.poolParam" resultType="java.lang.Integer">
@@ -241,7 +241,7 @@
 				order by  resv.pool_resv_payment asc, resv.pool_resv_sdate asc,resv.pool_resv_ydate desc) sub,
 				(select @finalnum:=0) ftmp order by sub.rownum desc) fsub
     	order by fsub.finalnum desc
-    limit #{start}, #{end}
+    limit #{start}, #{recordCountPerPage}
     </select>
     
     
@@ -278,7 +278,7 @@
 				order by  resv.pool_resv_payment asc, resv.pool_resv_sdate asc,resv.pool_resv_ydate desc) sub,
 				(select @finalnum:=0) ftmp order by sub.rownum desc) fsub
     	order by fsub.finalnum desc
-    limit #{start}, #{end}
+    limit #{start}, #{recordCountPerPage}
     </select>
     
     
@@ -296,7 +296,7 @@
 				order by  pool_seq desc) sub, (select @finalnum:=0) ftmp
 			order by sub.rownum desc) fsub
     order by fsub.finalnum desc
-    limit #{start}, #{end}
+    limit #{start}, #{recordCountPerPage}
     </select>
     
         <select id ="adminPoolListCount" parameterType="cd.com.a.model.AdminPoolParam" resultType="java.lang.Integer">

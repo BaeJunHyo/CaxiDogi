@@ -247,7 +247,7 @@ where shop_resv_auth=1 and mem_seq=#{mem_seq}
 				order by  shop_seq desc) sub, (select @finalnum:=0) ftmp
 			order by sub.rownum desc) fsub
     order by fsub.finalnum desc
-    limit #{start}, #{end}
+    limit #{start}, #{recordCountPerPage}
 
 </select>
 

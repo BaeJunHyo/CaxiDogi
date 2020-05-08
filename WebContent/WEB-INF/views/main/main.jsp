@@ -76,7 +76,7 @@
   <div class="bigCate new_product w1100">
     <h3 class="objTit"><span class="font_noto">SHOP</span></h3>
     <ul class="prdArea prdView clearfix">
-    <c:forEach items="${shopList }" var="pool">
+    <c:forEach items="${shopList }" var="shop">
       <li>
         <a href="poolDetail.do?pool_seq=${shop.shop_seq }">
           <span class="prdImg_section">

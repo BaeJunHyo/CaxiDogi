@@ -49,8 +49,8 @@ public class noticeController {
 		//
 		return "admin/notice/notice_insert2";
 	}
-
-	@PostMapping(value="writeAf.do", consumes ={"multipart/form-data"})
+	
+	@PostMapping(value="adminNoticeWriteAf.do", consumes ={"multipart/form-data"})
 	@ResponseBody
 	//@ModelAttribute 자동으로 dto로 넣어준다
 	//@RequestParam(value="ajaxContents",required=false) String contents,

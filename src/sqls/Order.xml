@@ -61,7 +61,8 @@
 	
 	<select id="myOrderDetail" parameterType="java.lang.Integer" resultType="cd.com.a.model.orderDetailParam">
 		select p.product_name, p.product_code, p.product_brand, p.product_price,
-			p.product_img , ps.saleing_group, ps.saleing_amount
+			p.product_img , p.product_group, p.product_sub_group, 
+			ps.saleing_group, ps.saleing_amount
 			
 		from product_saleing ps , product p 
 		where ps.product_num = p.product_num  and

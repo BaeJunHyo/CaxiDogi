@@ -188,4 +188,32 @@ FROM product
 	where product_name like concat(#{product_name},'%')
 </select>
 
+
+<!-- ========= 상품구매(client) 상품정보를 보면 count를 증가시키는 쿼리문  ======== --> 
+<update id="readCountPlus" parameterType="java.lang.Integer">
+	update product
+	set product_readcount = product_readcount + 1
+	where product_num = #{product_num}
+</update>
+
+
+<!-- 인기순 / 최신순  / 낮은 가격순 뽑아오는  쿼리문 -->
+<select id="getOption_ProductList" parameterType="java.lang.String" resultType="cd.com.a.model.productDto">
+	select * from product  
+	<choose>
+		<when test='option == "readcount"'>
+			order by product_readcount desc;	
+		</when>
+		<when test='option == "regi_date"'>
+			order by product_regi_date desc;
+		</when>
+		<when test='option == "row_price"'>
+			order by product_price asc;
+		</when>
+	</choose>
+</select>
+
+
+
+
 </mapper>

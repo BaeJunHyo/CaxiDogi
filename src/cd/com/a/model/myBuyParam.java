@@ -13,12 +13,17 @@ public class myBuyParam implements Serializable {
 	private int order_price;
 	private int order_number;
 	private int product_delivery_state;
+	private int product_group;
+	private int product_sub_group;
+	private int order_option;
+	private int order_option_state;
+	
 	
 	public myBuyParam() { 		
 	}
 
 	public myBuyParam(String product_num, String order_name, String order_date, String order_img, int order_amount, int order_price,
-			int order_number, int product_delivery_state) {
+			int order_number, int product_delivery_state, int product_group, int product_sub_group) {
 		super();
 		this.product_num = product_num;
 		this.order_name = order_name;
@@ -28,6 +33,8 @@ public class myBuyParam implements Serializable {
 		this.order_price = order_price;
 		this.order_number = order_number;
 		this.product_delivery_state = product_delivery_state;
+		this.product_group = product_group;
+		this.product_sub_group = product_sub_group;
 	}
 
 	public String getProduct_num() {
@@ -94,13 +101,32 @@ public class myBuyParam implements Serializable {
 	public void setOrder_number(int order_number) {
 		this.order_number = order_number;
 	}
+	
+	public int getProduct_group() {
+		return product_group;
+	}
+
+	public void setProduct_group(int product_group) {
+		this.product_group = product_group;
+	}
+
+	public int getProduct_sub_group() {
+		return product_sub_group;
+	}
+
+	public void setProduct_sub_group(int product_sub_group) {
+		this.product_sub_group = product_sub_group;
+	}
 
 	@Override
 	public String toString() {
 		return "myBuyParam [product_num=" + product_num + ", order_name=" + order_name + ", order_date=" + order_date
 				+ ", order_img=" + order_img + ", order_amount=" + order_amount + ", order_price=" + order_price
-				+ ", order_number=" + order_number + ", product_delivery_state=" + product_delivery_state + "]";
+				+ ", order_number=" + order_number + ", product_delivery_state=" + product_delivery_state
+				+ ", product_group=" + product_group + ", product_sub_group=" + product_sub_group + "]";
 	}
+
+
 	
 	
 	

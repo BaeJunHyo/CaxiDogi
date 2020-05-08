@@ -212,7 +212,7 @@
 						<tr>
 							<td>결제 안내</td>
 							<td>
-								수단 선택에 따른 다른 창
+								원활한 서비스를 위해서 아래의 동의를 필수로 받고 있습니다. 
 							</td>
 						</tr>
 						<tr>
@@ -332,7 +332,7 @@
 		//예외처리
 		if(acount > 99){
 			acount = 99;
-			alert("최대 수량입니다. 대량구매는 관리자에게 문의 부탁드립니다.");
+			Swal.fire({ icon: 'info', title: '최대 수량입니다', text: '대량구매는 관리자에게 문의 부탁드립니다.',})
 			return;
 		}
 		
@@ -476,7 +476,7 @@
 						mem_seq:${loginUser.getMem_seq()}
 				},
 				success: function (data){
-					alert("통신성공");
+					//alert("통신성공");
 
 					//이름
 					$('#sale_name').val(data.user_name);
@@ -502,7 +502,7 @@
 					
 				},
 				errer: function (){
-					alert("통신 실패");
+					//alert("통신 실패");
 				}
 
 			});	
@@ -530,10 +530,10 @@
 	
 		if($('#p_tt').is(":visible")){
 			$('#p_tt').css("display","none");
-			alert($(this).children().children().text("자세히"));
+			//alert($(this).children().children().text("자세히"));
 		}else{
 			$('#p_tt').css("display","block");
-			alert($(this).children().children().text("닫기"));
+			//alert($(this).children().children().text("닫기"));
 		}
 	});
 
@@ -542,9 +542,9 @@
 		
 		//alert("ㄱ");
 		if($(this).val() == 'kakaopay'){
-			alert("카카오 클릭");
+			//alert("카카오 클릭");
 		}else{
-			alert("무통장 클릭");
+			//alert("무통장 클릭");
 		}
 	});
 
@@ -566,23 +566,24 @@
 		//예외처리 
 		
 		//이름
-		if($('#sale_name').val() == ""){alert("수령지/배송지명이 공백입니다");}
+		if($('#sale_name').val() == ""){ Swal.fire({ icon: 'error', title: '수령지/배송지명이 공백입니다', text: '빈칸을 채워주세요',})	}
 
 		//연락처
-		else if($('#phone_top').val() == 0){alert("연락처를 확인하세요");}
-		else if(!middle.test($('#phone_middle').val()) || $('#phone_middle').val() == ""){alert("연락처를 확인하세요");}	
-		else if(!bottom.test($('#phone_bottom').val()) || $('#phone_bottom').val() == ""){alert("연락처를 확인하세요");}
+		else if($('#phone_top').val() == 0){ Swal.fire({ icon: 'error', title: '연락처를 확인해주세요', text: '빈칸을 채워주세요',})	}
+		else if(!middle.test($('#phone_middle').val()) || $('#phone_middle').val() == ""){ Swal.fire({ icon: 'error', title: '연락처를 확인해주세요', text: '빈칸을 채워주세요',})	}	
+		else if(!bottom.test($('#phone_bottom').val()) || $('#phone_bottom').val() == ""){ Swal.fire({ icon: 'error', title: '연락처를 확인해주세요', text: '빈칸을 채워주세요',})	}
 
 		//주소
-		else if($('#address_number').val()==""){alert("주소를 확인하세요");}
-		else if($('#address_string').val()==""){alert("주소를 확인하세요");}
-		else if($('#address_detail').val()==""){alert("주소를 확인하세요");}
+		else if($('#address_number').val()==""){ Swal.fire({ icon: 'error', title: '주소를 확인해주세요', text: '빈칸을 채워주세요',})	}
+		else if($('#address_string').val()==""){ Swal.fire({ icon: 'error', title: '주소를 확인해주세요', text: '빈칸을 채워주세요',})	}
+		else if($('#address_detail').val()==""){ Swal.fire({ icon: 'error', title: '주소를 확인해주세요', text: '빈칸을 채워주세요',})	}
 
 		//동의 
-		else if($("#Agreement_01").is(":checked") == false){alert("개인정보 동의 체크가 안되어있습니다.");}
-		else if($("#Agreement_02").is(":checked") == false){alert("상품정보/거래조건 확인 체크가 안되어있습니다.");}
+		else if($("#Agreement_01").is(":checked") == false){ Swal.fire({ icon: 'error', title: '개인정보 동의 체크가 안되어있습니다.', text: '동의사항을 체크해주세요',})	}
+		else if($("#Agreement_02").is(":checked") == false){ Swal.fire({ icon: 'error', title: '상품정보/거래조건 확인 체크가 안되어있습니다.', text: '동의사항을 체크해주세요',})	}
+	
 		else{
-			alert("통과");
+			//alert("통과");
 
 			var acount = $("#prd_list input[type='text']");
 			var prdNum = $("#prd_list input[type='hidden']");
@@ -613,7 +614,7 @@
 				},
 				success: function ( result ){
 					//alert("통신성공");
-					alert(result);
+					//alert(result);
 					var popupWidth = 450;
 					var popupHeight = 500;
 
@@ -626,7 +627,7 @@
 
 				},
 				error: function (){
-					alert("통신실패");
+					//alert("통신실패");
 				}
 			})
 
@@ -637,8 +638,12 @@
 </script>
 
 <script>
-	function paymentConfirm(){
-		location.href="myPageMove.do";
+	function paymentConfirm( index ){
+		if(index == 1){
+			location.href="myPageMove.do";	
+		}else{
+			location.href="prdList.do";
+		}
 	}
 </script>
 

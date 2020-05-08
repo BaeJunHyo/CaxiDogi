@@ -148,7 +148,7 @@ public class orderController {
         
 		//System.out.println("2222");
 		
-
+        
 		HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
 		//System.out.println("333");
 		try {
@@ -372,7 +372,7 @@ public class orderController {
 					prdDto = detailservice.getPrd(saleList.get(0).getProduct_num());
 				}
 				//System.out.println(prdDto.getProduct_img());
-				myBuyList.add(new myBuyParam(saleing_numStr, myOrderName, strDate, prdDto.getProduct_img(), amount, price, saleGroupList.get(i) , saleList.get(0).getProduct_delivery_state()));
+				myBuyList.add(new myBuyParam(saleing_numStr, myOrderName, strDate, prdDto.getProduct_img(), amount, price, saleGroupList.get(i) , saleList.get(0).getProduct_delivery_state(),Integer.parseInt(prdDto.getProduct_group()), Integer.parseInt(prdDto.getProduct_sub_group())));
 				
 			}
 		}else {
@@ -443,11 +443,6 @@ public class orderController {
 		
 		return "";
 	}
-	
-	
-	
-	
-	
 	
 	
 	

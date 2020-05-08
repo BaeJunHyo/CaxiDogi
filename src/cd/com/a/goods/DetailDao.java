@@ -15,5 +15,5 @@ public interface DetailDao {
 	
 	//productList 화면 --> productDetail 화면으로 넘어갈 때  product_readcount 를 증가시키는 메소드
 	public boolean readcountPlus(int product_num);
-	
+	public List<productDto> getOption_productList(String option);
 }

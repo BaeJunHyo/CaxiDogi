@@ -54,7 +54,9 @@
 					<tr>
 						<td>${myBuyParam.order_date.split("/")[0] }<a href="javascript:openPopup('${myBuyParam.order_number }')" class="prdNum">${myBuyParam.order_date.split("/")[1] }</a></td>
 						<td class="tl">
-							<a href="javascript:openPopup('${myBuyParam.order_number }')" class="tableThumb_small"><img src="./images/mypage/img_prdBigThumb.jpg"></a>
+							<a href="javascript:openPopup('${myBuyParam.order_number }')" class="tableThumb_small">
+								<img src="./images/mypage/img_prdBigThumb.jpg">
+							</a>
 							<div class="prdInfo">
 								<a href="javascript:openPopup('${myBuyParam.order_number }')">
 									<p class="c_gray">[ 주문번호 : ${myBuyParam.order_number } ]</p>

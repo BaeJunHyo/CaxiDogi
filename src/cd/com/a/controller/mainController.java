@@ -29,10 +29,10 @@ public class mainController {
 	@RequestMapping(value="main.do",  method= {RequestMethod.GET,RequestMethod.POST})
 	public String main(Model model, ProductParam prdparam) {
 		List<poolDto> poolList = new ArrayList<poolDto>();
-		poolList.add(poolService.getPoolDetail(4));
+		poolList.add(poolService.getPoolDetail(14));
+		poolList.add(poolService.getPoolDetail(19));
+		poolList.add(poolService.getPoolDetail(8));
 		poolList.add(poolService.getPoolDetail(17));
-		poolList.add(poolService.getPoolDetail(9));
-		poolList.add(poolService.getPoolDetail(12));
 		
 		List<shopDto> shopList = new ArrayList<shopDto>();
 		shopList.add(shopService.getShopDetail(18));

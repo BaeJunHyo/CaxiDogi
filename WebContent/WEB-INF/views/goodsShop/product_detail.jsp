@@ -1,3 +1,4 @@
+<%@page import="cd.com.a.model.ProductListParam"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -10,14 +11,49 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <fmt:requestEncoding value="utf-8" />
 <c:set var="loginUser" value="${loginUser }" />
+
+<%
+ProductListParam prdlistparam = (ProductListParam)request.getAttribute("prdlistparam");
+%>
+
 <form action=".do" id="_prdDetailForm" name="prdDetailForm"
 	method="post">
 
 	<div class="category_dept">
 		<ul>
 			<li>HOME</li>
-			<li>BEST</li>
+			<li>PET GOODS</li>
+		<c:if test="${prdlistparam.product_group == -1}">
+			<li>전체</li>
+		</c:if>
+		<c:if test="${prdlistparam.product_group == 1}">
+			<li>강아지</li>
+		</c:if>
+		<c:if test="${prdlistparam.product_group == 2}">
+			<li>고양이</li>
+		</c:if>
+		<c:if test="${prdlistparam.product_group == 3}">
+			<li>공용</li>
+		</c:if>
+		<c:if test="${prdlistparam.product_sub_group == -1}">
+			<li>전체</li>
+		</c:if>
+		<c:if test="${prdlistparam.product_sub_group == 1}">
 			<li>사료</li>
+		</c:if>
+		<c:if test="${prdlistparam.product_sub_group == 2}">
+			<li>간식</li>
+		</c:if>
+		<c:if test="${prdlistparam.product_sub_group == 3}">
+			<li>배변용품</li>
+		</c:if>
+		
+		<c:if test="${prdlistparam.product_sub_group == 4}">
+			<li>놀이용품</li>
+		</c:if>
+		<c:if test="${prdlistparam.product_sub_group == 5}">
+			<li>미용용품</li>
+		</c:if>
 		</ul>
 	</div>
 
@@ -471,27 +507,27 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th>소재/순도/밴드재질</th>
+							<th>원산지/성분/영양분</th>
 							<td>상품 상세 페이지 참조</td>
-							<th>소재/순도/밴드재질</th>
+							<th>원산지/성분/영양분</th>
 							<td>상품 상세 페이지 참조</td>
-							<th>소재/순도/밴드재질</th>
-							<td>상품 상세 페이지 참조</td>
-						</tr>
-						<tr>
-							<th>소재/순도/밴드재질</th>
-							<td>상품 상세 페이지 참조</td>
-							<th>소재/순도/밴드재질</th>
-							<td>상품 상세 페이지 참조</td>
-							<th>소재/순도/밴드재질</th>
+							<th>원산지/성분/영양분</th>
 							<td>상품 상세 페이지 참조</td>
 						</tr>
 						<tr>
-							<th>소재/순도/밴드재질</th>
+							<th>원산지/성분/영양분</th>
 							<td>상품 상세 페이지 참조</td>
-							<th>소재/순도/밴드재질</th>
+							<th>원산지/성분/영양분</th>
 							<td>상품 상세 페이지 참조</td>
-							<th>소재/순도/밴드재질</th>
+							<th>원산지/성분/영양분</th>
+							<td>상품 상세 페이지 참조</td>
+						</tr>
+						<tr>
+							<th>원산지/성분/영양분</th>
+							<td>상품 상세 페이지 참조</td>
+							<th>원산지/성분/영양분</th>
+							<td>상품 상세 페이지 참조</td>
+							<th>원산지/성분/영양분</th>
 							<td>상품 상세 페이지 참조</td>
 						</tr>
 					</tbody>
@@ -499,7 +535,7 @@
 			</div>
 
 			<!-- 상품평 -->
-			<div class="detailView move03">
+			<%-- <div class="detailView move03">
 				<h3>
 					상품평 <span class="fs12">2<span class="c_gray">개의 상품평이
 							있습니다.</span></span>
@@ -740,7 +776,7 @@
 						class="current"> 1</a><a href="#n"> 2</a><a href="#n"
 						class="btn_table_next"> </a>
 				</p>
-			</div>
+			</div> --%>
 
 			<!-- 배송/반품/교환안내 -->
 			<div class="detailView move05">
@@ -877,11 +913,12 @@
 </form>
 
 <c:if test="${loginUser ne null }">
-<input type="hidden" id="login_find" value="${loginUser }">
+	<input type="hidden" id="login_find" value="${loginUser }">
 </c:if>
 <c:if test="${loginUser eq null }">
-<input type="hidden" id="login_find" value="-1">
+	<input type="hidden" id="login_find" value="-1">
 </c:if>
+
 <script>
 
 

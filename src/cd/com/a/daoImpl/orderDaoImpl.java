@@ -10,6 +10,7 @@ import cd.com.a.dao.orderDao;
 import cd.com.a.model.memberDto;
 import cd.com.a.model.orderDetailParam;
 import cd.com.a.model.productSaleDto;
+import cd.com.a.model.saleingOptionParam;
 
 @Repository
 public class orderDaoImpl implements orderDao {
@@ -73,6 +74,11 @@ public class orderDaoImpl implements orderDao {
 	public List<orderDetailParam> myOrderDetail(int saleing_group) {
 		
 		return sqlSession.selectList(ns + "myOrderDetail", saleing_group);
+	}
+
+	@Override
+	public boolean orderOptionProcess(saleingOptionParam param) {
+		return sqlSession.update(ns + "orderOptionProcess", param)>0?true:false;
 	}
 	
 	

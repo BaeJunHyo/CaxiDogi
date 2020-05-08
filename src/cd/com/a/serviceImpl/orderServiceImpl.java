@@ -9,6 +9,7 @@ import cd.com.a.dao.orderDao;
 import cd.com.a.model.memberDto;
 import cd.com.a.model.orderDetailParam;
 import cd.com.a.model.productSaleDto;
+import cd.com.a.model.saleingOptionParam;
 import cd.com.a.service.orderService;
 
 @Service
@@ -69,6 +70,12 @@ public class orderServiceImpl implements orderService {
 	public List<orderDetailParam> myOrderDetail(int saleing_group) {
 	
 		return orderdao.myOrderDetail(saleing_group);
+	}
+
+	@Override
+	public boolean orderOptionProcess(saleingOptionParam param) {
+		
+		return orderdao.orderOptionProcess(param);
 	}
 	
 	

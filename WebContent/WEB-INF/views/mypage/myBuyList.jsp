@@ -54,10 +54,9 @@
 								</c:otherwise>
 							</c:choose>
 						</p>
-						<c:if test="${myBuyParam.product_delivery_state eq 1 }">
-							<br><a href="productReview.do?order_num=${myBuyParam.order_number }" class="btn_line_s">상품평작성</a><br><br>
-							<a href="javascript:openChenge(${myBuyParam.order_number})" class="btn_line_s">교환</a>
+						<c:if test="${myBuyParam.product_delivery_state eq 1 && myBuyParam.order_option eq 0 }">
 							<a href="javascript:openCancel(${myBuyParam.order_number})" class="btn_line_s">반품</a>
+							<a href="javascript:openCancel(${myBuyParam.order_number})" class="btn_line_s">환불</a>
 						</c:if>
 					</td>
 				</tr>
@@ -86,6 +85,10 @@
 	function openChange( index ){
 		window.open("orderChange.do?index="+ index, "주문 교환 요청","top:200px, left:600px, height=600px, width=600px, scrollbar= yes");
 	} 
+
+	function openRefund( index ){
+		window.open("orderChange.do?index="+ index, "주문 교환 요청","top:200px, left:600px, height=600px, width=600px, scrollbar= yes");
+	}
 </script>
 
 

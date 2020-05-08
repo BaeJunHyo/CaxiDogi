@@ -43,7 +43,7 @@
 						<li><a href="poolCancleList.do">취소 내역보기</a></li>
 					</ul>
 				</li>
-
+				<!-- caxidogi@caxidogi.com	준효123 -->
 				<li>
 					<a href="#n">회원정보관리</a>
 					<ul>

@@ -53,7 +53,7 @@
 									<div style="padding: 10px 10px 10px 10px;">
 										<div class="이미지" style="width:30%; height:100%; float:left; margin-bottom: 10px;">
 											<a href="productDetail.do?product_num=${productDto.product_num }">
-												<img alt="" src="${productDto.product_img }" width="70" height="50">
+												<img alt="" src="<%=request.getContextPath() %>/images/goodsImg/${productDto.product_img }" width="70" height="50">
 											</a>
 										</div>
 										<div style="width:70%; float:left; text-align: left; align-content: center; padding-top: 12px;">

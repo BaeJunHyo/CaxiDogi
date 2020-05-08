@@ -9,14 +9,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class PrdOrderController {
-	
+
 	@Autowired
 	PrdOrderService orderService;
 	SqlSession sqlSession;
-	
+
 	@RequestMapping(value="adminOrderList.do", method=RequestMethod.GET)
 	public String adminOrderList(Model model){
 		
 		return "/bo/order/bo_01order_1";
+
 	}
 }

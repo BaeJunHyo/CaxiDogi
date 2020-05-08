@@ -45,7 +45,7 @@
 				<c:forEach var="orderDetail" items="${detailList }" varStatus="status">
 					<tr>
 						<td>
-							<img alt="" src="<%=request.getContextPath() %>/images/goodsImg/dog/${orderDetail.product_img }" width="70" height="50">
+							<img alt="" src="<%=request.getContextPath() %>/images/goodsImg/${orderDetail.product_img }" width="70" height="50">
 						</td>
 						<td>
 							<p style="font-size: 12px; color: #999">[주문번호 : ${orderDetail.saleing_group } ]</p>

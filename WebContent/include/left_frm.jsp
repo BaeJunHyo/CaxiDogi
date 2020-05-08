@@ -25,9 +25,7 @@
 					<ul>
 						<li><a href="orderBasket.do">장바구니 보기</a></li>
 						<li><a href="myBuyListAll.do">주문조회</a></li>
-						<li><a href="#n">취소/교환/반품</a></li>
-						<li><a href="#n">환불계좌조회</a></li>
-						<li><a href="#n">영수증신청/발급</a></li>
+						<!--  <li><a href="#n">교환/반품/환불</a></li>-->
 					</ul>
 				</li>
 				<li>

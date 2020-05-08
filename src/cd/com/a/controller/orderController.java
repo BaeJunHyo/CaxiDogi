@@ -42,6 +42,7 @@ import cd.com.a.model.order_PrdParamList;
 import cd.com.a.model.productDto;
 import cd.com.a.model.productSaleDto;
 import cd.com.a.model.saleBasketParam;
+import cd.com.a.model.saleingOptionParam;
 import cd.com.a.service.basketService;
 import cd.com.a.service.orderService;
 import cd.com.a.util.orderUtil;
@@ -372,7 +373,7 @@ public class orderController {
 					prdDto = detailservice.getPrd(saleList.get(0).getProduct_num());
 				}
 				//System.out.println(prdDto.getProduct_img());
-				myBuyList.add(new myBuyParam(saleing_numStr, myOrderName, strDate, prdDto.getProduct_img(), amount, price, saleGroupList.get(i) , saleList.get(0).getProduct_delivery_state(),Integer.parseInt(prdDto.getProduct_group()), Integer.parseInt(prdDto.getProduct_sub_group())));
+				myBuyList.add(new myBuyParam(saleing_numStr, myOrderName, strDate, prdDto.getProduct_img(), amount, price, saleGroupList.get(i) , saleList.get(0).getProduct_delivery_state(),Integer.parseInt(prdDto.getProduct_group()), Integer.parseInt(prdDto.getProduct_sub_group()),saleList.get(0).getSaleing_option(),saleList.get(0).getSaleing_option_state()));
 				
 			}
 		}else {
@@ -403,7 +404,7 @@ public class orderController {
 	
 	@RequestMapping(value="kakaoOrderCancel.do", method=RequestMethod.POST)
 	@ResponseBody
-	public String kakaoOrderCancel(String tid, String cancel_amount, String cancel_vat_amount) {
+	public String kakaoOrderCancel(String tid, String cancel_amount, String cancel_vat_amount, int saleing_num) {
 		
 		//모델로 넘겨줌 
 		// 서버와 통신할 객체 생성
@@ -439,13 +440,11 @@ public class orderController {
 			e.printStackTrace();
 		}/**/
 		
-		
+		//saleing 테이블 option 값 변경  
+		orderservice.orderOptionProcess(new saleingOptionParam("cancel", saleing_num));
 		
 		return "";
 	}
-	
-	
-	
 	
 	
 	

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>주문 취소 요청</title>
+<title>주문 교환 요청</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <!-- 코어태그 -->
@@ -29,7 +29,7 @@ table{border-top: 2px solid #c2c2c2;
 tr{border-bottom: 2px solid #c2c2c2;
     padding: 10px;}
 td{padding:15px;}
-
+.massge_select{width: 100px;height: 30px;}
 
 </style>
 </head>
@@ -76,11 +76,16 @@ td{padding:15px;}
 <div class="molla"></div>
 <div class="footer" style="margin-top: 30px; padding-left: 40px;">
 	<div>
-		<p style="font-size: 15px; font-family: arial, helvetica, sans-serif; font-weight: bold;">유의사항</p>
+		<p style="font-size: 15px; font-family: arial, helvetica, sans-serif; font-weight: bold;">교환사유</p>
 		<div style="width: 450px;">
 			<ol>
-				<li>환불 접수 완료 후에는 취소 할 수 없습니다</li>
-				<li>접수완료 메세지가 나오기 전에 데이터 통신을 차단할 경우 접수가 완료되지 않을 수 있습니다</li>
+				<li>
+					<select class="massge_select" name="Reason">
+						<option>제품이상</option>
+						<option>기타</option>
+					</select>
+				</li>
+				<li>상세:<input class="ccc" type="text" name="massage"></li>
 			</ol>
 		</div>
 	</div>	
@@ -91,7 +96,7 @@ td{padding:15px;}
 
 <div class="closeSpace" align="center" style="margin-top: 30px;">
 	<a id="close" class="btn_close" href="javascript:void(0)"><span>취소</span></a>
-	<a id="orderCancelBtn" class="btn_cancel" href="javascript:void(0)"><span>환불요청</span></a>
+	<a id="orderCancelBtn" class="btn_cancel" href="javascript:void(0)"><span>교환요청</span></a>
 </div>
 
 <input>
@@ -103,7 +108,7 @@ td{padding:15px;}
 	
 	$("#orderCancelBtn").click(function (){
 		//alert("누름");
-		
+		/*
 		$.ajax({
 			url:"kakaoOrderCancel.do",
 			type:"post",
@@ -115,7 +120,7 @@ td{padding:15px;}
 				},
 			success: function (data){//alert("통신 성공");},
 			error: function (){//alert("통신실패");}
-		})
+		})*/
 	})	
 </script>
 

@@ -23,7 +23,7 @@ public class myBuyParam implements Serializable {
 	}
 
 	public myBuyParam(String product_num, String order_name, String order_date, String order_img, int order_amount, int order_price,
-			int order_number, int product_delivery_state, int product_group, int product_sub_group) {
+			int order_number, int product_delivery_state, int product_group, int product_sub_group, int order_option, int order_option_state) {
 		super();
 		this.product_num = product_num;
 		this.order_name = order_name;
@@ -35,6 +35,8 @@ public class myBuyParam implements Serializable {
 		this.product_delivery_state = product_delivery_state;
 		this.product_group = product_group;
 		this.product_sub_group = product_sub_group;
+		this.order_option = order_option;
+		this.order_option_state = order_option_state;
 	}
 
 	public String getProduct_num() {
@@ -118,14 +120,31 @@ public class myBuyParam implements Serializable {
 		this.product_sub_group = product_sub_group;
 	}
 
+	public int getOrder_option() {
+		return order_option;
+	}
+
+	public void setOrder_option(int order_option) {
+		this.order_option = order_option;
+	}
+
+	public int getOrder_option_state() {
+		return order_option_state;
+	}
+
+	public void setOrder_option_state(int order_option_state) {
+		this.order_option_state = order_option_state;
+	}
+
 	@Override
 	public String toString() {
 		return "myBuyParam [product_num=" + product_num + ", order_name=" + order_name + ", order_date=" + order_date
 				+ ", order_img=" + order_img + ", order_amount=" + order_amount + ", order_price=" + order_price
 				+ ", order_number=" + order_number + ", product_delivery_state=" + product_delivery_state
-				+ ", product_group=" + product_group + ", product_sub_group=" + product_sub_group + "]";
+				+ ", product_group=" + product_group + ", product_sub_group=" + product_sub_group + ", order_option="
+				+ order_option + ", order_option_state=" + order_option_state + "]";
 	}
-
+	
 
 	
 	

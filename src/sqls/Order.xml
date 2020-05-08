@@ -69,5 +69,23 @@
 			ps.saleing_group = #{saleing_group}  
 	</select>
 	
+	<update id="orderOptionProcess" parameterType="cd.com.a.model.saleingOptionParam">
+		update product_saleing
+		set 
+		<choose>
+			<when test='option =="cancel"'>
+				saleing_option = 2
+			</when>
+			<when test='option =="change"'>
+				saleing_option = 1
+			</when>
+			<when test='option =="refond"'>
+				saleing_option = 3
+			</when>
+		</choose>
+		where saleing_group = #{saleing_group}
+	</update>
+	
+	
 	
 </mapper>

@@ -5,6 +5,7 @@ import java.util.List;
 import cd.com.a.model.memberDto;
 import cd.com.a.model.orderDetailParam;
 import cd.com.a.model.productSaleDto;
+import cd.com.a.model.saleingOptionParam;
 
 public interface orderService {
 
@@ -18,4 +19,6 @@ public interface orderService {
 	public boolean FailOrder(int saleing_group);
 	public List<Integer>myOrderList_group(int mem_seq);
 	public List<orderDetailParam>myOrderDetail(int saleing_group);
+	
+	public boolean orderOptionProcess(saleingOptionParam param);
 }

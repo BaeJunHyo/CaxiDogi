@@ -15,6 +15,9 @@ public class myBuyParam implements Serializable {
 	private int product_delivery_state;
 	private int product_group;
 	private int product_sub_group;
+	private int order_option;
+	private int order_option_state;
+	
 	
 	public myBuyParam() { 		
 	}

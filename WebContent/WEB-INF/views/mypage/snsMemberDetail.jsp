@@ -230,7 +230,7 @@ memberDto memberDetail = (memberDto)request.getAttribute("memberDetail");
          	</tbody>
          </table>
 				<div>
- 	         		<button type="button" class="reserv_btn sBtn" style="width:80px;height:40px; background: #f2f2f2; margin-top: 10px;" >적용</button> 
+ 	         		<button type="button" class="reserv_btn sBtn" style="width:80px;height:40px; background: #000; color:#fff; padding: 3px 8px; vertical-align: middle; margin-top: 10px;" >적용</button> 
 	         	</div>
 	         	<script>
 	         	Swal.fire({

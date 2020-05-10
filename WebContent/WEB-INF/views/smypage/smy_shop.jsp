@@ -52,7 +52,7 @@ List<shopShowResvParam> myShopResvList = (List<shopShowResvParam>)request.getAtt
 				</a></td>
 				<td class="tl" >
 					<!-- <a href="#n" class="tableThumb_small"><img src="./images/mypage/img_prdBigThumb.jpg"></a> -->
-					<a href="#n" class="tableThumb_small"><img src="<%=request.getContextPath()%>/upload/${shopResv.photo}"></a>
+					<a href="#n" class="tableThumb_small"><img src="<%=request.getContextPath()%>/images/poolImg/<%=shopResv.getShop_photo()%>"></a>
 					<div class="prdInfo">
 						<a href="#n">
 							<p class="c_gray">[<%=shopResv.getShop_name() %>-<%=shopResv.getDesign_name() %>]</p>

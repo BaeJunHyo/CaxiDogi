@@ -5,7 +5,7 @@
 <ul class="gnb">
 	<!-- <li><a href="#n">기본설정</a></li> -->
 	<li><a href="productList.do" class="current">상품관리</a></li>
-	<li><a href="orderList.do">주문/배송</a></li>
+	<li><a href="sellerAccessMgmt.do">액티브 관리</a></li>
 	<!-- 
 	<li><a href="#n">회원</a></li>
 	<li><a href="#n">게시판</a></li>

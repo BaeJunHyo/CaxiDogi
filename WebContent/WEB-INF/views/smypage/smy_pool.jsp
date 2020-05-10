@@ -56,7 +56,7 @@ List<poolResvParam> myPoolResvList = (List<poolResvParam>)request.getAttribute("
 				</a></td>
 				<td class="tl">
 					<!-- <a href="#n" class="tableThumb_small"><img src="./images/mypage/img_prdBigThumb.jpg"></a> -->
-					<a href="#n" class="tableThumb_small"><img src="<%=request.getContextPath()%>/upload/#"></a>
+					<a href="#n" class="tableThumb_small"><img src="<%=request.getContextPath()%>/images/poolImg/<%=poolResv.getPool_photo()%>"></a>
 					<div class="prdInfo">
 						<a href="#n">
 							<p class="c_gray">[<%=poolResv.getPool_name() %>]</p>

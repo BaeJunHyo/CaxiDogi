@@ -15,6 +15,12 @@
 	AdminPoolParam param = (AdminPoolParam)request.getAttribute("param");
 %>
 <div class="containerWrap">
+
+	<ul class="gnb">
+		<li><a href="productList.do">상품관리</a></li>
+		<li><a href="sellerAccessMgmt.do" class="current">액티브 관리</a></li>
+	</ul><!--// gnb -->
+
 	<div class="container">
 	<div class="top clearfix">
 		<ul class="menu_dept clearfix">

@@ -953,10 +953,18 @@ body{overflow-x: hidden;}
     font-weight: bold;
 }
 
-
-
-
-
+/* 상품관리 - 상품수정 */
+.btn_line_m{
+	color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+#prdUpdateBtn, #prdRegi{
+	background: #ff2929;
+}
+#prdUpdateCancle, #prdRegiCancle{
+	background: #000;
+}
 
 
 

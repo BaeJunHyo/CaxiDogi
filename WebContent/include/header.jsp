@@ -161,7 +161,7 @@ if(loginUser != null){
                <a href="#" class="commu">COMMUNITY</a>
                <ul id="subCommu" class="submenu">
                   <li class="ssub" onclick="location.href='notice.do'">
-                    	 공지사항
+                    	 Q&A
                   </li>
                </ul>
             </li>
